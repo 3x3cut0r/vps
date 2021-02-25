@@ -203,11 +203,11 @@ function help () {
 
 if "$#"; then help; fi
 case "$1" in
-    "--first"|"--first-run"|"--prepare"|"first"|"first-run"|"1"|"prepare")
+    "--first" | "--first-run" | "--prepare" | "first" | "first-run" | "1" | "prepare" )
     username
     prepare
     ;;
-    "--second"|"--second-run"|"--install"|"second"|"second-run"|"2"|"install")
+    "--second" | "--second-run" | "--install" | "second" | "second-run" | "2" | "install" )
     username
     install
     ;;
