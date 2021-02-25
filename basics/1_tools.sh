@@ -1,4 +1,6 @@
 #!/bin/bash
-apt install     linux-headers-$(uname -r)
-                sudo
-                vi
+apt install     curl \
+                linux-headers-$(uname -r) \
+                sudo \
+                vi \
+                wget
