@@ -22,12 +22,17 @@ chmod +x ufw.sh
 rm ufw.sh
 
 ```
-to enable other ports:
+add rules: (allow 80/tcp for http)
 ```shell
 # open port 80 (http):
 ufw allow 80/tcp
 # open port 80 only for specific ip
 ufw allow from 101.2.3.104 to any port 80/udp
+
+```
+remove rules: (allow 80/tcp for http)
+```shell
+ufw delete allow 80/tcp
 
 ```
 
