@@ -12,7 +12,16 @@ rm system_tools.sh
 
 ```
 
-# 2. UFW (uncomplicated firewall)
+# 2. change hostname
+```shell
+wget -q https://raw.githubusercontent.com/3x3cut0r/vserver/main/basics/change_hostname.sh -O change_hostname.sh
+chmod +x change_hostname.sh
+./change_hostname.sh vps.3x3cut0r.de
+rm change_hostname.sh
+
+```
+
+# 3. UFW (uncomplicated firewall)
 install:
 ```shell
 wget -q https://raw.githubusercontent.com/3x3cut0r/vserver/main/basics/ufw.sh -O ufw.sh
@@ -36,7 +45,7 @@ ufw delete allow 80/tcp
 
 ```
 
-# 3. Fail2Ban (IP-Filter, Brute-Force protection)
+# 4. Fail2Ban (IP-Filter, Brute-Force protection)
 install:
 ```shell
 wget -q https://raw.githubusercontent.com/3x3cut0r/vserver/main/basics/fail2ban.sh -O fail2ban.sh
