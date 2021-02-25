@@ -4,4 +4,5 @@ apt install     curl \
                 nano \
                 sudo \
                 vim \
-                wget
+                wget \
+                -y
