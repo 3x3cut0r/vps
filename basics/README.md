@@ -7,8 +7,8 @@ installation scripts for basic vps tools and services
 wget -q https://raw.githubusercontent.com/3x3cut0r/vserver/main/basics/system_tools.sh -O system_tools.sh
 chmod +x system_tools.sh
 ./system_tools.sh
-rm -f system_tools.sh
-
+rm system_tools.sh
+  
 ```
 
 ### Find Me <a name="findme"></a>
