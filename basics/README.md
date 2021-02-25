@@ -11,6 +11,52 @@ rm system_tools.sh
 
 ```
 
+### 2. UFW (uncomplicated firewall)
+```shell
+wget -q https://raw.githubusercontent.com/3x3cut0r/vserver/main/basics/ufw.sh -O ufw.sh
+chmod +x ufw.sh
+# 22 = ssh port
+./ufw.sh 22
+rm ufw.sh
+
+```
+to enable other ports:
+```shell
+# open port 80 (http):
+ufw allow 80/tcp
+# open port 80 only for specific ip
+ufw allow from 101.2.3.104 to any port 80/udp
+
+```
+
+### 3. Fail2Ban (IP-Filter, Brute-Force protection)
+```shell
+wget -q https://raw.githubusercontent.com/3x3cut0r/vserver/main/basics/fail2ban.sh -O fail2ban.sh
+chmod +x fail2ban.sh
+./fail2ban.sh
+rm fail2ban.sh
+
+```
+show fail2ban status (jail list)
+```shell
+fail2ban-client status
+Status
+|- Number of jail:	1
+`- Jail list:	sshd
+```
+show specific jail (sshd)
+```shell
+fail2ban-client status sshd
+Status for the jail: sshd
+|- Filter
+|  |- Currently failed:	1
+|  |- Total failed:	6
+|  `- File list:	/var/log/auth.log
+`- Actions
+   |- Currently banned:	1
+   |- Total banned:	1
+   `- Banned IP list:	61.177.173.25
+```
 ### Find Me <a name="findme"></a>
 
 ![E-Mail](https://img.shields.io/badge/E--Mail-executor55%40gmx.de-red)
