@@ -13,7 +13,7 @@ installation scripts for basic vps tools and services
 # 1. System tools <a name="system_tools"></a>
 install:
 ```shell
-wget -q https://raw.githubusercontent.com/3x3cut0r/vserver/main/basics/system_tools.sh -O system_tools.sh
+wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/basics/system_tools.sh -O system_tools.sh
 chmod +x system_tools.sh
 ./system_tools.sh
 rm system_tools.sh
@@ -22,7 +22,7 @@ rm system_tools.sh
 
 # 2. change hostname <a name="hostname"></a>
 ```shell
-wget -q https://raw.githubusercontent.com/3x3cut0r/vserver/main/basics/change_hostname.sh -O change_hostname.sh
+wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/basics/change_hostname.sh -O change_hostname.sh
 chmod +x change_hostname.sh
 ./change_hostname.sh vps.3x3cut0r.de
 rm change_hostname.sh
@@ -32,7 +32,7 @@ rm change_hostname.sh
 # 3. UFW (uncomplicated firewall) <a name="ufw"></a>
 install:
 ```shell
-wget -q https://raw.githubusercontent.com/3x3cut0r/vserver/main/basics/ufw.sh -O ufw.sh
+wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/basics/ufw.sh -O ufw.sh
 chmod +x ufw.sh
 # 22 = ssh port
 ./ufw.sh 22
@@ -56,7 +56,7 @@ ufw delete allow 80/tcp
 # 4. Fail2Ban (IP-Filter, Brute-Force protection) <a name="fail2ban"></a>
 install:
 ```shell
-wget -q https://raw.githubusercontent.com/3x3cut0r/vserver/main/basics/fail2ban.sh -O fail2ban.sh
+wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/basics/fail2ban.sh -O fail2ban.sh
 chmod +x fail2ban.sh
 ./fail2ban.sh
 rm fail2ban.sh
@@ -97,7 +97,7 @@ fail2ban-client unban --all
 
 # 5. adduser <a name="adduser"></a>
 ```shell
-wget -q https://raw.githubusercontent.com/3x3cut0r/vserver/main/basics/adduser.sh -O adduser.sh
+wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/basics/adduser.sh -O adduser.sh
 chmod +x adduser.sh
 # john = username of new user
 ./adduser.sh john
