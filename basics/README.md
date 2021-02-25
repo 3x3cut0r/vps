@@ -4,7 +4,7 @@ installation scripts for basic vps tools and services
 
 ### 1. System tools
 ```shell
-wget -q https://https://raw.githubusercontent.com/3x3cut0r/vserver/main/basics/system_tools.sh -O system_tools.sh
+wget -q https://raw.githubusercontent.com/3x3cut0r/vserver/main/basics/system_tools.sh -O system_tools.sh
 chmod +x system_tools.sh
 ./system_tools.sh
 rm -f system_tools.sh
