@@ -8,7 +8,7 @@ wget -q https://raw.githubusercontent.com/3x3cut0r/vserver/main/basics/system_to
 chmod +x system_tools.sh
 ./system_tools.sh
 rm system_tools.sh
-  
+
 ```
 
 ### Find Me <a name="findme"></a>
