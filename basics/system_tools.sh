@@ -1,6 +1,7 @@
 #!/bin/bash
 apt install     curl \
                 linux-headers-$(uname -r) \
+                nano \
                 sudo \
-                vi \
+                vim \
                 wget
