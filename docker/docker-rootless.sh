@@ -122,6 +122,7 @@ function prepare () {
     fi
 
     # docker: prerequisites
+    printf '\n\e[0;33m%-6s\e[m\n' " ==> docker: prepare system ... "
     echo -e "# docker rootless mode prerequisites:\nkernel.unprivileged_userns_clone=1" > /etc/sysctl.d/docker_rootless.conf
     sysctl --system
     modprobe overlay permit_mounts_in_userns=1
@@ -201,8 +202,9 @@ function help () {
     printf "  --install\trun as $DOCKER_USERNAME (uid=$DOCKER_UID) to install docker rootless-mode\n\n"
 }
 
-if "$#"; then help; fi
-case "$1" in
+if [ $# -eq 0 ]; then help; fi
+arg="$1"
+case "$arg" in
     "--first" | "--first-run" | "--prepare" | "first" | "first-run" | "1" | "prepare" )
     username
     prepare
