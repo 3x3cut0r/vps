@@ -55,6 +55,9 @@ DOCKER_UID="1000"
 
 # change username
 function username () {
+    if [[ $(id -u $DOCKER_USERNAME) -ge 1000 ]]; then
+        DOCKER_UID=$(id -u $DOCKER_USERNAME)
+    fi
     echo ""
     read -p "Enter the username under which the docker service should run. ($DOCKER_USERNAME): "
     if [ ! -z $REPLY ]; then
@@ -145,7 +148,7 @@ function prepare () {
     fi
 
     # reboot
-    printf '\n\e[0;33m%-6s\e[m\n' " ==> reboot, then login (via ssh) as $DOCKER_USERNAME (uid=$DOCKER_UID) to continue with '/tmp/docker_rootless.sh --install'"
+    printf '\n\e[0;33m%-6s\e[m\n' " ==> reboot, then login (via ssh) as $DOCKER_USERNAME (uid=$DOCKER_UID) to continue with './docker_rootless.sh --install'"
     read -n 1 -s -r -p "press any key to continue ..."
     /usr/sbin/reboot
 }
