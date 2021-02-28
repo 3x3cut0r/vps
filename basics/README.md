@@ -54,7 +54,7 @@ ufw delete allow 80/tcp
 
 ```
 
-# 4. set locale <a name="locale"></a>
+# 4. set locale (prevent perl error with locale)<a name="locale"></a>
 you can replace "en_US.UTF-8" with whatever you want (e.g.: "de_DE.UTF-8")
 ```shell
 wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/basics/locale-gen.sh -O locale-gen.sh
