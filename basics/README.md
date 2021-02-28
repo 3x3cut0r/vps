@@ -7,8 +7,9 @@ installation scripts for basic vps tools and services
 1. [System Tools](#system_tools)  
 2. [change Hostname](#hostname)  
 3. [ufw](#ufw)  
-4. [Fail2Ban](#fail2ban)  
-5. [adduser](#adduser)  
+4. [set locale](#locale)  
+5. [Fail2Ban](#fail2ban)   
+6. [adduser](#adduser)  
 
 # 1. System tools <a name="system_tools"></a>
 install:
@@ -53,7 +54,17 @@ ufw delete allow 80/tcp
 
 ```
 
-# 4. Fail2Ban (IP-Filter, Brute-Force protection) <a name="fail2ban"></a>
+# 4. set locale <a name="locale"></a>
+you can replace "en_US.UTF-8" with whatever you want (e.g.: "de_DE.UTF-8")
+```shell
+wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/basics/locale-gen.sh -O locale-gen.sh
+chmod +x locale-gen.sh
+./locale-gen en_US.UTF-8
+rm locale-gen.sh
+
+```
+
+# 5. Fail2Ban (IP-Filter, Brute-Force protection) <a name="fail2ban"></a>
 install:
 ```shell
 wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/basics/fail2ban.sh -O fail2ban.sh
@@ -95,7 +106,7 @@ unban all ips:
 fail2ban-client unban --all
 ```
 
-# 5. adduser <a name="adduser"></a>
+# 6. adduser <a name="adduser"></a>
 ```shell
 wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/basics/adduser.sh -O adduser.sh
 chmod +x adduser.sh
