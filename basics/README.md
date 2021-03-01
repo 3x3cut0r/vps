@@ -11,6 +11,9 @@ installation scripts for basic vps tools and services
 5. [Fail2Ban](#fail2ban)   
 6. [adduser](#adduser)  
 
+\# [Find Me](#findme)  
+\# [License](#license)  
+
 # 1. System tools <a name="tools"></a>
 install:
 ```shell
