@@ -8,19 +8,14 @@
   1.1 [first-run: install prerequisites](#first_run)  
   1.2 [second-run: install docker](#second_run)  
   1.3 [use docker](#use_docker)  
-  
+
 \# [Find Me](#findme)  
 \# [License](#license)  
 
 # 2. Usage <a name="usage"></a>
 
 ## 2.1 download and run script first time as root <a name="first_run"></a>
-login (via ssh) on your guest as docker and switch user to root:
-```shell
-ssh docker@192.168.0.254
-su -
-```
-on your guest:
+login (via ssh) to your vps as docker and switch user to root:
 ```shell
 apt install wget -y
 wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/docker-rootless.sh -O /opt/docker-rootless.sh
@@ -30,22 +25,14 @@ chmod +x /opt/docker-rootless.sh
 ```
 
 ## 2.2 run script second time as docker <a name="second_run"></a>
-login (via ssh) on your guest as docker:
-```shell
-ssh docker@192.168.0.254
-```
-on your guest:
+login (via ssh) to your vps as user docker:
 ```shell
 /opt/docker-rootless.sh --install
 
 ```
 
 ## 2.3 use docker only with user docker <a name="use_docker"></a>
-login (via ssh) on your guest as docker:
-```shell
-ssh docker@192.168.0.254
-```
-on your guest:
+login (via ssh) to your vps as docker:
 ```shell
 docker ps
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
