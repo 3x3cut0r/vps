@@ -115,6 +115,7 @@ function install () {
     sudo loginctl enable-linger docker
 
     # set docker-compose version
+    printf '\n\e[0;33m%-6s\e[m\n' " ==> docker-compose: install rootless docker-compose ... "
     DOCKER_COMPOSE_VERSION=$(curl -L "https://docs.docker.com/compose/install/" | grep -o -P '(?<=https://github.com/docker/compose/releases/download/).*(?=/docker-compose)' | head -n1)
     if [ $DOCKER_COMPOSE_VERSION = "" ]; then DOCKER_COMPOSE_VERSION="1.28.4"; fi
     read -p "Which docker-compose version do you want to install? ($DOCKER_COMPOSE_VERSION): "
@@ -125,7 +126,6 @@ function install () {
     fi
 
     # install rootless docker-compose
-    printf '\n\e[0;33m%-6s\e[m\n' " ==> docker-compose: install rootless docker-compose ... "
     sudo curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
     sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
@@ -143,6 +143,11 @@ function install () {
     # prepare /etc/sudoers
     if [[ ! $(sudo cat /etc/sudoers | grep secure_path | grep /home/docker/bin) ]]; then
         sudo sed -i "s#secure_path=\"#secure_path=\"/home/$DOCKER_USERNAME/bin:#g" /etc/sudoers
+    fi
+    if [[ ! $(sudo cat /etc/sudoers | grep env_keep | grep DOCKER_HOST) ]]; then
+        LINENR=$(awk '/secure_path/{ print NR; exit }' /etc/sudoers)
+        let LINENR+=1
+        sed -i "$(echo $LINENR)iDefaults\tenv_keep += DOCKER_HOST" /etc/sudoers
     fi
 
     # reboot
