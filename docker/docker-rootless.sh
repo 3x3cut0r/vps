@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author:   3x3cut0r <executor55@gmx.de>
-# Version:  1.01
+# Version:  1.02
 # Date:     2021-03-01
 #
 # Description:
