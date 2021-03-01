@@ -4,6 +4,8 @@ apt install     bash-completion \
                 linux-headers-$(uname -r) \
                 nano \
                 openssh-server \
+                ripgrep \
+                rsync \
                 sudo \
                 unzip \
                 vim \
