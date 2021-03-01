@@ -136,7 +136,7 @@ function install () {
         sudo sed -i "s#secure_path=\"#secure_path=\"/home/$DOCKER_USERNAME/bin:#g" /etc/sudoers
     fi
     if [[ ! $(sudo cat /etc/sudoers | grep env_keep | grep DOCKER_HOST) ]]; then
-        LINENR=$(awk '/secure_path/{ print NR; exit }' /etc/sudoers)
+        LINENR=$(sudo awk '/secure_path/{ print NR; exit }' /etc/sudoers)
         let LINENR+=1
         sudo sed -i "$(echo $LINENR)iDefaults\tenv_keep += DOCKER_HOST" /etc/sudoers
     fi
