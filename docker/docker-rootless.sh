@@ -87,23 +87,6 @@ function prepare () {
     sysctl --system
     modprobe overlay permit_mounts_in_userns=1
 
-    # VBoxGuestTools: attach virtualbox guest tools to /dev/cdrom
-    printf '\n\e[0;33m%-6s\e[m\n' " ==> VBoxGuestTools: attach virtualbox guest tools to /dev/cdrom ... "
-    read -p "Do you want to install VirtualBox Guest Tools via CD/DVD Optical-Drive? (y/N): "
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        read -n 1 -s -r -p "Attach virtualbox guest tools -> then press any key to continue ..."
-        apt update && apt upgrade -y
-        apt install \
-                build-essential \
-                dkms \
-                linux-headers-$(uname -r) \
-                -y
-        mount /dev/cdrom /mnt
-        /mnt/VBoxLinuxAdditions.run
-        umount /mnt
-    fi
-
     # reboot
     printf '\n\e[0;33m%-6s\e[m\n' " ==> reboot, then login (via ssh) as $DOCKER_USERNAME (uid=$DOCKER_UID) to continue with './docker_rootless.sh --install'"
     read -n 1 -s -r -p "press any key to continue ..."
