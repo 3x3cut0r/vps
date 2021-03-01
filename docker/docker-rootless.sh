@@ -49,7 +49,7 @@ function prepare () {
     fi
 
     # APT: prerequisites
-    printf '\n\e[0;33m%-6s\e[m\n' " ==> APT: install prerequisites ... "
+    printf '\n\e[0;33m%-6s\e[m\n' " ==> apt: install prerequisites ... "
     apt update && apt upgrade -y
     apt install \
             curl \
@@ -61,11 +61,11 @@ function prepare () {
             -y
 
     # VI: arrow key fix
-    printf '\n\e[0;33m%-6s\e[m\n' " ==> VI: arrow key fix ... "
+    printf '\n\e[0;33m%-6s\e[m\n' " ==> vim: arrow key fix ... "
     sed -i s/set\ compatible/set\ nocompatible/g /etc/vim/vimrc.tiny
 
     # SSH: PermitRootLogin (optional)
-    printf '\n\e[0;33m%-6s\e[m\n' " ==> SSH: PermitRootLogin ... "
+    printf '\n\e[0;33m%-6s\e[m\n' " ==> ssh: PermitRootLogin ... "
     read -p "Do you want to permit root login via ssh? (y/N): "
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
@@ -74,7 +74,7 @@ function prepare () {
     fi
 
     # SUDO: add docker to sudo group
-    printf '\n\e[0;33m%-6s\e[m\n' " ==> SUDO: add docker to sudo group ... "
+    printf '\n\e[0;33m%-6s\e[m\n' " ==> sudo: add docker to sudo group ... "
     usermod -aG sudo $DOCKER_USERNAME
 
     # docker: prerequisites
@@ -102,7 +102,7 @@ function install () {
     fi
 
     # check docker already installed
-    printf '\n\e[0;33m%-6s\e[m\n' " ==> Docker: install rootless docker ... "
+    printf '\n\e[0;33m%-6s\e[m\n' " ==> docker: install rootless docker ... "
     if  [[ -f /home/"$DOCKER_USERNAME"/bin/docker ]] || [[ -f /usr/local/bin/docker ]] || [[ -f /usr/bin/docker.io ]]; then
         which docker
         printf '\e[1;31m%-6s\e[m\n\n' "Docker is already installed. Abort"
@@ -125,6 +125,7 @@ function install () {
     fi
 
     # install rootless docker-compose
+    printf '\n\e[0;33m%-6s\e[m\n' " ==> docker-compose: install rootless docker-compose ... "
     sudo curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
     sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
@@ -134,7 +135,7 @@ function install () {
 
     # prepare ~/.bashrc
     echo -e "\n# Docker environment variables" >> ~/.bashrc
-    echo "if [[ \$(echo \$PATH | grep /home/$DOCKER_USERNAME/bin) ]]; then" >> ~/.bashrc
+    echo "if [[ ! \$(echo \$PATH | grep /home/$DOCKER_USERNAME/bin) ]]; then" >> ~/.bashrc
     echo "    export PATH=/home/$DOCKER_USERNAME/bin:\$PATH" >> ~/.bashrc
     echo "fi" >> ~/.bashrc
     echo "export DOCKER_HOST=unix:///run/user/$DOCKER_UID/docker.sock" >> ~/.bashrc
@@ -146,7 +147,7 @@ function install () {
 
     # reboot
     printf '\n\e[0;33m%-6s\e[m\n' " ==> reboot ... login with docker ... and use 'docker ...'"
-    printf '\n\e[0;33m%-6s\e[m\n' " ==> OPTIONAL: remove $DOCKER_USERNAME from sudo group (sudo deluser $DOCKER_USERNAME sudo)"
+    printf '\e[0;33m%-6s\e[m\n\n' " ==> OPTIONAL: remove $DOCKER_USERNAME from sudo group (sudo deluser $DOCKER_USERNAME sudo)"
     read -n 1 -s -r -p "press any key to reboot ..."
     sudo /usr/sbin/reboot
 }
