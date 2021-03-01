@@ -106,9 +106,9 @@ function install () {
     sudo loginctl enable-linger docker
 
     # set docker-compose version
-    printf '\n\e[0;33m%-6s\e[m\n' " ==> docker-compose: install rootless docker-compose ... "
     DOCKER_COMPOSE_VERSION=$(curl -L "https://docs.docker.com/compose/install/" | grep -o -P '(?<=https://github.com/docker/compose/releases/download/).*(?=/docker-compose)' | head -n1)
     if [ $DOCKER_COMPOSE_VERSION = "" ]; then DOCKER_COMPOSE_VERSION="1.28.4"; fi
+    printf '\n\e[0;33m%-6s\e[m\n' " ==> docker-compose: install rootless docker-compose ... "
     read -p "Which docker-compose version do you want to install? ($DOCKER_COMPOSE_VERSION): "
     if [ ! -z $REPLY ]; then
         if [ $(id -u $REPLY 2> /dev/null ) ]; then
