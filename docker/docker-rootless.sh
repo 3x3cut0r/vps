@@ -4,7 +4,7 @@
 # Date:     2021-03-01
 #
 # Description:
-#  this script installs a rootless docker-host on a debian 10
+#  this script installs docker and docker-compose in rootless mode on debian 10
 #
 
 DOCKER_USERNAME="docker"
