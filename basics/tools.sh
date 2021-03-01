@@ -1,5 +1,6 @@
 #!/bin/bash
-apt install     curl \
+apt install     bash-completion \
+                curl \
                 linux-headers-$(uname -r) \
                 nano \
                 openssh-server \
