@@ -5,6 +5,8 @@ apt install     bash-completion \
                 nano \
                 openssh-server \
                 sudo \
+                unzip \
                 vim \
                 wget \
+                zip \
                 -y
