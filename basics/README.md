@@ -4,20 +4,20 @@ installation scripts for basic vps tools and services
 
 ## Index
 
-1. [System Tools](#system_tools)  
+1. [Tools](#tools)  
 2. [change Hostname](#hostname)  
 3. [ufw](#ufw)  
 4. [set locale](#locale)  
 5. [Fail2Ban](#fail2ban)   
 6. [adduser](#adduser)  
 
-# 1. System tools <a name="system_tools"></a>
+# 1. System tools <a name="tools"></a>
 install:
 ```shell
-wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/basics/system_tools.sh -O system_tools.sh
-chmod +x system_tools.sh
-./system_tools.sh
-rm system_tools.sh
+wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/basics/tools.sh -O tools.sh
+chmod +x tools.sh
+./tools.sh
+rm tools.sh
 
 ```
 
