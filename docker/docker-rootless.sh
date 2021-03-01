@@ -1,53 +1,10 @@
 #!/bin/bash
 # Author:   3x3cut0r <executor55@gmx.de>
-# Version:  1.0
-# Date:     2021-02-20
+# Version:  1.01
+# Date:     2021-03-01
 #
 # Description:
-#  this script installs a rootless docker-host on a debian 10 virtualbox
-#
-
-# Virtualbox Settings:
-#
-# VM Name:          docker-host
-# VM Typ:           Linux
-# VM Version:       Debian (64-bit)
-# VM optical img:   e.g.: debian-10.8.0-amd64-netinst.iso
-# VM Boot-order:    optical, hard disk
-# VM RAM:           4 GB
-# VM CPU-Cores:     2
-# VM CPU-Options:   PAE/NX activated
-# VM GPU-RAM:       32MB
-# VM Netwerk:       network-bridge
-#
-
-# Debian 10 Installation:
-#
-# Graphical install (Debian 10)
-# language:         <choose your own>
-# hostname:         docker-host
-# root username:    root
-# root password:    root
-# username:         docker
-# password:         docker
-# ip:               dhcp
-#
-# Software to install:
-# x SSH server
-# x Standard-Systemtools
-#
-
-# set up static ip address in /etc/network/interfaces:
-#
-# auto lo
-# iface lo inet loopback
-#
-# allow-hotplug enp0s3
-# iface enp0s3 inet static
-#   address 192.168.0.254/24
-#   gateway 192.168.0.1
-#
-# iface enp0s3 inet6 auto
+#  this script installs a rootless docker-host on a debian 10
 #
 
 DOCKER_USERNAME="docker"
@@ -185,9 +142,38 @@ function install () {
         echo "systemctl --user start docker"
         echo "to start docker manually"
     fi
+
+    # set docker-compose version
+    DOCKER_COMPOSE_VERSION=$(curl -L "https://docs.docker.com/compose/install/" | grep -o -P '(?<=https://github.com/docker/compose/releases/download/).*(?=/docker-compose)' | head -n1)
+    if [ $DOCKER_COMPOSE_VERSION = "" ]; then DOCKER_COMPOSE_VERSION="1.28.4"; fi
+    read -p "Which docker-compose version do you want to install? ($DOCKER_COMPOSE_VERSION): "
+    if [ ! -z $REPLY ]; then
+        if [ $(id -u $REPLY 2> /dev/null ) ]; then
+            DOCKER_COMPOSE_VERSION=$REPLY
+        fi
+    fi
+
+    # install rootless docker-compose
+    if sudo ls > /dev/null; then
+        sudo curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+        sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+        # install docker-compose bash completion
+        sudo curl -L "https://raw.githubusercontent.com/docker/compose/$DOCKER_COMPOSE_VERSION/contrib/completion/bash/docker-compose" -o /etc/bash_completion.d/docker-compose
+    fi
+
+    # prepare ~/.bashrc
     echo -e "\n# Docker environment variables" >> ~/.bashrc
-    echo "export PATH=/home/$DOCKER_USERNAME/bin:$PATH" >> ~/.bashrc
+    echo "if [[ \$(echo \$PATH | grep /home/$DOCKER_USERNAME/bin) ]]; then" >> ~/.bashrc
+    echo "    export PATH=/home/$DOCKER_USERNAME/bin:\$PATH" >> ~/.bashrc
+    echo "fi" >> ~/.bashrc
     echo "export DOCKER_HOST=unix:///run/user/$DOCKER_UID/docker.sock" >> ~/.bashrc
+
+    # prepare /etc/sudoers
+    if [[ ! $(cat /etc/sudoers | grep secure_path | grep /home/docker/bin) ]]; then
+        sed -i "s#secure_path=\"#secure_path=\"/home/$DOCKER_USERNAME/bin:#g" /etc/sudoers
+    fi
 
     # reboot
     printf '\n\e[0;33m%-6s\e[m\n' " ==> reboot ... login with docker ... and use 'docker ...'"
