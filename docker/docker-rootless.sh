@@ -75,11 +75,7 @@ function prepare () {
 
     # SUDO: add docker to sudo group
     printf '\n\e[0;33m%-6s\e[m\n' " ==> SUDO: add docker to sudo group ... "
-    read -p "Do you want to add docker to sudo group? (y/N): "
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        usermod -aG sudo $DOCKER_USERNAME
-    fi
+    usermod -aG sudo $DOCKER_USERNAME
 
     # docker: prerequisites
     printf '\n\e[0;33m%-6s\e[m\n' " ==> docker: prepare system ... "
@@ -116,15 +112,7 @@ function install () {
     # install rootless docker
     if [ $UID -eq 0 ]; then echo "You need to login (via ssh) as $DOCKER_USERNAME (uid=$DOCKER_UID) to install rootless docker!"; exit 1; fi
     curl -fsSL https://get.docker.com/rootless | sh
-    if sudo ls > /dev/null; then
-        sudo loginctl enable-linger docker
-    else
-        echo -e "\nenter 'loginctl enable-linger docker' as root"
-        echo "to start docker daemon on system start automatically"
-        echo "OR:"
-        echo "systemctl --user start docker"
-        echo "to start docker manually"
-    fi
+    sudo loginctl enable-linger docker
 
     # set docker-compose version
     DOCKER_COMPOSE_VERSION=$(curl -L "https://docs.docker.com/compose/install/" | grep -o -P '(?<=https://github.com/docker/compose/releases/download/).*(?=/docker-compose)' | head -n1)
@@ -137,14 +125,12 @@ function install () {
     fi
 
     # install rootless docker-compose
-    if sudo ls > /dev/null; then
-        sudo curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-        sudo chmod +x /usr/local/bin/docker-compose
-        sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+    sudo curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+    sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
-        # install docker-compose bash completion
-        sudo curl -L "https://raw.githubusercontent.com/docker/compose/$DOCKER_COMPOSE_VERSION/contrib/completion/bash/docker-compose" -o /etc/bash_completion.d/docker-compose
-    fi
+    # install docker-compose bash completion
+    sudo curl -L "https://raw.githubusercontent.com/docker/compose/$DOCKER_COMPOSE_VERSION/contrib/completion/bash/docker-compose" -o /etc/bash_completion.d/docker-compose
 
     # prepare ~/.bashrc
     echo -e "\n# Docker environment variables" >> ~/.bashrc
@@ -154,16 +140,15 @@ function install () {
     echo "export DOCKER_HOST=unix:///run/user/$DOCKER_UID/docker.sock" >> ~/.bashrc
 
     # prepare /etc/sudoers
-    if [[ ! $(cat /etc/sudoers | grep secure_path | grep /home/docker/bin) ]]; then
-        sed -i "s#secure_path=\"#secure_path=\"/home/$DOCKER_USERNAME/bin:#g" /etc/sudoers
+    if [[ ! $(sudo cat /etc/sudoers | grep secure_path | grep /home/docker/bin) ]]; then
+        sudo sed -i "s#secure_path=\"#secure_path=\"/home/$DOCKER_USERNAME/bin:#g" /etc/sudoers
     fi
 
     # reboot
     printf '\n\e[0;33m%-6s\e[m\n' " ==> reboot ... login with docker ... and use 'docker ...'"
-    if sudo ls > /dev/null; then
-        read -n 1 -s -r -p "press any key to reboot ..."
-        sudo /usr/sbin/reboot
-    fi
+    printf '\n\e[0;33m%-6s\e[m\n' " ==> OPTIONAL: remove $DOCKER_USERNAME from sudo group (sudo deluser $DOCKER_USERNAME sudo)"
+    read -n 1 -s -r -p "press any key to reboot ..."
+    sudo /usr/sbin/reboot
 }
 
 function help () {
