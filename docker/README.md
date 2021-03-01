@@ -22,7 +22,7 @@ su -
 on your guest:
 ```shell
 apt install wget -y
-wget -q https://raw.githubusercontent.com/3x3cut0r/docker/main/.docker_rootless_vbox/docker-rootless.sh -O /opt/docker-rootless.sh
+wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/docker-rootless.sh -O /opt/docker-rootless.sh
 chmod +x /opt/docker-rootless.sh
 /opt/docker-rootless.sh --prepare
 
