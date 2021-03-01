@@ -48,7 +48,7 @@ function prepare () {
         exit 1
     fi
 
-    # APT: prerequisites
+    # apt: prerequisites
     printf '\n\e[0;33m%-6s\e[m\n' " ==> apt: install prerequisites ... "
     apt update && apt upgrade -y
     apt install \
@@ -60,20 +60,11 @@ function prepare () {
             wget \
             -y
 
-    # VI: arrow key fix
+    # vim: arrow key fix
     printf '\n\e[0;33m%-6s\e[m\n' " ==> vim: arrow key fix ... "
     sed -i s/set\ compatible/set\ nocompatible/g /etc/vim/vimrc.tiny
 
-    # SSH: PermitRootLogin (optional)
-    printf '\n\e[0;33m%-6s\e[m\n' " ==> ssh: PermitRootLogin ... "
-    read -p "Do you want to permit root login via ssh? (y/N): "
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        sed -i s/#PermitRootLogin\ prohibit-password/PermitRootLogin\ yes/g /etc/ssh/sshd_config
-        # systemctl restart sshd
-    fi
-
-    # SUDO: add docker to sudo group
+    # sudo: add docker to sudo group
     printf '\n\e[0;33m%-6s\e[m\n' " ==> sudo: add docker to sudo group ... "
     usermod -aG sudo $DOCKER_USERNAME
 
