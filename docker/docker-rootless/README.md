@@ -18,7 +18,7 @@
 login (via ssh) to your vps as docker and switch user to root:
 ```shell
 apt install wget -y
-wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/docker-rootless.sh -O /opt/docker-rootless.sh
+wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/docker-rootless/docker-rootless.sh -O /opt/docker-rootless.sh
 chmod +x /opt/docker-rootless.sh
 /opt/docker-rootless.sh --prepare
 
