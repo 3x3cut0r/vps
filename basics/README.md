@@ -4,17 +4,17 @@ installation scripts for basic vps tools and services
 
 ## Index
 
-1. [Tools](#tools)  
+1. [tools](#tools)  
 2. [change Hostname](#hostname)  
 3. [ufw](#ufw)  
 4. [set locale](#locale)  
-5. [Fail2Ban](#fail2ban)   
+5. [fail2ban](#fail2ban)   
 6. [adduser](#adduser)  
 
 \# [Find Me](#findme)  
 \# [License](#license)  
 
-# 1. System tools <a name="tools"></a>
+# 1. tools <a name="tools"></a>
 install:
 ```shell
 wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/basics/tools.sh -O tools.sh
@@ -33,7 +33,7 @@ rm change_hostname.sh
 
 ```
 
-# 3. UFW (uncomplicated firewall) <a name="ufw"></a>
+# 3. ufw (uncomplicated firewall) <a name="ufw"></a>
 install:
 ```shell
 wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/basics/ufw.sh -O ufw.sh
@@ -67,7 +67,7 @@ rm locale-gen.sh
 
 ```
 
-# 5. Fail2Ban (IP-Filter, Brute-Force protection) <a name="fail2ban"></a>
+# 5. fail2ban (IP-Filter, Brute-Force protection) <a name="fail2ban"></a>
 install:
 ```shell
 wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/basics/fail2ban.sh -O fail2ban.sh
