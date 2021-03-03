@@ -14,8 +14,8 @@ get letsencrypt wildcard certificate for nginx using certbot
 \# [License](#license)  
 
 # 1. prerequisites <a name="prerequisites"></a>
-* you have a domain
-* you can create a TXT-record in your public-dns
+* you have a public domain (e.g.: 3x3cut0r.de)
+* you can create a TXT-record in your public domains dns-server
 
 # 2. create volumes for certbot <a name="volumes"></a>
 ```shell
