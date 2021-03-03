@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+    nginx:
+        container_name: nginx
+        image: nginx:latest
+        restart: unless-stopped
+        networks:
+            nginx:
+                ipv4_address: 10.24.0.2
+        volumes:
+            - nginx-html:/var/www/html
+            - nginx-conf.d:/etc/nginx/conf.d
+            - certbot-letsencrypt:/etc/nginx/ssl
+        ports:
+            - 80:80
+            - 443:443
+
+networks:
+    nginx:
+      name: nginx
+      driver: bridge
+      ipam:
+          driver: default
+          config:
+              - subnet: 10.24.0.0/24
+                gateway: 10.24.0.1
+
+volumes:
+    nginx-html:
+        name: nginx-html
+    nginx-conf.d:
+        name: nginx-conf.d
+    certbot-conf:
+        name: certbot-letsencrypt
