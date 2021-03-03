@@ -141,6 +141,13 @@ function install () {
         sudo sed -i "$(echo $LINENR)iDefaults\tenv_keep += DOCKER_HOST" /etc/sudoers
     fi
 
+    # setcap cap_net_bind_service=ep /home/docker/bin/rootlesskit
+    read -p "Do you want to allow docker-rootless to bind unprivileged ports (<1024)? (y/N): "
+    if [[ ! $REPLY =~ ^[Yy]$ ]]
+    then
+        sudo setcap cap_net_bind_service=ep /home/$DOCKER_USERNAME/bin/rootlesskit
+    fi
+
     # reboot
     printf '\n\e[0;33m%-6s\e[m\n' " ==> reboot ... login with docker ... and use 'docker ...'"
     printf '\e[0;33m%-6s\e[m\n\n' " ==> OPTIONAL: remove $DOCKER_USERNAME from sudo group (sudo deluser $DOCKER_USERNAME sudo)"
