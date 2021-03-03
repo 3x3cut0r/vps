@@ -31,5 +31,5 @@ volumes:
         name: nginx-html
     nginx-conf.d:
         name: nginx-conf.d
-    certbot-conf:
+    certbot-letsencrypt:
         name: certbot-letsencrypt
