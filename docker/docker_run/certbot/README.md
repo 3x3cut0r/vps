@@ -9,6 +9,7 @@ get letsencrypt wildcard certificate for nginx using certbot
 3. [generate a certificate with certbot](#generate)  
 4. [configure two TXT-records in your public-dns](#txt-records)  
 5. [schedule renewal with a systemd-timer](#renewal)  
+6. [use certificates in your /etc/nginx/conf.d/default.conf](#default.conf)
 
 \# [Find Me](#findme)  
 \# [License](#license)  
@@ -109,6 +110,20 @@ ExecStart=/home/docker/bin/docker container run --rm -it -v certbot-letsencrypt:
 systemctl daemon-reload
 systemctl enable certbot-renewal.timer
 
+```
+
+# 6. use certificates in your /etc/nginx/conf.d/default.conf <a name="default.conf"></a>
+```shell
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name  3x3cut0r.de;
+
+    ssl_certificate     /etc/nginx/ssl/live/3x3cut0r.de/fullchain.pem;
+    ssl_certificate_key /etc/nginx/ssl/live/3x3cut0r.de/privkey.pem;
+
+    ...
+}
 ```
 
 ### Find Me <a name="findme"></a>
