@@ -6,7 +6,7 @@ services:
         image: portainer/portainer-ce:alpine
         restart: always
         networks:
-            default:
+            portainer:
                 ipv4_address: 10.24.1.2
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
@@ -14,7 +14,7 @@ services:
         ports:
             - 8099:9000
 networks:
-    nginx:
+    portainer:
       name: portainer
       ipam:
           driver: default
