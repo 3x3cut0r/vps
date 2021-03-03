@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+    certbot:
+        container_name: portainer
+        image: portainer/portainer-ce:alpine
+        restart: always
+        networks:
+            default:
+                ipv4_address: 10.24.1.2
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - portainer-data:/data
+        ports:
+            - 8099:9000
+networks:
+    nginx:
+      name: portainer
+      ipam:
+          driver: default
+          config:
+              - subnet: "10.24.1.0/24"
+                gateway: 10.24.1.1
+
+volumes:
+    portainer-data:
+        name: portainer-data
