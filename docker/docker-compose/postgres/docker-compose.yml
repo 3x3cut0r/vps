@@ -8,6 +8,8 @@ services:
         networks:
             postgres:
                 ipv4_address: 10.20.16.2
+        # ports:
+        #   - 5432:5432
         environment:
             POSTGRES_PASSWORD: <POSTGRES_PASSWORD>
         volumes:
@@ -26,6 +28,15 @@ services:
         volumes:
             - pgadmin-data:/var/lib/pgadmin
             - pgadmin-certs:/certs
+    adminer:
+        container_name: adminer
+        image: adminer:latest
+        restart: unless-stopped
+        networks:
+            postgres:
+                ipv4_address: 10.20.16.4
+        # ports:
+        #   - 8080:8080
 
 networks:
     postgres:
