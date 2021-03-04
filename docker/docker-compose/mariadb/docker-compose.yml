@@ -9,6 +9,8 @@ services:
         networks:
             mariadb:
                 ipv4_address: 10.20.0.2
+        # ports:
+        #   - 3306:3306
         environment:
             MYSQL_ROOT_PASSWORD: <MYSQL_ROOT_PASSWORD>
         volumes:
@@ -20,6 +22,8 @@ services:
         networks:
             mariadb:
                 ipv4_address: 10.20.0.3
+        # ports:
+        #   - 8080:80
         environment:
             MYSQL_ROOT_PASSWORD: <MYSQL_ROOT_PASSWORD>
             PMA_ARBITRARY: 1
