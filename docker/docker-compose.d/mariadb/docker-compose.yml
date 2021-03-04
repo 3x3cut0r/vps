@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+    mariadb:
+        container_name: mariadb
+        image: mariadb:10.5.9-focal
+        command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+        restart: unless-stopped
+        networks:
+            mariadb:
+                ipv4_address: 10.20.0.2
+        environment:
+            MYSQL_ROOT_PASSWORD: <MYSQL_ROOT_PASSWORD>
+        volumes:
+            - mariadb-data:/var/lib/mysql
+
+networks:
+    mariadb:
+        name: mariadb
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.20.0.0/20"
+                  gateway: 10.20.0.1
+
+volumes:
+    mariadb-data:
+        name: mariadb-data
