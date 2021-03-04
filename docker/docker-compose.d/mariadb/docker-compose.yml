@@ -25,7 +25,7 @@ services:
             PMA_ARBITRARY: 1
             PMA_HOST: mariadb
         volumes:
-            - phpmyadmin-data:/usr/local/etc/php/conf.d
+            - /home/docker/config-files/phpmyadmin/php.ini:/usr/local/etc/php/conf.d/php.ini
 
 networks:
     mariadb:
@@ -39,5 +39,3 @@ networks:
 volumes:
     mariadb-data:
         name: mariadb-data
-    phpmyadmin-data:
-        name: phpmyadmin-data
