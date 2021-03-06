@@ -14,13 +14,21 @@ wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/docker-compos
 **see: [nextcloud.conf](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/nginx/conf.d/nextcloud.conf)**
 
 # 4. configure config/config.php
-**add these settings to your config/config.php**  
+**make sure these settings are set in your config/config.php**  
 **you need to do this as root**  
 ```shell
 <?php
 $CONFIG = array (
-'filelocking.enabled\' => 'true',
-
+  'filelocking.enabled\' => 'true',
+  'onlyoffice' =>
+  array (
+    'verify_peer_off' => true,
+  ),
+  'loglevel' => 2,
+  'logdateformat' => 'Y-m-d:H:m:s',
+  'default_locale' => 'de_DE',
+  'default_phone_region' => 'DE',
+  'maintenance' => false,
 ```
 
 # 5. disable app richdocumentscode (makes nextcloud fast again)
