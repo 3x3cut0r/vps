@@ -15,6 +15,7 @@ services:
             MYSQL_ROOT_PASSWORD: <MYSQL_ROOT_PASSWORD>
         volumes:
             - mariadb-data:/var/lib/mysql
+            - mariadb-conf:/etc/mysql/mariadb.conf.d
     phpmyadmin:
         container_name: phpmyadmin
         image: phpmyadmin/phpmyadmin:latest
@@ -47,5 +48,7 @@ networks:
             name: nginx
 
 volumes:
+    mariadb-conf:
+        name: mariadb-conf
     mariadb-data:
         name: mariadb-data
