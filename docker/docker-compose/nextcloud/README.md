@@ -19,6 +19,7 @@ wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/docker-compos
 ```shell
 <?php
 $CONFIG = array (
+  ...
   'filelocking.enabled\' => 'true',
   'onlyoffice' =>
   array (
@@ -29,6 +30,8 @@ $CONFIG = array (
   'default_locale' => 'de_DE',
   'default_phone_region' => 'DE',
   'maintenance' => false,
+);
+
 ```
 
 # 5. disable app richdocumentscode (makes nextcloud fast again)
