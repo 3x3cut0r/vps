@@ -10,7 +10,7 @@ services:
             mariadb:
                 ipv4_address: 10.20.0.2
         # ports:
-        #   - 3306:3306
+        #     - 3306:3306
         environment:
             MYSQL_ROOT_PASSWORD: <MYSQL_ROOT_PASSWORD>
         volumes:
@@ -22,11 +22,13 @@ services:
         networks:
             mariadb:
                 ipv4_address: 10.20.0.3
+            nginx:
+                ipv4_address: 10.24.0.200
         # ports:
-        #   - 8080:80
+        #     - 8080:80
         environment:
             MYSQL_ROOT_PASSWORD: <MYSQL_ROOT_PASSWORD>
-            PMA_ARBITRARY: 1
+            PMA_ARBITRARY: "1"
             PMA_HOST: mariadb
         volumes:
             - /home/docker/config-files/phpmyadmin/php.ini:/usr/local/etc/php/conf.d/php.ini
@@ -39,6 +41,9 @@ networks:
             config:
                 - subnet: "10.20.0.0/20"
                   gateway: 10.20.0.1
+    nginx:
+        external:
+            name: nginx
 
 volumes:
     mariadb-data:
