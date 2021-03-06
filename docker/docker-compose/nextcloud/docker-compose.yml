@@ -20,16 +20,26 @@ services:
         volumes:
             - nextcloud-html:/var/www/html
             - nextcloud-data:/var/www/html/data
-            - /home/docker/config-files/nextcloud/000-default.conf:/etc/apache2/sites-available/000-default.conf
             - /home/docker/config-files/nextcloud/php-filesize.ini:/usr/local/etc/php/conf.d/php-filesize.ini
+            # - /home/docker/config-files/nextcloud/000-default.conf:/etc/apache2/sites-available/000-default.conf
         environment:
+          # MYSQL
             MYSQL_DATABASE: nextcloud
             MYSQL_USER: nextcloud
             MYSQL_PASSWORD: <MYSQL_NEXTCLOUD_PASSWORD>
             MYSQL_HOST: mariadb
+          # REDIS
             REDIS_HOST: redis
             REDIS_HOST_PORT: 6379
             REDIS_HOST_PASSWORD: <REDIS_HOST_PASSWORD>
+          # REVERSE_PROXY
+          # only if your nextcloud-container is behind a reverse proxy
+            APACHE_DISABLE_REWRITE_IP: 1
+            TRUSTED_PROXIES: nginx
+            OVERWRITEHOST: nextcloud.3x3cut0r.de
+            OVERWRITEPROTOCOL: https
+            # OVERWRITEWEBROOT: '/domain.tld/nextcloud'
+            # OVERWRITECONDADDR: '^10\.0\.0\.1$'
 
     onlyoffice-documentserver:
         container_name: onlyoffice-documentserver
