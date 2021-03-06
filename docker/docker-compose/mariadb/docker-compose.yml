@@ -30,6 +30,7 @@ services:
             MYSQL_ROOT_PASSWORD: <MYSQL_ROOT_PASSWORD>
             PMA_ARBITRARY: "1"
             PMA_HOST: mariadb
+            PMA_VERBOSE: mariadb
         volumes:
             - /home/docker/config-files/phpmyadmin/php.ini:/usr/local/etc/php/conf.d/php.ini
 
