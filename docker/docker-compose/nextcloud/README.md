@@ -17,9 +17,9 @@ wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/docker-compos
 **add these settings to your config/config.php**  
 **you need to do this as root**  
 ```shell
-\<\?php
-\$CONFIG = array (
-\'filelocking.enabled\' => \'true\',
+<?php
+$CONFIG = array (
+'filelocking.enabled\' => 'true',
 
 ```
 
