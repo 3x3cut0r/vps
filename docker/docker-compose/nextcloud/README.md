@@ -13,7 +13,17 @@ wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/docker-compos
 # 3. configure your nginx reverse proxy
 **see: [nextcloud.conf](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/nginx/conf.d/nextcloud.conf)**
 
-# 4. disable app richdocumentscode (makes nextcloud fast again)
+# 4. configure config/config.php
+**add these settings to your config/config.php**  
+**you need to do this as root**  
+```shell
+\<\?php
+\$CONFIG = array (
+\'filelocking.enabled\' => \'true\',
+
+```
+
+# 5. disable app richdocumentscode (makes nextcloud fast again)
 ```shell
 docker exec -u www-data nextcloud php occ app:disable richdocumentscode
 
