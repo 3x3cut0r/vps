@@ -109,17 +109,17 @@ services:
                 ipv4_address: 10.20.192.3
         # this is used to expose the hubot port for notifications on the host on port 3001, e.g. for hubot-jenkins-notifier
         # ports:
-        #     - 3001:8080
+        #     - 3001:808
         environment:
             ROCKETCHAT_URL: rocketchat:3000
-            ROCKETCHAT_ROOM: GENERAL
+            ROCKETCHAT_ROOM: general
             ROCKETCHAT_USER: hubot
-            ROCKETCHAT_PASSWORD: NsFY@Nfk6Q!JWB*@Hs*LbWeBmDpnyd
+            ROCKETCHAT_PASSWORD: <ROCKETCHAT_PASSWORD>
             BOT_NAME: hubot
             # you can add more scripts as you'd like here, they need to be installable by npm
             EXTERNAL_SCRIPTS: hubot-help,hubot-seen,hubot-links,hubot-diagnostics
         volumes:
-          - hubot-scripts:/home/hubot/scripts
+            - hubot-scripts:/home/hubot/scripts
         depends_on:
             - rocketchat
 
