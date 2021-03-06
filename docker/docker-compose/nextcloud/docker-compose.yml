@@ -1,0 +1,81 @@
+version: "3.9"
+
+services:
+    nextcloud:
+        container_name: nextcloud
+        image: nextcloud:21-apache
+        restart: unless-stopped
+        networks:
+            nextcloud:
+                ipv4_address: 10.20.160.2
+            mariadb:
+                ipv4_address: 10.20.0.210
+            redis:
+                ipv4_address: 10.20.96.210
+            nginx:
+                ipv4_address: 10.24.0.210
+        # ports:
+        #     - 80:80
+        #     - 443:443
+        volumes:
+            - nextcloud-html:/var/www/html
+            - nextcloud-data:/var/www/html/data
+            - /home/docker/config-files/nextcloud/000-default.conf:/etc/apache2/sites-available/000-default.conf
+            - /home/docker/config-files/nextcloud/php-filesize.ini:/usr/local/etc/php/conf.d/php-filesize.ini
+        environment:
+            MYSQL_DATABASE: nextcloud
+            MYSQL_USER: nextcloud
+            MYSQL_PASSWORD: <MYSQL_NEXTCLOUD_PASSWORD>
+            MYSQL_HOST: mariadb
+            REDIS_HOST: redis
+            REDIS_HOST_PORT: 6379
+            REDIS_HOST_PASSWORD: <REDIS_HOST_PASSWORD>
+
+    onlyoffice-documentserver:
+        container_name: onlyoffice-documentserver
+        image: onlyoffice/documentserver:latest
+        restart: unless-stopped
+        networks:
+            nextcloud:
+                ipv4_address: 10.20.160.3
+        # ports:
+        #     - 80:80
+        #     - 443:443
+        # environment:
+            # ONLYOFFICE_HTTPS_HSTS_ENABLED: "true"
+            # ONLYOFFICE_HTTPS_HSTS_MAXAGE: "31536000"
+            # SSL_CERTIFICATE_PATH: /var/www/onlyoffice/Data/certs/onlyoffice.crt
+            # SSL_KEY_PATH: /var/www/onlyoffice/Data/certs/onlyoffice.key
+            # SSL_DHPARAM_PATH: /var/www/onlyoffice/Data/certs/dhparam.pem
+            # SSL_VERIFY_CLIENT: "false"
+        volumes:
+            - onlyoffice-documentserver-Data:/var/www/onlyoffice/Data
+            - onlyoffice-documentserver-log:/var/log/onlyoffice
+
+networks:
+    nextcloud:
+        name: nextcloud
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.20.160.0/20"
+                  gateway: 10.20.160.1
+    mariadb:
+        external:
+            name: mariadb
+    redis:
+        external:
+            name: redis
+    nginx:
+        external:
+            name: nginx
+
+volumes:
+    nextcloud-data:
+        name: nextcloud-data
+    nextcloud-html:
+        name: nextcloud-html
+    onlyoffice-documentserver-Data:
+        name: onlyoffice-documentserver-Data
+    onlyoffice-documentserver-log:
+        name: onlyoffice-documentserver-log
