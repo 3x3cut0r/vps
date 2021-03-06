@@ -74,6 +74,13 @@ function prepare () {
     sysctl --system
     modprobe overlay permit_mounts_in_userns=1
 
+    # enable vm.overcommit_memory
+    sysctl vm.overcommit_memory=1
+    if [[ ! $(cat /etc/sysctl.conf | grep vm.overcommit_memory) ]]; then
+        echo -e "\n# enable vm.overcommit_memory (e.g. for redis)" >> /etc/sysctl.conf
+        echo "vm.overcommit_memory = 1" >> /etc/sysctl.conf
+    fi
+    
     # reboot
     printf '\n\e[0;33m%-6s\e[m\n' " ==> reboot, then login (via ssh) as $DOCKER_USERNAME (uid=$DOCKER_UID) to continue with './docker_rootless.sh --install'"
     read -n 1 -s -r -p "press any key to continue ..."
