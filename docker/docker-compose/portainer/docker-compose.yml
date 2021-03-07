@@ -1,7 +1,8 @@
 version: "3.9"
 
 services:
-    certbot:
+  # https://hub.docker.com/r/portainer/portainer-ce
+    portainer:
         container_name: portainer
         image: portainer/portainer-ce:alpine
         restart: always
