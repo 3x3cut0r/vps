@@ -1,6 +1,7 @@
 version: "3.9"
 
 services:
+  # https://hub.docker.com/_/mariadb
     mariadb:
         container_name: mariadb
         image: mariadb:10.5.9-focal
@@ -16,6 +17,7 @@ services:
         volumes:
             - mariadb-data:/var/lib/mysql
             - mariadb-conf:/etc/mysql/mariadb.conf.d
+  # https://hub.docker.com/_/phpmyadmin
     phpmyadmin:
         container_name: phpmyadmin
         image: phpmyadmin/phpmyadmin:latest
