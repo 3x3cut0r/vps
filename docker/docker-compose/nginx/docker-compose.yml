@@ -1,6 +1,7 @@
 version: "3.9"
 
 services:
+  # https://hub.docker.com/_/nginx
     nginx:
         container_name: nginx
         image: nginx:latest
@@ -15,6 +16,8 @@ services:
             - nginx-html:/var/www/html
             - nginx-conf.d:/etc/nginx/conf.d
             - certbot-letsencrypt:/etc/nginx/ssl
+
+  # https://hub.docker.com/_/php
     php-fpm:
         container_name: php-fpm
         image: php:8-fpm-alpine
