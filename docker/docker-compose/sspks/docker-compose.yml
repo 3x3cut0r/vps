@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+    sspks:
+        container_name: sspks
+        image: jdel/sspks:v1.1.4
+        restart: unless-stopped
+        networks:
+            sspks:
+                ipv4_address: 10.24.10.2
+            nginx:
+                ipv4_address: 10.24.0.110
+        # ports:
+        #     - 8080:8080
+        environment:
+            SSPKS_SITE_NAME: "3x3cut0r's Synology Packages"
+            SSPKS_PACKAGES_DISTRIBUTOR_URL: https://sspks.3x3cut0r.de
+        volumes:
+            - sspks-packages:/packages
+            - sspks-cache:/cache
+
+networks:
+    sspks:
+        name: sspks
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.24.10.0/24"
+                  gateway: 10.24.10.1
+    nginx:
+        external:
+            name: nginx
+
+volumes:
+    sspks-packages:
+        name: sspks-packages
+    sspks-cache:
+        name: sspks-cache
