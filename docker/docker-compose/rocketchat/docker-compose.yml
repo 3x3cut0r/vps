@@ -1,6 +1,7 @@
 version: "3.9"
 
 services:
+  # https://hub.docker.com/_/rocket-chat
     rocketchat:
         container_name: rocketchat
         image: rocket.chat:latest
@@ -59,7 +60,7 @@ services:
         #    volumes:
         #        - /run/user/2000/docker.sock:/var/run/docker.sock
 
-  # mongo: database
+  # https://hub.docker.com/_/mongo
     mongo:
         container_name: mongo
         image: mongo:4.4
@@ -99,6 +100,7 @@ services:
     #    depends_on:
     #        - mongo
 
+  # https://hub.docker.com/r/rocketchat/hubot-rocketchat
   # hubot, the popular chatbot (add the bot user first and change the password before starting this image)
     hubot:
         container_name: hubot
