@@ -13,7 +13,7 @@ services:
             nginx:
                 ipv4_address: 10.24.0.108
         # ports:
-        #   - 1443:1443
+        #     - 1443:1443
         environment:
             REDIS_HOST: redis-nopw
             MAX_FILE_SIZE: "2147483648"
