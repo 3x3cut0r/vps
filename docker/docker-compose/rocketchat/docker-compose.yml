@@ -39,6 +39,7 @@ services:
             - "traefik.backend=rocketchat"
             - "traefik.frontend.rule=Host: chat.3x3cut0r.de"
 
+        #https://hub.docker.com/_/traefik
         #traefik:
         #    image: traefik:latest
         #    restart: unless-stopped
@@ -78,6 +79,7 @@ services:
         labels:
             - "traefik.enable=false"
 
+  # https://hub.docker.com/_/mongo
   # this container's job is just run the command to initialize the replica set.
   # it will run the command and remove himself (it will not stay running)
     #mongo-init-replica:
