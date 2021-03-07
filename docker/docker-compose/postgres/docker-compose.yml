@@ -16,7 +16,7 @@ services:
         volumes:
             - postgres-data:/var/lib/postgresql/data
 
-  # https://hub.docker.com/r/pgadmin/ripmain
+  # https://hub.docker.com/r/dpage/pgadmin4
     pgadmin:
         container_name: pgadmin
         image: dpage/pgadmin4:latest
