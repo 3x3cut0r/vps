@@ -1,6 +1,7 @@
 version: "3.9"
 
 services:
+  # https://hub.docker.com/r/jlesage/firefox
     firefox:
         container_name: firefox
         image: jlesage/firefox:latest
