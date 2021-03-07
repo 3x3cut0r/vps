@@ -1,6 +1,7 @@
 version: "3.9"
 
 services:
+  # https://hub.docker.com/_/redis
     redis:
         container_name: redis
         image: redis:6-alpine
@@ -11,6 +12,8 @@ services:
                 ipv4_address: 10.20.96.2
         # ports:
         #     - 6379:6379
+
+  # https://hub.docker.com/_/redis
     redis-nopw:
         container_name: redis-nopw
         image: redis:6-alpine
