@@ -1,6 +1,7 @@
 version: "3.9"
 
 services:
+  # https://hub.docker.com/_/nextcloud
     nextcloud:
         container_name: nextcloud
         image: nextcloud:21-apache
@@ -41,6 +42,7 @@ services:
             # OVERWRITEWEBROOT: '/domain.tld/nextcloud'
             # OVERWRITECONDADDR: '^10\.0\.0\.1$'
 
+  # https://hub.docker.com/r/onlyoffice/documentserver
     onlyoffice-documentserver:
         container_name: onlyoffice-documentserver
         image: onlyoffice/documentserver:latest
