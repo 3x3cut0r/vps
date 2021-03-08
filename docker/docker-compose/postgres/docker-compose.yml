@@ -26,10 +26,13 @@ services:
                 ipv4_address: 10.20.16.3
             nginx:
                 ipv4_address: 10.24.0.201
+        # ports:
+        #     - 5050:5050
         environment:
             PGADMIN_DEFAULT_EMAIL: executor55@gmx.de
             PGADMIN_DEFAULT_PASSWORD: <PGADMIN_DEFAULT_PASSWORD>
             PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "True"
+            PGADMIN_LISTEN_PORT: 5050
         volumes:
             - pgadmin-data:/var/lib/pgadmin
             - pgadmin-certs:/certs
