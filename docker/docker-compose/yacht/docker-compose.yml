@@ -23,6 +23,7 @@ services:
             PGID: 1000
             SECRET_KEY: '<GENERATE_YOUR_OWN_SECRET_KEY_AND_PASTE_HERE>'
             ADMIN_EMAIL: executor55@gmx.de
+          # DATABASE_URL: postgresql://user:password@postgresserver/db
             DATABASE_URL: postgresql://yacht:<YACHT_POSTGRES_PASSWORD>@postgres/yacht
           # COMPOSE_DIR: /config/docker-compose
           # DISABLE_AUTH: 'true'
