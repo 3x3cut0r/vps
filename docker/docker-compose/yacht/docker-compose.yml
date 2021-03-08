@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  # https://hub.docker.com/r/selfhostedpro/yacht
+    yacht:
+        container_name: yacht
+        image: selfhostedpro/yacht:latest
+        restart: always
+        networks:
+            yacht:
+                ipv4_address: 10.24.2.2
+            nginx:
+                ipv4_address: 10.24.0.102
+        # ports:
+        #     - 8000:8000
+        volumes:
+            - /run/user/1000/docker.sock:/var/run/docker.sock
+            - yacht-config:/config
+
+networks:
+    yacht:
+        name: yacht
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.24.2.0/24"
+                  gateway: 10.24.2.1
+    nginx:
+        external:
+            name: nginx
+
+volumes:
+    yacht-config:
+        name: yacht-config
