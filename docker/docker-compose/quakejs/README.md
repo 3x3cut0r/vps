@@ -4,16 +4,20 @@
 
 # 2. open ports on your firewall
 **Port 27959 for http**  
-**Port 27960 for client/server connections**  
+**Port 27960 for quake 3 arena**  
 
-**For UFW:**
+**for UFW:**
 ```shell
 ufw allow 27959
 ufw allow 27960
 
 ```
 
-# 3. browser http://3x3cut0r.de:27959 and start fragging!
+# 3. browse http://3x3cut0r.de:27959 and start fragging!
+
+**Note:**  
+**quakejs cannot handle redirected https traffic. this means it cannot**  
+**be operated behind a reverse proxy!**  
 
 ### Find Me <a name="findme"></a>
 
