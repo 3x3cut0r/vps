@@ -9,6 +9,8 @@ services:
         networks:
             yacht:
                 ipv4_address: 10.24.2.2
+            postgres:
+                ipv4_address: 10.20.16.102
             nginx:
                 ipv4_address: 10.24.0.102
         # ports:
@@ -16,6 +18,14 @@ services:
         volumes:
             - /run/user/1000/docker.sock:/var/run/docker.sock
             - yacht-config:/config
+        environment:
+            PUID: 1000
+            PGID: 1000
+            SECRET_KEY: '<GENERATE_YOUR_OWN_SECRET_KEY_AND_PASTE_HERE>'
+            ADMIN_EMAIL: executor55@gmx.de
+            DATABASE_URL: postgresql://yacht:<YACHT_POSTGRES_PASSWORD>@postgres/yacht
+          # COMPOSE_DIR: /config/docker-compose
+          # DISABLE_AUTH: 'true'
 
 networks:
     yacht:
@@ -25,6 +35,9 @@ networks:
             config:
                 - subnet: "10.24.2.0/24"
                   gateway: 10.24.2.1
+    postgres:
+        external:
+            name: postgres
     nginx:
         external:
             name: nginx
