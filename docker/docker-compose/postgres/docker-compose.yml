@@ -35,7 +35,7 @@ services:
             PGADMIN_LISTEN_PORT: 5050
         volumes:
             - pgadmin-data:/var/lib/pgadmin
-            - pgadmin-certs:/certs
+          # - pgadmin-certs:/certs
 
   # https://hub.docker.com/_/adminer
     adminer:
@@ -67,5 +67,5 @@ volumes:
         name: postgres-data
     pgadmin-data:
         name: pgadmin-data
-    pgadmin-certs:
-        name: pgadmin-certs
+  # pgadmin-certs:
+      # name: pgadmin-certs
