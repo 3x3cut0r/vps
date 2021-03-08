@@ -13,11 +13,13 @@ ufw allow 27960
 
 ```
 
-# 3. browse http://3x3cut0r.de:27959 and start fragging!
-
 **Note:**  
 **quakejs cannot handle redirected https traffic. this means it cannot**  
 **be operated behind a reverse proxy!**  
+
+# 3. browse http://3x3cut0r.de:27959 and start fragging!
+
+# 4. reduce texture detail for better performance
 
 ### Find Me <a name="findme"></a>
 
