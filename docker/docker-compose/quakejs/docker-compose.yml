@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  # https://github.com/treyyoder/quakejs-docker
+    quakejs:
+        container_name: quakejs
+        image: treyyoder/quakejs:latest
+        restart: unless-stopped
+        networks:
+            quakejs:
+                ipv4_address: 10.24.14.2
+        ports:
+            - 27959:80
+            - 27960:27960
+        environment:
+            - SERVER=3x3cut0r.de
+            - HTTP_PORT=27959
+
+networks:
+    quakejs:
+        name: quakejs
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.24.14.0/24"
+                  gateway: 10.24.14.1
