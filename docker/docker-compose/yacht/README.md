@@ -1,9 +1,42 @@
 # Yacht
 
-# 1. deploy docker-compose.yml
+# 1. create new postgres user and database: yacht
+**user:**  
+```shell
+General:
+  Name: yacht
 
-# 2. configure your nginx reverse proxy
+Definition:
+  Password: <YACHT_POSTGRES_PASSWORD>
+  Connection Limit: -1
+
+Priviledges:
+  Can login?: Yes
+
+```
+**database:**  
+```shell
+General:
+  Database: yacht
+  Owner: yacht
+
+Definition:
+  Encoding: UTF8
+  Template: postgres
+  Tablespace: pg_default
+  Collation: en_US.utf8
+  Character type: en_US.utf8
+  Connection Limit: -1
+
+```
+
+# 2. deploy docker-compose.yml
+
+# 3. configure your nginx reverse proxy
 **see: [yacht.conf](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/nginx/conf.d/yacht.conf)**
+
+# 4. login with your email and change the default password !!!
+**default password: pass**
 
 ### Find Me <a name="findme"></a>
 
