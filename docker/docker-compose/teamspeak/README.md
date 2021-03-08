@@ -7,7 +7,7 @@
 **Port 10011 for serverquerys**  
 **Port 30033 to allow filetransfer**  
 
-**For UFW:**
+**for ufw:**
 ```shell
 ufw allow 9987/udp
 ufw allow 10011
