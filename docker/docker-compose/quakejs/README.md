@@ -6,7 +6,7 @@
 **Port 27959 for http**  
 **Port 27960 for quake 3 arena**  
 
-**for UFW:**
+**for ufw:**
 ```shell
 ufw allow 27959
 ufw allow 27960
