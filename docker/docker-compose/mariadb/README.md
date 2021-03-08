@@ -39,6 +39,10 @@ docker container restart mariadb
 
 ```
 
+# 4. database security
+**download and exec mysqltuner.pl to check your database security:**  
+[mysqltuner.pl on GitHub](https://github.com/major/MySQLTuner-perl)  
+
 ### Find Me <a name="findme"></a>
 
 ![E-Mail](https://img.shields.io/badge/E--Mail-executor55%40gmx.de-red)
