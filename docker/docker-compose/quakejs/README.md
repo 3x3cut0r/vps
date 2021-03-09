@@ -3,12 +3,12 @@
 # 1. deploy docker-compose.yml
 
 # 2. open ports on your firewall
-**Port 27959 for http**  
+**Port 3333 for http**  
 **Port 27960 for quake 3 arena**  
 
 **for ufw:**
 ```shell
-ufw allow 27959
+ufw allow 3333
 ufw allow 27960
 
 ```
@@ -17,7 +17,7 @@ ufw allow 27960
 **quakejs cannot handle redirected https traffic. this means it cannot**  
 **be operated behind a reverse proxy!**  
 
-# 3. browse http://3x3cut0r.de:27959 and start fragging!
+# 3. browse http://3x3cut0r.de:3333 and start fragging!
 
 # 4. reduce texture detail for better performance
 
