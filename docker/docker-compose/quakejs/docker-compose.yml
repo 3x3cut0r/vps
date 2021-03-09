@@ -10,11 +10,11 @@ services:
             quakejs:
                 ipv4_address: 10.24.14.2
         ports:
-            - 27959:80
+            - 3333:80
             - 27960:27960
         environment:
             - SERVER=3x3cut0r.de
-            - HTTP_PORT=27959
+            - HTTP_PORT=3333
 
 networks:
     quakejs:
