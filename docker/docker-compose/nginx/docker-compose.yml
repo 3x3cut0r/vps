@@ -5,7 +5,7 @@ services:
     nginx:
         container_name: nginx
         image: nginx:latest
-        restart: unless-stopped
+        restart: always
         networks:
             nginx:
                 ipv4_address: 10.24.0.2
@@ -21,6 +21,7 @@ services:
     php-fpm:
         container_name: php-fpm
         image: php:8-fpm-alpine
+        restart: always
         networks:
             nginx:
                 ipv4_address: 10.24.0.3
