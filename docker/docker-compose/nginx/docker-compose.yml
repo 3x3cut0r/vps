@@ -16,6 +16,8 @@ services:
             - nginx-html:/var/www/html
             - nginx-conf.d:/etc/nginx/conf.d
             - certbot-letsencrypt:/etc/nginx/ssl
+        depends_on:
+            - php-fpm
 
   # https://hub.docker.com/_/php
     php-fpm:
