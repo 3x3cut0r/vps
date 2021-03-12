@@ -1,0 +1,227 @@
+version: '3.9'
+
+# https://github.com/Mailu/Mailu
+services:
+  # https://hub.docker.com/r/mailu/nginx
+    mailu-nginx:
+        container_name: mailu-nginx
+        image: mailu/nginx:1.8
+        restart: unless-stopped
+        env_file: ../../env-files/mailu.env
+        networks:
+            mailu:
+                ipv4_address: 10.20.128.2
+            nginx:
+                ipv4_address: 10.24.0.208
+        ports:
+          # - 80:80
+          # - 443:443
+            - 25:25
+            - 465:465
+            - 587:587
+            - 110:110
+            - 995:995
+            - 143:143
+            - 993:993
+        volumes:
+            - mailu-certs:/certs
+            - mailu-overrides-nginx:/overrides:ro
+
+  # https://hub.docker.com/r/mailu/unbound
+    mailu-resolver:
+        container_name: mailu-resolver
+        image: mailu/unbound:1.8
+        env_file: ../../env-files/mailu.env
+        restart: unless-stopped
+        networks:
+            mailu:
+                ipv4_address: 10.20.143.254
+      # ports:
+      #     - 53:53/tcp
+      #     - 53:53/udp
+        volumes:
+            - mailu-resolver-conf:/etc/unbound
+
+  # https://hub.docker.com/r/mailu/admin
+    mailu-admin:
+        container_name: mailu-admin
+        image: mailu/admin:1.8
+        restart: unless-stopped
+        env_file: ../../env-files/mailu.env
+        networks:
+            mailu:
+                ipv4_address: 10.20.128.3
+            mariadb:
+                ipv4_address: 10.20.0.208
+            redis-nopw:
+                ipv4_address: 10.20.112.228
+          # postgres:
+              # ipv4_address: 10.20.16.208
+        volumes:
+            - mailu-data:/data
+            - mailu-dkim:/dkim
+      # depends_on:
+          # - redis-nopw
+
+  # https://hub.docker.com/r/mailu/dovecot
+    mailu-dovecot:
+        container_name: mailu-dovecot
+        image: mailu/dovecot:1.8
+        restart: unless-stopped
+        env_file: ../../env-files/mailu.env
+        networks:
+            mailu:
+                ipv4_address: 10.20.128.4
+        volumes:
+            - mailu-mail:/mail
+            - mailu-overrides-dovecot:/overrides:ro
+        depends_on:
+            - mailu-nginx
+
+  # https://hub.docker.com/r/mailu/postfix
+    mailu-postfix:
+        container_name: mailu-postfix
+        image: mailu/postfix:1.8
+        restart: unless-stopped
+        env_file: ../../env-files/mailu.env
+        networks:
+            mailu:
+                ipv4_address: 10.20.128.5
+        volumes:
+            - mailu-mailqueue:/queue
+            - mailu-overrides-postfix:/overrides:ro
+        depends_on:
+            - mailu-nginx
+            - mailu-resolver
+        dns:
+            - 10.20.143.254
+
+  # https://hub.docker.com/r/mailu/rspamd
+    mailu-rspamd:
+        container_name: mailu-rspamd
+        image: mailu/rspamd:1.8
+        restart: unless-stopped
+        env_file: ../../env-files/mailu.env
+        networks:
+            mailu:
+                ipv4_address: 10.20.128.6
+            redis-nopw:
+                ipv4_address: 10.20.112.208
+        volumes:
+            - mailu-filter:/var/lib/rspamd
+            - mailu-dkim:/dkim:ro
+            - mailu-overrides-rspamd:/etc/rspamd/override.d:ro
+        depends_on:
+            - mailu-nginx
+            - mailu-resolver
+        dns:
+            - 10.20.143.254
+
+  # https://hub.docker.com/r/mailu/clamav
+    mailu-clamav:
+        container_name: mailu-clamav
+        image: mailu/clamav:1.8
+        restart: unless-stopped
+        env_file: ../../env-files/mailu.env
+        networks:
+            mailu:
+                ipv4_address: 10.20.128.7
+        volumes:
+            - mailu-filter:/data
+        depends_on:
+            - mailu-resolver
+        dns:
+            - 10.20.143.254
+
+  # https://hub.docker.com/r/mailu/radicale
+    mailu-radicale:
+        container_name: mailu-radicale
+        image: mailu/radicale:1.8
+        restart: unless-stopped
+        env_file: ../../env-files/mailu.env
+        networks:
+            mailu:
+                ipv4_address: 10.20.128.8
+        volumes:
+            - mailu-dav:/data"
+
+  # https://hub.docker.com/r/mailu/fetchmail
+    mailu-fetchmail:
+        container_name: mailu-fetchmail
+        image: mailu/fetchmail:1.8
+        restart: unless-stopped
+        env_file: ../../env-files/mailu.env
+        networks:
+            mailu:
+                ipv4_address: 10.20.128.9
+        depends_on:
+            - mailu-resolver
+        dns:
+            - 10.20.143.254
+
+  # https://hub.docker.com/r/mailu/roundcube
+    mailu-roundcube:
+        container_name: mailu-roundcube
+        image: mailu/roundcube:1.8
+        restart: unless-stopped
+        env_file: ../../env-files/mailu.env
+        networks:
+            mailu:
+                ipv4_address: 10.20.128.10
+            mariadb:
+                ipv4_address: 10.20.0.228
+          # postgres:
+              # ipv4_address: 10.20.16.208
+        volumes:
+            - mailu-webmail:/data"
+        depends_on:
+            - mailu-dovecot
+
+networks:
+    mailu:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.20.128.0/20"
+                  gateway: 10.20.128.1
+    mariadb:
+        external:
+            name: mariadb
+    nginx:
+        external:
+            name: nginx
+    redis-nopw:
+        external:
+            name: redis-nopw
+  # postgres:
+      # external:
+          # name: postgres
+
+volumes:
+    mailu-certs:
+        name: mailu-certs
+    mailu-data:
+        name: mailu-data
+    mailu-dav:
+        name: mailu-dav
+    mailu-dkim:
+        name: mailu-dkim
+    mailu-filter:
+        name: mailu-filter
+    mailu-mail:
+        name: mailu-mail
+    mailu-mailqueue:
+        name: mailu-mailqueue
+    mailu-overrides-dovecot:
+        name: mailu-overrides-dovecot
+    mailu-overrides-nginx:
+        name: mailu-overrides-nginx
+    mailu-overrides-postfix:
+        name: mailu-overrides-postfix
+    mailu-overrides-rspamd:
+        name: mailu-overrides-rspamd
+    mailu-resolver-conf:
+        name: mailu-resolver-conf
+    mailu-webmail:
+        name: mailu-webmail
