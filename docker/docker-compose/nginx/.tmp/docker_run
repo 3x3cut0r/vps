@@ -1,0 +1,9 @@
+docker container run -d \
+    --name=nginx_tmp \
+    --network nginx \
+    --ip=10.24.0.222 \
+    -p 444:443 \
+    -v nginx-html:/var/www/html \
+    -v nginx-conf.d:/etc/nginx/conf.d \
+    -v certbot-letsencrypt:/etc/nginx/ssl \
+    nginx:latest
