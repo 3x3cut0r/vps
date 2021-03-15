@@ -19,6 +19,7 @@ umbrel was adjusted here so that it runs on a virtual private server
 **change UMBREL_ROOT to your needs**
 ```shell
 UMBREL_ROOT=/home/docker/config-files/umbrel
+DEVICE_HOSTNAME="umbrel.3x3cut0r.de"
 mkdir -p $UMBREL_ROOT
 cd $UMBREL_ROOT
 wget -p https://github.com/getumbrel/umbrel/archive/master.zip -O master.zip
@@ -66,10 +67,11 @@ sed -i s/\;\ tor.password=plsdonthackme/tor.password=$TOR_PASSWORD/g $UMBREL_ROO
 ```
 **docker-compose.yml:**
 ```shell
-sed -i s/\<BITCOIN_RPC_PASSWORD\>/$BITCOIN_RPC_PASS/g $UMBREL_ROOT/docker-compose.yml
+sed -i s/\<BITCOIN_RPC_PASSWORD\>/\"$BITCOIN_RPC_PASS\"/g $UMBREL_ROOT/docker-compose.yml
 sed -i s#/var/run/docker.sock\:/var/run/docker.sock#/run/user/$(id -u)/docker.sock\:/var/run/docker.sock#g $UMBREL_ROOT/docker-compose.yml
 sed -i s#/home/docker/config-files/umbrel#$UMBREL_ROOT#g $UMBREL_ROOT/docker-compose.yml
 sed -i s#/usr/local/bin/docker\:/usr/bin/docker#$(which docker):/usr/bin/docker#g $UMBREL_ROOT/docker-compose.yml
+sed -i s#DEVICE_HOSTNAME=\"umbrel.3x3cut0r.de\"#DEVICE_HOSTNAME=\"$DEVICE_HOSTNAME\"#g $UMBREL_ROOT/docker-compose.yml
 
 ```
 **.env:**
@@ -88,7 +90,13 @@ touch "$UMBREL_ROOT/statuses/node-status-bitcoind-ready"
 
 ```
 
-# 4. change umbrel permissions <a name="change-umbrel-permissions"></a>
+# 4. change umbrel file permissions <a name="change-umbrel-permissions"></a>
+**if you are running docker in rootless-mode:**
+```shell
+sudo chmod -R 777 $UMBREL_ROOT
+
+```
+**if you are running docker normal:**
 ```shell
 sudo chown -R 1000:1000 $UMBREL_ROOT
 
@@ -97,8 +105,16 @@ sudo chown -R 1000:1000 $UMBREL_ROOT
 # 5. get hidden_service_url <a name="get-hidden_service_url"></a>
 **start tor:**  
 ```shell
+docker network create \
+    --driver=bridge \
+    --subnet=10.21.21.0/24 \
+    --gateway=10.21.21.1 \
+    umbrel-net
+
 docker container run -d --restart=unless-stopped \
     --name=umbrel-tor \
+    --network=umbrel-net \
+    --ip=10.21.21.11 \
     -v $UMBREL_ROOT/tor/torrc:/etc/tor/torrc \
     -v $UMBREL_ROOT/tor/data:/var/lib/tor/ \
     -v $UMBREL_ROOT/tor/run:/var/run/tor/ \
@@ -107,20 +123,21 @@ docker container run -d --restart=unless-stopped \
 ```
 **save hidden_service_url to DEVICE_HOSTS:**  
 ```shell
-hidden_service_url=$(cat "${UMBREL_ROOT}/tor/data/web/hostname")
+hidden_service_url=$(sudo cat "${UMBREL_ROOT}/tor/data/web/hostname")
 DEVICE_HOSTS="http://${hidden_service_url}"
 # if you have already set DEVICE_HOSTS, then do instead:
 # DEVICE_HOSTS="${DEVICE_HOSTS},http://${hidden_service_url}"
-sed -i s/\<DEVICE_HOSTS\>/$DEVICE_HOSTS/g $UMBREL_ROOT/docker-compose.yml
+sed -i s#\<DEVICE_HOSTS\>#\"$DEVICE_HOSTS\"#g $UMBREL_ROOT/docker-compose.yml
 
 ```
 **stop and remove tor (to avoid errors with docker-compose):**  
 ```shell
-docker container rm -rf umbrel-tor
+docker container rm -f umbrel-tor
+docker network rm umbrel-net
 
 ```
 
-# 6. deploy docker-compose.yml in your UMBREL_ROOT <a name="deploy-docker-compose"></a>
+# 6. deploy docker-compose.yml from your UMBREL_ROOT <a name="deploy-docker-compose"></a>
 
 ### Find Me <a name="findme"></a>
 
