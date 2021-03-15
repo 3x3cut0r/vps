@@ -201,7 +201,7 @@ services:
         #     - 3005:3005
         networks:
             umbrel:
-                ipv4_address: 10.21.21.4
+                ipv4_address: 10.21.21.5
         depends_on:
             - umbrel-syslog-ng
             - umbrel-manager
