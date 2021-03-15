@@ -23,7 +23,7 @@ mkdir -p $UMBREL_ROOT
 cd $UMBREL_ROOT
 wget -p https://github.com/getumbrel/umbrel/archive/master.zip -O master.zip
 unzip master.zip
-mv -f umbrel-master/* .
+mv umbrel-master/* .
 rm -rf master.zip umbrel-master
 mkdir -p $UMBREL_ROOT/db/jwt-public-key
 mkdir -p $UMBREL_ROOT/db/jwt-private-key
@@ -74,10 +74,10 @@ sed -i s#/usr/local/bin/docker\:/usr/bin/docker#$(which docker):/usr/bin/docker#
 ```
 **.env:**
 ```shell
-sed -i s/BITCOIN_RPC_PASS=\<password\>/BITCOIN_RPC_PASS=$BITCOIN_RPC_PASS/g $UMBREL_ROOT/.env
-sed -i s/BITCOIN_RPC_AUTH=\<rpcauth\>/BITCOIN_RPC_AUTH=$BITCOIN_RPC_AUTH/g $UMBREL_ROOT/.env
-sed -i s/TOR_PASSWORD=\<password\>/TOR_PASSWORD=$TOR_PASSWORD/g $UMBREL_ROOT/.env
-sed -i s/TOR_HASHED_PASSWORD=\<password\>/TOR_HASHED_PASSWORD=$TOR_HASHED_PASSWORD/g $UMBREL_ROOT/.env
+sed -i s/BITCOIN_RPC_PASS=\<password\>/BITCOIN_RPC_PASS=\"$BITCOIN_RPC_PASS\"/g $UMBREL_ROOT/.env
+sed -i s/BITCOIN_RPC_AUTH=\<rpcauth\>/BITCOIN_RPC_AUTH=\"$BITCOIN_RPC_AUTH\"/g $UMBREL_ROOT/.env
+sed -i s/TOR_PASSWORD=\<password\>/TOR_PASSWORD=\"$TOR_PASSWORD\"/g $UMBREL_ROOT/.env
+sed -i s/TOR_HASHED_PASSWORD=\<password\>/TOR_HASHED_PASSWORD=\"$TOR_HASHED_PASSWORD\"/g $UMBREL_ROOT/.env
 sed -i s#DOCKER_BINARY=\<path\>#$(which docker)#g $UMBREL_ROOT/.env
 
 ```
