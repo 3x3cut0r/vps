@@ -1,5 +1,8 @@
 # Umbrel
 
+[umbrel](https://getumbrel.com/) - run your personal bitcoin node  
+umbrel was adjusted here so that it runs on a virtual private server  
+
 ## Index
 
 1. [prepare volume](#volume)  
