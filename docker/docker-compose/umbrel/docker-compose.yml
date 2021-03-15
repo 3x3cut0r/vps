@@ -14,7 +14,7 @@ services:
         volumes:
             - /home/docker/config-files/umbrel/logs:/var/log
         networks:
-            default:
+            umbrel:
                 ipv4_address: 10.21.21.214
 
   # https://hub.docker.com/r/lncm/tor
@@ -33,7 +33,7 @@ services:
         # ports:
         #     - 9050:9050
         networks:
-            default:
+            umbrel:
                 ipv4_address: 10.21.21.11
         depends_on:
             - umbrel-syslog-ng
@@ -99,7 +99,7 @@ services:
         # ports:
         #     - 3006:3006
         networks:
-            default:
+            umbrel:
                 ipv4_address: 10.21.21.4
         depends_on:
             - umbrel-syslog-ng
@@ -122,7 +122,7 @@ services:
         #     - 28332:28332
         #     - 28333:28333
         networks:
-            default:
+            umbrel:
                 ipv4_address: 10.21.21.8
         depends_on:
             - umbrel-syslog-ng
@@ -144,7 +144,7 @@ services:
         #     - 9735:9735
         #     - 10009:10009
         networks:
-            default:
+            umbrel:
                 ipv4_address: 10.21.21.9
         depends_on:
             - umbrel-syslog-ng
@@ -166,7 +166,7 @@ services:
         # ports:
         #     - 50011:50011
         networks:
-            default:
+            umbrel:
                 ipv4_address: 10.21.21.10
         depends_on:
             - umbrel-syslog-ng
@@ -200,7 +200,7 @@ services:
         # ports:
         #     - 3005:3005
         networks:
-            default:
+            umbrel:
                 ipv4_address: 10.21.21.4
         depends_on:
             - umbrel-syslog-ng
@@ -223,7 +223,7 @@ services:
         # ports:
         #     - 3005:3005
         networks:
-            default:
+            umbrel:
                 ipv4_address: 10.21.21.3
         depends_on:
             - umbrel-syslog-ng
@@ -242,7 +242,7 @@ services:
         # ports:
         #     - 80:80
         networks:
-            default:
+            umbrel:
                 ipv4_address: 10.21.21.2
         depends_on:
             - umbrel-syslog-ng
@@ -262,7 +262,7 @@ services:
         volumes:
             - /home/docker/config-files/umbrel/logs/messages:/var/log/syslog:ro
         networks:
-            default:
+            umbrel:
                 ipv4_address: 10.21.21.7
         depends_on:
             - umbrel-syslog-ng
@@ -292,7 +292,7 @@ services:
     #     # ports:
     #     #     - 80:80
     #     networks:
-    #         default:
+    #         umbrel:
     #             ipv4_address: 10.21.21.6
     #     depends_on:
     #         - umbrel-syslog-ng
