@@ -8,9 +8,11 @@ umbrel was adjusted here so that it runs on a virtual private server
 1. [prepare volume](#volume)  
 2. [download config-files](#download-config-files)  
 3. [prepare config-files](#prepare-config-files)  
-4. [change umbrel permissions](#change-umbrel-permissions)  
-5. [get hidden_service_url](#get-hidden_service_url)  
+4. [get hidden_service_url](#get-hidden_service_url)  
+5. [change umbrel permissions](#change-umbrel-permissions)  
 6. [deploy docker-compose.yml](#deploy-docker-compose)  
+7. [configure umbrel using tor browser](#configure-umbrel)  
+8. [wait bitcoind to be syned](#bitcoind-sync)  
 
 \# [Find Me](#findme)  
 \# [License](#license)  
@@ -90,21 +92,11 @@ touch "$UMBREL_ROOT/statuses/node-status-bitcoind-ready"
 
 ```
 
-# 4. change umbrel file permissions <a name="change-umbrel-permissions"></a>
-**if you are running docker in rootless-mode:**
-```shell
-sudo chmod -R 777 $UMBREL_ROOT
-
-```
-**if you are running docker normal:**
-```shell
-sudo chown -R 1000:1000 $UMBREL_ROOT
-
-```
-
-# 5. get hidden_service_url <a name="get-hidden_service_url"></a>
+# 4. get hidden_service_url <a name="get-hidden_service_url"></a>
 **start tor:**  
 ```shell
+sudo chmod 777 -R $UMBREL_ROOT/tor
+
 docker network create \
     --driver=bridge \
     --subnet=10.21.21.0/24 \
@@ -137,7 +129,39 @@ docker network rm umbrel-net
 
 ```
 
+# 5. change umbrel file permissions <a name="change-umbrel-permissions"></a>
+**if you are running docker normal:**
+```shell
+sudo chown -R 1000:1000 $UMBREL_ROOT
+
+```
+
+**if you are running docker in rootless-mode:**  
+
+**check owner of umbrel files:**  
+```shell
+ls -la $UMBREL_ROOT/tor/web/hostname
+-rw------- 1 166535 166535 63 Mar 15 12:52 tor/data/web/hostname
+```
+**change owner of all files:**  
+```shell
+sudo chown -R 166535:166535 $UMBREL_ROOT
+
+```
+
 # 6. deploy docker-compose.yml from your UMBREL_ROOT <a name="deploy-docker-compose"></a>
+
+# 7. configure umbrel using tor browser <a name="configure-umbrel"></a>
+**browse your hidden_service_url using latest [tor-browser](https://www.torproject.org/de/download/):
+```shell
+echo $hidden_service_url
+# <your_random_generated_hidden_service_url.onion>
+
+```
+
+# 8. wait bitcoind to be syned <a name="bitcoind-sync"></a>
+**check your umbrel-bitcoind logs to see progress ...**  
+**or visit your hidden_service_url and login**  
 
 ### Find Me <a name="findme"></a>
 
