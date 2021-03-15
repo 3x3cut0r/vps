@@ -228,7 +228,7 @@ services:
         depends_on:
             - umbrel-syslog-ng
 
-  # https://hub.docker.com/r/getumbrel/dashboard
+  # https://hub.docker.com/_/nginx
     umbrel-nginx:
         container_name: umbrel-nginx
         image: nginx:latest
