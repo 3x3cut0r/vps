@@ -21,7 +21,6 @@ services:
     umbrel-tor:
         container_name: umbrel-tor
         image: lncm/tor:latest
-        user: toruser
         restart: unless-stopped
         logging:
             driver: "syslog"
@@ -240,9 +239,6 @@ services:
                 syslog-address: "udp://10.21.21.214:514"
         volumes:
             - /home/docker/config-files/umbrel/nginx/:/etc/nginx
-        environment:
-            VUE_APP_MANAGER_API_URL: "http://10.21.21.4:3006"
-            VUE_APP_MIDDLEWARE_API_URL: "http://10.21.21.5:3005"
         # ports:
         #     - 80:80
         networks:
@@ -270,30 +266,6 @@ services:
                 ipv4_address: 10.21.21.7
         depends_on:
             - umbrel-syslog-ng
-
-  # https://hub.docker.com/r/getumbrel/dashboard
-    umbrel-nginx:
-        container_name: umbrel-nginx
-        image: nginx:latest
-        restart: unless-stopped
-        logging:
-            driver: "syslog"
-            options:
-                syslog-address: "udp://10.21.21.214:514"
-        volumes:
-            - /home/docker/config-files/umbrel/nginx/:/etc/nginx
-        environment:
-            VUE_APP_MANAGER_API_URL: "http://10.21.21.4:3006"
-            VUE_APP_MIDDLEWARE_API_URL: "http://10.21.21.5:3005"
-        # ports:
-        #     - 80:80
-        networks:
-            default:
-                ipv4_address: 10.21.21.2
-        depends_on:
-            - umbrel-syslog-ng
-            - umbrel-dashboard
-            - umbrel-manager
 
   # https://hub.docker.com/r/getumbrel/neutrino-switcher
     # umbrel-neutrino-switcher:
