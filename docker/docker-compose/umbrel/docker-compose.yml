@@ -107,8 +107,8 @@ services:
             - umbrel-tor
 
   # https://hub.docker.com/r/lncm/bitcoind
-    umbrel-bitcoin:
-        container_name: umbrel-bitcoin
+    umbrel-bitcoind:
+        container_name: umbrel-bitcoind
         image: lncm/bitcoind:v0.21.0
         restart: unless-stopped
         logging:
@@ -171,7 +171,7 @@ services:
                 ipv4_address: 10.21.21.10
         depends_on:
             - umbrel-syslog-ng
-            - umbrel-bitcoin
+            - umbrel-bitcoind
 
   # https://hub.docker.com/r/getumbrel/middleware
     umbrel-middleware:
@@ -310,7 +310,7 @@ services:
     #         RPCUSER: "umbrel"
     #         RPCPASS: <BITCOIN_RPC_PASSWORD>
     #         LND_CONTAINER_NAME: umbrel-lnd
-    #         BITCOIN_CONTAINER_NAME: umbrel-bitcoin
+    #         BITCOIN_CONTAINER_NAME: umbrel-bitcoind
     #         SLEEPTIME: 3600
     #     volumes:
     #         - /home/docker/config-files/umbrel/lnd:/lnd
@@ -324,7 +324,7 @@ services:
     #             ipv4_address: 10.21.21.6
     #     depends_on:
     #         - umbrel-syslog-ng
-    #         - umbrel-bitcoin
+    #         - umbrel-bitcoind
     #         - umbrel-lnd
 
 networks:
