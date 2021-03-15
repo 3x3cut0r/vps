@@ -179,7 +179,7 @@ services:
 
 networks:
     mailu:
-        driver: bridge
+        name: mailu
         ipam:
             driver: default
             config:
