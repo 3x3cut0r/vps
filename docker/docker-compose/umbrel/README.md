@@ -163,6 +163,8 @@ echo $hidden_service_url
 **check your umbrel-bitcoind logs to see progress ...**  
 **or visit your hidden_service_url and login**  
 
+**restarting the whole stack after working state can huge bring performance boost**  
+
 ### Find Me <a name="findme"></a>
 
 ![E-Mail](https://img.shields.io/badge/E--Mail-executor55%40gmx.de-red)
