@@ -65,7 +65,7 @@ services:
             BITCOIN_P2P_PORT: 8333
             BITCOIN_RPC_HIDDEN_SERVICE_FILE: "/var/lib/tor/bitcoin-rpc/hostname"
             BITCOIN_RPC_PORT: 8332
-            BITCOIN_RPC_USER: umbrel
+            BITCOIN_RPC_USER: "umbrel"
             BITCOIN_RPC_PASSWORD: <BITCOIN_RPC_PASSWORD>
             LND_REST_HIDDEN_SERVICE_FILE: "/var/lib/tor/lnd-rest/hostname"
             LND_GRPC_HIDDEN_SERVICE_FILE: "/var/lib/tor/lnd-grpc/hostname"
@@ -186,7 +186,7 @@ services:
             PORT: "3005"
             BITCOIN_HOST: 10.21.21.8
             RPC_PORT: 8332
-            RPC_USER: umbrel
+            RPC_USER: "umbrel"
             RPC_PASSWORD: <BITCOIN_RPC_PASSWORD>
             LND_NETWORK: mainnet
             LND_HOST: "10.21.21.9"
@@ -307,7 +307,7 @@ services:
     #             syslog-address: "udp://10.21.21.214:514"
     #     environment:
     #         JSONRPCURL: "http://10.21.21.8:8332"
-    #         RPCUSER: umbrel
+    #         RPCUSER: "umbrel"
     #         RPCPASS: <BITCOIN_RPC_PASSWORD>
     #         LND_CONTAINER_NAME: umbrel-lnd
     #         BITCOIN_CONTAINER_NAME: umbrel-bitcoin
