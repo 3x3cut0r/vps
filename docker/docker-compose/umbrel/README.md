@@ -78,7 +78,7 @@ sed -i s/BITCOIN_RPC_PASS=\<password\>/BITCOIN_RPC_PASS=\"$BITCOIN_RPC_PASS\"/g 
 sed -i s/BITCOIN_RPC_AUTH=\<rpcauth\>/BITCOIN_RPC_AUTH=\"$BITCOIN_RPC_AUTH\"/g $UMBREL_ROOT/.env
 sed -i s/TOR_PASSWORD=\<password\>/TOR_PASSWORD=\"$TOR_PASSWORD\"/g $UMBREL_ROOT/.env
 sed -i s/TOR_HASHED_PASSWORD=\<password\>/TOR_HASHED_PASSWORD=\"$TOR_HASHED_PASSWORD\"/g $UMBREL_ROOT/.env
-sed -i s#DOCKER_BINARY=\<path\>#$(which docker)#g $UMBREL_ROOT/.env
+sed -i s#DOCKER_BINARY=\<path\>#DOCKER_BINARY=\"$(which docker)\"#g $UMBREL_ROOT/.env
 
 ```
 **statuses:**
@@ -90,7 +90,7 @@ touch "$UMBREL_ROOT/statuses/node-status-bitcoind-ready"
 
 # 4. change umbrel permissions <a name="change-umbrel-permissions"></a>
 ```shell
-chown -R 1000:1000 $UMBREL_ROOT
+sudo chown -R 1000:1000 $UMBREL_ROOT
 
 ```
 
@@ -101,7 +101,7 @@ docker container run -d --restart=unless-stopped \
     --name=umbrel-tor \
     -v $UMBREL_ROOT/tor/torrc:/etc/tor/torrc \
     -v $UMBREL_ROOT/tor/data:/var/lib/tor/ \
-    -v $UMBREL_ROOT/run:/var/run/tor/ \
+    -v $UMBREL_ROOT/tor/run:/var/run/tor/ \
     lncm/tor:latest
 
 ```
