@@ -1,0 +1,4 @@
+[TeamSpeak]
+title=TeamSpeak 3 Server
+description=TeamSpeak 3 Server (with voice, serverquery and filetransfer)
+ports=9987/udp|10011|30033
