@@ -5,17 +5,14 @@ services:
     nginx:
         container_name: nginx
         image: nginx:latest
-        restart: always
-        networks:
-            nginx:
-                ipv4_address: 10.24.0.2
+        restart: unless-stopped
         ports:
-            - 80:80
-            - 443:443
+            - 2100:80
+          # - 4100:443
         volumes:
             - nginx-html:/var/www/html
             - nginx-conf.d:/etc/nginx/conf.d
-            - certbot-letsencrypt:/etc/nginx/ssl
+          # - certbot-letsencrypt:/etc/nginx/ssl
         depends_on:
             - php-fpm
 
@@ -27,8 +24,8 @@ services:
         networks:
             nginx:
                 ipv4_address: 10.24.0.3
-        # ports:
-        #    - 9000:9000
+        ports:
+           - 9000:9000
         volumes:
             - nginx-html:/var/www/html
 
@@ -47,5 +44,5 @@ volumes:
         name: nginx-html
     nginx-conf.d:
         name: nginx-conf.d
-    certbot-letsencrypt:
-        name: certbot-letsencrypt
+  # certbot-letsencrypt:
+  #     name: certbot-letsencrypt
