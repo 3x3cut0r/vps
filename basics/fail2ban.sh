@@ -1,5 +1,5 @@
 #!/bin/bash
-apt install fail2ban -y
+apt install fail2ban ipset -y
 if [ $(cat /etc/fail2ban/jail.d/defaults-debian.conf | grep sshd) = "[sshd]" ]; then
     echo "remove /etc/fail2ban/jail.d/defaults-debian.conf"
     rm /etc/fail2ban/jail.d/defaults-debian.conf
