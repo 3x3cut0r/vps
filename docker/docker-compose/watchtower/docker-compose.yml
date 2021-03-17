@@ -11,7 +11,7 @@ services:
             watchtower:
                 ipv4_address: 10.24.3.2
         environment:
-            TZ: Europe/Berlin
+            TZ: 'Europe/Berlin'
         volumes:
             - /run/user/1000/docker.sock:/var/run/docker.sock
 
