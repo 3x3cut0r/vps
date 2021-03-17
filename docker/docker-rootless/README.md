@@ -9,6 +9,7 @@
   1.2 [second-run: install docker](#second_run)  
   1.3 [use docker](#use_docker)  
   1.4 [remove docker from sudo group](#rm_from_sudo)  
+  1.5 [stop / start docker.serivce](#stop_start)  
 
 \# [Find Me](#findme)  
 \# [License](#license)  
@@ -43,6 +44,15 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 login (via ssh) to your vps as docker:
 ```shell
 sudo deluser docker sudo
+
+```
+
+## 1.5 stop / start / restart docker.service <a name="stop_start"></a>
+login (via ssh) to your vps as docker:
+```shell
+systemctl --user start docker.service
+systemctl --user stop docker.service
+systemctl --user restart docker.service
 
 ```
 
