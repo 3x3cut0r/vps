@@ -26,10 +26,10 @@ services:
         networks:
             mariadb:
                 ipv4_address: 10.20.0.3
-            nginx:
-                ipv4_address: 10.24.0.200
-        # ports:
-        #     - 8080:80
+          # nginx:
+          #     ipv4_address: 10.24.0.200
+        ports:
+            - 2200:80
         environment:
             MYSQL_ROOT_PASSWORD: <MYSQL_ROOT_PASSWORD>
             PMA_ARBITRARY: "1"
@@ -46,9 +46,9 @@ networks:
             config:
                 - subnet: "10.20.0.0/20"
                   gateway: 10.20.0.1
-    nginx:
-        external:
-            name: nginx
+  # nginx:
+  #     external:
+  #         name: nginx
 
 volumes:
     mariadb-conf:
