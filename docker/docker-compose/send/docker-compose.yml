@@ -10,15 +10,15 @@ services:
                 ipv4_address: 10.24.8.2
             redis-nopw:
                 ipv4_address: 10.20.112.108
-            nginx:
-                ipv4_address: 10.24.0.108
-        # ports:
-        #     - 1443:1443
+          # nginx:
+          #     ipv4_address: 10.24.0.108
+        ports:
+            - 1443:1443
         environment:
             REDIS_HOST: redis-nopw
             MAX_FILE_SIZE: "2147483648"
             NODE_ENV: 'production'
-            BASE_URL: 'https://send.3x3cut0r.synology.me'
+            BASE_URL: 'https://send.3x3cut0r.de'
 
 networks:
     send:
@@ -31,6 +31,6 @@ networks:
     redis-nopw:
         external:
             name: redis-nopw
-    nginx:
-        external:
-            name: nginx
+  # nginx:
+  #     external:
+  #         name: nginx
