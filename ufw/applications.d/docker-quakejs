@@ -1,0 +1,4 @@
+[QuakeJS]
+title=QuakeJS
+description=QuakeJS - a port of ioquake3 to JavaScript (with http and serverquery)
+ports=3333|27960
