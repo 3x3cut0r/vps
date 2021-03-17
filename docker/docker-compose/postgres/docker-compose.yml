@@ -24,10 +24,10 @@ services:
         networks:
             postgres:
                 ipv4_address: 10.20.16.3
-            nginx:
-                ipv4_address: 10.24.0.201
-        # ports:
-        #     - 5050:5050
+          # nginx:
+          #     ipv4_address: 10.24.0.201
+        ports:
+            - 5050:5050
         environment:
             PGADMIN_DEFAULT_EMAIL: executor55@gmx.de
             PGADMIN_DEFAULT_PASSWORD: <PGADMIN_DEFAULT_PASSWORD>
@@ -45,10 +45,10 @@ services:
         networks:
             postgres:
                 ipv4_address: 10.20.16.4
-            nginx:
-                ipv4_address: 10.24.0.221
-        # ports:
-        #     - 8080:8080
+          # nginx:
+          #     ipv4_address: 10.24.0.221
+        ports:
+            - 2201:8080
 
 networks:
     postgres:
@@ -58,9 +58,9 @@ networks:
             config:
                 - subnet: "10.20.16.0/20"
                   gateway: 10.20.16.1
-    nginx:
-        external:
-            name: nginx
+  # nginx:
+  #     external:
+  #         name: nginx
 
 volumes:
     postgres-data:
