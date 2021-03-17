@@ -15,6 +15,20 @@ ufw allow 30033
 
 ```
 
+**OR: use ufw app TeamSpeak: (copy from repo)**
+[/etc/ufw/applications.d/docker-teamspeak](https://raw.githubusercontent.com/3x3cut0r/vps/main/ufw/applications.d/docker-teamspeak)
+```shell
+[TeamSpeak]
+title=TeamSpeak 3 Server
+description=TeamSpeak 3 Server (with voice, serverquery and filetransfer)
+ports=9987/udp|10011|30033
+
+```
+```shell
+ufw allow 'TeamSpeak'
+
+```
+
 ### Find Me <a name="findme"></a>
 
 ![E-Mail](https://img.shields.io/badge/E--Mail-executor55%40gmx.de-red)
