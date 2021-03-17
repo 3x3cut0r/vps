@@ -4,7 +4,7 @@
 #
 SSH_PORT=22
 # install ufw (uncomplicated firewall)
-apt install ufw -y
+apt install ufw ipset -y
 # allow SSH
 if [ $1 -gt 0 ]; then
     SSH_PORT="$1"
