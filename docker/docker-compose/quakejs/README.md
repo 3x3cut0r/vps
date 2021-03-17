@@ -4,12 +4,26 @@
 
 # 2. open ports on your firewall
 **Port 3333 for http**  
-**Port 27960 for quake 3 arena**  
+**Port 27960 for serverquery**  
 
 **for ufw:**
 ```shell
 ufw allow 3333
 ufw allow 27960
+
+```
+
+**OR: use ufw app QuakeJS: (copy from repo)**
+[/etc/ufw/applications.d/docker-quakejs](https://raw.githubusercontent.com/3x3cut0r/vps/main/ufw/applications.d/docker-quakejs)
+```shell
+[QuakeJS]
+title=QuakeJS
+description=QuakeJS - a port of ioquake3 to JavaScript (with http and serverquery)
+ports=3333|27960
+
+```
+```shell
+ufw allow 'QuakeJS'
 
 ```
 
