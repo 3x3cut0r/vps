@@ -1,0 +1,8 @@
+docker container run -d --restart=always \
+    --name=portainer-temp \
+    --network=portainer \
+    --ip=10.24.1.3 \
+    -p 3101:9000 \
+    -v /run/user/2000/docker.sock:/var/run/docker.sock \
+    -v portainer-data:/data \
+    portainer/portainer-ce:alpine
