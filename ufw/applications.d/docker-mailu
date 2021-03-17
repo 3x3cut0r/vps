@@ -1,0 +1,4 @@
+[Mailu]
+title=Mailu
+description=Mailu - Docker based mail server (with SMTP, SMTP SSL/TLS, POP3, POP3 SSL/TLS, IMAP, IMAP SSL/TLS)
+ports=25/tcp|110/tcp|143/tcp|465/tcp|587/tcp|993/tcp|995/tcp
