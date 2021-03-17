@@ -1,21 +1,54 @@
 version: "3.9"
 
 services:
-  # https://hub.docker.com/r/donch/net-tools
-    net-tools:
-        container_name: net-tools
-        hostname: net-tools
-        image: donch/net-tools:latest
-        restart: "no"
+  # https://hub.docker.com/r/coturn/coturn
+    coturn:
+        container_name: coturn
+        image: coturn/coturn:latest
+        restart: unless-stopped
         networks:
-            net-tools:
-                ipv4_address: 10.255.255.2
+            coturn:
+                ipv4_address: 10.20.224.2
+            mariadb:
+                ipv4_address: 10.20.0.214
+        ports:
+          # STUN/TURN
+            - "3478:3478"
+            - "3478:3478/udp"
+            - "3479:3479"
+            - "3479:3479/udp"
+            - "80:80"
+            - "80:80/udp"
+          # STUN/TURN SSL
+            - "5349:5349"
+            - "5349:5349/udp"
+            - "5350:5350"
+            - "5350:5350/udp"
+            - "443:443"
+            - "443:443/udp"
+          # Relay Ports
+          # - "49152-65535:49152-65535"
+          # - "49152-65535:49152-65535/udp"
+        environment:
+            MYSQL_ROOT_PASSWORD: <MYSQL_ROOT_PASSWORD>
+        volumes:
+            - coturn-data:/var/lib/mysql
+            - coturn-conf:/etc/mysql/coturn.conf.d
 
 networks:
-    net-tools:
-        name: net-tools
+    coturn:
+        name: coturn
         ipam:
             driver: default
             config:
-                - subnet: "10.255.255.0/24"
-                  gateway: 10.255.255.1
+                - subnet: "10.20.224.0/20"
+                  gateway: 10.20.224.1
+    mariadb:
+        external:
+            name: mariadb
+
+volumes:
+    coturn-conf:
+        name: coturn-conf
+    coturn-data:
+        name: coturn-data
