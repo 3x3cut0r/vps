@@ -9,11 +9,11 @@ services:
         networks:
             portainer:
                 ipv4_address: 10.24.1.2
-            nginx:
-                ipv4_address: 10.24.0.101
-        # ports:
-        #     - 8000:8000
-        #     - 9000:9000
+          # nginx:
+          #     ipv4_address: 10.24.0.101
+        ports:
+          # - 8000:8000
+            - 2101:9000
         volumes:
             - /run/user/1000/docker.sock:/var/run/docker.sock
             - portainer-data:/data
@@ -26,9 +26,9 @@ networks:
             config:
                 - subnet: "10.24.1.0/24"
                   gateway: 10.24.1.1
-    nginx:
-        external:
-            name: nginx
+  # nginx:
+  #     external:
+  #         name: nginx
 
 volumes:
     portainer-data:
