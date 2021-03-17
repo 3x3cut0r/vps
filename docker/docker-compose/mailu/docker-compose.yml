@@ -11,11 +11,11 @@ services:
         networks:
             mailu:
                 ipv4_address: 10.20.128.2
-            nginx:
-                ipv4_address: 10.24.0.208
+          # nginx:
+          #     ipv4_address: 10.24.0.208
         ports:
-          # - 80:80
-          # - 443:443
+            - 2208:80
+          # - 4208:443
             - 25:25
             - 465:465
             - 587:587
@@ -56,12 +56,12 @@ services:
             redis-nopw:
                 ipv4_address: 10.20.112.228
           # postgres:
-              # ipv4_address: 10.20.16.208
+          #     ipv4_address: 10.20.16.208
         volumes:
             - mailu-data:/data
             - mailu-dkim:/dkim
       # depends_on:
-          # - redis-nopw
+      #     - redis-nopw
 
   # https://hub.docker.com/r/mailu/dovecot
     mailu-dovecot:
@@ -171,7 +171,7 @@ services:
             mariadb:
                 ipv4_address: 10.20.0.228
           # postgres:
-              # ipv4_address: 10.20.16.208
+          #     ipv4_address: 10.20.16.208
         volumes:
             - mailu-webmail:/data"
         depends_on:
@@ -188,15 +188,15 @@ networks:
     mariadb:
         external:
             name: mariadb
-    nginx:
-        external:
-            name: nginx
+  # nginx:
+  #     external:
+  #         name: nginx
     redis-nopw:
         external:
             name: redis-nopw
   # postgres:
-      # external:
-          # name: postgres
+  #     external:
+  #         name: postgres
 
 volumes:
     mailu-certs:
