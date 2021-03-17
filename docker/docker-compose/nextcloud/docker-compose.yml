@@ -13,11 +13,11 @@ services:
                 ipv4_address: 10.20.0.210
             redis:
                 ipv4_address: 10.20.96.210
-            nginx:
-                ipv4_address: 10.24.0.210
-        # ports:
-        #     - 80:80
-        #     - 443:443
+          # nginx:
+          #     ipv4_address: 10.24.0.210
+        ports:
+            - 2210:80
+          # - 4210:443
         volumes:
             - nextcloud-html:/var/www/html
             - nextcloud-data:/var/www/html/data
@@ -39,8 +39,8 @@ services:
             TRUSTED_PROXIES: nginx
             OVERWRITEHOST: nextcloud.3x3cut0r.de
             OVERWRITEPROTOCOL: https
-            # OVERWRITEWEBROOT: '/domain.tld/nextcloud'
-            # OVERWRITECONDADDR: '^10\.0\.0\.1$'
+          # OVERWRITEWEBROOT: '/domain.tld/nextcloud'
+          # OVERWRITECONDADDR: '^10\.0\.0\.1$'
 
   # https://hub.docker.com/r/onlyoffice/documentserver
     onlyoffice-documentserver:
@@ -54,12 +54,12 @@ services:
         #     - 80:80
         #     - 443:443
         # environment:
-            # ONLYOFFICE_HTTPS_HSTS_ENABLED: "true"
-            # ONLYOFFICE_HTTPS_HSTS_MAXAGE: "31536000"
-            # SSL_CERTIFICATE_PATH: /var/www/onlyoffice/Data/certs/onlyoffice.crt
-            # SSL_KEY_PATH: /var/www/onlyoffice/Data/certs/onlyoffice.key
-            # SSL_DHPARAM_PATH: /var/www/onlyoffice/Data/certs/dhparam.pem
-            # SSL_VERIFY_CLIENT: "false"
+        #     ONLYOFFICE_HTTPS_HSTS_ENABLED: "true"
+        #     ONLYOFFICE_HTTPS_HSTS_MAXAGE: "31536000"
+        #     SSL_CERTIFICATE_PATH: /var/www/onlyoffice/Data/certs/onlyoffice.crt
+        #     SSL_KEY_PATH: /var/www/onlyoffice/Data/certs/onlyoffice.key
+        #     SSL_DHPARAM_PATH: /var/www/onlyoffice/Data/certs/dhparam.pem
+        #     SSL_VERIFY_CLIENT: "false"
         volumes:
             - onlyoffice-documentserver-Data:/var/www/onlyoffice/Data
             - onlyoffice-documentserver-log:/var/log/onlyoffice
@@ -78,9 +78,9 @@ networks:
     redis:
         external:
             name: redis
-    nginx:
-        external:
-            name: nginx
+  # nginx:
+  #     external:
+  #         name: nginx
 
 volumes:
     nextcloud-data:
