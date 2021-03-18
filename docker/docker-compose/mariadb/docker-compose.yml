@@ -14,6 +14,7 @@ services:
         #     - 3306:3306
         environment:
             MYSQL_ROOT_PASSWORD: <MYSQL_ROOT_PASSWORD>
+            TZ: 'Europe/Berlin'
         volumes:
             - mariadb-data:/var/lib/mysql
             - mariadb-conf:/etc/mysql/mariadb.conf.d
