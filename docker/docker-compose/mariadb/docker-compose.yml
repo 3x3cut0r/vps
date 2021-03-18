@@ -37,6 +37,7 @@ services:
             PMA_HOST: mariadb
             PMA_VERBOSE: mariadb
         volumes:
+            - /home/docker/config-files/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
             - /home/docker/config-files/phpmyadmin/php.ini:/usr/local/etc/php/conf.d/php.ini
 
 networks:
