@@ -12,6 +12,7 @@ apt install     bash-completion \
                 sudo \
                 unzip \
                 vim \
+                vnstat \
                 wget \
                 zip \
                 -y
