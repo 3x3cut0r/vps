@@ -11,13 +11,13 @@ services:
         logging:
             driver: "syslog"
             options:
-                syslog-address: "udp://syslog:514"
+                syslog-address: "udp://syslog-ng:514"
 ...
 networks:
     ...
-    syslog:
+    syslog-ng:
         external:
-            name: syslog
+            name: syslog-ng
 
 ```
 
