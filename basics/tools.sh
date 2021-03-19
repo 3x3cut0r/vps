@@ -2,6 +2,7 @@
 apt install     bash-completion \
                 curl \
                 htop \
+                iftop \
                 linux-headers-$(uname -r) \
                 nano \
                 nmon \
