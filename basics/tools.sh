@@ -5,6 +5,7 @@ apt install     bash-completion \
                 iftop \
                 linux-headers-$(uname -r) \
                 nano \
+                ncdu \
                 nmon \
                 openssh-server \
                 ripgrep \
