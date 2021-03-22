@@ -1,0 +1,10 @@
+[Unit]
+Description=timer to renew certbot certificates
+
+[Timer]
+OnCalendar=daily
+Unit=certbot-renewal.service
+Persistent=true
+
+[Install]
+WantedBy=multi-user.target
