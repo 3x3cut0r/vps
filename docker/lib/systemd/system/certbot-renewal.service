@@ -1,0 +1,6 @@
+[Unit]
+Description=service to renew certbot certificates
+
+[Service]
+User=docker
+ExecStart=/home/docker/bin/docker container run --rm -it -v certbot-letsencrypt:/etc/letsencrypt -v certbot-logs:/var/log/letsencrypt certbot/certbot:latest renew
