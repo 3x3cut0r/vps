@@ -20,16 +20,17 @@ get letsencrypt wildcard certificate for nginx using certbot
 
 # 2. create volumes for certbot <a name="volumes"></a>
 ```shell
-docker volume create -d local --name certbot-letsencrypt
-docker volume create -d local --name certbot-logs
+mkdir -p /home/docker/config-files/certbot-ssl
+mkdir -p /home/docker/config-files/certbot-logs
+sudo ln -s /home/docker/config-files/certbot-ssl/ /etc/nginx/ssl
 
 ```
 
 # 3. generate a certificate with certbot. <a name="generate"></a>
 ```shell
 docker container run --rm -it \
-    -v certbot-letsencrypt:/etc/letsencrypt \
-    -v certbot-logs:/var/log/letsencrypt \
+    -v /home/docker/config-files/certbot-ssl:/etc/letsencrypt \
+    -v /home/docker/config-files/certbot-logs:/var/log/letsencrypt \
     certbot/certbot:latest \
     certonly \
     --manual \
@@ -102,7 +103,7 @@ Description=service to renew certbot certificates
 
 [Service]
 User=docker
-ExecStart=/home/docker/bin/docker container run --rm -it -v certbot-letsencrypt:/etc/letsencrypt -v certbot-logs:/var/log/letsencrypt certbot/certbot:latest renew
+ExecStart=/home/docker/bin/docker container run --rm -it -v /home/docker/config-files/certbot-ssl:/etc/letsencrypt -v /home/docker/config-files/certbot-logs:/var/log/letsencrypt certbot/certbot:latest renew
 
 ```
 **enable timer**
@@ -124,6 +125,12 @@ server {
 
     ...
 }
+```
+
+# 7. generate dhparam.pem to your /etc/nginx/ssl/ folder
+```shell
+openssl dhparam -out /home/docker/config-files/certbot-ssl/dhparam.pem 4096
+
 ```
 
 ### Find Me <a name="findme"></a>
