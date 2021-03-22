@@ -81,7 +81,7 @@ Press Enter to Continue
 ```
 
 # schedule renewal with a systemd-timer as root <a name="renewal"></a>
-**/lib/systemd/system/certbot-renewal.timer**
+**[/lib/systemd/system/certbot-renewal.timer](https://github.com/3x3cut0r/vps/blob/main/docker/lib/systemd/system/certbot-renewal.timer)**
 ```shell
 [Unit]
 Description=timer to renew certbot certificates
@@ -95,7 +95,7 @@ Persistent=true
 WantedBy=multi-user.target
 
 ```
-**/lib/systemd/system/certbot-renewal.service**
+**[/lib/systemd/system/certbot-renewal.service](https://github.com/3x3cut0r/vps/blob/main/docker/lib/systemd/system/certbot-renewal.service)**
 ```shell
 [Unit]
 Description=service to renew certbot certificates
