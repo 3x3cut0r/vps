@@ -271,16 +271,15 @@ rewrite = { }
 -- below are examples of filters
 -- each table is a list of records
 
---[[
 suppress =
 {
     -- don't want to any of see these
-    { gid = 1, sid = 1 },
+    -- ICMP Traffic Detected
+    { gid = 1, sid = 10000001 },
 
     -- don't want to see these for a given server
-    { gid = 1, sid = 2, track = 'by_dst', ip = '1.2.3.4' },
+    -- { gid = 1, sid = 2, track = 'by_dst', ip = '1.2.3.4' },
 }
---]]
 
 --[[
 event_filter =
