@@ -1,0 +1,137 @@
+version: "3.9"
+
+services:
+  # https://hub.docker.com/r/matrixdotorg/synapse
+    synapse:
+        container_name: synapse
+        image: matrixdotorg/synapse:latest
+        restart: unless-stopped
+        networks:
+            synapse:
+                ipv4_address: 10.20.144.2
+            postgres:
+                ipv4_address: 10.20.16.209
+            redis:
+                ipv4_address: 10.20.96.209
+        ports:
+            - 8008:8008
+      #     - 8448:8448
+        environment:
+            TZ: Europe/Berlin
+            SYNAPSE_CONFIG_DIR: '/data'
+            SYNAPSE_CONFIG_PATH: '/data/homeserver.yaml'
+            SYNAPSE_DATA_DIR: '/data'
+            SYNAPSE_WORKER: synapse.app.homeserver
+            UID: 991
+            GID: 991
+        volumes:
+            - synapse-data:/data
+        healthcheck:
+            test: ["CMD", "curl", "-fSs", "http://localhost:8008/health"]
+            interval: 1m
+            timeout: 10s
+            retries: 3
+
+
+  # https://github.com/tulir/maubot
+    maubot:
+        container_name: maubot
+        image: dock.mau.dev/maubot/maubot:latest
+        restart: unless-stopped
+        networks:
+            synapse:
+                ipv4_address: 10.20.144.16
+            postgres:
+                ipv4_address: 10.20.26.209
+        ports:
+            - 29316:29316
+        volumes:
+            - maubot-data:/data:z
+
+  # https://github.com/tulir/mautrix-telegram
+    mautrix-telegram:
+        container_name: mautrix-telegram
+        image: dock.mau.dev/tulir/mautrix-telegram:latest
+        restart: unless-stopped
+        networks:
+            synapse:
+                ipv4_address: 10.20.144.17
+            postgres:
+                ipv4_address: 10.20.17.209
+      # ports:
+      #     - 29317:29317
+        volumes:
+            - mautrix-telegram-data:/data:z
+
+  # https://github.com/tulir/mautrix-whatsapp
+    mautrix-whatsapp:
+        container_name: mautrix-whatsapp
+        image: dock.mau.dev/tulir/mautrix-whatsapp:latest
+        restart: unless-stopped
+        networks:
+            synapse:
+                ipv4_address: 10.20.144.18
+            postgres:
+                ipv4_address: 10.20.18.209
+      # ports:
+      #     - 29318:29318
+        volumes:
+            - mautrix-whatsapp-data:/data:z
+
+  # https://hub.docker.com/r/finn/signald
+    signald:
+        container_name: signald
+        image: finn/signald:latest
+        restart: unless-stopped
+        networks:
+            synapse:
+                ipv4_address: 10.20.144.28
+        volumes:
+            - signald-data:/signald:z
+
+  # https://github.com/tulir/mautrix-signal
+    mautrix-signal:
+        container_name: mautrix-signal
+        image: dock.mau.dev/tulir/mautrix-signal:latest
+        restart: unless-stopped
+        networks:
+            synapse:
+                ipv4_address: 10.20.144.128
+            postgres:
+                ipv4_address: 10.20.28.209
+      # ports:
+      #     - 29328:29328
+        volumes:
+            - signald-data:/var/run/signald
+            - mautrix-signal-data:/data:z
+        depends_on:
+            - signald
+
+networks:
+    synapse:
+        name: synapse
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.20.144.0/20"
+                  gateway: 10.20.144.1
+    postgres:
+        external:
+            name: postgres
+    redis:
+        external:
+            name: redis
+
+volumes:
+    synapse-data:
+        name: synapse-data
+    maubot-data:
+        name: maubot-data
+    mautrix-telegram-data:
+        name: mautrix-telegram-data
+    mautrix-whatsapp-data:
+        name: mautrix-whatsapp-data
+    mautrix-signal-data:
+        name: mautrix-signal-data
+    signald-data:
+        name: signald-data
