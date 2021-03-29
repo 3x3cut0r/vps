@@ -3,4 +3,4 @@ Description=service to run docker image prune
 
 [Service]
 User=docker
-ExecStart=/home/docker/bin/docker image prune
+ExecStart=/home/docker/bin/docker image prune -f
