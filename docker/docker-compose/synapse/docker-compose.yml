@@ -107,6 +107,22 @@ services:
         depends_on:
             - signald
 
+  # https://github.com/tulir/mautrix-wsproxy
+    mautrix-wsproxy:
+        container_name: mautrix-wsproxy
+        image: dock.mau.dev/tulir/mautrix-wsproxy
+        restart: unless-stopped
+        networks:
+            synapse:
+                ipv4_address: 10.20.144.131
+        ports:
+            - 29331
+        environment:
+          # LISTEN_ADDRESS: ":29331"
+            APPSERVICE_ID: imessage
+            AS_TOKEN: put your as_token here
+            HS_TOKEN: put your hs_token here
+
 networks:
     synapse:
         name: synapse
