@@ -1,0 +1,4 @@
+[mautrix-wsproxy]
+title=mautrix-wsproxy
+description=Mailu - mautrix-wsproxy for mautrix-imessage (Port 29331)
+ports=29331/tcp
