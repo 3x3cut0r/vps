@@ -2,7 +2,7 @@
 homeserver:
     # The address that this appservice can use to connect to the homeserver.
     address: https://matrix.3x3cut0r.de
-    websocket_proxy: ws://localhost:29331
+    websocket_proxy: https://mautrix-wsproxy.3x3cut0r.de:443
     # The domain of the homeserver (for MXIDs, etc).
     domain: matrix.3x3cut0r.de
 
