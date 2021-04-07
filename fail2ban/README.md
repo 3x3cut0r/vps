@@ -76,9 +76,17 @@ fail2ban-client set sshd unbanip 61.177.173.25
 ```shell
 fail2ban-client unban 61.177.173.25
 ```
+
 ## 3.3 unban all ips <a name="unban_all"></a>
 ```shell
 fail2ban-client unban --all
+```
+
+## 3.4 unban all ips from specific jail (sshd) <a name="unban_all"></a>
+```shell
+f2bjail=sshd
+for ip in "$(fail2ban-client status $f2bjail | tail -n +9 | tail -c +23 | tr ' ' '\n')"; do fail2ban-client unban $ip; done
+
 ```
 
 ### Find Me <a name="findme"></a>
