@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  # https://hub.docker.com/r/splunk/splunk
+    splunk:
+        container_name: splunk
+        image: splunk/splunk:latest
+        restart: unless-stopped
+        networks:
+            splunk:
+                ipv4_address: 10.24.15.2
+        ports:
+            - 8000:8000
+            - 8089:8089
+        environment:
+            SPLUNK_START_ARGS: --accept-license
+            SPLUNK_PASSWORD: <SPLUNK_PASSWORD>
+          # DEBUG: true
+        volumes:
+            - splunk-conf:/opt/splunk/etc
+            - splunk-index:/opt/splunk/var
+            - /var/log:/var/log:ro
+
+networks:
+    splunk:
+        name: splunk
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.24.15.0/24"
+                  gateway: 10.24.15.1
+  # nginx:
+  #     external:
+  #         name: nginx
+
+volumes:
+    splunk-conf:
+        name: splunk-conf
+    splunk-index:
+        name: splunk-index
