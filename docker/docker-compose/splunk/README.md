@@ -35,10 +35,11 @@ sourcetype = snort3:alert:json
 sourcetype="snort3:alert:json"
 
 ```
-**To show the count of all events by message:**  
+**To show the count of all events by message sorted by count:**  
 ```shell
 sourcetype="snort3:alert:json"
 | stats count by msg
+| sort by count desc
 
 ```
 **To show all events sources on a map:**  
