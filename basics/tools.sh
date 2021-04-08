@@ -1,6 +1,7 @@
 #!/bin/bash
 apt install     bash-completion \
                 curl \
+                dnsutils \
                 htop \
                 iftop \
                 linux-headers-$(uname -r) \
