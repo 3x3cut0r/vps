@@ -12,6 +12,7 @@ apt install     bash-completion \
                 ripgrep \
                 rsync \
                 sudo \
+                tcpdump \
                 unzip \
                 vim \
                 vnstat \
