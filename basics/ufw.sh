@@ -9,7 +9,7 @@ apt install ufw ipset -y
 if [ $1 -gt 0 ]; then
     SSH_PORT="$1"
 fi
-ufw allow $SSH_PORT/tcp
+ufw allow 'OpenSSH'
 # turn on ufw
 ufw enable
 # show status
