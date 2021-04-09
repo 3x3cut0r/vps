@@ -13,7 +13,7 @@ docker network create \
 docker run -it --rm \
     --name=synapse \
     --network=synapse \
-    -e SYNAPSE_SERVER_NAME='matrix.3x3cut0r.de' \
+    -e SYNAPSE_SERVER_NAME='3x3cut0r.de' \
     -e SYNAPSE_REPORT_STATS='yes' \
     -e TZ='Europe/Berlin' \
     -e UID=991 \
