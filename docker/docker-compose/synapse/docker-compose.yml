@@ -32,7 +32,6 @@ services:
             timeout: 10s
             retries: 3
 
-
   # https://github.com/tulir/maubot
     maubot:
         container_name: maubot
