@@ -2,7 +2,7 @@
 Description=timer to renew certbot certificates
 
 [Timer]
-OnCalendar=daily
+OnCalendar=*-*-* 04:00:00
 Unit=certbot-renewal.service
 Persistent=true
 
