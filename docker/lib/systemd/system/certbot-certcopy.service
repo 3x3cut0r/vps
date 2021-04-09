@@ -1,0 +1,5 @@
+[Unit]
+Description=service to copy certificates to service folders
+
+[Service]
+ExecStart=/opt/certbot-certcopy.sh
