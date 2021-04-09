@@ -56,7 +56,7 @@ server:
 registration_secrets:
     example.com:
         # Client-server API URL
-        url: https://example.com
+        url: https://matrix.3x3cut0r.de
         # registration_shared_secret from synapse config
         secret: synapse_shared_registration_secret
 
