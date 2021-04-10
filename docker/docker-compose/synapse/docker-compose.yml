@@ -31,6 +31,7 @@ services:
             GID: 991
         volumes:
             - synapse-data:/data
+            - /home/docker/config-files/synapse/shared_secret_authenticator.py:/usr/local/lib/python3.8/site-packages/shared_secret_authenticator.py
         healthcheck:
             test: ["CMD", "curl", "-fSs", "http://localhost:8008/health"]
             interval: 1m
