@@ -9,6 +9,7 @@ apt install     bash-completion \
                 ncdu \
                 nmon \
                 openssh-server \
+                pwgen \
                 ripgrep \
                 rsync \
                 sudo \
