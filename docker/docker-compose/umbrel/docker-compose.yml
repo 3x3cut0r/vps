@@ -35,6 +35,11 @@ services:
         networks:
             umbrel:
                 ipv4_address: 10.21.21.11
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         depends_on:
             - umbrel-syslog-ng
 
@@ -101,6 +106,11 @@ services:
         networks:
             umbrel:
                 ipv4_address: 10.21.21.4
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         depends_on:
             - umbrel-syslog-ng
             - umbrel-tor
@@ -124,6 +134,11 @@ services:
         networks:
             umbrel:
                 ipv4_address: 10.21.21.8
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         depends_on:
             - umbrel-syslog-ng
             - umbrel-tor
@@ -146,6 +161,11 @@ services:
         networks:
             umbrel:
                 ipv4_address: 10.21.21.9
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         depends_on:
             - umbrel-syslog-ng
             - umbrel-tor
@@ -168,6 +188,11 @@ services:
         networks:
             umbrel:
                 ipv4_address: 10.21.21.10
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         depends_on:
             - umbrel-syslog-ng
             - umbrel-bitcoind
@@ -202,6 +227,11 @@ services:
         networks:
             umbrel:
                 ipv4_address: 10.21.21.5
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         depends_on:
             - umbrel-syslog-ng
             - umbrel-manager
@@ -225,6 +255,11 @@ services:
         networks:
             umbrel:
                 ipv4_address: 10.21.21.3
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         depends_on:
             - umbrel-syslog-ng
 
@@ -244,6 +279,11 @@ services:
         networks:
             umbrel:
                 ipv4_address: 10.21.21.2
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         depends_on:
             - umbrel-syslog-ng
             - umbrel-dashboard
@@ -264,6 +304,11 @@ services:
         networks:
             umbrel:
                 ipv4_address: 10.21.21.7
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         depends_on:
             - umbrel-syslog-ng
 
@@ -294,6 +339,11 @@ services:
     #     networks:
     #         umbrel:
     #             ipv4_address: 10.21.21.6
+    #     dns:
+    #         - 8.8.8.8
+    #         - 8.8.4.4
+    #         - 2001:4860:4860::8888
+    #         - 2001:4860:4860::8844
     #     depends_on:
     #         - umbrel-syslog-ng
     #         - umbrel-bitcoind
