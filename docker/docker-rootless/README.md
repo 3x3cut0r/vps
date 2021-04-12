@@ -118,6 +118,9 @@ docker-compose --version
 # docker-compose version 1.29.0, build 07737305
 
 
+# remove docker-rootless script
+rm rootles.sh
+
 # maybe you should reboot your host once!
 sudo reboot
 ```
