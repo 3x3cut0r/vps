@@ -91,13 +91,13 @@ chmod +x rootless.sh
 # kill installation script, because it starts docker.service and keeps running
 CTRL+C
 
-# DONE (docker should now be updated)
-docker --version
-# Docker version 20.10.5, build 363e9a8
-
 # finaly setcap cap_net_bind_service (to bind ports less than 1024)
 # replace 'docker' with the username you are logged in with
 sudo setcap cap_net_bind_service=ep /home/docker/bin/rootlesskit
+
+# DONE (docker should now be updated)
+docker --version
+# Docker version 20.10.5, build 363e9a8
 
 
 # UPDATE DOCKER-COMPOSE (with sudo or root):
