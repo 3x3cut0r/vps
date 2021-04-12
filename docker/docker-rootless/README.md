@@ -10,6 +10,7 @@
   1.3 [use docker](#use_docker)  
   1.4 [remove docker from sudo group](#rm_from_sudo)  
   1.5 [stop / start docker.serivce](#stop_start)  
+2. [Update docker-rootless](#update)  
 
 \# [Find Me](#findme)  
 \# [License](#license)  
@@ -54,6 +55,67 @@ systemctl --user start docker.service
 systemctl --user stop docker.service
 systemctl --user restart docker.service
 
+```
+
+# 2. Update docker-rootless <a name="update"></a>
+```shell
+# UPDATE DOCKER-ROOTLESS (as non-root):
+# stop your docker daemon ... (takes long time for me and doesn't finish problerly)
+systemctl --user stop docker.service
+
+# maybe you have to kill it because it hangs up and doesn't finish proberly
+CTRL+C
+
+# check that docker.service isn't running (important !!!)
+systemctl --user status docker.service
+# Active: inactive (dead)
+# OR:
+# Active: failed (Result: exit-code)
+
+# download docker-rootless installation script
+wget https://get.docker.com/rootless -O rootless.sh
+
+# set environment variables (used by rootless.sh script)
+SKIP_IPTABLES=1
+FORCE_ROOTLESS_INSTALL=1
+
+# remove "Already installed verification" check from script
+sed -i s#\-x\ \"\$BIN/\$DAEMON\"#\!\ \-x\ \"\$BIN/\$DAEMON\"#g rootless.sh
+
+# make rootless.sh executable
+chmod +x rootless.sh
+
+# run rootles.sh
+./rootless.sh
+
+# kill installation script, because it starts docker.service and keeps running
+CTRL+C
+
+# DONE (docker should now be updated)
+docker --version
+# Docker version 20.10.5, build 363e9a8
+
+
+# UPDATE DOCKER-COMPOSE (with sudo or root):
+# get and save latest docker-compose version
+DOCKER_COMPOSE_VERSION=$(curl -L "https://docs.docker.com/compose/install/" | grep -o -P '(?<=https://github.com/docker/compose/releases/download/).*(?=/docker-compose)' | head -n1)
+
+# download docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+# make it executable
+sudo chmod +x /usr/local/bin/docker-compose
+
+# link it to /usr/bin
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+# DONE (docker-compose should now be updated)
+docker-compose --version
+# docker-compose version 1.29.0, build 07737305
+
+
+# maybe you should reboot your host once!
+sudo reboot
 ```
 
 ### # Find Me <a name="findme"></a>
