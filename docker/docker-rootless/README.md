@@ -59,7 +59,7 @@ systemctl --user restart docker.service
 
 # 2. Update docker-rootless <a name="update"></a>
 ```shell
-# UPDATE DOCKER-ROOTLESS (as non-root):
+# UPDATE DOCKER-ROOTLESS (as user which docker-rootless runs with):
 # stop your docker daemon ... (takes long time for me and doesn't finish problerly)
 systemctl --user stop docker.service
 
@@ -94,6 +94,10 @@ CTRL+C
 # DONE (docker should now be updated)
 docker --version
 # Docker version 20.10.5, build 363e9a8
+
+# finaly setcap cap_net_bind_service (to bind ports less than 1024)
+# replace 'docker' with the username you are logged in with
+sudo setcap cap_net_bind_service=ep /home/docker/bin/rootlesskit
 
 
 # UPDATE DOCKER-COMPOSE (with sudo or root):
