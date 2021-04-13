@@ -15,6 +15,11 @@ services:
           #     ipv4_address: 10.24.0.102
         ports:
             - 2102:8000
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - /run/user/1000/docker.sock:/var/run/docker.sock
             - yacht-config:/config
