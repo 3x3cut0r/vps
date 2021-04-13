@@ -13,6 +13,11 @@ services:
           #     ipv4_address: 10.24.0.110
         ports:
             - 2110:8080
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         environment:
             SSPKS_SITE_NAME: "3x3cut0r's Synology Packages"
             SSPKS_PACKAGES_DISTRIBUTOR_URL: https://sspks.3x3cut0r.de
