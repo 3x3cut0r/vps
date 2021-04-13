@@ -23,6 +23,11 @@ services:
           #     ipv4_address: 10.24.0.212
         ports:
             - 3000:3000
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - rocketchat-uploads:/app/uploads
         environment:
@@ -72,6 +77,11 @@ services:
                 ipv4_address: 10.20.32.2
       # ports:
       #     - 27017:27017
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - mongo-data:/data/db
             - mongo-dump:/dump
@@ -99,6 +109,11 @@ services:
     #     networks:
     #         mongo:
     #             ipv4_address: 10.20.32.99
+    #     dns:
+    #         - 8.8.8.8
+    #         - 8.8.4.4
+    #         - 2001:4860:4860::8888
+    #         - 2001:4860:4860::8844
     #     depends_on:
     #         - mongo
 
@@ -114,6 +129,11 @@ services:
       # this is used to expose the hubot port for notifications on the host on port 3001, e.g. for hubot-jenkins-notifier
       # ports:
       #     - 3001:8080
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         environment:
             ROCKETCHAT_URL: rocketchat:3000
             ROCKETCHAT_ROOM: ''
