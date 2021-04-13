@@ -14,15 +14,29 @@ services:
           # nginx:
           #     ipv4_address: 10.24.0.208
         ports:
-            - 2208:80
-          # - 4208:443
-            - 25:25
-            - 465:465
-            - 587:587
-            - 110:110
-            - 995:995
-            - 143:143
-            - 993:993
+            - "127.0.0.1:2208:80"
+            - "::1:2208:80"
+          # - "127.0.0.1:4208:443"
+          # - "::1:4208:443"
+            - "127.0.0.1:25:25"
+            - "::1:25:25"
+            - "127.0.0.1:465:465"
+            - "::1:465:465"
+            - "127.0.0.1:587:587"
+            - "::1:587:587"
+            - "127.0.0.1:110:110"
+            - "::1:110:110"
+            - "127.0.0.1:995:995"
+            - "::1:995:995"
+            - "127.0.0.1:143:143"
+            - "::1:143:143"
+            - "127.0.0.1:993:993"
+            - "::1:993:993"
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - mailu-certs:/certs
             - mailu-overrides-nginx:/overrides:ro
@@ -37,8 +51,15 @@ services:
             mailu:
                 ipv4_address: 10.20.143.254
       # ports:
-      #     - 53:53/tcp
-      #     - 53:53/udp
+      #     - "127.0.0.1:53:53/tcp
+      #     - "::1:53:53/tcp
+      #     - "127.0.0.1:53:53/udp
+      #     - "::1:53:53/udp
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - mailu-resolver-conf:/etc/unbound
 
@@ -57,6 +78,11 @@ services:
                 ipv4_address: 10.20.112.228
           # postgres:
           #     ipv4_address: 10.20.16.208
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - mailu-data:/data
             - mailu-dkim:/dkim
@@ -72,6 +98,11 @@ services:
         networks:
             mailu:
                 ipv4_address: 10.20.128.4
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - mailu-mail:/mail
             - mailu-overrides-dovecot:/overrides:ro
@@ -87,14 +118,17 @@ services:
         networks:
             mailu:
                 ipv4_address: 10.20.128.5
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - mailu-mailqueue:/queue
             - mailu-overrides-postfix:/overrides:ro
         depends_on:
             - mailu-nginx
             - mailu-resolver
-        dns:
-            - 10.20.143.254
 
   # https://hub.docker.com/r/mailu/rspamd
     mailu-rspamd:
@@ -107,6 +141,11 @@ services:
                 ipv4_address: 10.20.128.6
             redis-nopw:
                 ipv4_address: 10.20.112.208
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - mailu-filter:/var/lib/rspamd
             - mailu-dkim:/dkim:ro
@@ -114,8 +153,6 @@ services:
         depends_on:
             - mailu-nginx
             - mailu-resolver
-        dns:
-            - 10.20.143.254
 
   # https://hub.docker.com/r/mailu/clamav
     mailu-clamav:
@@ -126,12 +163,15 @@ services:
         networks:
             mailu:
                 ipv4_address: 10.20.128.7
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - mailu-filter:/data
         depends_on:
             - mailu-resolver
-        dns:
-            - 10.20.143.254
 
   # https://hub.docker.com/r/mailu/radicale
     mailu-radicale:
@@ -142,6 +182,11 @@ services:
         networks:
             mailu:
                 ipv4_address: 10.20.128.8
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - mailu-dav:/data"
 
@@ -154,10 +199,13 @@ services:
         networks:
             mailu:
                 ipv4_address: 10.20.128.9
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         depends_on:
             - mailu-resolver
-        dns:
-            - 10.20.143.254
 
   # https://hub.docker.com/r/mailu/roundcube
     mailu-roundcube:
@@ -172,6 +220,11 @@ services:
                 ipv4_address: 10.20.0.228
           # postgres:
           #     ipv4_address: 10.20.16.208
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - mailu-webmail:/data"
         depends_on:
