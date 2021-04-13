@@ -9,6 +9,11 @@ services:
         ports:
             - 2100:80
           # - 4100:443
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - nginx-html:/var/www/html
             - nginx-conf.d:/etc/nginx/conf.d
@@ -26,6 +31,11 @@ services:
                 ipv4_address: 10.24.0.3
         ports:
            - 9000:9000
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - nginx-html:/var/www/html
 
