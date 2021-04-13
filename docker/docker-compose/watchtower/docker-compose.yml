@@ -10,6 +10,11 @@ services:
         networks:
             watchtower:
                 ipv4_address: 10.24.3.2
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         environment:
             TZ: 'Europe/Berlin'
         volumes:
