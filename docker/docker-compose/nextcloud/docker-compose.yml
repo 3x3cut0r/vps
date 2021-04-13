@@ -18,6 +18,11 @@ services:
         ports:
             - 2210:80
           # - 4210:443
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - nextcloud-html:/var/www/html
             - nextcloud-data:/var/www/html/data
@@ -50,16 +55,21 @@ services:
         networks:
             nextcloud:
                 ipv4_address: 10.20.160.3
-        # ports:
-        #     - 80:80
-        #     - 443:443
-        # environment:
-        #     ONLYOFFICE_HTTPS_HSTS_ENABLED: "true"
-        #     ONLYOFFICE_HTTPS_HSTS_MAXAGE: "31536000"
-        #     SSL_CERTIFICATE_PATH: /var/www/onlyoffice/Data/certs/onlyoffice.crt
-        #     SSL_KEY_PATH: /var/www/onlyoffice/Data/certs/onlyoffice.key
-        #     SSL_DHPARAM_PATH: /var/www/onlyoffice/Data/certs/dhparam.pem
-        #     SSL_VERIFY_CLIENT: "false"
+      # ports:
+      #     - 80:80
+      #     - 443:443
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+      # environment:
+      #     ONLYOFFICE_HTTPS_HSTS_ENABLED: "true"
+      #     ONLYOFFICE_HTTPS_HSTS_MAXAGE: "31536000"
+      #     SSL_CERTIFICATE_PATH: /var/www/onlyoffice/Data/certs/onlyoffice.crt
+      #     SSL_KEY_PATH: /var/www/onlyoffice/Data/certs/onlyoffice.key
+      #     SSL_DHPARAM_PATH: /var/www/onlyoffice/Data/certs/dhparam.pem
+      #     SSL_VERIFY_CLIENT: "false"
         volumes:
             - onlyoffice-documentserver-Data:/var/www/onlyoffice/Data
             - onlyoffice-documentserver-log:/var/log/onlyoffice
