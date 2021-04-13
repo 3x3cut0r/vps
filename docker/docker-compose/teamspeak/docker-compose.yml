@@ -15,6 +15,11 @@ services:
             - 9987:9987/udp
             - 10011:10011
             - 30033:30033
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         environment:
             TS3SERVER_LICENSE: accept
             TS3SERVER_LICENSEPATH: '/var/ts3server'
