@@ -8,6 +8,8 @@ services:
         image: mailu/nginx:1.8
         restart: unless-stopped
         env_file: ../../env-files/mailu.env
+        sysctls:
+            net.ipv6.conf.all.disable_ipv6: 1
         networks:
             mailu:
                 ipv4_address: 10.20.128.2
@@ -15,28 +17,17 @@ services:
           #     ipv4_address: 10.24.0.208
         ports:
             - "127.0.0.1:2208:80"
-            - "::1:2208:80"
           # - "127.0.0.1:4208:443"
-          # - "::1:4208:443"
             - "127.0.0.1:25:25"
-            - "::1:25:25"
             - "127.0.0.1:465:465"
-            - "::1:465:465"
             - "127.0.0.1:587:587"
-            - "::1:587:587"
             - "127.0.0.1:110:110"
-            - "::1:110:110"
             - "127.0.0.1:995:995"
-            - "::1:995:995"
             - "127.0.0.1:143:143"
-            - "::1:143:143"
             - "127.0.0.1:993:993"
-            - "::1:993:993"
         dns:
             - 8.8.8.8
             - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
         volumes:
             - mailu-certs:/certs
             - mailu-overrides-nginx:/overrides:ro
@@ -46,20 +37,18 @@ services:
         container_name: mailu-resolver
         image: mailu/unbound:1.8
         env_file: ../../env-files/mailu.env
+        sysctls:
+            net.ipv6.conf.all.disable_ipv6: 1
         restart: unless-stopped
         networks:
             mailu:
                 ipv4_address: 10.20.143.254
       # ports:
       #     - "127.0.0.1:53:53/tcp
-      #     - "::1:53:53/tcp
       #     - "127.0.0.1:53:53/udp
-      #     - "::1:53:53/udp
         dns:
             - 8.8.8.8
             - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
         volumes:
             - mailu-resolver-conf:/etc/unbound
 
@@ -69,6 +58,8 @@ services:
         image: mailu/admin:1.8
         restart: unless-stopped
         env_file: ../../env-files/mailu.env
+        sysctls:
+            net.ipv6.conf.all.disable_ipv6: 1
         networks:
             mailu:
                 ipv4_address: 10.20.128.3
@@ -81,8 +72,6 @@ services:
         dns:
             - 8.8.8.8
             - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
         volumes:
             - mailu-data:/data
             - mailu-dkim:/dkim
@@ -95,14 +84,14 @@ services:
         image: mailu/dovecot:1.8
         restart: unless-stopped
         env_file: ../../env-files/mailu.env
+        sysctls:
+            net.ipv6.conf.all.disable_ipv6: 1
         networks:
             mailu:
                 ipv4_address: 10.20.128.4
         dns:
             - 8.8.8.8
             - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
         volumes:
             - mailu-mail:/mail
             - mailu-overrides-dovecot:/overrides:ro
@@ -115,14 +104,14 @@ services:
         image: mailu/postfix:1.8
         restart: unless-stopped
         env_file: ../../env-files/mailu.env
+        sysctls:
+            net.ipv6.conf.all.disable_ipv6: 1
         networks:
             mailu:
                 ipv4_address: 10.20.128.5
         dns:
             - 8.8.8.8
             - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
         volumes:
             - mailu-mailqueue:/queue
             - mailu-overrides-postfix:/overrides:ro
@@ -136,6 +125,8 @@ services:
         image: mailu/rspamd:1.8
         restart: unless-stopped
         env_file: ../../env-files/mailu.env
+        sysctls:
+            net.ipv6.conf.all.disable_ipv6: 1
         networks:
             mailu:
                 ipv4_address: 10.20.128.6
@@ -144,8 +135,6 @@ services:
         dns:
             - 8.8.8.8
             - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
         volumes:
             - mailu-filter:/var/lib/rspamd
             - mailu-dkim:/dkim:ro
@@ -160,14 +149,14 @@ services:
         image: mailu/clamav:1.8
         restart: unless-stopped
         env_file: ../../env-files/mailu.env
+        sysctls:
+            net.ipv6.conf.all.disable_ipv6: 1
         networks:
             mailu:
                 ipv4_address: 10.20.128.7
         dns:
             - 8.8.8.8
             - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
         volumes:
             - mailu-filter:/data
         depends_on:
@@ -179,14 +168,14 @@ services:
         image: mailu/radicale:1.8
         restart: unless-stopped
         env_file: ../../env-files/mailu.env
+        sysctls:
+            net.ipv6.conf.all.disable_ipv6: 1
         networks:
             mailu:
                 ipv4_address: 10.20.128.8
         dns:
             - 8.8.8.8
             - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
         volumes:
             - mailu-dav:/data"
 
@@ -196,14 +185,14 @@ services:
         image: mailu/fetchmail:1.8
         restart: unless-stopped
         env_file: ../../env-files/mailu.env
+        sysctls:
+            net.ipv6.conf.all.disable_ipv6: 1
         networks:
             mailu:
                 ipv4_address: 10.20.128.9
         dns:
             - 8.8.8.8
             - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
         depends_on:
             - mailu-resolver
 
@@ -213,6 +202,8 @@ services:
         image: mailu/roundcube:1.8
         restart: unless-stopped
         env_file: ../../env-files/mailu.env
+        sysctls:
+            net.ipv6.conf.all.disable_ipv6: 1
         networks:
             mailu:
                 ipv4_address: 10.20.128.10
@@ -223,10 +214,8 @@ services:
         dns:
             - 8.8.8.8
             - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
         volumes:
-            - mailu-webmail:/data"
+            - mailu-webmail:/data
         depends_on:
             - mailu-dovecot
 
