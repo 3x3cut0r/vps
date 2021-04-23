@@ -50,6 +50,11 @@ services:
                 ipv4_address: 10.20.26.209
         ports:
             - 29316:29316
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - maubot-data:/data:z
 
@@ -65,6 +70,11 @@ services:
                 ipv4_address: 10.20.17.209
       # ports:
       #     - 29317:29317
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - mautrix-telegram-data:/data:z
 
@@ -80,6 +90,11 @@ services:
                 ipv4_address: 10.20.18.209
       # ports:
       #     - 29318:29318
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - mautrix-whatsapp-data:/data:z
 
@@ -91,14 +106,22 @@ services:
         networks:
             synapse:
                 ipv4_address: 10.20.144.28
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - signald-data:/signald:z
+            - signald-gradle:/home/gradle/.gradle
 
   # https://github.com/tulir/mautrix-signal
     mautrix-signal:
         container_name: mautrix-signal
         image: dock.mau.dev/tulir/mautrix-signal:latest
         restart: unless-stopped
+        sysctls:
+            net.ipv6.conf.all.disable_ipv6: 1
         networks:
             synapse:
                 ipv4_address: 10.20.144.128
@@ -106,6 +129,11 @@ services:
                 ipv4_address: 10.20.28.209
       # ports:
       #     - 29328:29328
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         volumes:
             - signald-data:/var/run/signald
             - mautrix-signal-data:/data:z
@@ -122,6 +150,11 @@ services:
                 ipv4_address: 10.20.144.131
         ports:
             - 29331:29331
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
         environment:
             LISTEN_ADDRESS: ":29331"
             APPSERVICE_ID: imessage
@@ -156,3 +189,5 @@ volumes:
         name: mautrix-signal-data
     signald-data:
         name: signald-data
+    signald-gradle:
+        name: signald-gradle
