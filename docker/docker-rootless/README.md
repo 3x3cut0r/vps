@@ -115,7 +115,7 @@ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
 # DONE (docker-compose should now be updated)
 docker-compose --version
-# docker-compose version 1.29.0, build 07737305
+# docker-compose version 1.29.1, build c34c88b2
 
 
 # remove docker-rootless script
