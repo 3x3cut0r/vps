@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  # https://hub.docker.com/r/pihole/pihole
+    mariadb:
+        container_name: pihole
+        cap_add:
+            - NET_ADMIN
+        image: pihole/pihole:latest
+        restart: unless-stopped
+        networks:
+            pihole:
+                ipv4_address: 10.20.208.2
+        ports:
+            - "53:53/tcp"
+            - "53:53/udp"
+          # - "67:67/udp"
+          # - "80:80/tcp"
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            TZ: 'Europe/Berlin'
+            WEBPASSWORD: 'set a secure password here or it will be random'
+        volumes:
+            - pihole-data:/etc/pihole/
+            - pihole-dnsmasq.d:/etc/dnsmasq.d/
+
+networks:
+    pihole:
+        name: pihole
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.20.208.0/20"
+                  gateway: 10.20.208.1
+  # nginx:
+  #     external:
+  #         name: nginx
+
+volumes:
+    pihole-data:
+        name: pihole-data
+    pihole-dnsmasq.d:
+        name: pihole-dnsmasq.d
