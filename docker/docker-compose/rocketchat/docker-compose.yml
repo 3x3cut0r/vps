@@ -4,7 +4,7 @@ services:
   # https://hub.docker.com/_/rocket-chat
     rocketchat:
         container_name: rocketchat
-        image: rocket.chat:latest
+        image: rocketchat/rocket.chat:latest
         command: >
             bash -c
             "for i in `seq 1 30`; do
