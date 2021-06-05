@@ -142,32 +142,3 @@ openssl dhparam -out /home/docker/config-files/certbot-ssl/dhparam.pem 4096
 ### License <a name="license"></a>
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) - This project is licensed under the GNU General Public License - see the [gpl-3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) for details.
-
-
-version: "3.9"
-
-services:
-    certbot:
-        container_name: certbot
-        image: certbot/certbot:latest
-        restart: unless-stopped
-        command: certonly --webroot --webroot-path=/var/www/certbot --email julianreith@gmx.de --agree-tos --no-eff-email --force-renewal -d 3x3cut0r.de -d *.3x3cut0r.de
-        networks:
-            nginx:
-                ipv4_address: 10.24.0.3
-        volumes:
-            - certbot-conf:/etc/letsencrypt
-            - certbot-logs:/var/log/letsencrypt
-            - certbot-data:/var/www/certbot
-networks:
-    nginx:
-      external:
-            name: nginx
-
-volumes:
-    certbot-conf:
-        name: certbot-conf
-    certbot-data:
-        name: certbot-data
-    certbot-logs:
-        name: certbot-logs
