@@ -30,9 +30,9 @@ sudo ln -s /home/docker/config-files/certbot-ssl/ /etc/nginx/ssl
 ```shell
 docker container run --rm -it \
     --dns=8.8.8.8 \
-	--dns=8.8.4.4 \
-	--dns=2001:4860:4860::8888 \
-	--dns=2001:4860:4860::8844 \
+    --dns=8.8.4.4 \
+    --dns=2001:4860:4860::8888 \
+    --dns=2001:4860:4860::8844 \
     -v /home/docker/config-files/certbot-ssl:/etc/letsencrypt \
     -v /home/docker/config-files/certbot-logs:/var/log/letsencrypt \
     certbot/certbot:latest \
