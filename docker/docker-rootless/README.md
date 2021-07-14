@@ -97,7 +97,7 @@ sudo setcap cap_net_bind_service=ep /home/docker/bin/rootlesskit
 
 # DONE (docker should now be updated)
 docker --version
-# Docker version 20.10.6, build 370c289
+# Docker version 20.10.7, build f0df350
 
 
 # UPDATE DOCKER-COMPOSE (with sudo or root):
@@ -115,7 +115,7 @@ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
 # DONE (docker-compose should now be updated)
 docker-compose --version
-# docker-compose version 1.29.1, build c34c88b2
+# docker-compose version 1.29.2, build 5becea4c
 
 
 # remove docker-rootless script
