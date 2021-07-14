@@ -6,6 +6,31 @@ sudo find /var/log/snort/ -type f -mtime +6 | grep -v snort.pid | xargs rm
 
 ```
 
+**fix: FATAL: snort3 ips.rules:3 undefined variable name: RULE_PATH**
+```shell
+vi /usr/local/etc/snort/snort.lua
+
+ips =
+{
+    -- use this to enable decoder and inspector alerts
+    enable_builtin_rules = true,
+
+    -- use include for rules files; be sure to set your path
+    -- note that rules files can include other rules files
+    --include = 'snort3-community.rules',
+
+    -- RULE_PATH is typically set in snort_defaults.lua
+    rules = [[
+
+        ...
+
+    ]]
+
+    variables = default_variables
+    --variables = default_variables_singletable
+
+```
+
 ### Find Me <a name="findme"></a>
 
 ![E-Mail](https://img.shields.io/badge/E--Mail-executor55%40gmx.de-red)
