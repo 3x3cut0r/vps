@@ -174,7 +174,7 @@ services:
   # https://hub.docker.com/r/getumbrel/electrs
     umbrel-electrs:
         container_name: umbrel-electrs
-        image: getumbrel/electrs:v0.8.9
+        image: getumbrel/electrs:v0.8.11
         restart: unless-stopped
         logging:
             driver: "syslog"
