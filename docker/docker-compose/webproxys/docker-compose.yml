@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  # https://hub.docker.com/r/3x3cut0r/glype-proxy
+    glype-proxy:
+        container_name: glype-proxy
+        image: 3x3cut0r/glype-proxy:latest
+        restart: always
+        networks:
+            webproxys:
+                ipv4_address: 10.24.17.2
+        ports:
+            - 8702:80
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+
+networks:
+    webproxys:
+        name: webproxys
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.24.17.0/24"
+                  gateway: 10.24.17.1
+  # nginx:
+  #     external:
+  #         name: nginx
+
+volumes:
+    glype-proxy-html:
+        name: glype-proxy-html
