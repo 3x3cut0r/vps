@@ -16,6 +16,8 @@ services:
             - 8.8.4.4
             - 2001:4860:4860::8888
             - 2001:4860:4860::8844
+        volumes:
+            - glype-proxy:/app
 
 networks:
     webproxys:
@@ -30,5 +32,5 @@ networks:
   #         name: nginx
 
 volumes:
-    glype-proxy-html:
-        name: glype-proxy-html
+    glype-proxy:
+        name: glype-proxy
