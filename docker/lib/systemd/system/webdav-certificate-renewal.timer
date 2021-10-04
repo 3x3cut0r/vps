@@ -1,0 +1,10 @@
+[Unit]
+Description=timer to renew webdav certificate
+
+[Timer]
+OnCalendar=daily
+Unit=webdav-certificate-renewal.service
+Persistent=true
+
+[Install]
+WantedBy=multi-user.target
