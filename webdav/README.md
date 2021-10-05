@@ -17,7 +17,7 @@ WebDAV (Web Distributed Authoring and Versioning) is an extension of the Hyperte
 \# [Find Me](#findme)  
 \# [License](#license)  
 
-# 1. prerequisites <a name="prerequisites"></a>  
+## 1. prerequisites <a name="prerequisites"></a>  
 * a WebDAV Server somewhere else (e.g.: private Synology DiskStation) who provides user credentials
 
 # 2. install DAVfs filesystem <a name="install"></a>
@@ -26,7 +26,7 @@ apt install davfs2
 
 ```
 
-# 3. mount DAVfs filesystem (manual)<a name="mount_manual"></a>  
+## 3. mount DAVfs filesystem (manual)<a name="mount_manual"></a>  
 ```shell
 mount.davfs https://<your_domain>:<your_port>/<path> /mnt
 
@@ -35,7 +35,7 @@ mount.davfs https://<your_domain>:<your_port>/<path> /mnt
 ```
 
 
-# 4. store credentials permanent<a name="credentials"></a>  
+## 4. store credentials permanent<a name="credentials"></a>  
 **/etc/davfs2/secrets**  
 ```shell
 ...
@@ -44,7 +44,7 @@ mount.davfs https://<your_domain>:<your_port>/<path> /mnt
 
 ```
 
-# 5. download and store (self-signed) certificate<a name="certificate"></a>  
+## 5. download and store (self-signed) certificate<a name="certificate"></a>  
 **download (self-signed) certificate**  
 ```shell
 openssl s_client -connect <your_domain>:<your_port> -showcerts </dev/null 2>/dev/null | openssl x509 -outform PEM > /etc/davfs2/certs/certificate.pem
@@ -58,7 +58,7 @@ trust_server_cert /etc/davfs2/certs/certificate.pem
 
 ```
 
-# 6 schedule automated certificate download with a systemd-timer as root <a name="renewal"></a>
+## 6 schedule automated certificate download with a systemd-timer as root <a name="renewal"></a>
 **[/lib/systemd/system/webdav-certificate-renewal.timer](https://github.com/3x3cut0r/vps/blob/main/docker/lib/systemd/system/webdav-certificate-renewal.timer)**
 ```shell
 [Unit]
@@ -80,7 +80,7 @@ Description=service to renew webdav certificate
 
 [Service]
 User=root
-ExecStart=openssl s_client -connect <your_domain>:<your_port> -showcerts </dev/null 2>/dev/null | openssl x509 -outform PEM > /etc/davfs2/certs/certificate.pem
+ExecStart=openssl s_client -showcerts -servername <your_domain> -connect <your_domain>:<your_port> </dev/null 2>/dev/null | openssl x509 -outform PEM > /etc/davfs2/certs/certificate.pem
 
 ```
 **enable timer**
@@ -90,7 +90,7 @@ systemctl enable webdav-certificate-renewal.timer
 
 ```
 
-# 7. mount DAVfs filesystem (fstab)<a name="mount_fstab"></a>  
+## 7. mount DAVfs filesystem (fstab)<a name="mount_fstab"></a>  
 **step 4-6 need to be done first!**  
 **/etc/fstab**  
 ```shell
