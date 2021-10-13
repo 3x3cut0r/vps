@@ -1,0 +1,17 @@
+[Unit]
+Description=Run PulledPork3 rule updater for Snort 3 rulesets
+RefuseManualStart=no  # Allow manual starts
+RefuseManualStop=no   # Allow manual stops
+
+[Timer]
+#Execute job if it missed a run due to machine being off
+Persistent=true
+#Run 120 seconds after boot for the first time
+OnBootSec=120
+#Run daily at 1 am
+OnCalendar=*-*-*13:35:00
+#File describing job to execute
+Unit=pulledpork3.service
+
+[Install]
+WantedBy=timers.target
