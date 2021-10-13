@@ -1,71 +1,57 @@
 ---------------------------------------------------------------------------
 -- Snort++ defaults
---
--- include in your snort.lua with a dofile statement
+---------------------------------------------------------------------------
+
+-- this file defines the external defaults for Snort. all simple scalar
+-- types have a builtin default, including those in list items, however
+-- lists defaults are provided here instead of compiling them into the
+-- binary. this makes it easier to copy and paste or edit for your
+-- environment.
+
+-- include in your snort.lua
 -- after you set HOME_NET and EXTERNAL_NET
---
+
 -- use these by assignment, eg
 --     ftp_server = default_ftp_server
----------------------------------------------------------------------------
 
 ---------------------------------------------------------------------------
--- Set paths, ports, and nets:
---
--- variables with 'PATH' in the name are vars
--- variables with 'PORT' in the name are portvars
--- variables with 'NET' in the name are ipvars
--- variables with 'SERVER' in the name are ipvars
+-- default paths - used in Talos configs
 ---------------------------------------------------------------------------
 
----------------------------------------------------------------------------
--- default paths
----------------------------------------------------------------------------
 -- Path to your rules files (this can be a relative path)
-
-RULE_PATH = '../rules'
-BUILTIN_RULE_PATH = '../builtin_rules'
-PLUGIN_RULE_PATH = '../so_rules'
+RULE_PATH = '/usr/local/etc/rules'
+BUILTIN_RULE_PATH = '/usr/local/etc/builtin_rules'
+PLUGIN_RULE_PATH = '/usr/local/etc/so_rules'
 
 -- If you are using reputation preprocessor set these
 WHITE_LIST_PATH = '/usr/local/etc/lists'
 BLACK_LIST_PATH = '/usr/local/etc/lists'
 
 ---------------------------------------------------------------------------
--- default networks
+-- default networks - used in Talos rules
 ---------------------------------------------------------------------------
+-- define servers on your network you want to protect
 
--- List of DNS servers on your network
 DNS_SERVERS = HOME_NET
-
--- List of ftp servers on your network
 FTP_SERVERS = HOME_NET
-
--- List of web servers on your network
 HTTP_SERVERS = HOME_NET
-
--- List of sip servers on your network
 SIP_SERVERS = HOME_NET
-
--- List of SMTP servers on your network
 SMTP_SERVERS = HOME_NET
-
--- List of sql servers on your network
 SQL_SERVERS = HOME_NET
-
--- List of ssh servers on your network
 SSH_SERVERS = HOME_NET
-
--- List of telnet servers on your network
 TELNET_SERVERS = HOME_NET
 
 ---------------------------------------------------------------------------
 -- default ports - used in Talos rules
 ---------------------------------------------------------------------------
+-- define ports on your network you want to protect
+-- where possible, use the wizard for inspection instead of explicit port
+-- bindings. this gives you some port independence and allows you find c&c
+-- channels hard port bindings would miss. Talos rules will still use these
+-- ports if there is no match on service.
 
--- List of ports you run ftp servers on
 FTP_PORTS = ' 21 2100 3535'
 
--- List of ports you run web servers on
 HTTP_PORTS =
 [[
     80 81 311 383 591 593 901 1220 1414 1741 1830 2301 2381 2809 3037 3128
@@ -75,27 +61,24 @@ HTTP_PORTS =
     50002 55555
 ]]
 
--- List of ports you run mail servers on
 MAIL_PORTS = ' 110 143'
 
--- List of ports you might see oracle attacks on
 ORACLE_PORTS = ' 1024:'
 
--- List of ports you run SIP servers on
 SIP_PORTS = ' 5060 5061 5600'
 
--- List of ports you want to look for SSH connections on
 SSH_PORTS = ' 22'
 
--- List of ports for file inspection
 FILE_DATA_PORTS = HTTP_PORTS .. MAIL_PORTS
 
 ---------------------------------------------------------------------------
 -- default variables
 ---------------------------------------------------------------------------
 
-default_variables = {
-    nets = {
+default_variables =
+{
+    nets =
+    {
         HOME_NET = HOME_NET,
         EXTERNAL_NET = EXTERNAL_NET,
         DNS_SERVERS = DNS_SERVERS,
@@ -107,14 +90,16 @@ default_variables = {
         SSH_SERVERS = SSH_SERVERS,
         TELNET_SERVERS = TELNET_SERVERS,
     },
-    paths = {
+    paths =
+    {
         RULE_PATH = RULE_PATH,
         BUILTIN_RULE_PATH = BUILTIN_RULE_PATH,
         PLUGIN_RULE_PATH = PLUGIN_RULE_PATH,
         WHITE_LIST_PATH = WHITE_LIST_PATH,
         BLACK_LIST_PATH = BLACK_LIST_PATH,
     },
-    ports = {
+    ports =
+    {
         FTP_PORTS = FTP_PORTS,
         HTTP_PORTS = HTTP_PORTS,
         MAIL_PORTS = MAIL_PORTS,
@@ -123,31 +108,6 @@ default_variables = {
         SSH_PORTS = SSH_PORTS,
         FILE_DATA_PORTS = FILE_DATA_PORTS,
     }
-}
-
-default_variables_singletable = {
-    HOME_NET = HOME_NET,
-    EXTERNAL_NET = EXTERNAL_NET,
-    DNS_SERVERS = DNS_SERVERS,
-    FTP_SERVERS = FTP_SERVERS,
-    HTTP_SERVERS = HTTP_SERVERS,
-    SIP_SERVERS = SIP_SERVERS,
-    SMTP_SERVERS = SMTP_SERVERS,
-    SQL_SERVERS = SQL_SERVERS,
-    SSH_SERVERS = SSH_SERVERS,
-    TELNET_SERVERS = TELNET_SERVERS,
-    RULE_PATH = RULE_PATH,
-    BUILTIN_RULE_PATH = BUILTIN_RULE_PATH,
-    PLUGIN_RULE_PATH = PLUGIN_RULE_PATH,
-    WHITE_LIST_PATH = WHITE_LIST_PATH,
-    BLACK_LIST_PATH = BLACK_LIST_PATH,
-    FTP_PORTS = FTP_PORTS,
-    HTTP_PORTS = HTTP_PORTS,
-    MAIL_PORTS = MAIL_PORTS,
-    ORACLE_PORTS = ORACLE_PORTS,
-    SIP_PORTS = SIP_PORTS,
-    SSH_PORTS = SSH_PORTS,
-    FILE_DATA_PORTS = FILE_DATA_PORTS,
 }
 
 ---------------------------------------------------------------------------
@@ -365,14 +325,13 @@ http_methods =  -- build from default_http_methods
     'UPDATEREDIRECTREF', 'PROPFIND', 'PROPPATCH', 'MKCOL', 'COPY',
     'MOVE', 'LOCK', 'UNLOCK', 'SEARCH', 'BCOPY', 'BDELETE', 'BMOVE',
     'BPROPFIND', 'BPROPPATCH', 'POLL', 'UNSUBSCRIBE', 'X_MS_ENUMATTS',
-    --'NOTIFY', 'OPTIONS', 'SUBSCRIBE', 'UPDATE'
+    'NOTIFY * HTTP/', 'SUBSCRIBE * HTTP/', 'UPDATE * HTTP/', 'OPTIONS * HTTP/'
 }
 
-sip_methods =
+sip_requests =
 {
-    'INVITE', 'CANCEL', 'ACK', 'BYE', 'REGISTER', 'REFER', 'SUBSCRIBE',
-    'UPDATE', 'JOIN', 'INFO', 'MESSAGE', 'NOTIFY', 'PRACK'
-    --'OPTIONS',
+    'INVITE', 'CANCEL', 'BYE', 'REGISTER', 'PRACK', 'PUBLISH', 'REFER', 'INFO', 'MESSAGE',
+    'ACK * SIP/', 'SUBSCRIBE * SIP/', 'UPDATE * SIP/', 'NOTIFY * SIP/', 'OPTIONS * SIP/'
 }
 
 telnet_commands =
@@ -406,14 +365,14 @@ default_wizard =
           to_client = { '+OK', '-ERR' } },
 
         { service = 'sip', client_first = true,
-          to_server = sip_methods, to_client = { 'SIP/' } },
+          to_server = sip_requests, to_client = { 'SIP/' } },
 
         { service = 'smtp', proto = 'tcp', client_first = true,
           to_server = { 'HELO', 'EHLO' },
           to_client = { '220*SMTP', '220*MAIL' } },
 
         { service = 'ssh', proto = 'tcp', client_first = true,
-          to_server = { '*SSH' }, to_client = { '*SSH' } },
+          to_server = { 'SSH-' }, to_client = { 'SSH-' } },
 
         { service = 'dce_http_server', proto = 'tcp', client_first = false,
           to_client = { 'ncacn_http' } },
@@ -431,6 +390,7 @@ default_wizard =
           to_server = netflow_versions },
 
         { service = 'http2', proto = 'tcp', client_first = true,
+          to_client = { '???|04 00 00 00 00 00|' },
           to_server = { '|50 52 49 20 2a 20 48 54 54 50 2f 32 2e 30 0d 0a 0d 0a 53 4d 0d 0a 0d 0a|' } },
 
 --[[
@@ -449,7 +409,7 @@ default_wizard =
           to_server = telnet_commands, to_client = telnet_commands },
     },
 
-    curses = {'dce_udp', 'dce_tcp', 'dce_smb'}
+    curses = {'dce_udp', 'dce_tcp', 'dce_smb', 'sslv2'}
 }
 
 ---------------------------------------------------------------------------
@@ -1215,7 +1175,7 @@ default_low_port_scan =
 default_whitelist =
 [[
     ftp_command_specs default_ftp_server smtp_default_alt_max_command_lines
-    default_smtp http_methods sip_methods telnet_commands default_wizard
+    default_smtp http_methods sip_requests telnet_commands default_wizard
     default_references default_classifications gtp_v0_msg gtp_v1_msg gtp_v2_msg
     gtp_v0_info gtp_v1_info gtp_v2_info default_gtp tcp_low_ports
     tcp_low_decoy tcp_low_sweep tcp_low_dist tcp_med_ports
@@ -1227,7 +1187,7 @@ default_whitelist =
     ip_med_sweep ip_med_dist ip_hi_proto ip_hi_decoy ip_hi_sweep
     ip_hi_dist icmp_low_sweep icmp_med_sweep icmp_hi_sweep
     default_hi_port_scan default_med_port_scan default_low_port_scan
-    default_variables default_variables_singletable netflow_versions
+    default_variables netflow_versions
 ]]
 
 snort_whitelist_append(default_whitelist)
