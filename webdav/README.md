@@ -10,7 +10,7 @@ WebDAV (Web Distributed Authoring and Versioning) is an extension of the Hyperte
 2. [install DAVfs filesystem](#install)  
 3. [mount DAVfs filesystem (manual)](#mount_manual)  
 4. [store credentials permanent](#credentials)  
-5. [download and store (self-signed) certificate](#certificate) 
+5. [download and store (self-signed) certificate](#certificate)
 6. [schedule automated certificate download with a systemd-timer as root](#mount_fstab)  
 7. [mount DAVfs filesystem (fstab)](#mount_fstab)  
 
@@ -75,12 +75,17 @@ WantedBy=multi-user.target
 ```
 **[/lib/systemd/system/webdav-certificate-renewal.service](https://github.com/3x3cut0r/vps/blob/main/docker/lib/systemd/system/webdav-certificate-renewal.service)**
 ```shell
-[Unit]
 Description=service to renew webdav certificate
+Wants=webdav-certificate-renewal.timer
 
 [Service]
+Type=simple
 User=root
-ExecStart=openssl s_client -showcerts -servername <your_domain> -connect <your_domain>:<your_port> </dev/null 2>/dev/null | openssl x509 -outform PEM > /etc/davfs2/certs/certificate.pem
+ExecStart=openssl s_client -showcerts -servername webdav.3x3cut0r.synology.me -connect webdav.3x3cut0r.synology.me:443 </dev/null | openssl x509 -outform PEM > /etc/davfs2/certs/3x3cut0r.synology.me.pem
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target
 
 ```
 **enable timer**
