@@ -1,0 +1,89 @@
+version: "3.9"
+
+services:
+  # https://hub.docker.com/_/mariadb
+    daniel-mariadb:
+        container_name: daniel-mariadb
+        image: mariadb:10.6.3-focal
+        command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+        restart: unless-stopped
+        networks:
+            daniel-wordpress:
+                ipv4_address: 10.29.0.2
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            MYSQL_ROOT_PASSWORD: '<MYSQL_ROOT_PASSWORD>'
+            TZ: 'Europe/Berlin'
+        volumes:
+            - daniel-mariadb-data:/var/lib/mysql
+            - daniel-mariadb-conf:/etc/mysql/mariadb.conf.d
+
+  # https://hub.docker.com/_/phpmyadmin
+    daniel-phpmyadmin:
+        container_name: daniel-phpmyadmin
+        image: phpmyadmin/phpmyadmin:latest
+        restart: unless-stopped
+        networks:
+            daniel-wordpress:
+                ipv4_address: 10.29.0.3
+        ports:
+            - 2900:80
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            MYSQL_ROOT_PASSWORD: '<MYSQL_ROOT_PASSWORD>'
+            PMA_ARBITRARY: "1"
+            PMA_HOST: daniel-mariadb
+            PMA_VERBOSE: daniel-mariadb
+        volumes:
+            - /home/docker/config-files/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php:ro
+            - /home/docker/config-files/phpmyadmin/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
+
+  # https://hub.docker.com/_/wordpress
+    daniel-wordpress:
+        container_name: daniel-wordpress
+        image: wordpress:latest
+        restart: unless-stopped
+        networks:
+            daniel-wordpress:
+                ipv4_address: 10.29.0.4
+        ports:
+          - 2980:80
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+          WORDPRESS_DB_HOST: daniel-mariadb
+          WORDPRESS_DB_USER: daniel-wordpress
+          WORDPRESS_DB_PASSWORD: '<WORDPRESS_DB_PASSWORD>'
+          WORDPRESS_DB_NAME: daniel-wordpress
+        volumes:
+          - daniel-wordpress:/var/www/html
+        depends_on:
+            - daniel-mariadb
+
+networks:
+    daniel-wordpress:
+        name: daniel-wordpress
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.29.0.0/20"
+                  gateway: 10.29.0.1
+
+volumes:
+    daniel-mariadb-conf:
+        name: daniel-mariadb-conf
+    daniel-mariadb-data:
+        name: daniel-mariadb-data
+    daniel-wordpress:
+        name: daniel-wordpress
