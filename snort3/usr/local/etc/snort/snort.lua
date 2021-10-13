@@ -39,7 +39,6 @@ include 'file_magic.lua'
 
 -- mod = default_mod uses external defaults
 -- you can see them in snort_defaults.lua
-
 -- the following are quite capable with defaults:
 
 stream = { }
@@ -57,6 +56,7 @@ dns = { }
 http_inspect = { }
 http2_inspect = { }
 imap = { }
+iec104 = { }
 modbus = { }
 netflow = {}
 normalizer = { }
@@ -93,20 +93,21 @@ appid =
     --app_detector_dir = 'directory to load appid detectors from'
 }
 
---[[
 reputation =
 {
     -- configure one or both of these, then uncomment reputation
-    blacklist = BLACK_LIST_PATH .. "/default.blocklist"
+    -- (see also related path vars at the top of snort_defaults.lua)
+
+    blocklist = BLACK_LIST_PATH .. "/default.blocklist",
     --whitelist = 'whitelist file name with ip lists'
 }
---]]
 
 search_engine = { search_method = "hyperscan" }
 
 detection = {
     hyperscan_literals = true,
     pcre_to_regex = true
+
 }
 
 ---------------------------------------------------------------------------
@@ -123,6 +124,7 @@ binder =
     { when = { proto = 'tcp', ports = '111', role='server' }, use = { type = 'rpc_decode' } },
     { when = { proto = 'tcp', ports = '502', role='server' }, use = { type = 'modbus' } },
     { when = { proto = 'tcp', ports = '2123 2152 3386', role='server' }, use = { type = 'gtp_inspect' } },
+    { when = { proto = 'tcp', ports = '2404', role='server' }, use = { type = 'iec104' } },
 
     { when = { proto = 'tcp', service = 'dcerpc' }, use = { type = 'dce_tcp' } },
     { when = { proto = 'udp', service = 'dcerpc' }, use = { type = 'dce_udp' } },
@@ -140,6 +142,7 @@ binder =
     { when = { service = 'imap' },             use = { type = 'imap' } },
     { when = { service = 'http' },             use = { type = 'http_inspect' } },
     { when = { service = 'http2' },            use = { type = 'http2_inspect' } },
+    { when = { service = 'iec104' },           use = { type = 'iec104' } },
     { when = { service = 'modbus' },           use = { type = 'modbus' } },
     { when = { service = 'pop3' },             use = { type = 'pop' } },
     { when = { service = 'ssh' },              use = { type = 'ssh' } },
@@ -173,89 +176,15 @@ classifications = default_classifications
 ips =
 {
     -- use this to enable decoder and inspector alerts
-    --enable_builtin_rules = true,
+    enable_builtin_rules = true,
+    include = RULE_PATH .. "/pulledpork.rules",
 
     -- use include for rules files; be sure to set your path
     -- note that rules files can include other rules files
-    --include = 'snort3-community.rules',
-
-    -- RULE_PATH is typically set in snort_defaults.lua
-    rules = [[
-
-        include $RULE_PATH/snort3-app-detect.rules
-        include $RULE_PATH/snort3-browser-chrome.rules
-        include $RULE_PATH/snort3-browser-firefox.rules
-        include $RULE_PATH/snort3-browser-ie.rules
-        include $RULE_PATH/snort3-browser-other.rules
-        include $RULE_PATH/snort3-browser-plugins.rules
-        include $RULE_PATH/snort3-browser-webkit.rules
-        include $RULE_PATH/snort3-content-replace.rules
-        include $RULE_PATH/snort3-exploit-kit.rules
-        include $RULE_PATH/snort3-file-executable.rules
-        include $RULE_PATH/snort3-file-flash.rules
-        include $RULE_PATH/snort3-file-identify.rules
-        include $RULE_PATH/snort3-file-image.rules
-        include $RULE_PATH/snort3-file-java.rules
-        include $RULE_PATH/snort3-file-multimedia.rules
-        include $RULE_PATH/snort3-file-office.rules
-        include $RULE_PATH/snort3-file-other.rules
-        include $RULE_PATH/snort3-file-pdf.rules
-        include $RULE_PATH/snort3-indicator-compromise.rules
-        include $RULE_PATH/snort3-indicator-obfuscation.rules
-        include $RULE_PATH/snort3-indicator-scan.rules
-        include $RULE_PATH/snort3-indicator-shellcode.rules
-        include $RULE_PATH/snort3-malware-backdoor.rules
-        include $RULE_PATH/snort3-malware-cnc.rules
-        include $RULE_PATH/snort3-malware-other.rules
-        include $RULE_PATH/snort3-malware-tools.rules
-        include $RULE_PATH/snort3-netbios.rules
-        include $RULE_PATH/snort3-os-linux.rules
-        include $RULE_PATH/snort3-os-mobile.rules
-        include $RULE_PATH/snort3-os-other.rules
-        include $RULE_PATH/snort3-os-solaris.rules
-        include $RULE_PATH/snort3-os-windows.rules
-        include $RULE_PATH/snort3-policy-multimedia.rules
-        include $RULE_PATH/snort3-policy-other.rules
-        include $RULE_PATH/snort3-policy-social.rules
-        include $RULE_PATH/snort3-policy-spam.rules
-        include $RULE_PATH/snort3-protocol-dns.rules
-        include $RULE_PATH/snort3-protocol-finger.rules
-        include $RULE_PATH/snort3-protocol-ftp.rules
-        include $RULE_PATH/snort3-protocol-icmp.rules
-        include $RULE_PATH/snort3-protocol-imap.rules
-        include $RULE_PATH/snort3-protocol-nntp.rules
-        include $RULE_PATH/snort3-protocol-other.rules
-        include $RULE_PATH/snort3-protocol-pop.rules
-        include $RULE_PATH/snort3-protocol-rpc.rules
-        include $RULE_PATH/snort3-protocol-scada.rules
-        include $RULE_PATH/snort3-protocol-services.rules
-        include $RULE_PATH/snort3-protocol-snmp.rules
-        include $RULE_PATH/snort3-protocol-telnet.rules
-        include $RULE_PATH/snort3-protocol-tftp.rules
-        include $RULE_PATH/snort3-protocol-voip.rules
-        include $RULE_PATH/snort3-pua-adware.rules
-        include $RULE_PATH/snort3-pua-other.rules
-        include $RULE_PATH/snort3-pua-p2p.rules
-        include $RULE_PATH/snort3-pua-toolbars.rules
-        include $RULE_PATH/snort3-server-apache.rules
-        include $RULE_PATH/snort3-server-iis.rules
-        include $RULE_PATH/snort3-server-mail.rules
-        include $RULE_PATH/snort3-server-mssql.rules
-        include $RULE_PATH/snort3-server-mysql.rules
-        include $RULE_PATH/snort3-server-oracle.rules
-        include $RULE_PATH/snort3-server-other.rules
-        include $RULE_PATH/snort3-server-samba.rules
-        include $RULE_PATH/snort3-server-webapp.rules
-        include $RULE_PATH/snort3-sql.rules
-        include $RULE_PATH/snort3-x11.rules
-
-    ]],
+    -- (see also related path vars at the top of snort_defaults.lua)
 
     variables = default_variables
-
 }
-
-rewrite = { }
 
 -- use these to configure additional rule actions
 -- react = { }
@@ -274,10 +203,8 @@ rewrite = { }
 suppress =
 {
     -- don't want to any of see these
-    -- ICMP Traffic Detected
-    { gid = 1, sid = 10000001 },
     { gid = 1, sid = 402 },
-    { gid = 1, sid = 414 },
+    { gid = 116, sid = 414 },
 
     -- don't want to see these for a given server
     -- { gid = 1, sid = 2, track = 'by_dst', ip = '1.2.3.4' },
