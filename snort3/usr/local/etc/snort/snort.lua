@@ -203,8 +203,11 @@ ips =
 suppress =
 {
     -- don't want to any of see these
-    { gid = 1, sid = 402 },
+    -- (ipv4) IPv4 packet to broadcast dest address
     { gid = 116, sid = 414 },
+
+    -- (stream_tcp) TCP timestamp is missing
+    { gid = 129, sid = 14 },
 
     -- don't want to see these for a given server
     -- { gid = 1, sid = 2, track = 'by_dst', ip = '1.2.3.4' },
@@ -250,18 +253,20 @@ alert_json =
 {
     file = true,
     limit = 100,
-    fields = 'seconds action class b64_data dir dst_addr dst_ap dst_port eth_dst eth_len \
-    eth_src eth_type gid icmp_code icmp_id icmp_seq icmp_type iface ip_id ip_len msg mpls \
-    pkt_gen pkt_len pkt_num priority proto rev rule service sid src_addr src_ap src_port \
-    target tcp_ack tcp_flags tcp_len tcp_seq tcp_win tos ttl udp_len vlan timestamp',
+    fields = 'timestamp seconds sid gid priority action class dir msg b64_data proto \
+    iface ip_id ip_len mpls pkt_gen pkt_len pkt_num rev rule service
+    src_addr src_ap src_port dst_addr dst_ap dst_port \
+    eth_src eth_dst eth_len eth_type icmp_code icmp_id icmp_seq icmp_type \
+    target tcp_ack tcp_flags tcp_len tcp_seq tcp_win tos ttl udp_len vlan ',
 }
 --]]
 alert_json =
 {
     file = true,
     limit = 100,
-    fields = 'timestamp seconds sid gid action dir msg b64_data proto src_addr src_ap \
-    src_port dst_addr dst_ap dst_port eth_dst eth_src icmp_code icmp_id icmp_seq icmp_type iface target',
+    fields = 'timestamp seconds sid gid priority action class dir msg b64_data proto \
+    src_addr src_port dst_addr dst_port eth_dst eth_src \
+    icmp_code icmp_id icmp_seq icmp_type iface target',
 }
 
 -- packet logging
