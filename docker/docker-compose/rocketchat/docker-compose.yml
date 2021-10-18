@@ -69,7 +69,7 @@ services:
   # https://hub.docker.com/_/mongo
     mongo:
         container_name: mongo
-        image: mongo:4.4
+        image: mongo:5.0
         command: mongod --config /etc/mongod.conf
         restart: unless-stopped
         networks:
