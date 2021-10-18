@@ -6,6 +6,7 @@ services:
         container_name: portainer
         image: portainer/portainer-ce:alpine
         restart: always
+        env_file: ../../env-files/portainer.env
         networks:
             portainer:
                 ipv4_address: 10.24.1.2
@@ -14,6 +15,8 @@ services:
         ports:
           # - 8000:8000
             - 2101:9000
+        environment:
+            COMPOSE_HTTP_TIMEOUT: 240
         dns:
             - 8.8.8.8
             - 8.8.4.4
