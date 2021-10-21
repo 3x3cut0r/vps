@@ -1,0 +1,5 @@
+...
+# Synology 918+ WebDAV
+# https://webdav.3x3cut0r.synology.me/media /media/webdav davfs user,rw,noauto 0 0
+# Synology 918+ SSHFS
+sshfs#root@3x3cut0r.synology.me:/bitcoin /home/docker/config-files/umbrel/bitcoin fuse idmap=user,uid=166535,gid=166535,umask=0,allow_other,reconnect,cache=yes,kernel_cache,compression=no,sshfs_sync,port=8022,_netdev 0 0
