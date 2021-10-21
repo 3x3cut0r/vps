@@ -118,11 +118,11 @@ services:
         volumes:
             - /etc/localtime:/etc/localtime:ro
             - /etc/timezone:/etc/timezone:ro
-            - wekan-mongo:/data/db
+            - wekan-mongo-data:/data/db
             - wekan-mongo-dump:/dump
 
     wekan:
-        container_name: wekan 
+        container_name: wekan
       #-------------------------------------------------------------------------------------
       # ==== MONGODB AND METEOR VERSION ====
       # a) Quay automatic builds do work work, https://quay.io/wekan/wekan
@@ -730,10 +730,13 @@ networks:
             driver: default
             config:
                 - subnet: "10.24.13.0/24"
-				gateway: 10.24.13.1
+                  gateway: 10.24.13.1
+  # nginx:
+  #     external:
+  #         name: nginx
 
 volumes:
-    wekan-mongo:
-        name: wekan-mongo
+    wekan-mongo-data:
+        name: wekan-mongo-data
     wekan-db-dump:
         name: wekan-mongo-dump
