@@ -1,109 +1,11 @@
 version: '3.9'
 
-# Note: Do not add single quotes '' to variables. Having spaces still works without quotes where required.
-#---------------------------------------------------------------------------------------------------------
-# ==== CREATING USERS AND LOGGING IN TO WEKAN ====
-# https://github.com/wekan/wekan/wiki/Adding-users
-#---------------------------------------------------------------------------------------------------------
-# ==== FORGOT PASSWORD ====
-# https://github.com/wekan/wekan/wiki/Forgot-Password
-#---------------------------------------------------------------------------------------------------------
-# ==== Upgrading Wekan to new version =====
-# NOTE: MongoDB has changed from 3.x to 4.x, in that case you need backup/restore with --noIndexRestore
-#       see https://github.com/wekan/wekan/wiki/Backup
-# 1) Stop Wekan:
-#      docker-compose stop
-# 2) Remove old Wekan app (wekan-app only, not that wekan-db container that has all your data)
-#      docker rm wekan-app
-# 3) Get newest docker-compose.yml from https://github.com/wekan/wekan to have correct image,
-#    for example: "image: quay.io/wekan/wekan" or version tag "image: quay.io/wekan/wekan:v4.52"
-# 4) Start Wekan:
-#      docker-compose up -d
-#----------------------------------------------------------------------------------
-# ==== OPTIONAL: DEDICATED DOCKER USER ====
-# 1) Optionally create a dedicated user for Wekan, for example:
-#      sudo useradd -d /home/wekan -m -s /bin/bash wekan
-# 2) Add this user to the docker group, then logout+login or reboot:
-#      sudo usermod -aG docker wekan
-# 3) Then login as user wekan.
-# 4) Create this file /home/wekan/docker-compose.yml with your modifications.
-#----------------------------------------------------------------------------------
-# ==== RUN DOCKER AS SERVICE ====
-# 1a) Running Docker as service, on Systemd like Debian 9, Ubuntu 16.04, CentOS 7:
-#      sudo systemctl enable docker
-#      sudo systemctl start docker
-# 1b) Running Docker as service, on init.d like Debian 8, Ubuntu 14.04, CentOS 6:
-#      sudo update-rc.d docker defaults
-#      sudo service docker start
-# ----------------------------------------------------------------------------------
-# ==== USAGE OF THIS docker-compose.yml ====
-# 1) For seeing does Wekan work, try this and check with your web browser:
-#      docker-compose up
-# 2) Stop Wekan and start Wekan in background:
-#     docker-compose stop
-#     docker-compose up -d
-# 3) See running Docker containers:
-#     docker ps
-# 4) Stop Docker containers:
-#     docker-compose stop
-# ----------------------------------------------------------------------------------
-# ===== INSIDE DOCKER CONTAINERS, AND BACKUP/RESTORE ====
-# https://github.com/wekan/wekan/wiki/Backup
-# If really necessary, repair MongoDB: https://github.com/wekan/wekan-mongodb/issues/6#issuecomment-424004116
-# 1) Going inside containers:
-#    a) Wekan app, does not contain data
-#         docker exec -it wekan-app bash
-#    b) MongoDB, contains all data
-#         docker exec -it wekan-db bash
-# 2) Copying database to outside of container:
-#      docker exec -it wekan-db bash
-#      cd /data
-#      mongodump
-#      exit
-#      docker cp wekan-db:/data/dump .
-# 3) Restoring database
-#      # 1) Stop wekan
-#             docker stop wekan-app
-#      # 2) Go inside database container
-#             docker exec -it wekan-db bash
-#      # 3) and data directory
-#             cd /data
-#      # 4) Remove previous dump
-#             rm -rf dump
-#      # 5) Exit db container
-#             exit
-#      # 6) Copy dump to inside docker container
-#             docker cp dump wekan-db:/data/
-#      # 7) Go inside database container
-#             docker exec -it wekan-db bash
-#      # 8) and data directory
-#             cd /data
-#      # 9) Restore
-#             mongorestore --drop
-#      # 10) Exit db container
-#             exit
-#      # 11) Start wekan
-#             docker start wekan-app
-#-------------------------------------------------------------------------
-
 services:
+  # https://hub.docker.com/_/mongo
     wekan-mongo:
         container_name: wekan-mongo
-      #-------------------------------------------------------------------------------------
-      # ==== MONGODB AND METEOR VERSION ====
-      # a) mongodb latest, like 3.2 - 4.4 or newer https://hub.docker.com/_/mongo?tab=description
-      # 2020-12-03:
-      # - Mongo image copied from Docker Hub mongo:4.4.2-bionic to Quay
-      #   to avoid Docker Hub rate limits.
-      # Quay image does work:
-      #   image: quay.io/wekan/mongo:4.4.2-bionic
-      # Docker Hub MongoDB image does work:
         image: mongo:5.0
-      #-------------------------------------------------------------------------------------
         restart: unless-stopped
-      # command: mongod --oplogSize 128
-      # Syslog: mongod --syslog --oplogSize 128 --quiet
-      # Disable MongoDB logs:
         command: mongod --logpath /dev/null --oplogSize 128 --quiet
         networks:
             wekan:
@@ -121,29 +23,11 @@ services:
             - wekan-mongo-data:/data/db
             - wekan-mongo-dump:/dump
 
+  # https://hub.docker.com/r/wekanteam/wekan
     wekan:
         container_name: wekan
-      #-------------------------------------------------------------------------------------
-      # ==== MONGODB AND METEOR VERSION ====
-      # a) Quay automatic builds do work work, https://quay.io/wekan/wekan
-      # b) Using specific version tag:
-      # image: quay.io/wekan/wekan:v4.52
-      # c) Docker Hub builds do work https://hub.docker.com/r/wekanteam/wekan
-      # image: wekanteam/wekan
-      #-------------------------------------------------------------------------------------
-        image: quay.io/wekan/wekan:latest
+        image: wekanteam/wekan:latest
         restart: unless-stopped
-      #-------------------------------------------------------------------------------------
-      # ==== BUILD wekan-app DOCKER CONTAINER FROM SOURCE, if you uncomment these ====
-      # ==== and use commands: docker-compose up -d --build
-      #build:
-      #  context: .
-      #  dockerfile: Dockerfile
-      #-------------------------------------------------------------------------------------
-      # Docker outsideport:insideport. Do not add anything extra here.
-      # For example, if you want to have wekan on port 3001,
-      # use 3001:8080 . Do not add any extra address etc here, that way it does not work.
-      # remove port mapping if you use nginx reverse proxy, port 8080 is already exposed to wekan network
         networks:
             wekan:
                 ipv4_address: 10.24.13.2
@@ -156,19 +40,12 @@ services:
             - 2001:4860:4860::8844
         environment:
             MONGO_URL: 'mongodb://wekan-mongo:27017/wekan'
-      #---------------------------------------------------------------
-      # ==== ROOT_URL SETTING ====
-      # Change ROOT_URL to your real Wekan URL, for example:
-      # If you have Caddy/Nginx/Apache providing SSL
-      #  - https://example.com
-      #  - https://boards.example.com
-      # This can be problematic with avatars https://github.com/wekan/wekan/issues/1776
-      #  - https://example.com/wekan
-      # If without https, can be only wekan node, no need for Caddy/Nginx/Apache if you don't need them
-      #  - http://example.com
-      #  - http://boards.example.com
-      #  - http://192.168.1.100    <=== using at local LAN
-            ROOT_URL: 'http://wekan.3x3cut0r.de'  #   <=== using only at same laptop/desktop where Wekan is installed
+            ROOT_URL: 'http://wekan.3x3cut0r.de'
+        depends_on:
+            - wekan-mongo
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
       #---------------------------------------------------------------
       # ==== EMAIL SETTINGS ====
       # Email settings are required in both MAIL_URL and Admin Panel,
@@ -668,11 +545,6 @@ services:
       # Wait spinner to use
       # - WAIT_SPINNER=Bounce
       #---------------------------------------------------------------------
-        depends_on:
-            - wekan-mongo
-        volumes:
-            - /etc/localtime:/etc/localtime:ro
-            - /etc/timezone:/etc/timezone:ro
 
 #---------------------------------------------------------------------------------
 # ==== OPTIONAL: SHARE DATABASE TO OFFICE LAN AND REMOTE VPN ====
