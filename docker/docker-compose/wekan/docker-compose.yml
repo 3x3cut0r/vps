@@ -155,7 +155,7 @@ services:
             - 2001:4860:4860::8888
             - 2001:4860:4860::8844
         environment:
-            MONGO_URL: 'mongodb://wekandb:27017/wekan'
+            MONGO_URL: 'mongodb://wekan-mongo:27017/wekan'
       #---------------------------------------------------------------
       # ==== ROOT_URL SETTING ====
       # Change ROOT_URL to your real Wekan URL, for example:
@@ -233,7 +233,7 @@ services:
       # https://github.com/wekan/wekan/wiki/REST-API
       # https://github.com/wekan/wekan-gogs
       # If you disable Wekan API with false, Export Board does not work.
-            WITH_API: true
+      # WITH_API: true
       #---------------------------------------------------------------
       # ==== PASSWORD BRUTE FORCE PROTECTION ====
       #https://atmospherejs.com/lucasantoniassi/accounts-lockout
@@ -251,11 +251,11 @@ services:
       #---------------------------------------------------------------
       # ==== RICH TEXT EDITOR IN CARD COMMENTS ====
       # https://github.com/wekan/wekan/pull/2560
-            RICHER_CARD_COMMENT_EDITOR: false
+      # RICHER_CARD_COMMENT_EDITOR: false
       #---------------------------------------------------------------
       # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
       # https://github.com/wekan/wekan/issues/2518
-            CARD_OPENED_WEBHOOK_ENABLED: false
+      # CARD_OPENED_WEBHOOK_ENABLED: false
       #---------------------------------------------------------------
       # ==== Allow to shrink attached/pasted image ====
       # https://github.com/wekan/wekan/pull/2544
@@ -281,7 +281,7 @@ services:
       # b) All
       #- BIGEVENTS_PATTERN=received|start|due|end
       # c) Disabled
-            BIGEVENTS_PATTERN: NONE
+      # BIGEVENTS_PATTERN: NONE
       #---------------------------------------------------------------
       # ==== EMAIL DUE DATE NOTIFICATION =====
       # https://github.com/wekan/wekan/pull/2536
@@ -323,7 +323,7 @@ services:
       # Enable browser policy and allow one trusted URL that can have iframe that has Wekan embedded inside.
       # Setting this to false is not recommended, it also disables all other browser policy protections
       # and allows all iframing etc. See wekan/server/policy.js
-            BROWSER_POLICY_ENABLED: true
+      # BROWSER_POLICY_ENABLED: true
       # When browser policy is enabled, HTML code at this Trusted URL can have iframe that embeds Wekan inside.
       #- TRUSTED_URL=https://intra.example.com
       #-----------------------------------------------------------------
@@ -738,5 +738,5 @@ networks:
 volumes:
     wekan-mongo-data:
         name: wekan-mongo-data
-    wekan-db-dump:
+    wekan-mongo-dump:
         name: wekan-mongo-dump
