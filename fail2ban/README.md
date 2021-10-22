@@ -13,6 +13,8 @@ automatically block ips after a certain number of failed login attempts
     3.1 [unban single ip from specific jail](#unban_single)  
     3.2 [unban single ip from all jails](#unban_single_all)  
     3.3 [unban all ips](#unban_all)  
+4. [ban](#ban)  
+    4.1 [ban single ip in specific jail](#ban_single)  
 
 \# [Find Me](#findme)  
 \# [License](#license)  
@@ -87,6 +89,13 @@ fail2ban-client unban --all
 f2bjail=sshd
 for ip in "$(fail2ban-client status $f2bjail | tail -n +9 | tail -c +23 | tr ' ' '\n')"; do fail2ban-client unban $ip; done
 
+```
+
+# 4. ban <a name="ban"></a>
+
+## 4.1 ban single ip in specific jail (snort3) <a name="ban_single"></a>
+```shell
+fail2ban-client -vvv set snort3 banip 11.22.33.44
 ```
 
 ### Find Me <a name="findme"></a>
