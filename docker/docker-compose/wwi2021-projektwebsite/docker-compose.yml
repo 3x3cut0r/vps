@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+  # https://hub.docker.com/_/nginx
+    wwi2021-projektwebsite-nginx:
+        container_name: wwi2021-projektwebsite-nginx
+        image: nginx:latest
+        restart: unless-stopped
+        networks:
+            wwi2021-projektwebsite-nginx:
+                ipv4_address: 10.24.19.2
+        ports:
+            - 2119:80
+          # - 4119:443
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        volumes:
+            - wwi2021-projektwebsite-nginx-html:/var/www/html
+        depends_on:
+            - wwi2021-projektwebsite-php-fpm
+
+  # https://hub.docker.com/_/php
+    wwi2021-projektwebsite-php-fpm:
+        container_name: wwi2021-projektwebsite-php-fpm
+        image: php:8-fpm-alpine
+        restart: unless-stopped
+        networks:
+            wwi2021-projektwebsite-nginx:
+                ipv4_address: 10.24.19.3
+      # ports:
+      #     - 9000:9000
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        volumes:
+            - wwi2021-projektwebsite-nginx-html:/var/www/html
+
+networks:
+    wwi2021-projektwebsite-nginx:
+      name: wwi2021-projektwebsite-nginx
+      driver: bridge
+      ipam:
+          driver: default
+          config:
+              - subnet: 10.24.19.0/24
+                gateway: 10.24.19.1
+
+volumes:
+    wwi2021-projektwebsite-nginx-html:
+        name: wwi2021-projektwebsite-nginx-html
