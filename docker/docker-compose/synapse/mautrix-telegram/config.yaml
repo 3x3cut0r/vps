@@ -77,7 +77,7 @@ appservice:
     # Must be created manually.
     #
     # Example: "+telegram:example.com". Set to false to disable.
-    community_id: false
+    community_id: "+telegram:3x3cut0r.de"
 
     # Whether or not to receive ephemeral events via appservice transactions.
     # Requires MSC2409 support (i.e. Synapse 1.22+).
