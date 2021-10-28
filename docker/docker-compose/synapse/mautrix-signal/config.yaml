@@ -136,7 +136,7 @@ bridge:
     double_puppet_allow_discovery: false
     # Servers to allow double puppeting from, even if double_puppet_allow_discovery is false.
     double_puppet_server_map:
-        example.com: https://matrix.3x3cut0r.de
+        3x3cut0r.de: https://matrix.3x3cut0r.de
     # Shared secret for https://github.com/devture/matrix-synapse-shared-secret-auth
     #
     # If set, custom puppets will be enabled automatically for local users
@@ -145,7 +145,7 @@ bridge:
     # If using this for other servers than the bridge's server,
     # you must also set the URL in the double_puppet_server_map.
     login_shared_secret_map:
-        example.com: foo
+        3x3cut0r.de: foo
     # Whether or not created rooms should have federation enabled.
     # If false, created portal rooms will never be federated.
     federate_rooms: true
