@@ -61,7 +61,7 @@ services:
   # https://github.com/tulir/mautrix-telegram
     mautrix-telegram:
         container_name: mautrix-telegram
-        image: dock.mau.dev/tulir/mautrix-telegram:latest
+        image: dock.mau.dev/mautrix/telegram:latest
         restart: unless-stopped
         networks:
             synapse:
@@ -81,7 +81,7 @@ services:
   # https://github.com/tulir/mautrix-whatsapp
     mautrix-whatsapp:
         container_name: mautrix-whatsapp
-        image: dock.mau.dev/tulir/mautrix-whatsapp:latest
+        image: dock.mau.dev/mautrix/whatsapp:latest
         restart: unless-stopped
         networks:
             synapse:
@@ -98,10 +98,10 @@ services:
         volumes:
             - mautrix-whatsapp-data:/data:z
 
-  # https://hub.docker.com/r/finn/signald
+  # https://hub.docker.com/r/signald/signald
     signald:
         container_name: signald
-        image: finn/signald:latest
+        image: signald/signald:latest
         restart: unless-stopped
         networks:
             synapse:
@@ -113,12 +113,12 @@ services:
             - 2001:4860:4860::8844
         volumes:
             - signald-data:/signald:z
-            - signald-gradle:/home/gradle/.gradle
+          # - signald-gradle:/home/gradle/.gradle
 
   # https://github.com/tulir/mautrix-signal
     mautrix-signal:
         container_name: mautrix-signal
-        image: dock.mau.dev/tulir/mautrix-signal:latest
+        image: dock.mau.dev/mautrix/signal:latest
         restart: unless-stopped
         sysctls:
             net.ipv6.conf.all.disable_ipv6: 1
@@ -143,7 +143,7 @@ services:
   # https://github.com/tulir/mautrix-wsproxy
     mautrix-wsproxy:
         container_name: mautrix-wsproxy
-        image: dock.mau.dev/tulir/mautrix-wsproxy
+        image: dock.mau.dev/mautrix/wsproxy:latest
         restart: unless-stopped
         networks:
             synapse:
