@@ -187,7 +187,7 @@ bridge:
     sync_direct_chat_list: false
     # Servers to always allow double puppeting from
     double_puppet_server_map:
-        example.com: https://matrix.3x3cut0r.de
+        3x3cut0r.de: https://matrix.3x3cut0r.de
     # Allow using double puppeting from any server with a valid client .well-known file.
     double_puppet_allow_discovery: false
     # Shared secrets for https://github.com/devture/matrix-synapse-shared-secret-auth
@@ -198,7 +198,7 @@ bridge:
     # If using this for other servers than the bridge's server,
     # you must also set the URL in the double_puppet_server_map.
     login_shared_secret_map:
-        example.com: foobar
+        3x3cut0r.de: foobar
     # Set to false to disable link previews in messages sent to Telegram.
     telegram_link_preview: true
     # Whether or not the !tg join command should do a HTTP request
@@ -331,7 +331,7 @@ bridge:
         # e.g. if bridge_notices.default is false, notices from other users will not be bridged, but
         #      notices from users listed here will be bridged.
         exceptions:
-        - "@importantbot:example.com"
+        - "@importantbot:3x3cut0r.de"
 
     # Some config options related to Telegram message deduplication.
     # The default values are usually fine, but some debug messages/warnings might recommend you
