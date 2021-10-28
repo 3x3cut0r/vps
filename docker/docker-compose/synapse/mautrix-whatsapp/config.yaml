@@ -14,7 +14,7 @@ homeserver:
 # Changing these values requires regeneration of the registration.
 appservice:
     # The address that the homeserver can use to connect to this appservice.
-    address: http://localhost:29318
+    address: http://mautrix-whatsapp:29318
 
     # The hostname and port where this appservice should listen.
     hostname: 0.0.0.0
@@ -89,7 +89,7 @@ bridge:
     #  communities.)
     # {{.Localpart}} is the MXID localpart and {{.Server}} is the MXID server part of the user.
     # whatsapp_{{.Localpart}}={{.Server}} is a good value that should work for any user.
-    community_template: null
+    community_template: "whatsapp_{{.Localpart}}={{.Server}}"
 
     # WhatsApp connection timeout in seconds.
     connection_timeout: 20
