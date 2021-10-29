@@ -12,7 +12,7 @@ services:
             mariadb:
                 ipv4_address: 10.20.0.116
         ports:
-          - 2116:80
+          - "2116:80"
         dns:
             - 8.8.8.8
             - 8.8.4.4
@@ -27,7 +27,7 @@ services:
           DB_NAME: filesender
           DB_PORT: 3306
           DB_USER: filesender
-          DB_PASSWORD: '<DB_PASSWORD>
+          DB_PASSWORD: '<DB_PASSWORD>'
           PHP_FPM_LISTEN: 9000
           SMTP_SERVER: localhost
           SMTP_TLS: 'True'
