@@ -19,21 +19,21 @@ services:
             - 2001:4860:4860::8888
             - 2001:4860:4860::8844
         environment:
-          FILESENDER_URL: 'https://filesender.3x3cut0r.de/'
-          FILESENDER_AUTHTYPE: saml
-          FILESENDER_STORAGE: Filesystem
-          DB_TYPE: mysql
-          DB_HOST: mariadb
-          DB_NAME: filesender
-          DB_PORT: 3306
-          DB_USER: filesender
-          DB_PASSWORD: '<DB_PASSWORD>'
-          PHP_FPM_LISTEN: 9000
-          SMTP_SERVER: localhost
-          SMTP_TLS: 'True'
-          ADMIN_EMAIL: 'executor55@gmx.de'
-          ADMIN_USERS: '3x3cut0r'
-          ADMIN_PASSWORD: '<ADMIN_PASSWORD>'
+            FILESENDER_URL: "https://filesender.3x3cut0r.de/"
+            FILESENDER_AUTHTYPE: saml
+            FILESENDER_STORAGE: Filesystem
+            DB_TYPE: mysql
+            DB_HOST: mariadb
+            DB_NAME: filesender
+            DB_PORT: 3306
+            DB_USER: filesender
+            DB_PASSWORD: '<DB_PASSWORD>'
+            PHP_FPM_LISTEN: 9000
+            SMTP_SERVER: localhost
+            SMTP_TLS: 'True'
+            ADMIN_EMAIL: 'executor55@gmx.de'
+            ADMIN_USERS: '3x3cut0r'
+            ADMIN_PASSWORD: '<ADMIN_PASSWORD>'
         volumes:
           - filesender-bin:/opt/filesender
           - filesender-conf:/config
