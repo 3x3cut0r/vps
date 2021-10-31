@@ -28,7 +28,7 @@ services:
             DB_PORT: "3306"
             DB_USER: "filesender"
             DB_PASSWORD: '<DB_PASSWORD>'
-            PHP_FPM_LISTEN: 9000
+            PHP_FPM_LISTEN: "9000"
             SMTP_SERVER: "localhost"
             SMTP_TLS: "True"
             ADMIN_EMAIL: "executor55@gmx.de"
