@@ -1,0 +1,14 @@
+### Portainer ###
+
+### Portainer ###
+# https://hub.docker.com/r/portainer/portainer
+
+docker container run -d \
+    --name=portainer-temp \
+    --restart=always \
+    --env-file="/home/docker/volumes/portainer-data/_data/env-files/portainer.env" \
+    -p 9101:9000 \
+    -e COMPOSE_HTTP_TIMEOUT=240 \
+    -v /run/user/2000/docker.sock:/var/run/docker.sock \
+    -v portainer-data:/data \
+    portainer/portainer-ce:alpine
