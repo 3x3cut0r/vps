@@ -39,6 +39,7 @@ include 'file_magic.lua'
 
 -- mod = default_mod uses external defaults
 -- you can see them in snort_defaults.lua
+
 -- the following are quite capable with defaults:
 
 stream = { }
