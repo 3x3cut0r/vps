@@ -44,7 +44,7 @@ services:
         cap_add:
             - NET_ADMIN
         ports:
-            - "2215:80"
+            - "2215:5000"
         networks:
             wireguard:
                 ipv4_address: 10.20.240.3
