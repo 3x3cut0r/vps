@@ -14,6 +14,7 @@ services:
             net.ipv4.conf.all.src_valid_mark: "1"
         ports:
             - "51820:51820/udp"
+            - "2215:80"
         networks:
             wireguard:
                 ipv4_address: 10.20.240.2
