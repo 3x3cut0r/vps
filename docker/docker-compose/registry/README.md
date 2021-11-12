@@ -17,6 +17,21 @@
 
 # 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>  
 **[see nginx/conf.d/docker-registry.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/docker-registry.conf)**  
+**edit nginx/nginx.conf**  
+```shell
+...
+    upstream registry   { server 127.0.0.1:4155; }
+
+    ## Set a variable to help us decide if we need to add the
+    ## 'Docker-Distribution-Api-Version' header.
+    ## The registry always sets this header.
+    ## In the case of nginx performing auth, the header is unset
+    ## since nginx is auth-ing before proxying.
+    map $upstream_http_docker_distribution_api_version $docker_distribution_api_version {
+      '' 'registry/2.0';
+    }
+
+```
 
 # 3. usage <a name="usage"></a>  
 
