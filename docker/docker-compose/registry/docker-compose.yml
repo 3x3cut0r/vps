@@ -8,7 +8,7 @@ services:
         image: registry:latest
         restart: always
         ports:
-            - "5000:5000"
+            - "4155:443"
         networks:
             docker-registry:
                 ipv4_address: 10.24.255.2
@@ -18,16 +18,17 @@ services:
             - 2001:4860:4860::8888
             - 2001:4860:4860::8844
         environment:
-            TZ: "Europe/Berlin"
-            REGISTRY_HTTP_TLS_CERTIFICATE: "/certs/cert.pem"
-            REGISTRY_HTTP_TLS_KEY: "/certs/privkey.pem"
-            REGISTRY_AUTH: "htpasswd"
-            REGISTRY_AUTH_HTPASSWD_PATH: "/auth/htpasswd"
-            REGISTRY_AUTH_HTPASSWD_REALM: "Registry Realm"
+            REGISTRY_HTTP_ADDR: "0.0.0.0:443"
+            REGISTRY_HTTP_SECRET: '<REGISTRY_HTTP_SECRETY>'
+          # REGISTRY_HTTP_TLS_CERTIFICATE: "/certs/domain.crt"
+          # REGISTRY_HTTP_TLS_KEY: "/certs/domain.key"
+          # REGISTRY_AUTH: "htpasswd"
+          # REGISTRY_AUTH_HTPASSWD_PATH: "/auth/htpasswd"
+          # REGISTRY_AUTH_HTPASSWD_REALM: "Registry Realm"
         volumes:
             - docker-registry-data:/var/lib/registry
             - docker-registry-auth:/auth
-            - /home/docker/config-files/certbot-ssl/live/3x3cut0r.de/:/certs:ro
+          # - docker-registry-cert:/cert
 
 networks:
     docker-registry:
@@ -43,3 +44,5 @@ volumes:
         name: docker-registry-data
     docker-registry-auth:
         name: docker-registry-auth
+  # docker-registry-cert:
+  #     name: docker-registry-cert
