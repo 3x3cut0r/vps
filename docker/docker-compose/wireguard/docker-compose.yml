@@ -1,0 +1,82 @@
+version: "3.9"
+
+# https://hub.docker.com/r/linuxserver/wireguard
+services:
+  # https://github.com/linuxserver/docker-wireguard
+    wireguard:
+        container_name: wireguard
+        image: linuxserver/wireguard:latest
+        restart: unless-stopped
+        cap_add:
+            - NET_ADMIN
+            - SYS_MODULE
+        sysctls:
+            net.ipv4.conf.all.src_valid_mark: "1"
+        ports:
+            - "51820:51820/udp"
+        networks:
+            wireguard:
+                ipv4_address: 10.20.240.2
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            TZ: Europe/Berlin
+            PUID: "1000"
+            PGID: "1000"
+            SERVERURL: "wireguard.3x3cut0r.de" #optional
+            SERVERPORT: "51820" #optional
+            PEERS: "1" #optional
+            PEERDNS: "8.8.8.8" #optional, auto = 8.8.8.8
+            INTERNAL_SUBNET: "10.20.240.0" #optional
+            ALLOWEDIPS: "0.0.0.0/0, ::0/0" #optional
+        volumes:
+            - /lib/modules:/lib/modules
+            - wireguard-conf:/config
+
+  # https://hub.docker.com/r/ngoduykhanh/wireguard-ui
+    wireguard-ui:
+        container_name: wireguard-ui
+        image: ngoduykhanh/wireguard-ui:latest
+        restart: unless-stopped
+        cap_add:
+            - NET_ADMIN
+        ports:
+            - "2215:5000"
+        networks:
+            wireguard:
+                ipv4_address: 10.20.240.3
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            SENDGRID_API_KEY: '<SENDGRID_API_KEY>'
+            EMAIL_FROM_ADDRESS: "executor55@gmx.de"
+            EMAIL_FROM_NAME: "3x3cut0r"
+            SESSION_SECRET: '<SESSION_SECRET>'
+            WGUI_USERNAME: "admin"
+            WGUI_PASSWORD: '<WGUI_PASSWORD>'
+        volumes:
+            - wireguard-ui-db:/app/db
+            - wireguard-conf:/config
+        depends_on:
+            - wireguard
+
+networks:
+    wireguard:
+        name: wireguard
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.20.240.0/20"
+                  gateway: 10.20.240.1
+
+volumes:
+    wireguard-conf:
+        name: wireguard-conf
+    wireguard-ui-db:
+        name: wireguard-ui-db
