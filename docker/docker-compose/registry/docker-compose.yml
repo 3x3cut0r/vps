@@ -12,6 +12,8 @@ services:
         networks:
             docker-registry:
                 ipv4_address: 10.24.255.2
+            redis-nopw:
+                ipv4_address: 10.20.112.255
         dns:
             - 8.8.8.8
             - 8.8.4.4
@@ -25,6 +27,8 @@ services:
           # REGISTRY_AUTH: "htpasswd"
           # REGISTRY_AUTH_HTPASSWD_PATH: "/auth/htpasswd"
           # REGISTRY_AUTH_HTPASSWD_REALM: "Registry Realm"
+            REGISTRY_STORAGE_CACHE_BLOBDESCRIPTOR: "redis"
+            REGISTRY_REDIS_ADDR: "redis-nopw:6379"
         volumes:
             - docker-registry-data:/var/lib/registry
           # - docker-registry-auth:/auth # for htpasswd
@@ -38,6 +42,9 @@ networks:
             config:
                 - subnet: "10.24.255.0/24"
                   gateway: 10.24.255.1
+    redis-nopw:
+        external:
+            name: redis-nopw
 
 volumes:
     docker-registry-data:
