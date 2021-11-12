@@ -1,0 +1,45 @@
+version: "3.9"
+
+# https://hub.docker.com/_/registry
+services:
+  # https://hub.docker.com/_/registry
+    docker-registry:
+        container_name: docker-registry
+        image: registry:latest
+        restart: always
+        ports:
+            - "5000:5000"
+        networks:
+            docker-registry:
+                ipv4_address: 10.24.255.2
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            TZ: "Europe/Berlin"
+            REGISTRY_HTTP_TLS_CERTIFICATE: "/certs/cert.pem"
+            REGISTRY_HTTP_TLS_KEY: "/certs/privkey.pem"
+            REGISTRY_AUTH: "htpasswd"
+            REGISTRY_AUTH_HTPASSWD_PATH: "/auth/htpasswd"
+            REGISTRY_AUTH_HTPASSWD_REALM: "Registry Realm"
+        volumes:
+            - docker-registry-data:/var/lib/registry
+            - docker-registry-auth:/auth
+            - /home/docker/config-files/certbot-ssl/live/3x3cut0r.de/:/certs:ro
+
+networks:
+    docker-registry:
+        name: docker-registry
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.24.255.0/24"
+                  gateway: 10.24.255.1
+
+volumes:
+    docker-registry-data:
+        name: docker-registry-data
+    docker-registry-auth:
+        name: docker-registry-auth
