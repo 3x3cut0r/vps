@@ -27,8 +27,8 @@ services:
           # REGISTRY_AUTH_HTPASSWD_REALM: "Registry Realm"
         volumes:
             - docker-registry-data:/var/lib/registry
-            - docker-registry-auth:/auth
-          # - docker-registry-cert:/cert
+          # - docker-registry-auth:/auth # for htpasswd
+          # - docker-registry-certs:/certs # for certs
 
 networks:
     docker-registry:
@@ -44,5 +44,5 @@ volumes:
         name: docker-registry-data
     docker-registry-auth:
         name: docker-registry-auth
-  # docker-registry-cert:
-  #     name: docker-registry-cert
+  # docker-registry-certs:
+  #     name: docker-registry-certs
