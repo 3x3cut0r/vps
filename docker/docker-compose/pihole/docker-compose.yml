@@ -17,7 +17,7 @@ services:
         networks:
             pihole:
                 ipv4_address: 10.20.208.2
-                ipv6_address: fd4d:10:20:128::2
+                ipv6_address: fd4d:10:20:208::2
                 aliases:
                     - unbound
         dns:
@@ -47,7 +47,7 @@ services:
         networks:
             pihole:
                 ipv4_address: 10.20.208.3
-                ipv6_address: fd4d:10:20:128::3
+                ipv6_address: fd4d:10:20:208::3
                 aliases:
                     - pihole
         ports:
