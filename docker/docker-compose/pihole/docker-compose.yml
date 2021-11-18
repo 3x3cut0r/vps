@@ -27,6 +27,12 @@ services:
             - 2001:4860:4860::8844
         volumes:
             - unbound-conf:/etc/unbound
+        healthcheck:
+            test: [ "CMD", "drill", "-Qp", "53", "nlnetlabs.nl", "@127.0.0.1" ]
+            interval: "30s"
+            timeout: "30s"
+            retries: "3"
+            start_period: "5s"
 
   # https://hub.docker.com/r/pihole/pihole
     pihole:
@@ -90,6 +96,8 @@ services:
             - pihole-data:/etc/pihole/
             - pihole-dnsmasq.d:/etc/dnsmasq.d/
             - /home/docker/config-files/pihole/pihole-updatelists:/etc/pihole-updatelists/
+        depends_on:
+            - unbound
 
 networks:
     pihole:
