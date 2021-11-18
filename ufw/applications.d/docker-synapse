@@ -2,3 +2,8 @@
 title=Synapse
 description=Synapse - Docker based matrix.org / synapse server (with Port 8448 for federation)
 ports=8448/tcp
+
+[mautrix-wsproxy]
+title=mautrix-wsproxy
+description=Mailu - mautrix-wsproxy for mautrix-imessage (Port 29331)
+ports=29331/tcp
