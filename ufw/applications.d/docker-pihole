@@ -1,0 +1,9 @@
+[pihole]
+title=pihole
+description=pihole - Docker based dns server with filter lists
+ports=53/tcp|53/udp
+
+[unbound]
+title=unbound
+description=unbound - Docker based dns server
+ports=5053/udp
