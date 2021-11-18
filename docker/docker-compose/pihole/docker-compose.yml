@@ -30,7 +30,7 @@ services:
       #     - CAP_NET_BIND_SERVICE
       #     - CAP_NET_RAW
       #     - CAP_NET_ADMIN
-        image: pihole/pihole:latest
+        image: jacklul/pihole:latest    # extension from pihole/pihole:latest
         restart: unless-stopped
         networks:
             pihole:
@@ -50,7 +50,10 @@ services:
             ADMIN_EMAIL: "executor55@gmx.de"
             WEBPASSWORD: '<WEBPASSWORD>'
             ServerIP: "10.20.208.2"
+            ServerIPv6: "<IPv6>"            # If you have a v6 network set to your server's LAN IPv6 to block IPv6 ads fully
             PIHOLE_DNS_: "10.20.208.2#5053" # Upstream DNS server(s) for Pi-hole
+            PIHOLE_DOMAIN: "3x3cut0r.de"    # Domain name sent by the DHCP server.
+            VIRTUAL_HOST: "https://pihole.3x3cut0r.de"          # What your web server 'virtual host' is, accessing admin through this Hostname/IP allows you to make changes to the whitelist / blacklists in addition to the default 'http://pi.hole/admin/' address
             DNSSEC: "true"                  # Enable DNSSEC support
             DNS_BOGUS_PRIV: "true"          # Enable forwarding of reverse lookups for private ranges
             DNS_FQDN_REQUIRED: "true"       # Never forward non-FQDNs
@@ -63,15 +66,12 @@ services:
             DHCP_END: ""                    # End of the range of IP addresses to hand out by the DHCP server (mandatory if DHCP server is enabled).
             DHCP_ROUTER: ""                 # Router (gateway) IP address sent by the DHCP server (mandatory if DHCP server is enabled).
             DHCP_LEASETIME: "24"            # DHCP lease time in hours.
-            PIHOLE_DOMAIN: "3x3cut0r.de"    # Domain name sent by the DHCP server.
             DHCP_IPv6: "false"              # Enable DHCP server IPv6 support (SLAAC + RA).
             DHCP_rapid_commit: "false"      # Enable DHCPv4 rapid commit (fast address assignment).
-            VIRTUAL_HOST: "https://pihole.3x3cut0r.de"  # What your web server 'virtual host' is, accessing admin through this Hostname/IP allows you to make changes to the whitelist / blacklists in addition to the default 'http://pi.hole/admin/' address
             IPv6:: "true"                   # For unraid compatibility, strips out all the IPv6 configuration from DNS/Web services when false.
             TEMPERATUREUNIT: "c"            # Set preferred temperature unit to c: Celsius, k: Kelvin, or f Fahrenheit units.
             WEBUIBOXEDLAYOUT: "boxed"       # Use boxed layout (helpful when working on large screens) <boxed|traditional>
             QUERY_LOGGING: "true"           # Enable query logging or not.
-            ServerIPv6: "<IPv6>"            # If you have a v6 network set to your server's LAN IPv6 to block IPv6 ads fully
             INTERFACE: "eth0"               # The default works fine with our basic example docker run commands. If you're trying to use DHCP with --net host mode then you may have to customize this or DNSMASQ_LISTENING.
             DNSMASQ_LISTENING: ""           # local listens on all local subnets, all permits listening on internet origin subnets in addition to local, single listens only on the interface specified. <local|all|single>
           # WEB_PORT: ""                    # This will break the 'webpage blocked' functionality of Pi-hole however it may help advanced setups like those running synology or --net=host docker argument. This guide explains how to restore webpage blocked functionality using a linux router DNAT rule: Alternative Synology installation method
@@ -79,6 +79,7 @@ services:
         volumes:
             - pihole-data:/etc/pihole/
             - pihole-dnsmasq.d:/etc/dnsmasq.d/
+            - /home/docker/config-files/pihole/pihole-updatelists:/etc/pihole-updatelists/
 
 networks:
     pihole:
@@ -99,5 +100,7 @@ volumes:
         name: pihole-data
     pihole-dnsmasq.d:
         name: pihole-dnsmasq.d
+    pihole-updatelists:
+        name: pihole-updatelists
     unbound-conf:
         name: unbound-conf
