@@ -1,0 +1,4 @@
+[Synapse]
+title=Synapse
+description=Synapse - Docker based matrix.org / synapse server (with Port 8448 for federation)
+ports=8448/tcp
