@@ -53,8 +53,8 @@ services:
             TZ: "Europe/Berlin"
             ADMIN_EMAIL: "executor55@gmx.de"
             WEBPASSWORD: '<WEBPASSWORD>'
-            ServerIP: "10.20.208.2"
-            ServerIPv6: "<IPv6>"            # If you have a v6 network set to your server's LAN IPv6 to block IPv6 ads fully
+            ServerIP: "<Your public IPv4>"
+            ServerIPv6: "<Your public IPv6>"                    # If you have a v6 network set to your server's LAN IPv6 to block IPv6 ads fully
             PIHOLE_DNS_: "10.20.208.2#5053" # Upstream DNS server(s) for Pi-hole
             PIHOLE_DOMAIN: "3x3cut0r.de"    # Domain name sent by the DHCP server.
             VIRTUAL_HOST: "https://pihole.3x3cut0r.de"          # What your web server 'virtual host' is, accessing admin through this Hostname/IP allows you to make changes to the whitelist / blacklists in addition to the default 'http://pi.hole/admin/' address
