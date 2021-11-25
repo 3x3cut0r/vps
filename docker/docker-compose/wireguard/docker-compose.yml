@@ -74,6 +74,9 @@ networks:
             config:
                 - subnet: "10.20.240.0/20"
                   gateway: 10.20.240.1
+    pihole:
+        external:
+            name: pihole
 
 volumes:
     wireguard-conf:
