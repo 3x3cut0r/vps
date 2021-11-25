@@ -31,7 +31,7 @@ services:
             SERVERURL: "wireguard.3x3cut0r.de" #optional
             SERVERPORT: "51820" #optional
             PEERS: "1" #optional
-            PEERDNS: "8.8.8.8" #optional, auto = 8.8.8.8
+            PEERDNS: "10.20.208.3" # = pihole, auto = 8.8.8.8
             INTERNAL_SUBNET: "10.20.240.0" #optional
             ALLOWEDIPS: "0.0.0.0/0, ::0/0" #optional
         volumes:
