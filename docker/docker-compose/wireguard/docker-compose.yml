@@ -17,6 +17,8 @@ services:
         networks:
             wireguard:
                 ipv4_address: 10.20.240.2
+            pihole:
+                ipv4_address: 10.20.208.8
         dns:
             - 8.8.8.8
             - 8.8.4.4
@@ -48,6 +50,8 @@ services:
         networks:
             wireguard:
                 ipv4_address: 10.20.240.3
+            pihole:
+                ipv4_address: 10.20.208.9
         dns:
             - 8.8.8.8
             - 8.8.4.4
