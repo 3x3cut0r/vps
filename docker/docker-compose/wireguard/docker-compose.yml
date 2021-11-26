@@ -32,7 +32,7 @@ services:
             SERVERPORT: "51820" #optional
             PEERS: "1" #optional
             PEERDNS: "10.20.208.3" # = pihole, auto = 8.8.8.8
-            INTERNAL_SUBNET: "10.20.209.0/24" # = pihole, optional
+            INTERNAL_SUBNET: "10.20.240.0/20" #optional
             ALLOWEDIPS: "0.0.0.0/0, ::0/0" #optional
         volumes:
             - /lib/modules:/lib/modules
