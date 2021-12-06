@@ -13,12 +13,12 @@ https://v.firebog.net/hosts/static/w3kbl.txt
 #
 # blue: (These lists are painstakingly worked on by their respective maintainers. Please contact them first if you find false positives)
 # https://raw.githubusercontent.com/matomo-org/referrer-spam-blacklist/master/spammers.txt
-# https://someonewhocares.org/hosts/zero/hosts
-# https://raw.githubusercontent.com/VeleSila/yhosts/master/hosts
-# https://winhelp2002.mvps.org/hosts.txt
-# https://v.firebog.net/hosts/neohostsbasic.txt
-# https://raw.githubusercontent.com/RooneyMcNibNug/pihole-stuff/master/SNAFU.txt
-# https://paulgb.github.io/BarbBlock/blacklists/hosts-file.txt
+https://someonewhocares.org/hosts/zero/hosts
+https://raw.githubusercontent.com/VeleSila/yhosts/master/hosts
+https://winhelp2002.mvps.org/hosts.txt
+https://v.firebog.net/hosts/neohostsbasic.txt
+https://raw.githubusercontent.com/RooneyMcNibNug/pihole-stuff/master/SNAFU.txt
+https://paulgb.github.io/BarbBlock/blacklists/hosts-file.txt
 #
 # red: (Lists that have a strike through them are not recommended for use (E.G: Many false postives, deprecated, biased))
 # https://hostsfile.mine.nu/hosts0.txt
@@ -44,7 +44,7 @@ https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts
 https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts
 #
 # blue: (These lists are painstakingly worked on by their respective maintainers. Please contact them first if you find false positives)
-# https://raw.githubusercontent.com/jdlingyu/ad-wars/master/hosts
+https://raw.githubusercontent.com/jdlingyu/ad-wars/master/hosts
 
 
 
@@ -58,12 +58,12 @@ https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/
 https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt
 #
 # blue: (These lists are painstakingly worked on by their respective maintainers. Please contact them first if you find false positives)
-# https://hostfiles.frogeye.fr/multiparty-trackers-hosts.txt
-# https://www.github.developerdan.com/hosts/lists/ads-and-tracking-extended.txt
-# https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/android-tracking.txt
-# https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/SmartTV.txt
-# https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/AmazonFireTV.txt
-# https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt
+https://hostfiles.frogeye.fr/multiparty-trackers-hosts.txt
+https://www.github.developerdan.com/hosts/lists/ads-and-tracking-extended.txt
+https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/android-tracking.txt
+https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/SmartTV.txt
+https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/AmazonFireTV.txt
+https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt
 #
 # red: (Lists that have a strike through them are not recommended for use (E.G: Many false postives, deprecated, biased))
 # https://v.firebog.net/hosts/Airelle-trc.txt
@@ -86,8 +86,8 @@ https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.Risk/hosts
 https://urlhaus.abuse.ch/downloads/hostfile/
 #
 # blue: (These lists are painstakingly worked on by their respective maintainers. Please contact them first if you find false positives)
-# https://v.firebog.net/hosts/Prigent-Malware.txt
-# https://v.firebog.net/hosts/Shalla-mal.txt
+https://v.firebog.net/hosts/Prigent-Malware.txt
+https://v.firebog.net/hosts/Shalla-mal.txt
 #
 # red: (Lists that have a strike through them are not recommended for use (E.G: Many false postives, deprecated, biased))
 # https://v.firebog.net/hosts/Airelle-hrsk.txt
