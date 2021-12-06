@@ -102,6 +102,6 @@ https://v.firebog.net/hosts/Shalla-mal.txt
 https://zerodot1.gitlab.io/CoinBlockerLists/hosts_browser
 #
 # blue: (These lists are painstakingly worked on by their respective maintainers. Please contact them first if you find false positives)
-# https://raw.githubusercontent.com/chadmayfield/my-pihole-blocklists/master/lists/pi_blocklist_porn_all.list
-# https://raw.githubusercontent.com/chadmayfield/my-pihole-blocklists/master/lists/pi_blocklist_porn_top1m.list
-# https://raw.githubusercontent.com/anudeepND/blacklist/master/facebook.txt
+https://raw.githubusercontent.com/chadmayfield/my-pihole-blocklists/master/lists/pi_blocklist_porn_all.list
+https://raw.githubusercontent.com/chadmayfield/my-pihole-blocklists/master/lists/pi_blocklist_porn_top1m.list
+https://raw.githubusercontent.com/anudeepND/blacklist/master/facebook.txt
