@@ -13,6 +13,9 @@ appleid.apple.com
 gsp-ssl.ls.apple.com
 gsp-ssl.ls-apple.com.akadns.net
 
+# Forum
+email.macrumors.com
+
 ##########################
 ### Captive-portal test  #
 ##########################
