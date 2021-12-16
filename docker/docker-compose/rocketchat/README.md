@@ -7,6 +7,7 @@ howto deploy rocket.chat
 1. [download mongod.conf](#mongod.conf)   
 2. [docker-compose](#docker-compose)  
 3. [known errors](#known_errors)  
+4. [dark mode](#dark-mode)  
 
 \# [Find Me](#findme)  
 \# [License](#license)  
@@ -40,6 +41,9 @@ exit
 exit
 
 ```
+
+# 4. dark mode <a name="dark-mode"></a>
+**for dark mode visit [github.com/pbaity/rocketchat-dark-mode](https://github.com/pbaity/rocketchat-dark-mode)**
 
 ### Find Me <a name="findme"></a>
 
