@@ -1,0 +1,4 @@
+[Wireguard]
+title=Wireguard
+description=Wireguard - Docker based vpn server
+ports=51820/udp
