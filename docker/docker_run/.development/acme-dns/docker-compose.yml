@@ -1,0 +1,23 @@
+version: "3.9"
+
+# https://github.com/joohoi/acme-dns
+services:
+  # https://hub.docker.com/r/joohoi/acme-dns
+    acme-dns:
+        container_name: acme-dns
+        image: joohoi/acme-dns
+        restart: unless-stopped
+        ports:
+            - "1053:53/tcp"
+            - "1053:53/udp"
+            - "1080:80"
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            TZ: "Europe/Berlin"
+        volumes:
+            - /home/docker/config-files/acme-dns/config:/etc/acme-dns:ro
+            - /home/docker/config-files/acme-dns/data:/var/lib/acme-dns
