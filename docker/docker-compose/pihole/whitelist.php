@@ -247,6 +247,7 @@ ns2.dropbox.com
 tracking.epicgames.com
 
 # Fox News
+foxnews.demdex.net
 widget-cdn.rpxnow.com
 
 # GoDaddy webmail buttons
@@ -343,6 +344,9 @@ cms.souqcdn.com
 api.directory.signal.org
 contentproxy.signal.org
 turn1.whispersystems.org
+
+# Sky Ticket
+dpm.demdex.net
 
 # Sonarr
 services.sonarr.tv
