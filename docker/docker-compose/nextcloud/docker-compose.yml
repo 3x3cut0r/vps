@@ -4,7 +4,7 @@ services:
   # https://hub.docker.com/_/nextcloud
     nextcloud:
         container_name: nextcloud
-        image: nextcloud:21-apache
+        image: nextcloud:23-apache
         restart: unless-stopped
         networks:
             nextcloud:
