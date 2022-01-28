@@ -40,6 +40,14 @@ docker exec -u www-data nextcloud php occ app:disable richdocumentscode
 
 ```
 
+# 6. install image-magick
+```shell
+docker container exec -it nextcloud /bin/bash
+apt update
+apt install libmagickcore-6.q16-6-extra
+
+```
+
 ### Find Me <a name="findme"></a>
 
 ![E-Mail](https://img.shields.io/badge/E--Mail-executor55%40gmx.de-red)
