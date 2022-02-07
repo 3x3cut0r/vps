@@ -59,6 +59,12 @@ systemctl --user restart docker.service
 
 # 2. Update docker-rootless <a name="update"></a>
 ```shell
+# add docker to sudo group (do this step as root or sudo user)
+usermod -aG sudo docker
+
+# switch to docker user
+su docker
+
 # UPDATE DOCKER-ROOTLESS (as user which docker-rootless runs with):
 # stop your docker daemon ... (takes long time for me and doesn't finish problerly)
 systemctl --user stop docker.service
@@ -97,25 +103,19 @@ sudo setcap cap_net_bind_service=ep /home/docker/bin/rootlesskit
 
 # DONE (docker should now be updated)
 docker --version
-# Docker version 20.10.7, build f0df350
+# Docker version 20.10.12, build e91ed57
 
 
 # UPDATE DOCKER-COMPOSE (with sudo or root):
 # get and save latest docker-compose version
-DOCKER_COMPOSE_VERSION=$(curl -L "https://docs.docker.com/compose/install/" | grep -o -P '(?<=https://github.com/docker/compose/releases/download/).*(?=/docker-compose)' | head -n1)
-
-# download docker-compose
-sudo curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo curl -SL https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-linux-x86_64 -o /usr/local/lib/docker/cli-plugins/docker-compose
 
 # make it executable
-sudo chmod +x /usr/local/bin/docker-compose
-
-# link it to /usr/bin
-sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
 
 # DONE (docker-compose should now be updated)
 docker-compose --version
-# docker-compose version 1.29.2, build 5becea4c
+# Docker Compose version v2.2.3
 
 
 # remove docker-rootless script
