@@ -6,8 +6,10 @@
 
 1. [deploy / docker-compose.yml](#deploy)  
 2. [reverse-proxy / nginx configuration](#reverse-proxy)  
-3. [usage](#usage)  
-  3.1 [browse](#browse)  
+3. [configuration](#configuration)  
+  3.1 [change default password of abc user](#change_password-file)  
+4. [usage](#usage)  
+  4.1 [browse](#browse)  
 
 \# [Find Me](#findme)  
 \# [License](#license)  
@@ -18,9 +20,18 @@
 # 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>  
 **[see nginx/conf.d/webtop.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/webtop.conf)**  
 
-# 3. usage <a name="usage"></a>  
+# 3. configuration <a name="configuration"></a>  
 
-### 3.1 browse <a name="browse"></a>  
+### 3.1 change default password of abc user <a name="change_password"></a>  
+**on your docker host, enter:**  
+```shell
+docker container exec -it webtop passwd abc
+
+```
+
+# 4. usage <a name="usage"></a>  
+
+### 4.1 browse <a name="browse"></a>  
 **Frontend**  
 [https://webtop.3x3cut0r.de](https://webtop.3x3cut0r.de)  
 
