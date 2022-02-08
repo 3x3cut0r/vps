@@ -1,5 +1,6 @@
 #!/bin/bash
-apt install     bash-completion \
+apt install     apache2-utils \
+                bash-completion \
                 curl \
                 dnsutils \
                 htop \
