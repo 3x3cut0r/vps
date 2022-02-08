@@ -1,6 +1,6 @@
 # webtop
 
-**docker-compose.yml for webtop - webtop is a ...**  
+**docker-compose.yml for webtop**  
 
 ## Index
 
