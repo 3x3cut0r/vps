@@ -11,7 +11,7 @@ services:
         security_opt:
             - seccomp:unconfined        #optional
         ports:
-            - "80:3000"
+            - "2122:3000"
         networks:
             webtop:
                 ipv4_address: 10.24.22.2
