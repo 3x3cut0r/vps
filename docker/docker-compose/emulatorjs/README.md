@@ -8,6 +8,7 @@
 2. [reverse-proxy / nginx configuration](#reverse-proxy)  
 3. [configuration](#configuration)  
   3.1 [Download Default Config](#default_config)  
+  3.2 [add roms](#add_roms)  
 4. [usage](#usage)  
   4.1 [browse](#browse)  
 
@@ -25,7 +26,11 @@
 # 3. configuration <a name="configuration"></a>  
 
 ### 3.1 Download Default Config <a name="default_config"></a>  
-**visit the EmulatorJS Backend on [https://emulatorjsadmin.3x3cut0r.de](https://emulatorjsadmin.3x3cut0r.de) and klick Download Default Config**  
+**visit the EmulatorJS Backend on [https://emulatorjsadmin.3x3cut0r.de](https://emulatorjsadmin.3x3cut0r.de) and click Download Default Config**  
+
+### 3.1 add roms <a name="add_roms"></a>  
+**visit the EmulatorJS Backend on [https://emulatorjsadmin.3x3cut0r.de](https://emulatorjsadmin.3x3cut0r.de) and click on File Management**  
+**click on the emulator of your choice and drag and drop some roms**  
 
 # 4. usage <a name="usage"></a>  
 
