@@ -1,13 +1,13 @@
 # emulatorjs
 
-**docker-compose.yml for emulatorjs**  
+**docker-compose.yml for emulatorjs - a browser based retro game emulator in java script**  
 
 ## Index
 
 1. [deploy / docker-compose.yml](#deploy)  
 2. [reverse-proxy / nginx configuration](#reverse-proxy)  
 3. [configuration](#configuration)  
-  3.1 [config-file](#config-file)  
+  3.1 [Download Default Config](#default_config)  
 4. [usage](#usage)  
   4.1 [browse](#browse)  
 
@@ -19,21 +19,22 @@
 
 # 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>  
 **[see nginx/conf.d/emulatorjs.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/emulatorjs.conf)**  
+**and!**  
+**[see nginx/conf.d/emulatorjsadmin.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/emulatorjsadmin.conf)**  
 
 # 3. configuration <a name="configuration"></a>  
 
-### 3.1 config-file <a name="config-file"></a>  
-**...**  
-```shell
-# ...
-
-```
+### 3.1 Download Default Config <a name="default_config"></a>  
+**visit the EmulatorJS Backend on [https://emulatorjsadmin.3x3cut0r.de](https://emulatorjsadmin.3x3cut0r.de) and klick Download Default Config**  
 
 # 4. usage <a name="usage"></a>  
 
 ### 4.1 browse <a name="browse"></a>  
 **Frontend**  
 [https://emulatorjs.3x3cut0r.de](https://emulatorjs.3x3cut0r.de)  
+
+**Backend**  
+[https://emulatorjsadmin.3x3cut0r.de](https://emulatorjsadmin.3x3cut0r.de)  
 
 ### Find Me <a name="findme"></a>
 
