@@ -1,0 +1,47 @@
+version: "3.9"
+
+# https://github.com/.../...
+services:
+  # https://hub.docker.com/r/linuxserver/emulatorjs
+    emulatorjs:
+        container_name: emulatorjs
+        image: lscr.io/linuxserver/emulatorjs:latest
+        restart: unless-stopped
+        ports:
+            - "2124:80"
+            - "3000:3000"   # Rom/artwork management interface
+            - "4001:4001"   # IPFS peering port for p2p
+        networks:
+            emulatorjs:
+                ipv4_address: 10.24.24.2
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            TZ: "Europe/Berlin"
+          # PUID: "1000"
+          # PGID: "1000"
+          # SUBFOLDER: "/"  #optional
+        volumes:
+            - emulatorjs-data:/data
+            - emulatorjs-conf:/config
+
+networks:
+    emulatorjs:
+        name: emulatorjs
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.24.24.0/24"
+                  gateway: 10.24.24.1
+  # nginx:
+  #     external:
+  #         name: nginx
+
+volumes:
+    emulatorjs-data:
+        name: emulatorjs-data
+    emulatorjs-conf:
+        name: emulatorjs-conf
