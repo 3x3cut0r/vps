@@ -13,7 +13,11 @@ homeserver:
     # The URL to push real-time bridge status to.
     # If set, the bridge will make POST requests to this URL whenever a user's Signal connection state changes.
     # The bridge will use the appservice as_token to authorize requests.
-    status_endpoint: null
+    status_endpoint:
+    # Endpoint for reporting per-message status.
+    message_send_checkpoint_endpoint:
+    # Maximum number of simultaneous HTTP connections to the homeserver.
+    connection_limit: 100
 
 # Application service host/registration related details
 # Changing these values requires regeneration of the registration.
@@ -31,11 +35,17 @@ appservice:
     # Usually 1 is enough, but on high-traffic bridges you might need to increase this to avoid 413s
     max_body_size: 1
 
-    # The full URI to the database. Only Postgres is currently supported.
+    # The full URI to the database. SQLite and Postgres are supported.
+    # However, SQLite support is extremely experimental and should not be used.
+    # Format examples:
+    #   SQLite:   sqlite:///filename.db
+    #   Postgres: postgres://username:password@hostname/dbname
     #   use https://www.urlencoder.org/ to parse special characters in your password
     database: postgres://mautrix-signal:<POSTGRES_SIGNAL_PASSWORD>@postgres/mautrix-signal?sslmode=disable
-    # Additional arguments for asyncpg.create_pool()
+    # Additional arguments for asyncpg.create_pool() or sqlite3.connect()
     # https://magicstack.github.io/asyncpg/current/api/index.html#asyncpg.pool.create_pool
+    # https://docs.python.org/3/library/sqlite3.html#sqlite3.connect
+    # For sqlite, min_size is used as the connection thread pool size and max_size is ignored.
     database_opts:
         min_size: 5
         max_size: 10
@@ -48,12 +58,6 @@ appservice:
     # to leave display name/avatar as-is.
     bot_displayname: (BOT) Signal Bridge
     bot_avatar: mxc://maunium.net/wPJgTQbZOtpBFmDNkiNEMDUp
-
-    # Community ID for bridged users (changes registration file) and rooms.
-    # Must be created manually.
-    #
-    # Example: "+signal:example.com". Set to false to disable.
-    community_id: "+signal:3x3cut0r.de"
 
     # Whether or not to receive ephemeral events via appservice transactions.
     # Requires MSC2409 support (i.e. Synapse 1.22+).
@@ -96,6 +100,12 @@ signal:
     delete_unknown_accounts_on_start: false
     # Whether or not message attachments should be removed from disk after they're bridged.
     remove_file_after_handling: true
+    # Whether or not users can register a primary device
+    registration_enabled: true
+    # Whether or not to enable disappearing messages in groups. If enabled, then the expiration
+    # time of the messages will be determined by the first users to read the message, rather
+    # than individually. If the bridge has a single user, this can be turned on safely.
+    enable_disappearing_messages_in_groups: false
 
 # Bridge config
 bridge:
@@ -120,7 +130,6 @@ bridge:
     - last_name
     - phone
     - uuid
-
     # Whether or not to create portals for all groups on login/connect.
     autocreate_group_portal: true
     # Whether or not to create portals for all contacts on login/connect.
@@ -210,7 +219,7 @@ bridge:
         # Sent when joining a management room and the user is not logged in.
         welcome_unconnected: "Use `help` for help or `register` to log in."
         # Optional extra text sent when joining a management room.
-        additional_help: ""
+        additional_help: ''
 
     # Send each message separately (for readability in some clients)
     management_room_multiple_messages: false
@@ -226,6 +235,26 @@ bridge:
     permissions:
         '@3x3cut0r:matrix.3x3cut0r.de': admin
         '@3x3cut0r:matrix.org': admin
+    relay:
+        # Whether relay mode should be allowed. If allowed, `!signal set-relay` can be used to turn any
+        # authenticated user into a relaybot for that chat.
+        enabled: false
+        # The formats to use when sending messages to Signal via a relay user.
+        #
+        # Available variables:
+        #   $sender_displayname - The display name of the sender (e.g. Example User)
+        #   $sender_username    - The username (Matrix ID localpart) of the sender (e.g. exampleuser)
+        #   $sender_mxid        - The Matrix ID of the sender (e.g. @exampleuser:example.com)
+        #   $message            - The message content
+        message_formats:
+            m.text: '$sender_displayname: $message'
+            m.notice: '$sender_displayname: $message'
+            m.emote: '* $sender_displayname $message'
+            m.file: $sender_displayname sent a file
+            m.image: $sender_displayname  sent an image
+            m.audio: $sender_displayname  sent an audio file
+            m.video: $sender_displayname  sent a video
+            m.location: $sender_displayname  sent a location
 
 # Python logging configuration.
 #
