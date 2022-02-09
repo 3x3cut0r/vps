@@ -154,7 +154,7 @@ bridge:
     # instead of users having to find an access token and run `login-matrix`
     # manually.
     login_shared_secret_map:
-        3x3cut0r.de: 3x3cut0r
+        example.com: foobar
     # Should the bridge explicitly set the avatar and room name for private chat portal rooms?
     private_chat_portal_meta: false
     # Should Matrix m.notice-type messages be bridged?
@@ -270,6 +270,7 @@ logging:
     # The directory for log files. Will be created if not found.
     directory: ./logs
     # Available variables: .Date for the file date and .Index for different log files on the same day.
+    # Set this to null to disable logging to file.
     file_name_format: "{{.Date}}-{{.Index}}.log"
     # Date format for file names in the Go time format: https://golang.org/pkg/time/#pkg-constants
     file_date_format: "2006-01-02"
