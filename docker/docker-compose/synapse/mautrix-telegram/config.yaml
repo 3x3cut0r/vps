@@ -8,12 +8,14 @@ homeserver:
     # Only applies if address starts with https://
     verify_ssl: true
     asmux: false
-        # Number of retries for all HTTP requests if the homeserver isn't reachable.
+    # Number of retries for all HTTP requests if the homeserver isn't reachable.
     http_retry_count: 4
     # The URL to push real-time bridge status to.
     # If set, the bridge will make POST requests to this URL whenever a user's Telegram connection state changes.
     # The bridge will use the appservice as_token to authorize requests.
-    status_endpoint: null
+    status_endpoint:
+    # Endpoint for reporting per-message status.
+    message_send_checkpoint_endpoint:
 
 # Application service host/registration related details
 # Changing these values requires regeneration of the registration.
@@ -31,14 +33,16 @@ appservice:
     # Usually 1 is enough, but on high-traffic bridges you might need to increase this to avoid 413s
     max_body_size: 1
 
-    # The full URI to the database. SQLite and Postgres are fully supported.
-    # Other DBMSes supported by SQLAlchemy may or may not work.
+    # The full URI to the database. SQLite and Postgres are supported.
     # Format examples:
     #   SQLite:   sqlite:///filename.db
     #   Postgres: postgres://username:password@hostname/dbname
     #   use https://www.urlencoder.org/ to parse special characters in your password
     database: postgres://mautrix-telegram:<POSTGRES_TELEGRAM_PASSWORD>@postgres/mautrix-telegram?sslmode=disable
-    # Optional extra arguments for SQLAlchemy's create_engine
+    # Additional arguments for asyncpg.create_pool() or sqlite3.connect()
+    # https://magicstack.github.io/asyncpg/current/api/index.html#asyncpg.pool.create_pool
+    # https://docs.python.org/3/library/sqlite3.html#sqlite3.connect
+    # For sqlite, min_size is used as the connection thread pool size and max_size is ignored.
     database_opts: {}
 
     # Public part of web server for out-of-Matrix interaction with the bridge.
@@ -72,12 +76,6 @@ appservice:
     # to leave display name/avatar as-is.
     bot_displayname: (BOT) Telegram Bridge
     bot_avatar: mxc://maunium.net/tJCRmUyJDsgRNgqhOgoiHWbX
-
-    # Community ID for bridged users (changes registration file) and rooms.
-    # Must be created manually.
-    #
-    # Example: "+telegram:example.com". Set to false to disable.
-    community_id: "+telegram:3x3cut0r.de"
 
     # Whether or not to receive ephemeral events via appservice transactions.
     # Requires MSC2409 support (i.e. Synapse 1.22+).
@@ -132,6 +130,8 @@ bridge:
     #   "phone number"
     displayname_preference:
     - full name
+    - first name
+    - last name
     - username
     - phone number
     # Maximum length of displayname
@@ -209,6 +209,8 @@ bridge:
     inline_images: false
     # Maximum size of image in megabytes before sending to Telegram as a document.
     image_as_file_size: 10
+    # Maximum number of pixels in an image before sending to Telegram as a document. Defaults to 1280x1280 = 1638400.
+    image_as_file_pixels: 1638400
     # Maximum size of Telegram documents in megabytes to bridge.
     max_document_size: 100
     # Enable experimental parallel file transfer, which makes uploads/downloads much faster by
@@ -228,31 +230,20 @@ bridge:
         # webm - converts to webm video, requires ffmpeg executable with vp9 codec and webm container support
         target: gif
         # Arguments for converter. All converters take width and height.
-        # GIF converter takes background as a hex color.
         args:
             width: 256
             height: 256
-            background: "020202"  # only for gif
-            fps: 30               # only for webm
-    # End-to-bridge encryption support options. These require matrix-nio to be installed with pip
-    # and login_shared_secret to be configured in order to get a device for the bridge bot.
+            fps: 30 # only for webm and gif (2, 5, 10, 20 or 25 recommended)
+    # End-to-bridge encryption support options.
     #
-    # Additionally, https://github.com/matrix-org/synapse/pull/5758 is required if using a normal
-    # application service.
+    # See https://docs.mau.fi/bridges/general/end-to-bridge-encryption.html for more info.
     encryption:
         # Allow encryption, work in group chat rooms with e2ee enabled
         allow: false
         # Default to encryption, force-enable encryption in all portals the bridge creates
         # This will cause the bridge bot to be in private chats for the encryption to work properly.
         default: false
-        # Database for the encryption data. Currently only supports Postgres and an in-memory
-        # store that's persisted as a pickle.
-        # If set to `default`, will use the appservice postgres database
-        # or a pickle file if the appservice database is sqlite.
-        #
-        # Format examples:
-        #   Pickle:   pickle:///filename.pickle
-        #   Postgres: postgres://username:password@hostname/dbname
+        # Database for the encryption data. If set to `default`, will use the appservice database.
         database: default
         # Options for automatic key sharing.
         key_sharing:
@@ -282,11 +273,15 @@ bridge:
     mute_bridging: false
     # When using double puppeting, should pinned chats be moved to a specific tag in Matrix?
     # The favorites tag is `m.favourite`.
-    pinned_tag: null
+    pinned_tag:
     # Same as above for archived chats, the low priority tag is `m.lowpriority`.
-    archive_tag: null
+    archive_tag:
     # Whether or not mute status and tags should only be bridged when the portal room is created.
     tag_only_on_create: true
+    # Should leaving the room on Matrix make the user leave on Telegram?
+    bridge_matrix_leave: true
+    # Should the user be kicked out of all portals when logging out of the bridge?
+    kick_on_logout: true
     # Settings for backfilling messages from Telegram.
     backfill:
         # Whether or not the Telegram ghosts of logged in Matrix users should be
@@ -333,16 +328,10 @@ bridge:
         exceptions:
         - "@importantbot:3x3cut0r.de"
 
-    # Some config options related to Telegram message deduplication.
-    # The default values are usually fine, but some debug messages/warnings might recommend you
-    # change these.
-    deduplication:
-        # Whether or not to check the database if the message about to be sent is a duplicate.
-        pre_db_check: false
-        # The number of latest events to keep when checking for duplicates.
-        # You might need to increase this on high-traffic bridge instances.
-        cache_queue_length: 20
-
+    # An array of possible values for the $distinguisher variable in message formats.
+    # Each user gets one of the values here, based on a hash of their user ID.
+    # If the array is empty, the $distinguisher variable will also be empty.
+    relay_user_distinguishers: [🟦, 🟣, 🟩, ⭕️, 🔶, ⬛️, 🔵, 🟢]
     # The formats to use when sending messages to Telegram via the relay bot.
     # Text msgtypes (m.text, m.notice and m.emote) support HTML, media msgtypes don't.
     #
@@ -350,23 +339,24 @@ bridge:
     #   $sender_displayname - The display name of the sender (e.g. Example User)
     #   $sender_username    - The username (Matrix ID localpart) of the sender (e.g. exampleuser)
     #   $sender_mxid        - The Matrix ID of the sender (e.g. @exampleuser:example.com)
+    #   $distinguisher      - A random string from the options in the relay_user_distinguishers array.
     #   $message            - The message content
     message_formats:
-        m.text: "<b>$sender_displayname</b>: $message"
-        m.notice: "<b>$sender_displayname</b>: $message"
-        m.emote: "* <b>$sender_displayname</b> $message"
-        m.file: "<b>$sender_displayname</b> sent a file: $message"
-        m.image: "<b>$sender_displayname</b> sent an image: $message"
-        m.audio: "<b>$sender_displayname</b> sent an audio file: $message"
-        m.video: "<b>$sender_displayname</b> sent a video: $message"
-        m.location: "<b>$sender_displayname</b> sent a location: $message"
+        m.text: '<b>$sender_displayname</b>: $message'
+        m.notice: '<b>$sender_displayname</b>: $message'
+        m.emote: '* <b>$sender_displayname</b> $message'
+        m.file: '<b>$sender_displayname</b> sent a file: $message'
+        m.image: '<b>$sender_displayname</b> sent an image: $message'
+        m.audio: '<b>$sender_displayname</b> sent an audio file: $message'
+        m.video: '<b>$sender_displayname</b> sent a video: $message'
+        m.location: '<b>$sender_displayname</b> sent a location: $message'
     # Telegram doesn't have built-in emotes, this field specifies how m.emote's from authenticated
     # users are sent to telegram. All fields in message_formats are supported. Additionally, the
     # Telegram user info is available in the following variables:
     #    $displayname - Telegram displayname
     #    $username    - Telegram username (may not exist)
     #    $mention     - Telegram @username or displayname mention (depending on which exists)
-    emote_format: "* $mention $formatted_body"
+    emote_format: '* $mention $formatted_body'
 
     # The formats to use when sending state events to Telegram via the relay bot.
     #
@@ -375,9 +365,9 @@ bridge:
     #
     # Set format to an empty string to disable the messages for that event.
     state_event_formats:
-        join: "<b>$displayname</b> joined the room."
-        leave: "<b>$displayname</b> left the room."
-        name_change: "<b>$prev_displayname</b> changed their name to <b>$displayname</b>"
+        join: <b>$displayname</b> joined the room.
+        leave: <b>$displayname</b> left the room.
+        name_change: <b>$prev_displayname</b> changed their name to <b>$displayname</b>
 
     # Filter rooms that can/can't be bridged. Can also be managed using the `filter` and
     # `filter-mode` management commands.
@@ -405,7 +395,7 @@ bridge:
         # Sent when joining a management room and the user is not logged in.
         welcome_unconnected: "Use `help` for help or `login` to log in."
         # Optional extra text sent when joining a management room.
-        additional_help: ""
+        additional_help: ''
 
     # Send each message separately (for readability in some clients)
     management_room_multiple_messages: false
