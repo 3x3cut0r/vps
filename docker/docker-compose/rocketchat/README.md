@@ -8,6 +8,7 @@ howto deploy rocket.chat
 2. [docker-compose](#docker-compose)  
 3. [known errors](#known_errors)  
 4. [dark mode](#dark-mode)  
+5. [downgrade](#downgrade)  
 
 \# [Find Me](#findme)  
 \# [License](#license)  
@@ -44,6 +45,20 @@ exit
 
 # 4. dark mode <a name="dark-mode"></a>
 **for dark mode visit [github.com/pbaity/rocketchat-dark-mode](https://github.com/pbaity/rocketchat-dark-mode)**
+
+# 5. downgrade to previous version <a name="downgrade"></a>
+**it is highly not recommended to do this !!!**  
+**1. downgrade version by adding previous version as docker image tag in docker-compose.yml**  
+**2. connect to mongo an migrate from current to a previous mongo database version number (e.g. 253->252)**  
+```shell
+docker container exec -it mongo /bin/bash
+mongo
+use rocketchat
+db.migrations.update({"version":253},{"version":252})
+exit
+exit
+
+```
 
 ### Find Me <a name="findme"></a>
 
