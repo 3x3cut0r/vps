@@ -35,7 +35,7 @@ restart rocketchat
 
 **if rocketchat couldn't start because of error: not master and slaveOk=false**  
 ```shell
-docker container exec -it mongo /bin/#!/usr/bin/env bash
+docker container exec -it mongo /bin/bash
 mongo
 rs.reconfig({ "_id" : "rs0", "version" : 1, "members" : [{ "_id" : 0, "host" : "mongo:27017", "arbiterOnly" : false, "buildIndexes" : true, "hidden" : false, "priority" : 1, "slaveDelay" : NumberLong(0), "votes" : 1 }] }, {force : true})
 exit
