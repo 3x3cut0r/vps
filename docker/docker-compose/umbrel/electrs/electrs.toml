@@ -1,6 +1,7 @@
-verbose = 4
+log_filters = "INFO"
 network = "bitcoin"
 db_dir = "/data/db"
 daemon_rpc_addr = "10.21.21.8:8332"
+daemon_p2p_addr = "10.21.21.8:8333"
 electrum_rpc_addr = "0.0.0.0:50011"
 server_banner = "Umbrel v0.3.5"
