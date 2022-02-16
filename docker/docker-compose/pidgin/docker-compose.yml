@@ -1,0 +1,43 @@
+version: "3.9"
+
+# https://github.com/linuxserver/docker-pidgin
+services:
+  # https://hub.docker.com/r/linuxserver/pidgin
+    pidgin:
+        container_name: pidgin
+        image: lscr.io/linuxserver/pidgin:latest
+        restart: unless-stopped
+        ports:
+            - "2125:3000"
+        networks:
+            pidgin:
+                ipv4_address: 10.24.25.2
+          # nginx:
+          #     ipv4_address: 10.24.0.199
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            TZ: "Europe/Berlin"
+          # PUID: "1000"
+          # PGID: "1000"
+        volumes:
+            - pidgin-conf:/config
+
+networks:
+    pidgin:
+        name: pidgin
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.24.25.0/24"
+                  gateway: 10.24.25.1
+  # nginx:
+  #     external:
+  #         name: nginx
+
+volumes:
+    pidgin-conf:
+        name: pidgin-conf
