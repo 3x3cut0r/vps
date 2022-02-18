@@ -47,11 +47,12 @@ services:
             - azuracast-sftpgo-data:/var/azuracast/sftpgo/persist
             - azuracast-backups:/var/azuracast/backups
         depends_on:
-            - azuracast-radio
+            - stations
+            - redis
 
   # https://github.com/azuracast/docker-azuracast-radio/pkgs/container/radio
-    azuracast-radio:
-        container_name: azuracast-radio
+    stations:
+        container_name: azuracast-stations
         image: ghcr.io/azuracast/radio:latest
         restart: unless-stopped
         init: true
@@ -73,6 +74,15 @@ services:
             - azuracast-letsencrypt:/etc/nginx/certs
             - azuracast-tmp-data:/var/azuracast/www_tmp
 
+  # https://hub.docker.com/_/redis
+    redis:
+        container_name: azuracast-redis
+        image: redis:6-alpine
+        restart: always
+        networks:
+            azuracast:
+                ipv4_address: 10.24.26.4
+
 networks:
     azuracast:
         name: azuracast
@@ -84,9 +94,6 @@ networks:
     mariadb:
         external:
             name: mariadb
-    redis-nopw:
-        external:
-            name: redis-nopw
 
 volumes:
     azuracast-letsencrypt:
