@@ -1,0 +1,28 @@
+:root {
+    --font-family-monospace: "Roboto Mono",Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+    --font-family-sans-serif: Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    --font-family-serif: "Roboto Slab",Georgia,"Times New Roman",Times,serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+
+body {
+    background-image: url('../assets/img/hexbg.png');
+    height: 100vh;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    justify-content: center;
+    background-color: #edecec;
+    color: #5e5e5e;
+}
+.card {
+    background-color: #fff;
+    height: 12rem;
+    width: 22rem;
+    margin: 1rem;
+}
+.card .card-body {
+    position: relative;
+}
+.card .card-header {
+    font-weight: bold;
+}
