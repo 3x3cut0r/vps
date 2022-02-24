@@ -7,7 +7,8 @@
 1. [deploy / docker-compose.yml](#deploy)  
 2. [reverse-proxy / nginx configuration](#reverse-proxy)  
 3. [configuration](#configuration)  
-  3.1 [config-file](#config-file)  
+  3.1 [download database files](#db-files)  
+  3.2 [set database folder](#db-folder)  
 4. [usage](#usage)  
   4.1 [browse](#browse)  
 
@@ -20,13 +21,22 @@
 # 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>  
 **[see nginx/conf.d/calibre.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/calibre.conf)**  
 
-# 3. usage <a name="usage"></a>  
+# 3. configuration <a name="configuration"></a>  
 
-### 3.1 browse <a name="browse"></a>  
+### 3.1 download database files <a name="db-files"></a>  
+**download files from [see docker/docker-compose/calibre/books/](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/calibre/books/)**  
+**copy files into your calibre-books docker volume**  
+
+### 3.2 set database folder <a name="db-folder"></a>  
+**visit [https://calibre.3x3cut0r.de](https://calibre.3x3cut0r.de)**  
+**Default login credentials: admin / admin123**  
+**set /books as your database location folder**  
+
+# 4. usage <a name="usage"></a>  
+
+### 4.1 browse <a name="browse"></a>  
 **Frontend**  
 [https://calibre.3x3cut0r.de](https://calibre.3x3cut0r.de)  
-
-**Default login credentials: user: admin, password: admin123**  
 
 ### Find Me <a name="findme"></a>
 
