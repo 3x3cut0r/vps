@@ -24,7 +24,7 @@
 # 3. configuration <a name="configuration"></a>  
 
 ### 3.1 download database files <a name="db-files"></a>  
-**download files from [see docker/docker-compose/calibre/books/](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/calibre/books/)**  
+**download files from [docker/docker-compose/calibre/books/](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/calibre/books/)**  
 **copy files into your calibre-books docker volume**  
 
 ### 3.2 set database folder <a name="db-folder"></a>  
