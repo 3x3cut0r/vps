@@ -1,0 +1,48 @@
+version: "3.9"
+
+# https://github.com/linuxserver/docker-calibre-web
+services:
+  # https://hub.docker.com/r/linuxserver/calibre-web
+    calibre:
+        container_name: calibre
+        image: lscr.io/linuxserver/calibre-web:latest
+        restart: unless-stopped
+        ports:
+            - "2127:8083"
+        networks:
+            calibre:
+                ipv4_address: 10.24.27.2
+          # nginx:
+          #     ipv4_address: 10.24.0.199
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            TZ: "Europe/Berlin"
+            PUID: "1000"
+            PGID: "1000"
+          # DOCKER_MODS: linuxserver/calibre-web:calibre #optional
+          # OAUTHLIB_RELAX_TOKEN_SCOPE: 1 #optional
+        volumes:
+            - calibre-books:/books
+            - calibre-conf:/config
+
+networks:
+    calibre:
+        name: calibre
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.24.27.0/24"
+                  gateway: 10.24.27.1
+  # nginx:
+  #     external:
+  #         name: nginx
+
+volumes:
+    calibre-books:
+        name: calibre-books
+    calibre-conf:
+        name: calibre-conf
