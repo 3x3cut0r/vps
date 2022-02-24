@@ -26,6 +26,8 @@
 **Frontend**  
 [https://calibre.3x3cut0r.de](https://calibre.3x3cut0r.de)  
 
+**Default login credentials: user: admin, password: admin123**  
+
 ### Find Me <a name="findme"></a>
 
 ![E-Mail](https://img.shields.io/badge/E--Mail-executor55%40gmx.de-red)
