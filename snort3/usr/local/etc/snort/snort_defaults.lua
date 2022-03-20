@@ -315,7 +315,11 @@ default_smtp =
 -- default wizard
 ---------------------------------------------------------------------------
 
-http_methods =  -- build from default_http_methods
+-- some HTTP and SIP methods match the whole start line to disambiguate
+-- between them or, in the case of ACK, from another protocol
+-- the * * patterns match unknown methods
+
+http_methods =
 {
     'GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'TRACE', 'CONNECT',
     'VERSION_CONTROL', 'REPORT', 'CHECKOUT', 'CHECKIN', 'UNCHECKOUT',
@@ -325,13 +329,15 @@ http_methods =  -- build from default_http_methods
     'UPDATEREDIRECTREF', 'PROPFIND', 'PROPPATCH', 'MKCOL', 'COPY',
     'MOVE', 'LOCK', 'UNLOCK', 'SEARCH', 'BCOPY', 'BDELETE', 'BMOVE',
     'BPROPFIND', 'BPROPPATCH', 'POLL', 'UNSUBSCRIBE', 'X_MS_ENUMATTS',
-    'NOTIFY * HTTP/', 'SUBSCRIBE * HTTP/', 'UPDATE * HTTP/', 'OPTIONS * HTTP/'
+    'NOTIFY * HTTP/', 'OPTIONS * HTTP/', 'SUBSCRIBE * HTTP/', 'UPDATE * HTTP/',
+    '* * HTTP/'
 }
 
 sip_requests =
 {
     'INVITE', 'CANCEL', 'BYE', 'REGISTER', 'PRACK', 'PUBLISH', 'REFER', 'INFO', 'MESSAGE',
-    'ACK * SIP/', 'SUBSCRIBE * SIP/', 'UPDATE * SIP/', 'NOTIFY * SIP/', 'OPTIONS * SIP/'
+    'NOTIFY * SIP/', 'OPTIONS * SIP/', 'SUBSCRIBE * SIP/', 'UPDATE * SIP/',
+    'ACK * SIP/', '* * SIP/'
 }
 
 telnet_commands =
@@ -339,7 +345,7 @@ telnet_commands =
     '|FF F0|', '|FF F1|', '|FF F2|', '|FF F3|',
     '|FF F4|', '|FF F5|', '|FF F6|', '|FF F7|',
     '|FF F8|', '|FF F9|', '|FF FA|', '|FF FB|',
-    '|FF FC|', '|FF FD|', '|FF FE|', '|FF FF|'
+    '|FF FC|', '|FF FD|', '|FF FE|'
 }
 
 
@@ -1170,11 +1176,14 @@ default_low_port_scan =
 }
 
 ---------------------------------------------------------------------------
+-- default http configuration
+---------------------------------------------------------------------------
+
 -- ECMAScript Standard Built-in Objects and Functions Names (Identifiers)
 -- Also, might include other non-specification identifiers like those
 -- are part of WebAPI or frameworks
----------------------------------------------------------------------------
-default_js_norm_built_in_ident =
+
+default_js_norm_ident_ignore =
 {
     -- GlobalObject.Functions
     'eval', 'PerformEval', 'HostEnsureCanCompileStrings', 'EvalDeclarationInstantiation',
@@ -1269,6 +1278,12 @@ default_js_norm_built_in_ident =
     'CreateHTML'
 }
 
+default_http_inspect =
+{
+    -- params not specified here get internal defaults
+    js_norm_ident_ignore = default_js_norm_ident_ignore,
+}
+
 ---------------------------------------------------------------------------
 -- default whitelist
 ---------------------------------------------------------------------------
@@ -1287,7 +1302,8 @@ default_whitelist =
     ip_med_sweep ip_med_dist ip_hi_proto ip_hi_decoy ip_hi_sweep
     ip_hi_dist icmp_low_sweep icmp_med_sweep icmp_hi_sweep
     default_hi_port_scan default_med_port_scan default_low_port_scan
-    default_variables netflow_versions default_js_norm_built_in_ident
+    default_variables netflow_versions default_js_norm_ident_ignore
+    default_http_inspect
 ]]
 
 snort_whitelist_append(default_whitelist)
