@@ -4,7 +4,7 @@ services:
   # https://hub.docker.com/_/rocket-chat
     rocketchat:
         container_name: rocketchat
-        image: rocketchat/rocket.chat:latest
+        image: rocketchat/rocket.chat:4.5.0
         command: >
             bash -c
             "for i in `seq 1 30`; do
@@ -140,9 +140,13 @@ services:
             ROCKETCHAT_USER: hubot.bot
             ROCKETCHAT_PASSWORD: <ROCKETCHAT_PASSWORD>
             BOT_NAME: hubot
-            LISTEN_ON_ALL_PUBLIC: "true"
+            RESPOND_TO_DM: 'true'
+            LISTEN_ON_ALL_PUBLIC: "true" # DEPRICATED
+            HUBOT_GOOGLE_CSE_ID: '<GOOGLE_CSE_ID>' # Instructions here: https://github.com/hubot-scripts/hubot-google-images
+            HUBOT_GOOGLE_CSE_KEY: '<GOOGLE_CSE_KEY>'
+          # HUBOT_MUSTACHIFY_URL: 'https://mustachify.me/?src=YOUR-IMAGE-URL'
           # you can add more scripts as you'd like here, they need to be installable by npm
-            EXTERNAL_SCRIPTS: hubot-help,hubot-seen,hubot-links,hubot-diagnostics
+            EXTERNAL_SCRIPTS: hubot-pugme,hubot-help,hubot-seen,hubot-links,hubot-diagnostics,hubot-calculator,hubot-2048,hubot-darts,hubot-thesimpsons,hubot-tell,hubot-google-images
         volumes:
             - hubot-scripts:/home/hubot/scripts
         depends_on:
