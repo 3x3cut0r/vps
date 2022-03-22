@@ -22,7 +22,7 @@ services:
           # nginx:
           #     ipv4_address: 10.24.0.212
         ports:
-            - "2212:3000"
+            - "9212:3000"
         dns:
             - 8.8.8.8
             - 8.8.4.4
@@ -148,7 +148,7 @@ services:
           # you can add more scripts as you'd like here, they need to be installable by npm
             EXTERNAL_SCRIPTS: hubot-pugme,hubot-help,hubot-seen,hubot-links,hubot-diagnostics,hubot-calculator,hubot-2048,hubot-darts,hubot-thesimpsons,hubot-tell,hubot-google-images
         volumes:
-            - hubot-scripts:/home/hubot/scripts
+            - hubot-dev-scripts:/home/hubot/scripts
         depends_on:
             - rocketchat-dev
 
