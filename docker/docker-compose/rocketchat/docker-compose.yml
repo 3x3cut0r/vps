@@ -4,7 +4,7 @@ services:
   # https://hub.docker.com/_/rocket-chat
     rocketchat:
         container_name: rocketchat
-        image: rocketchat/rocket.chat:4.5.0
+        image: rocketchat/rocket.chat:4.5.2
         command: >
             bash -c
             "for i in `seq 1 30`; do
@@ -32,9 +32,9 @@ services:
             - rocketchat-uploads:/app/uploads
         environment:
             PORT: "3000"
-            ROOT_URL: https://chat.3x3cut0r.de
-            MONGO_URL: mongodb://mongo:27017/rocketchat
-            MONGO_OPLOG_URL: mongodb://mongo:27017/local?replSet=rs0'
+            ROOT_URL: 'https://chat.3x3cut0r.de'
+            MONGO_URL: 'mongodb://mongo:27017/rocketchat?replSet=rs0'
+            MONGO_OPLOG_URL: 'mongodb://mongo:27017/local?replSet=rs0'
           # MAIL_URL: smtp://smtp.email
           # HTTP_PROXY: http://proxy.domain.com
           # HTTPS_PROXY: http://proxy.domain.com
@@ -137,9 +137,9 @@ services:
         environment:
             ROCKETCHAT_URL: rocketchat:3000
             ROCKETCHAT_ROOM: ''
-            ROCKETCHAT_USER: hubot.bot
-            ROCKETCHAT_PASSWORD: <ROCKETCHAT_PASSWORD>
-            BOT_NAME: hubot
+            ROCKETCHAT_USER: 'hubot.bot'
+            ROCKETCHAT_PASSWORD: '<ROCKETCHAT_PASSWORD>'
+            BOT_NAME: 'hubot'
             RESPOND_TO_DM: 'true'
             LISTEN_ON_ALL_PUBLIC: "true" # DEPRICATED
             HUBOT_GOOGLE_CSE_ID: '<GOOGLE_CSE_ID>' # Instructions here: https://github.com/hubot-scripts/hubot-google-images
