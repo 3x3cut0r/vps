@@ -88,6 +88,7 @@ services:
             - /home/docker/config-files/mongodb/mongod.conf:/etc/mongod.conf
         labels:
             - "traefik.enable=false"
+            - "com.centurylinklabs.watchtower.enable=false"
 
   # https://hub.docker.com/_/mongo
   # this container's job is just run the command to initialize the replica set.
