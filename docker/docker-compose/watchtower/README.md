@@ -6,6 +6,7 @@
 
 1. [deploy / docker-compose.yml](#deploy)  
 2. [configuration](#reverse-proxy)  
+3. [prevent containers from being updated](#prevent_container_update)  
 
 \# [Find Me](#findme)  
 \# [License](#license)  
@@ -18,6 +19,16 @@
 ```shell
 ...
 command: --cleanup --rolling-restart --schedule "0 0 4 * * *"
+...
+
+```
+
+# 3. prevent containers from being updated <a name="prevent_container_update"></a>  
+**add the following label to docker-compose.yml**  
+```shell
+...
+    labels:
+        - "com.centurylinklabs.watchtower.enable=false"
 ...
 
 ```
