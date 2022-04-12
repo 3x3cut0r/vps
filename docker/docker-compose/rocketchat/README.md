@@ -54,6 +54,10 @@ restart rocketchat
 docker container exec -it mongo /bin/bash
 mongo
 rs.reconfig({ "_id" : "rs0", "version" : 1, "members" : [{ "_id" : 0, "host" : "mongo:27017", "arbiterOnly" : false, "buildIndexes" : true, "hidden" : false, "priority" : 1, "slaveDelay" : NumberLong(0), "votes" : 1 }] }, {force : true})
+
+# for error code 103: Incompatible delay field name. If the node is in FCV 4.9, it must use secondaryDelaySecs. use:
+rs.reconfig({ "_id" : "rs0", "version" : 1, "members" : [{ "_id" : 0, "host" : "mongo:27017", "arbiterOnly" : false, "buildIndexes" : true, "hidden" : false, "priority" : 1, "secondaryDelaySecs" : NumberLong(0), "votes" : 1 }] }, {force : true})
+
 exit
 exit
 
