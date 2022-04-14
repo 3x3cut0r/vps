@@ -21,7 +21,7 @@
 # 3. usage <a name="usage"></a>  
 
 ### 3.1 browse <a name="browse"></a>  
-**Frontend**  
+**Frontend (default user: admin/admin)**  
 [https://paperless-ngx.3x3cut0r.de](https://paperless-ngx.3x3cut0r.de)  
 
 ### Find Me <a name="findme"></a>
