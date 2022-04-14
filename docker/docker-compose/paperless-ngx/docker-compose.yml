@@ -27,8 +27,6 @@ services:
         volumes:
             - paperless-ngx-conf:/config
             - paperless-ngx-data:/data
-        depends_on:
-            - app
 
 networks:
     paperless-ngx:
