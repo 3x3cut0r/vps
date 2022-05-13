@@ -4,40 +4,28 @@ services:
   # https://hub.docker.com/r/avesit/filesender
     filesender:
         container_name: filesender
-        image: avesit/filesender:latest
+        image: 3x3cut0r/filesender:latest
         restart: unless-stopped
         networks:
             filesender:
                 ipv4_address: 10.24.16.2
-            mariadb:
-                ipv4_address: 10.20.0.116
         ports:
           - "2116:80"
-          - "9116:9000"
+        # - "9116:9000"
         dns:
             - 8.8.8.8
             - 8.8.4.4
             - 2001:4860:4860::8888
             - 2001:4860:4860::8844
         environment:
-            FILESENDER_URL: "https://filesender.3x3cut0r.de/"
-            FILESENDER_AUTHTYPE: "saml"
-            FILESENDER_STORAGE: "Filesystem"
-            DB_TYPE: "mysql"
-            DB_HOST: "mariadb"
-            DB_NAME: "filesender"
-            DB_PORT: "3306"
-            DB_USER: "filesender"
-            DB_PASSWORD: '<DB_PASSWORD>'
-            PHP_FPM_LISTEN: "9000"
-            SMTP_SERVER: "localhost"
-            SMTP_TLS: "True"
+            FILESENDER_URL: "https://filesender.3x3cut0r.de"
+            FILESENDER_TRUSTED_DOMAINS: "filesender.3x3cut0r.de"
+            SIMPLESAML_LANGUAGE_DEFAULT: "de"
             ADMIN_EMAIL: "executor55@gmx.de"
-            ADMIN_USERS: "3x3cut0r"
+            ADMIN_USER: "3x3cut0r"
             ADMIN_PASSWORD: '<ADMIN_PASSWORD>'
-            SIMPLESAML_SALT: '<SIMPLESAML_SALT>'
+            TZ: 'Europe/Berlin'
         volumes:
-          - filesender-bin:/opt/filesender
           - filesender-conf:/config
           - filesender-data:/data
 
@@ -49,13 +37,8 @@ networks:
             config:
                 - subnet: "10.24.16.0/24"
                   gateway: 10.24.16.1
-    mariadb:
-        external:
-            name: mariadb
 
 volumes:
-    filesender-bin:
-        name: filesender-bin
     filesender-conf:
         name: filesender-conf
     filesender-data:
