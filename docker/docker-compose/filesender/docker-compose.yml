@@ -9,6 +9,8 @@ services:
         networks:
             filesender:
                 ipv4_address: 10.24.16.2
+            mariadb:
+                ipv4_address: 10.20.0.116
         ports:
           - "2116:80"
         # - "9116:9000"
@@ -24,6 +26,12 @@ services:
             ADMIN_EMAIL: "executor55@gmx.de"
             ADMIN_USER: "3x3cut0r"
             ADMIN_PASSWORD: '<ADMIN_PASSWORD>'
+            DB_TYPE: "mysql"
+            DB_HOST: "mariadb"
+            DB_NAME: "filesender"
+            DB_PORT: "3306"
+            DB_USER: "filesender"
+            DB_PASSWORD: '<DB_PASSWORD>'
             TZ: 'Europe/Berlin'
         volumes:
           - filesender-conf:/config
@@ -37,6 +45,9 @@ networks:
             config:
                 - subnet: "10.24.16.0/24"
                   gateway: 10.24.16.1
+    mariadb:
+            external:
+                name: mariadb
 
 volumes:
     filesender-conf:
