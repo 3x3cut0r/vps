@@ -8,20 +8,20 @@ services:
         image: traefik:v2.6
         restart: unless-stopped
         command:
-            #- "--log.level=DEBUG"
+            - "--log.level=INFO"
             - "--api.insecure=true"
             - "--providers.docker=true"
             - "--providers.docker.exposedbydefault=false"
             - "--entrypoints.web.address=:80"
-            #- "--entrypoints.websecure.address=:443"
-            #- "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-            #- "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+            - "--entrypoints.websecure.address=:443"
+            - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+            - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
             - "--certificatesresolvers.myresolver.acme.email=executor55@gmx.de"
-            #- "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+            - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
         ports:
-            - "2000:80"
-            - "2800:8080"
-
+            - "80:80"
+            - "443:443"
+            - "8080:8080"
         networks:
             traefik:
                 ipv4_address: 10.10.0.2
