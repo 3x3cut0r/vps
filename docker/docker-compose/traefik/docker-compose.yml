@@ -1,0 +1,57 @@
+version: "3.9"
+
+# https://github.com/traefik/traefik
+services:
+  # https://hub.docker.com/_/traefik
+    traefik:
+        container_name: traefik
+        image: traefik:v2.6
+        restart: unless-stopped
+        command:
+            #- "--log.level=DEBUG"
+            - "--api.insecure=true"
+            - "--providers.docker=true"
+            - "--providers.docker.exposedbydefault=false"
+            - "--entrypoints.web.address=:80"
+            #- "--entrypoints.websecure.address=:443"
+            #- "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+            #- "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+            - "--certificatesresolvers.myresolver.acme.email=executor55@gmx.de"
+            #- "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+        ports:
+            - "2000:80"
+            - "8000:8080"
+
+        networks:
+            traefik:
+                ipv4_address: 10.10.0.2
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        volumes:
+            - "/run/user/1000/docker.sock:/var/run/docker.sock:ro"
+
+  # https://hub.docker.com/r/traefik/whoami
+    whoami:
+        image: "traefik/whoami"
+        container_name: "simple-service"
+        networks:
+            traefik:
+                ipv4_address: 10.10.0.3
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.whoami.rule=Host(`3x3cut0r.de`)"
+            - "traefik.http.routers.whoami.entrypoints=web"
+        depends_on:
+            - traefik
+
+networks:
+    traefik:
+        name: traefik
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.10.0.0/16"
+                  gateway: 10.10.0.1
