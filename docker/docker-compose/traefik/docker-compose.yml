@@ -20,7 +20,7 @@ services:
             #- "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
         ports:
             - "2000:80"
-            - "8000:8080"
+            - "2800:8080"
 
         networks:
             traefik:
