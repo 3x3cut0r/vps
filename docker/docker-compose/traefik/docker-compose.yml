@@ -42,7 +42,7 @@ services:
                 ipv4_address: 10.10.0.3
         labels:
             - "traefik.enable=true"
-            - "traefik.http.routers.whoami.rule=Host(`3x3cut0r.de`)"
+            - "traefik.http.routers.whoami.rule=Host(`whoami.3x3cut0r.de`)"
             - "traefik.http.routers.whoami.entrypoints=web"
         depends_on:
             - traefik
