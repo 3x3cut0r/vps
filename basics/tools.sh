@@ -7,6 +7,7 @@ apt install     apache2-utils \
                 iftop \
                 linux-headers-$(uname -r) \
                 nano \
+                net-tools \
                 ncdu \
                 nmon \
                 openssh-server \
