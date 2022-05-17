@@ -32,13 +32,13 @@ services:
             - "traefik.http.routers.frontend.entrypoints=websecure"
             - "traefik.http.services.frontend.loadbalancer.server.port=2101"
             - "traefik.http.routers.frontend.service=frontend"
-            - "traefik.http.routers.frontend.tls.certresolver=myresolver"
+            - "traefik.http.routers.frontend.tls.certresolver=leresolver"
           # Edge
           # - "traefik.http.routers.edge.rule=Host(`edge.3x3cut0r.de`)"
           # - "traefik.http.routers.edge.entrypoints=websecure"
           # - "traefik.http.services.edge.loadbalancer.server.port=8000"
           # - "traefik.http.routers.edge.service=edge"
-          # - "traefik.http.routers.edge.tls.certresolver=myresolver"
+          # - "traefik.http.routers.edge.tls.certresolver=leresolver"
 
 networks:
     portainer:
