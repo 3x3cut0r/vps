@@ -10,8 +10,8 @@ services:
         networks:
             portainer:
                 ipv4_address: 10.24.1.2
-          # nginx:
-          #     ipv4_address: 10.24.0.101
+            traefik:
+                ipv4_address: 10.10.24.1
         ports:
           # - 8000:8000
             - 2101:9000
@@ -25,6 +25,20 @@ services:
         volumes:
             - /run/user/1000/docker.sock:/var/run/docker.sock
             - portainer-data:/data
+        labels:
+          # Frontend
+            - "traefik.enable=true"
+            - "traefik.http.routers.frontend.rule=Host(`portainer.3x3cut0r.de`)"
+            - "traefik.http.routers.frontend.entrypoints=websecure"
+            - "traefik.http.services.frontend.loadbalancer.server.port=2101"
+            - "traefik.http.routers.frontend.service=frontend"
+            - "traefik.http.routers.frontend.tls.certresolver=myresolver"
+          # Edge
+          # - "traefik.http.routers.edge.rule=Host(`edge.3x3cut0r.de`)"
+          # - "traefik.http.routers.edge.entrypoints=websecure"
+          # - "traefik.http.services.edge.loadbalancer.server.port=8000"
+          # - "traefik.http.routers.edge.service=edge"
+          # - "traefik.http.routers.edge.tls.certresolver=myresolver"
 
 networks:
     portainer:
@@ -34,9 +48,9 @@ networks:
             config:
                 - subnet: "10.24.1.0/24"
                   gateway: 10.24.1.1
-  # nginx:
-  #     external:
-  #         name: nginx
+    traefik:
+        external:
+            name: traefik
 
 volumes:
     portainer-data:
