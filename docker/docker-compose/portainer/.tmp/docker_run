@@ -6,8 +6,6 @@
 docker container run -d --restart=always \
     --name=portainer-temp \
     --env-file="/home/docker/volumes/portainer-data/_data/env-files/portainer.env" \
-    --network=portainer \
-    --ip=10.24.1.3 \
     --dns=8.8.8.8 \
     -p 9101:9000 \
     -e COMPOSE_HTTP_TIMEOUT=240 \
