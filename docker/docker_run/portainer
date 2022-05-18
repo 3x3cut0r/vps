@@ -3,10 +3,12 @@
 ### Portainer ###
 # https://hub.docker.com/r/portainer/portainer
 
-docker container run -d \
+docker container run -d --restart=always \
     --name=portainer-temp \
-    --restart=always \
     --env-file="/home/docker/volumes/portainer-data/_data/env-files/portainer.env" \
+    --network=portainer \
+    --ip=10.24.1.3 \
+    --dns=8.8.8.8 \
     -p 9101:9000 \
     -e COMPOSE_HTTP_TIMEOUT=240 \
     -v /run/user/2000/docker.sock:/var/run/docker.sock \
