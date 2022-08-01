@@ -51,17 +51,17 @@ services:
         depends_on:
             - parse-server
 
-	# https://hub.docker.com/_/mongo
-		mongo:
-			  container_name: parse-mongo
-			  image: mongo:5.0
-			  command: mongod --config /etc/mongod.conf
-			  restart: unless-stopped
-			  networks:
-				    parse:
-					      ipv4_address: 10.24.37.4
-		  # ports:
-		  #     - 27017:27017
+  # https://hub.docker.com/_/mongo
+    mongo:
+        container_name: parse-mongo
+        image: mongo:5.0
+        command: mongod --config /etc/mongod.conf
+        restart: unless-stopped
+        networks:
+            parse:
+                ipv4_address: 10.24.37.4
+      # ports:
+      #     - 27017:27017
         dns:
             - 8.8.8.8
             - 8.8.4.4
