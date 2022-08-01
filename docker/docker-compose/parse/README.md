@@ -24,9 +24,6 @@
 **Frontend**  
 [https://parse.3x3cut0r.de](https://parse.3x3cut0r.de)  
 
-**Backend**  
-[https://parse.3x3cut0r.de/admin](https://parse.3x3cut0r.de/admin)  
-
 ### Find Me <a name="findme"></a>
 
 ![E-Mail](https://img.shields.io/badge/E--Mail-executor55%40gmx.de-red)
