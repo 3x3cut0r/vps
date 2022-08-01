@@ -1,0 +1,92 @@
+version: "3.9"
+
+# https://github.com/parse-community/parse-server
+services:
+  # https://hub.docker.com/r/parseplatform/parse-server
+    parse-server:
+        container_name: parse-server
+        image: parseplatform/parse-server:5.2.4
+        restart: unless-stopped
+        ports:
+            - "1337:1337"
+        networks:
+            parse:
+                ipv4_address: 10.24.37.2
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            PARSE_SERVER_APPLICATION_ID: '<PARSE_SERVER_APPLICATION_ID>'
+            PARSE_SERVER_MASTER_KEY: '<PARSE_SERVER_MASTER_KEY>'
+            PARSE_SERVER_DATABASE_URI: 'mongodb://admin:<MONGO_INITDB_ROOT_PASSWORD>@parse-mongo/parse_server?authSource=admin'
+        volumes:
+            - parse-server-conf:/parse-server/config
+        depends_on:
+            - parse-mongo
+
+  # https://hub.docker.com/r/parseplatform/parse-dashboard
+    parse-dashboard:
+        container_name: parse-dashboard
+        image: parseplatform/parse-dashboard:latest
+        restart: unless-stopped
+        ports:
+            - "4040:4040"
+        networks:
+            parse:
+                ipv4_address: 10.24.37.3
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            PARSE_DASHBOARD_APP_ID: '<PARSE_SERVER_APPLICATION_ID>'
+            PARSE_DASHBOARD_MASTER_KEY: '<PARSE_SERVER_MASTER_KEY>'
+            PARSE_DASHBOARD_USER_ID: 'admin'
+            PARSE_DASHBOARD_USER_PASSWORD: '<MONGO_INITDB_ROOT_PASSWORD>'
+            PARSE_DASHBOARD_ALLOW_INSECURE_HTTP: 'true'
+            PARSE_DASHBOARD_SERVER_URL: 'http://parse-server:1337/parse'
+        depends_on:
+            - parse-server
+
+	# https://hub.docker.com/_/mongo
+		mongo:
+			  container_name: parse-mongo
+			  image: mongo:5.0
+			  command: mongod --config /etc/mongod.conf
+			  restart: unless-stopped
+			  networks:
+				    parse:
+					      ipv4_address: 10.24.37.4
+		  # ports:
+		  #     - 27017:27017
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: 'admin'
+            MONGO_INITDB_ROOT_PASSWORD: '<MONGO_INITDB_ROOT_PASSWORD>'
+        volumes:
+            - parse-mongo-data:/data/db
+            - parse-mongo-dump:/dump
+
+networks:
+    parse:
+        name: parse
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.24.37.0/24"
+                  gateway: 10.24.37.1
+
+volumes:
+    parse-server-conf:
+        name: parse-server-conf
+    parse-mongo-data:
+        name: parse-mongo-data
+	  parse-mongo-dump:
+        name: parse-mongo-dump
