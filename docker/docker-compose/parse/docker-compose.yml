@@ -48,6 +48,8 @@ services:
             PARSE_DASHBOARD_USER_PASSWORD: '<MONGO_INITDB_ROOT_PASSWORD>'
             PARSE_DASHBOARD_ALLOW_INSECURE_HTTP: 'true'
             PARSE_DASHBOARD_SERVER_URL: 'http://parse-server:1337/parse'
+        volumes:
+            - parse-dashboard-conf:/src/Parse-Dashboard
         depends_on:
             - parse-server
 
@@ -85,6 +87,8 @@ networks:
 volumes:
     parse-server-conf:
         name: parse-server-conf
+    parse-dashboard-conf:
+        name: parse-dashboard-conf
     parse-mongo-data:
         name: parse-mongo-data
     parse-mongo-dump:
