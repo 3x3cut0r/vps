@@ -22,6 +22,9 @@ services:
             PARSE_SERVER_MASTER_KEY: '<PARSE_SERVER_MASTER_KEY>'
             PARSE_SERVER_DATABASE_URI: 'mongodb://admin:<MONGO_INITDB_ROOT_PASSWORD>@parse-mongo/parse_server?authSource=admin'
             PARSE_ENABLE_CLOUD_CODE: 'no'
+          # PARSE_SERVER_CLOUD: '/parse-server/cloud/main.js'
+          # PARSE_SERVER_PUSH: '{"ios":{"pfx":"/parse-server/pushcert/prod.p12","topic":"com.domain.Parse-1","production":false}}'
+          # PARSE_SERVER_LOG_LEVEL: 'error'
             VERBOSE: 1
         volumes:
             - parse-server-conf:/parse-server/config
