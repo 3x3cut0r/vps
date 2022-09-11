@@ -18,6 +18,7 @@ services:
             - 2001:4860:4860::8888
             - 2001:4860:4860::8844
         environment:
+<<<<<<< HEAD
             PARSE_ENABLE_HTTPS: 'no'
             PARSE_BIND_HOST: 'parse-server'
             PARSE_HOST: 'parse-server'
@@ -32,6 +33,16 @@ services:
             PARSE_DATABASE_USER: 'parse'
             PARSE_DATABASE_NAME: 'parse'
             PARSE_DATABASE_PASSWORD: '<MONGODB_PASSWORD>'
+=======
+            PARSE_SERVER_APPLICATION_ID: '<PARSE_SERVER_APPLICATION_ID>'
+            PARSE_SERVER_MASTER_KEY: '<PARSE_SERVER_MASTER_KEY>'
+            PARSE_SERVER_DATABASE_URI: 'mongodb://admin:<MONGO_INITDB_ROOT_PASSWORD>@parse-mongo/parse_server?authSource=admin'
+            PARSE_ENABLE_CLOUD_CODE: 'no'
+          # PARSE_SERVER_CLOUD: '/parse-server/cloud/main.js'
+          # PARSE_SERVER_PUSH: '{"ios":{"pfx":"/parse-server/pushcert/prod.p12","topic":"com.domain.Parse-1","production":false}}'
+          # PARSE_SERVER_LOG_LEVEL: 'error'
+            VERBOSE: 1
+>>>>>>> a8d8bf82d273de30823d1be508360cf483a033b7
         volumes:
             - parse-server-conf:/bitnami/parse
         depends_on:
@@ -42,6 +53,7 @@ services:
         container_name: parse-dashboard
         image: bitnami/parse-dashboard:latest
         restart: unless-stopped
+        command: 'parse-dashboard --dev'
         ports:
             - "4040:4040"
         networks:
@@ -53,6 +65,7 @@ services:
             - 2001:4860:4860::8888
             - 2001:4860:4860::8844
         environment:
+<<<<<<< HEAD
             PARSE_DASHBOARD_ENABLE_HTTPS: 'no'
             PARSE_DASHBOARD_EXTERNAL_HTTP_PORT_NUMBER: '80'
             PARSE_DASHBOARD_EXTERNAL_HTTPS_PORT_NUMBER: '80'
@@ -66,6 +79,17 @@ services:
             PARSE_DASHBOARD_PARSE_PROTOCOL: 'http'
             PARSE_DASHBOARD_USERNAME: 'admin'
             PARSE_DASHBOARD_PASSWORD: '<PARSE_PASSWORD>'
+=======
+            PARSE_DASHBOARD_APP_ID: '<PARSE_SERVER_APPLICATION_ID>'
+            PARSE_DASHBOARD_MASTER_KEY: '<PARSE_SERVER_MASTER_KEY>'
+            PARSE_DASHBOARD_USER_ID: 'admin'
+            PARSE_DASHBOARD_USER_PASSWORD: '<MONGO_INITDB_ROOT_PASSWORD>'
+          # PARSE_DASHBOARD_ALLOW_INSECURE_HTTP: 'true'
+            PARSE_DASHBOARD_TRUST_PROXY: 1
+            PARSE_DASHBOARD_COOKIE_SESSION_SECRET: '<PARSE_SERVER_COOKIE_SESSION_SECRET>'
+          # PARSE_DASHBOARD_SERVER_URL: 'http://parse-server:1337/parse'
+          # MOUNT_PATH: '/parse'
+>>>>>>> a8d8bf82d273de30823d1be508360cf483a033b7
         volumes:
             - parse-dashboard-conf:/bitnami
         depends_on:
