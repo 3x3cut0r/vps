@@ -1,0 +1,222 @@
+version: "3.9"
+
+# https://www.bsmithio.com/post/opnsense-dashboard/#docker
+services:
+  # https://hub.docker.com/_/mongo
+    mongodb:
+        container_name: mongodb
+        image: mongo:5.0.12
+        restart: unless-stopped
+        networks:
+            opnsense-dashboard:
+                ipv4_address: 10.90.0.27
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            TZ: "Europe/Berlin"
+        volumes:
+            - mongodb-data:/data/db
+
+  # https://hub.docker.com/_/influxdb
+    influxdb2:
+        container_name: influxdb2
+        image: influxdb:2.4
+        restart: unless-stopped
+        ports:
+            - '8086:8086'
+        networks:
+            opnsense-dashboard:
+                ipv4_address: 10.90.0.86
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            TZ: "Europe/Berlin"
+        volumes:
+            - influxdb2-data:/var/lib/influxdb2
+
+  # https://hub.docker.com/r/grafana/grafana
+    grafana:
+        container_name: grafana
+        image: grafana/grafana:9.1.4
+        restart: unless-stopped
+        ports:
+            - '3000:3000'
+        networks:
+            opnsense-dashboard:
+                ipv4_address: 10.90.0.30
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            TZ: "Europe/Berlin"
+            GF_SECURITY_ADMIN_USER: 'grafana'
+            GF_SECURITY_ADMIN_PASSWORD: '<GF_SECURITY_ADMIN_PASSWORD>'
+            GF_INSTALL_PLUGINS: 'grafana-worldmap-panel'
+        volumes:
+            - grafana-data:/var/lib/grafana
+        depends_on:
+            - influxdb
+
+  # https://hub.docker.com/r/graylog/graylog
+    graylog:
+        container_name: graylog
+        image: graylog/graylog:4.3
+        restart: unless-stopped
+        entrypoint: /usr/bin/tini -- wait-for-it elasticsearch:9200 -- /docker-entrypoint.sh
+        ports:
+            # Graylog web interface and REST API
+            - 7555:7555
+            # Syslog TCP
+            - 1514:1514
+            # Syslog UDP
+            - 1514:1514/udp
+            # GELF TCP
+            - 12201:12201
+            # GELF UDP
+            - 12201:12201/udp
+        networks:
+            opnsense-dashboard:
+                ipv4_address: 10.90.0.75
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            TZ: "Europe/Berlin"
+            GRAYLOG_PASSWORD_SECRET: '<GRAYLOG_PASSWORD_SECRET>'
+          # Username is "admin"
+          # Password is "admin", change this to your own hashed password. 'echo -n "password" | sha256sum'
+            GRAYLOG_ROOT_PASSWORD_SHA2: '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'
+            GRAYLOG_HTTP_BIND_ADDRESS: '0.0.0.0:7555'
+          # GRAYLOG_HTTP_EXTERNAL_URI: 'http://127.0.0.1:7555/'
+          # GRAYLOG_TRANSPORT_EMAIL_WEB_INTERFACE_URL: 'http://127.0.0.1:7555'
+          # GRAYLOG_TRANSPORT_EMAIL_HOSTNAME: 'smtp.example.com'
+          # GRAYLOG_TRANSPORT_EMAIL_ENABLED: true
+          # GRAYLOG_TRANSPORT_EMAIL_PORT: 25
+          # GRAYLOG_TRANSPORT_EMAIL_USE_AUTH: false
+          # GRAYLOG_TRANSPORT_EMAIL_USE_TLS: false
+          # GRAYLOG_TRANSPORT_EMAIL_USE_SSL: false
+          # GRAYLOG_TRANSPORT_FROM_EMAIL: 'youremail@yourdomain.com'
+          # GRAYLOG_TRANSPORT_SUBJECT_PREFIX: '[graylog] '
+        volumes:
+            - graylog-data:/usr/share/graylog/data
+            - graylog-conf:/usr/share/graylog/data/config
+        depends_on:
+            - mongodb
+            - elasticsearch
+
+  # https://hub.docker.com/_/elasticsearch
+    elasticsearch:
+        container_name: elasticsearch
+        image: elasticsearch:8.4.1
+        restart: unless-stopped
+      # ulimits:
+      #     memlock:
+      #         soft: -1
+      #             hard: -1
+      # deploy:
+      #     resources:
+      #         limits:
+      #             memory: 1g
+        ports:
+            - "9200:9200"
+            - "9300:9300"
+        networks:
+            opnsense-dashboard:
+                ipv4_address: 10.90.0.92
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            TZ: "Europe/Berlin"
+            ES_JAVA_OPTS: '-Dlog4j2.formatMsgNoLookups=true -Xmx256m -Xms256m'
+            ELASTIC_PASSWORD: '<ELASTIC_PASSWORD>'
+            http.host: '0.0.0.0'
+            transport.host: 'localhost'
+            network.host: '0.0.0.0'
+            node.max_local_storage_nodes: 4
+        volumes:
+            - elasticsearch-data:/usr/share/elasticsearch/data
+          # - /home/docker/config-files/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+
+  # https://hub.docker.com/_/logstash
+    logstash:
+        container_name: logstash
+        image: logstash:8.4.1
+        restart: unless-stopped
+        ports:
+            - "5000:5000/tcp"
+            - "5000:5000/udp"
+            - "9600:9600"
+        networks:
+            opnsense-dashboard:
+                ipv4_address: 10.90.0.50
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            TZ: "Europe/Berlin"
+            LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+        volumes:
+            - logstash-pipeline:/usr/share/logstash/pipeline
+          # - /home/docker/config-files/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+        depends_on:
+            - elasticsearch
+
+  # https://hub.docker.com/_/kibana
+    kibana:
+        container_name: kibana
+        image: kibana:8.4.1
+        restart: unless-stopped
+        ports:
+            - "5601:5601"
+        networks:
+            opnsense-dashboard:
+                ipv4_address: 10.90.0.56
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+      # volumes:
+      #     - /home/docker/config-files/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml
+        depends_on:
+            - elasticsearch
+
+networks:
+    opnsense-dashboard:
+        name: opnsense-dashboard
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.90.0.0/20"
+                  gateway: 10.90.0.1
+
+volumes:
+    mongodb-data:
+        name: mongodb-data
+    influxdb2-data:
+        name: influxdb2-data
+    grafana-data:
+        name: grafana-data
+    graylog-data:
+        name: graylog-data
+    graylog-conf:
+        name: graylog-conf
+    elasticsearch-data:
+        name: elasticsearch-data
+    logstash-pipeline:
+        name: logstash-pipeline
