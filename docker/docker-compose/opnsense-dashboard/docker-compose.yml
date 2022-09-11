@@ -93,6 +93,7 @@ services:
         environment:
             TZ: "Europe/Berlin"
             GRAYLOG_PASSWORD_SECRET: '<GRAYLOG_PASSWORD_SECRET>'
+            GRAYLOG_MONGODB_URI: 'mongodb://mongodb:27017/graylog'
           # Username is "admin"
           # Password is "admin", change this to your own hashed password. 'echo -n "password" | sha256sum'
             GRAYLOG_ROOT_PASSWORD_SHA2: '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'
@@ -148,7 +149,6 @@ services:
             node.max_local_storage_nodes: 4
         volumes:
             - elasticsearch-data:/usr/share/elasticsearch/data
-          # - /home/docker/config-files/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
 
   # https://hub.docker.com/_/logstash
     logstash:
@@ -172,7 +172,6 @@ services:
             LS_JAVA_OPTS: "-Xmx256m -Xms256m"
         volumes:
             - logstash-pipeline:/usr/share/logstash/pipeline
-          # - /home/docker/config-files/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
         depends_on:
             - elasticsearch
 
@@ -191,8 +190,6 @@ services:
             - 8.8.4.4
             - 2001:4860:4860::8888
             - 2001:4860:4860::8844
-      # volumes:
-      #     - /home/docker/config-files/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml
         depends_on:
             - elasticsearch
 
@@ -208,8 +205,12 @@ networks:
 volumes:
     mongodb-data:
         name: mongodb-data
+    mongodb-conf:
+        name: mongodb-conf       
     influxdb2-data:
         name: influxdb2-data
+    influxdb2-conf:
+        name: influxdb2-conf
     grafana-data:
         name: grafana-data
     graylog-data:
@@ -220,3 +221,4 @@ volumes:
         name: elasticsearch-data
     logstash-pipeline:
         name: logstash-pipeline
+
