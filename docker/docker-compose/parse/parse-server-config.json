@@ -1,0 +1,6 @@
+{
+    "serverURL": "http://parse-server:1337/parse",
+    "appId": "<PARSE_SERVER_APPLICATION_ID>",
+    "masterKey": "<PARSE_SERVER_MASTER_KEY>",
+    "appName": "<PARSE_APPLICATION_NAME>",
+}

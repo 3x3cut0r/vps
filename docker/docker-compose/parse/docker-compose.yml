@@ -2,10 +2,10 @@ version: "3.9"
 
 # https://github.com/parse-community/parse-server
 services:
-  # https://hub.docker.com/r/parseplatform/parse-server
+  # https://hub.docker.com/r/bitnami/parse
     parse-server:
         container_name: parse-server
-        image: parseplatform/parse-server:5.2.4
+        image: bitnami/parse:5
         restart: unless-stopped
         ports:
             - "1337:1337"
@@ -18,18 +18,29 @@ services:
             - 2001:4860:4860::8888
             - 2001:4860:4860::8844
         environment:
-            PARSE_SERVER_APPLICATION_ID: '<PARSE_SERVER_APPLICATION_ID>'
-            PARSE_SERVER_MASTER_KEY: '<PARSE_SERVER_MASTER_KEY>'
-            PARSE_SERVER_DATABASE_URI: 'mongodb://admin:<MONGO_INITDB_ROOT_PASSWORD>@parse-mongo/parse_server?authSource=admin'
+            PARSE_ENABLE_HTTPS: 'no'
+            PARSE_BIND_HOST: 'parse-server'
+            PARSE_HOST: 'parse-server'
+            PARSE_PORT_NUMBER: '1337'
+            PARSE_APP_ID: '<PARSE_APP_ID>'
+            PARSE_MASTER_KEY: '<PARSE_MASTER_KEY>'
+            PARSE_APP_NAME: '<PARSE_APP_NAME>'
+            PARSE_MOUNT_PATH: '/parse'
+            PARSE_ENABLE_CLOUD_CODE: 'no'
+            PARSE_DATABASE_HOST: 'parse-mongo'
+            PARSE_DATABASE_PORT_NUMBER: '27017'
+            PARSE_DATABASE_USER: 'parse'
+            PARSE_DATABASE_NAME: 'parse'
+            PARSE_DATABASE_PASSWORD: '<MONGODB_PASSWORD>'
         volumes:
-            - parse-server-conf:/parse-server/config
+            - parse-server-conf:/bitnami/parse
         depends_on:
             - parse-mongo
 
-  # https://hub.docker.com/r/parseplatform/parse-dashboard
+  # https://hub.docker.com/r/bitnami/parse-dashboard
     parse-dashboard:
         container_name: parse-dashboard
-        image: parseplatform/parse-dashboard:latest
+        image: bitnami/parse-dashboard:latest
         restart: unless-stopped
         ports:
             - "4040:4040"
@@ -42,21 +53,28 @@ services:
             - 2001:4860:4860::8888
             - 2001:4860:4860::8844
         environment:
-            PARSE_DASHBOARD_APP_ID: '<PARSE_SERVER_APPLICATION_ID>'
-            PARSE_DASHBOARD_MASTER_KEY: '<PARSE_SERVER_MASTER_KEY>'
-            PARSE_DASHBOARD_USER_ID: 'admin'
-            PARSE_DASHBOARD_USER_PASSWORD: '<MONGO_INITDB_ROOT_PASSWORD>'
-            PARSE_DASHBOARD_ALLOW_INSECURE_HTTP: 'true'
-            PARSE_DASHBOARD_SERVER_URL: 'http://parse-server:1337/parse'
+            PARSE_DASHBOARD_ENABLE_HTTPS: 'no'
+            PARSE_DASHBOARD_EXTERNAL_HTTP_PORT_NUMBER: '80'
+            PARSE_DASHBOARD_EXTERNAL_HTTPS_PORT_NUMBER: '80'
+            PARSE_DASHBOARD_PARSE_HOST: 'parse-server'
+            PARSE_DASHBOARD_PORT_NUMBER: '4040'
+            PARSE_DASHBOARD_PARSE_PORT_NUMBER: '1337'
+            PARSE_DASHBOARD_PARSE_APP_ID: '<PARSE_APP_ID>'
+            PARSE_DASHBOARD_PARSE_APP_NAME: '<PARSE_APP_NAME>'
+            PARSE_DASHBOARD_PARSE_MASTER_KEY: '<PARSE_MASTER_KEY>'
+            PARSE_DASHBOARD_PARSE_MOUNT_PATH: '/parse'
+            PARSE_DASHBOARD_PARSE_PROTOCOL: 'http'
+            PARSE_DASHBOARD_USERNAME: 'admin'
+            PARSE_DASHBOARD_PASSWORD: '<PARSE_PASSWORD>'
         volumes:
-            - parse-dashboard-conf:/src/Parse-Dashboard
+            - parse-dashboard-conf:/bitnami
         depends_on:
             - parse-server
 
-  # https://hub.docker.com/_/mongo
-    mongo:
+  # https://hub.docker.com/r/bitnami/mongodb
+    parse-mongo:
         container_name: parse-mongo
-        image: mongo:5.0
+        image: bitnami/mongodb:5.0
         restart: unless-stopped
         networks:
             parse:
@@ -69,11 +87,12 @@ services:
             - 2001:4860:4860::8888
             - 2001:4860:4860::8844
         environment:
-            MONGO_INITDB_ROOT_USERNAME: 'admin'
-            MONGO_INITDB_ROOT_PASSWORD: '<MONGO_INITDB_ROOT_PASSWORD>'
+            ALLOW_EMPTY_PASSWORD: 'yes'
+            MONGODB_DATABASE: 'parse'
+            MONGODB_USERNAME: 'parse'
+            MONGODB_PASSWORD: '<MONGODB_PASSWORD>'
         volumes:
-            - parse-mongo-data:/data/db
-            - parse-mongo-dump:/dump
+            - parse-mongo-data:/bitnami/mongodb
 
 networks:
     parse:
@@ -91,5 +110,3 @@ volumes:
         name: parse-dashboard-conf
     parse-mongo-data:
         name: parse-mongo-data
-    parse-mongo-dump:
-        name: parse-mongo-dump
