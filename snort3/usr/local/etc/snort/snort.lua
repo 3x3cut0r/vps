@@ -21,7 +21,7 @@
 
 -- HOME_NET and EXTERNAL_NET must be set now
 -- setup the network addresses you are protecting
-HOME_NET = '95.111.229.109'
+HOME_NET = 'any'
 
 -- set up the external network addresses.
 -- (leave as "any" in most situations)
@@ -52,11 +52,8 @@ stream_file = { }
 
 arp_spoof = { }
 back_orifice = { }
-dnp3 = { }
 dns = { }
 imap = { }
-iec104 = { }
-modbus = { }
 netflow = {}
 normalizer = { }
 pop = { }
@@ -65,6 +62,13 @@ sip = { }
 ssh = { }
 ssl = { }
 telnet = { }
+
+cip = { }
+dnp3 = { }
+iec104 = { }
+mms = { }
+modbus = { }
+s7commplus = { }
 
 dce_smb = { }
 dce_tcp = { }
@@ -84,8 +88,8 @@ ftp_data = { }
 http_inspect = default_http_inspect
 http2_inspect = { }
 
--- see file_magic.lua for file id rules
-file_id = { file_rules = file_magic }
+-- see file_magic.rules for file id rules
+file_id = { rules_file = 'file_magic.rules' }
 file_policy = { }
 
 -- the following require additional configuration to be fully effective:
@@ -101,16 +105,18 @@ reputation =
     -- configure one or both of these, then uncomment reputation
     -- (see also related path vars at the top of snort_defaults.lua)
 
-    blocklist = BLACK_LIST_PATH .. "/default.blocklist",
+	blocklist = BLACK_LIST_PATH .. "/default.blocklist",
+    --blacklist = 'blacklist file name with ip lists'
     --whitelist = 'whitelist file name with ip lists'
 }
 
 search_engine = { search_method = "hyperscan" }
 
 detection = {
-    hyperscan_literals = true,
-    pcre_to_regex = true
+	hyperscan_literals = true,
+	pcre_to_regex = true
 }
+
 
 ---------------------------------------------------------------------------
 -- 3. configure bindings
@@ -123,19 +129,23 @@ binder =
     -- port bindings required for protocols without wizard support
     { when = { proto = 'udp', ports = '53', role='server' },  use = { type = 'dns' } },
     { when = { proto = 'tcp', ports = '53', role='server' },  use = { type = 'dns' } },
+    { when = { proto = 'tcp', ports = '102', role = 'server' }, use = { type = 's7commplus' } },
     { when = { proto = 'tcp', ports = '111', role='server' }, use = { type = 'rpc_decode' } },
     { when = { proto = 'tcp', ports = '502', role='server' }, use = { type = 'modbus' } },
     { when = { proto = 'tcp', ports = '2123 2152 3386', role='server' }, use = { type = 'gtp_inspect' } },
     { when = { proto = 'tcp', ports = '2404', role='server' }, use = { type = 'iec104' } },
+    { when = { proto = 'udp', ports = '22222', role = 'server' }, use = { type = 'cip' } },
+    { when = { proto = 'tcp', ports = '44818', role = 'server' }, use = { type = 'cip' } },
 
-    { when = { proto = 'tcp', service = 'dcerpc' }, use = { type = 'dce_tcp' } },
-    { when = { proto = 'udp', service = 'dcerpc' }, use = { type = 'dce_udp' } },
+    { when = { proto = 'tcp', service = 'dcerpc' },  use = { type = 'dce_tcp' } },
+    { when = { proto = 'udp', service = 'dcerpc' },  use = { type = 'dce_udp' } },
     { when = { proto = 'udp', service = 'netflow' }, use = { type = 'netflow' } },
 
     { when = { service = 'netbios-ssn' },      use = { type = 'dce_smb' } },
     { when = { service = 'dce_http_server' },  use = { type = 'dce_http_server' } },
     { when = { service = 'dce_http_proxy' },   use = { type = 'dce_http_proxy' } },
 
+    { when = { service = 'cip' },              use = { type = 'cip' } },
     { when = { service = 'dnp3' },             use = { type = 'dnp3' } },
     { when = { service = 'dns' },              use = { type = 'dns' } },
     { when = { service = 'ftp' },              use = { type = 'ftp_server' } },
@@ -145,6 +155,7 @@ binder =
     { when = { service = 'http' },             use = { type = 'http_inspect' } },
     { when = { service = 'http2' },            use = { type = 'http2_inspect' } },
     { when = { service = 'iec104' },           use = { type = 'iec104' } },
+    { when = { service = 'mms' },              use = { type = 'mms' } },
     { when = { service = 'modbus' },           use = { type = 'modbus' } },
     { when = { service = 'pop3' },             use = { type = 'pop' } },
     { when = { service = 'ssh' },              use = { type = 'ssh' } },
@@ -152,6 +163,7 @@ binder =
     { when = { service = 'smtp' },             use = { type = 'smtp' } },
     { when = { service = 'ssl' },              use = { type = 'ssl' } },
     { when = { service = 'sunrpc' },           use = { type = 'rpc_decode' } },
+    { when = { service = 's7commplus' },       use = { type = 's7commplus' } },
     { when = { service = 'telnet' },           use = { type = 'telnet' } },
 
     { use = { type = 'wizard' } }
@@ -288,3 +300,4 @@ alert_json =
 if ( tweaks ~= nil ) then
     include(tweaks .. '.lua')
 end
+
