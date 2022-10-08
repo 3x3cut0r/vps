@@ -1,0 +1,49 @@
+version: "3.9"
+
+# https://github.com/coturn/coturn
+services:
+  # https://hub.docker.com/r/coturn/coturn
+    coturn:
+        container_name: coturn
+        image: coturn/coturn:latest
+        restart: unless-stopped
+        command:  -n --log-file=stdout \
+                  --static-auth-secret=RVe9dqFk6qQxZoCfHmA92jEBrGLtnh \
+                  --min-port=49160 --max-port=49200 \
+                  --lt-cred-mech --fingerprint \
+                  --no-multicast-peers --no-cli \
+                  --no-tlsv1 --no-tlsv1_1 \
+                  --realm=coturn.3x3cut0r.de
+        # network_mode: host # for docker rootful only!
+        ports:
+            - "3478:3478"
+            - "3478:3478/udp"
+            - "5349:5349"
+            - "5349:5349/udp"
+            - "49160-49200:49160-49200/udp" # too many ports kills docker rootless. user rootful docker with network=host instead!
+        networks:
+            coturn:
+                ipv4_address: 10.20.224.2
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+            - 2001:4860:4860::8888
+            - 2001:4860:4860::8844
+        environment:
+            TZ: "Europe/Berlin"
+        volumes:
+          # - /home/docker/config-files/coturn/coturn.conf:/my/coturn.conf
+            - coturn-data:/var/lib/coturn
+
+networks:
+    coturn:
+        name: coturn
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.20.224.0/24"
+                  gateway: 10.20.224.1
+
+volumes:
+    coturn-data:
+        name: coturn-data
