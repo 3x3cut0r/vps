@@ -1,0 +1,4 @@
+[coturn]
+title=Coturn Server
+description=Coturn Server
+ports=3478|5349|49160:49200/tcp|49160:49200/udp
