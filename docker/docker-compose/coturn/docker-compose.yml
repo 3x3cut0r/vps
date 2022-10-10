@@ -7,13 +7,6 @@ services:
         container_name: coturn
         image: coturn/coturn:latest
         restart: unless-stopped
-      # command:  -n --log-file=stdout \
-      #           --static-auth-secret=<static-auth-secret> \
-      #           --min-port=49160 --max-port=49200 \
-      #           --lt-cred-mech --fingerprint \
-      #           --no-multicast-peers --no-cli \
-      #           --no-tlsv1 --no-tlsv1_1 \
-      #           --realm=coturn.3x3cut0r.de
       # network_mode: host # for docker rootful only!
         ports:
             - "3478:3478"
