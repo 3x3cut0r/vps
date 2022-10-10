@@ -1,0 +1,30 @@
+logLevel = "INFO"
+    defaultEntryPoints = ["http", "https"]
+
+[web]
+    address = ":8080"
+
+[docker]
+    domain = "3x3cut0r.de"
+    watch = true
+    exposedbydefault = false
+
+# Force HTTPS
+[entryPoints]
+    [entryPoints.http]
+        address = ":80"
+            [entryPoints.http.redirect]
+            entryPoint = "https"
+        [entryPoints.https]
+        address = ":443"
+            [entryPoints.https.tls]
+
+# Let's encrypt configuration
+[acme]
+    email="executor55@gmx.de"
+    storage="/etc/traefik/acme/acme.json"
+    entryPoint="https"
+    acmeLogging=true
+    OnHostRule=true
+    [acme.httpChallenge]
+        entryPoint = "http"
