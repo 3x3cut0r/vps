@@ -10,14 +10,17 @@ services:
         command:
             - "--log.level=INFO"
             - "--api.insecure=true"
+            - "--api.dashboard=true"
             - "--providers.docker=true"
             - "--providers.docker.exposedbydefault=false"
             - "--entrypoints.web.address=:80"
+            - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+            - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
             - "--entrypoints.websecure.address=:443"
-            - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-            - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-            - "--certificatesresolvers.myresolver.acme.email=executor55@gmx.de"
-            - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+            - "--certificatesresolvers.leresolver.acme.tlschallenge=true"
+            - "--certificatesresolvers.leresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+            - "--certificatesresolvers.leresolver.acme.email=executor55@gmx.de"
+            - "--certificatesresolvers.leresolver.acme.storage=/etc/letsencrypt/acme.json"
         ports:
             - "80:80"
             - "443:443"
@@ -31,7 +34,8 @@ services:
             - 2001:4860:4860::8888
             - 2001:4860:4860::8844
         volumes:
-            - "/run/user/1000/docker.sock:/var/run/docker.sock:ro"
+            - /run/user/1000/docker.sock:/var/run/docker.sock:ro
+            - /home/docker/config-files/letsencrypt:/etc/letsencrypt
 
   # https://hub.docker.com/r/traefik/whoami
     whoami:
@@ -43,9 +47,9 @@ services:
         labels:
             - "traefik.enable=true"
             - "traefik.http.routers.whoami.rule=Host(`whoami.3x3cut0r.de`)"
-            - "traefik.http.routers.whoami.entrypoints=web"
-        depends_on:
-            - traefik
+            - "traefik.http.routers.whoami.entrypoints=websecure"
+            - "traefik.http.routers.whoami.tls=true"
+            - "traefik.http.routers.whoami.tls.certresolver=leresolver"
 
 networks:
     traefik:
