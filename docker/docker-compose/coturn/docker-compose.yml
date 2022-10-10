@@ -7,20 +7,20 @@ services:
         container_name: coturn
         image: coturn/coturn:latest
         restart: unless-stopped
-        command:  -n --log-file=stdout \
-                  --static-auth-secret=RVe9dqFk6qQxZoCfHmA92jEBrGLtnh \
-                  --min-port=49160 --max-port=49200 \
-                  --lt-cred-mech --fingerprint \
-                  --no-multicast-peers --no-cli \
-                  --no-tlsv1 --no-tlsv1_1 \
-                  --realm=coturn.3x3cut0r.de
-        # network_mode: host # for docker rootful only!
+      # command:  -n --log-file=stdout \
+      #           --static-auth-secret=<static-auth-secret> \
+      #           --min-port=49160 --max-port=49200 \
+      #           --lt-cred-mech --fingerprint \
+      #           --no-multicast-peers --no-cli \
+      #           --no-tlsv1 --no-tlsv1_1 \
+      #           --realm=coturn.3x3cut0r.de
+      # network_mode: host # for docker rootful only!
         ports:
             - "3478:3478"
             - "3478:3478/udp"
-            - "5349:5349"
-            - "5349:5349/udp"
-            - "49160-49200:49160-49200/udp" # too many ports kills docker rootless. user rootful docker with network=host instead!
+            - "5349:5349" # tls-listening-port
+            - "5349:5349/udp" # tls-listening-port
+            - "49160-49200:49160-49200/udp" # too many ports kills docker rootless. rootful docker with network=host is recommended!
         networks:
             coturn:
                 ipv4_address: 10.20.224.2
@@ -32,7 +32,10 @@ services:
         environment:
             TZ: "Europe/Berlin"
         volumes:
-          # - /home/docker/config-files/coturn/coturn.conf:/my/coturn.conf
+            - /home/docker/config-files/coturn/turnserver.conf:/etc/coturn/turnserver.conf
+            - /etc/nginx/ssl/live/3x3cut0r.de/cert.pem:/usr/local/etc/turn_server_cert.pem
+            - /etc/nginx/ssl/live/3x3cut0r.de/privkey.pem:/usr/local/etc/turn_server_pkey.pem
+            - /etc/nginx/ssl/dhparam.pem:/usr/local/etc/turn_server_dhparam.pem
             - coturn-data:/var/lib/coturn
 
 networks:
