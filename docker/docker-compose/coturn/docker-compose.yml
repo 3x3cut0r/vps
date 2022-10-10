@@ -7,13 +7,15 @@ services:
         container_name: coturn
         image: coturn/coturn:latest
         restart: unless-stopped
+        command: -c /etc/coturn/turnserver.conf
       # network_mode: host # for docker rootful only!
         ports:
+          # - "2214:8080" # web-admin
             - "3478:3478"
             - "3478:3478/udp"
             - "5349:5349" # tls-listening-port
             - "5349:5349/udp" # tls-listening-port
-            - "49160-49200:49160-49200/udp" # too many ports kills docker rootless. rootful docker with network=host is recommended!
+            - "49152-49200:49152-49200/udp" # too many ports kills docker rootless. rootful docker with network=host is recommended!
         networks:
             coturn:
                 ipv4_address: 10.20.224.2
@@ -26,9 +28,9 @@ services:
             TZ: "Europe/Berlin"
         volumes:
             - /home/docker/config-files/coturn/turnserver.conf:/etc/coturn/turnserver.conf
-            - /etc/nginx/ssl/live/3x3cut0r.de/cert.pem:/usr/local/etc/turn_server_cert.pem
-            - /etc/nginx/ssl/live/3x3cut0r.de/privkey.pem:/usr/local/etc/turn_server_pkey.pem
-            - /etc/nginx/ssl/dhparam.pem:/usr/local/etc/turn_server_dhparam.pem
+            - /home/docker/config-files/coturn/turn_server_cert.pem:/etc/coturn/turn_server_cert.pem
+            - /home/docker/config-files/coturn/turn_server_pkey.pem:/etc/coturn/turn_server_pkey.pem
+            - /home/docker/config-files/coturn/turn_server_dhparam.pem:/etc/coturn/turn_server_dhparam.pem
             - coturn-data:/var/lib/coturn
 
 networks:
