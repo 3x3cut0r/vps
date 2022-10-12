@@ -390,7 +390,6 @@ services:
     image: bigbluebutton/greenlight:v2
     restart: unless-stopped
     env_file: ../../env-files/bigbluebutton.env
-    env_file: .env
     environment:
       DB_ADAPTER: postgresql
       DB_HOST: postgres
