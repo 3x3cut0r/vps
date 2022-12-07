@@ -1,0 +1,54 @@
+version: '3.9'
+
+# https://github.com/iobroker
+services:
+  # https://hub.docker.com/r/iobroker/iobroker
+  iobroker:
+    container_name: iobroker
+    image: iobroker/iobroker:latest
+    restart: unless-stopped
+    ports:
+      - '8081:8081'
+    networks:
+      iobroker:
+        ipv4_address: 10.24.99.2
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 2001:4860:4860::8888
+      - 2001:4860:4860::8844
+    environment:
+      IOB_ADMINPORT: 8081 # Sets ioBroker adminport on startup
+      IOB_MULTIHOST: master # Sets ioBroker "master" or "slave" for multihost support (needs additional config for objectsdb and statesdb!)
+      IOB_OBJECTSDB_HOST: 127.0.0.1 # Sets host for ioBroker objects db
+      IOB_OBJECTSDB_PORT: 9001 # Sets port for ioBroker objects db
+      IOB_OBJECTSDB_TYPE: jsonl # Sets type of ioBroker objects db, could be "jsonl", "file" (deprecated) or "redis" (not officially supported).
+      IOB_STATESDB_HOST: 127.0.0.1 # Sets host for ioBroker states db
+      IOB_STATESDB_PORT: 9000 # Sets port for ioBroker states db
+      IOB_STATESDB_TYPE: jsonl # Sets type of ioBroker states db, could be "jsonl", "file" (deprecated) or "redis"
+      AVAHI: false # Installs and activates avahi-daemon for supporting yahka-adapter, can be "true" or "false"
+      ZWAVE: false # Installs openzwave to support zwave-adapter, can be "true" or "false"
+      LANG: de_DE.UTF‑8 # The following locales are pre-generated: de_DE.UTF-8, en_US.UTF-8
+      LANGUAGE: de_DE:de # The following locales are pre-generated: de_DE:de, en_US:en
+      LC_ALL: de_DE.UTF-8 # The following locales are pre-generated: de_DE.UTF-8, en_US.UTF-8
+      OFFLINE_MODE: false # Set true if you container has no or limited internet connection
+      PACKAGES: 'vim' # Installs additional linux packages to your container, packages should be separated by whitespace like this: "package1 package2 package3".
+      SETGID: 1000 # In some cases it might be useful to specify the gid of the containers iobroker user to match an existing group on the docker host
+      SETUID: 1000 # In some cases it might be useful to specify the uid of the containers iobroker user to match an existing user on the docker host
+      TZ: 'Europe/Berlin' # Specifies the time zone
+      USBDEVICES: '' # Sets relevant permissions on mounted devices like "/dev/ttyACM0". For more than one device separate with ";".
+    volumes:
+      - iobroker-data:/opt/iobroker
+
+networks:
+  iobroker:
+    name: iobroker
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.24.99.0/24'
+          gateway: 10.24.99.1
+
+volumes:
+  iobroker-data:
+    name: iobroker-data
