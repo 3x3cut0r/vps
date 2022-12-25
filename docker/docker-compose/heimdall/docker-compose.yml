@@ -1,0 +1,39 @@
+version: '3.9'
+
+# https://github.com/linuxserver/docker-heimdall
+services:
+  # https://hub.docker.com/r/linuxserver/heimdall
+  heimdall:
+    container_name: heimdall
+    image: linuxserver/heimdall:latest
+    restart: unless-stopped
+    ports:
+      - '2128:80'
+      # - "443:443"
+    networks:
+      heimdall:
+        ipv4_address: 10.24.28.2
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 2001:4860:4860::8888
+      - 2001:4860:4860::8844
+    environment:
+      TZ: 'Europe/Berlin'
+      UID: '1000'
+      GID: '1000'
+    volumes:
+      - heimdall-conf:/config
+
+networks:
+  heimdall:
+    name: heimdall
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.24.28.0/24'
+          gateway: 10.24.28.1
+
+volumes:
+  heimdall-conf:
+    name: heimdall-conf
