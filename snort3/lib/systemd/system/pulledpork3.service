@@ -5,6 +5,7 @@ Wants=pulledpork3.timer
 [Service]
 Type=oneshot
 ExecStart=/usr/local/bin/pulledpork3/pulledpork.py -c /usr/local/etc/pulledpork3/pulledpork.conf
+ExecStart=systemctl restart snort3.service
 
 [Install]
 WantedBy=multi-user.target
