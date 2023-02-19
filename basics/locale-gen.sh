@@ -13,7 +13,7 @@ fi
 
 # check $var is valid locale
 if [[ ! $(cat /etc/locale.gen | grep $var) ]]; then
-    echo "$var not in /etc/lo1cale.gen"
+    echo "$var not in /etc/locale.gen"
     exit 1
 fi
 
