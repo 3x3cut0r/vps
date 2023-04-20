@@ -4,7 +4,7 @@
 
 # 2. configure your nginx reverse proxy
 
-**see: [portainer.conf](https://github.com/3x3cut0r/proxmox/blob/main/docker/compose/nginx/conf.d/portainer.conf)**
+**see: [portainer.conf](https://github.com/3x3cut0r/vps/blob/main/docker/compose/nginx/conf.d/portainer.conf)**
 
 ### Find Me <a name="findme"></a>
 

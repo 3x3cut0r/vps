@@ -33,7 +33,7 @@ all about OPNsense installation and configuration
 
 ### 0.1 VM installation (Proxmox) <a name="01_vm_installation"></a>
 
-**see VM installation in the [PROXMOX.md](https://github.com/3x3cut0r/proxmox/blob/main/PROXMOX.md)**
+**see VM installation in the [PROXMOX.md](https://github.com/3x3cut0r/vps/blob/main/PROXMOX.md)**
 
 # 1. OPNsense defaults <a name="opnsense_defaults"></a>
 

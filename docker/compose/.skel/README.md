@@ -16,11 +16,11 @@
 
 # 1. deploy / docker-compose.yml <a name="deploy"></a>
 
-**[see docker/compose/skel/docker-compose.yml](https://github.com/3x3cut0r/proxmox/blob/main/docker/compose/skel/docker-compose.yml)**
+**[see docker/compose/skel/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/skel/docker-compose.yml)**
 
 # 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
 
-**[see nginx/conf.d/skel.conf](https://github.com/3x3cut0r/proxmox/blob/main/nginx/conf.d/skel.conf)**
+**[see nginx/conf.d/skel.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/skel.conf)**
 
 # 3. configuration <a name="configuration"></a>
 

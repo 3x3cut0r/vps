@@ -67,7 +67,7 @@ echo -e "CLOUDFLARED_OPTS=--port 5053 --upstream https://1.1.1.1/dns-query --ups
 sudo chmod +x /usr/local/bin/cloudflared
 sudo chown cloudflared:cloudflared /etc/default/cloudflared
 sudo chown cloudflared:cloudflared /usr/local/bin/cloudflared
-wget https://raw.githubusercontent.com/3x3cut0r/proxmox/main/lxc/pihole/lib/systemd/system/cloudflared.service -O /lib/systemd/system/cloudflared.service
+wget https://raw.githubusercontent.com/3x3cut0r/vps/main/lxc/pihole/lib/systemd/system/cloudflared.service -O /lib/systemd/system/cloudflared.service
 sudo systemctl enable cloudflared
 sudo systemctl start cloudflared
 sudo systemctl status cloudflared

@@ -14,11 +14,11 @@
 
 # 1. deploy / docker-compose.yml <a name="deploy"></a>
 
-**[see docker/compose/wordpress/docker-compose.yml](https://github.com/3x3cut0r/proxmox/blob/main/docker/compose/wordpress/docker-compose.yml)**
+**[see docker/compose/wordpress/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/wordpress/docker-compose.yml)**
 
 # 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
 
-**[see nginx/conf.d/wordpress.conf](https://github.com/3x3cut0r/proxmox/blob/main/nginx/conf.d/wordpress.conf)**
+**[see nginx/conf.d/wordpress.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/wordpress.conf)**
 
 # 3. usage <a name="usage"></a>
 

@@ -36,7 +36,7 @@ iface eth0 inet static
 
 # 3. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
 
-**[see nginx/conf.d/bigbluebutton.conf](https://github.com/3x3cut0r/proxmox/blob/main/nginx/conf.d/bigbluebutton.conf)**
+**[see nginx/conf.d/bigbluebutton.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/bigbluebutton.conf)**
 
 # 4. configuration <a name="configuration"></a>
 

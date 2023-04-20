@@ -23,8 +23,8 @@
 ```shell
 mkdir -p /opt/docker/config-files/nginx-proxy-manager/custom
 cd /opt/docker/config-files/nginx-proxy-manager/custom
-wget https://raw.githubusercontent.com/3x3cut0r/proxmox/main/docker/compose/nginx-proxy-manager/custom/proxy.conf
-wget https://raw.githubusercontent.com/3x3cut0r/proxmox/main/docker/compose/nginx-proxy-manager/custom/server_proxy.conf
+wget https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/compose/nginx-proxy-manager/custom/proxy.conf
+wget https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/compose/nginx-proxy-manager/custom/server_proxy.conf
 
 ```
 
@@ -40,7 +40,7 @@ openssl dhparam -out dhparam.pem 4096
 
 # 3. deploy / docker-compose.yml <a name="deploy"></a>
 
-**[see docker/compose/nginx-proxy-manager/docker-compose.yml](https://github.com/3x3cut0r/proxmox/blob/main/docker/compose/nginx-proxy-manager/docker-compose.yml)**
+**[see docker/compose/nginx-proxy-manager/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/nginx-proxy-manager/docker-compose.yml)**
 
 # 4. configure npm initial via port 81 <a name="port81"></a>
 

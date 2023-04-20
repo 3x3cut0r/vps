@@ -48,7 +48,7 @@ all about proxmox installation and configuration
 
 ```shell
 rm -f /etc/apt/sources.list.d/pve-enterprise.list
-wget https://raw.githubusercontent.com/3x3cut0r/proxmox/main/apt/sources.list.d/pve-no-subscription.list -O /etc/apt/sources.list.d/pve-no-subscription.list
+wget https://raw.githubusercontent.com/3x3cut0r/vps/main/apt/sources.list.d/pve-no-subscription.list -O /etc/apt/sources.list.d/pve-no-subscription.list
 
 ```
 
@@ -347,7 +347,7 @@ apt install openvswitch-switch wget
 
 ```shell
 mkdir -p /var/lib/vz/snippets/
-wget https://raw.githubusercontent.com/3x3cut0r/proxmox/main/var/lib/vz/snippets/port-mirror.sh -O /var/lib/vz/snippets/port-mirror.sh
+wget https://raw.githubusercontent.com/3x3cut0r/vps/main/var/lib/vz/snippets/port-mirror.sh -O /var/lib/vz/snippets/port-mirror.sh
 chmod +x /var/lib/vz/snippets/port-mirror.sh
 
 ```

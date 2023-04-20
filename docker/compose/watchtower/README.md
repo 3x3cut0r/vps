@@ -13,7 +13,7 @@
 
 # 1. deploy / docker-compose.yml <a name="deploy"></a>
 
-**[see docker/compose/watchtower/docker-compose.yml](https://github.com/3x3cut0r/proxmox/blob/main/docker/compose/watchtower/docker-compose.yml)**
+**[see docker/compose/watchtower/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/watchtower/docker-compose.yml)**
 
 # 2. configuration <a name="configuration"></a>
 

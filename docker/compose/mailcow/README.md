@@ -29,7 +29,7 @@ apt purge postfix
 
 # 2. deploy docker-compose.yml <a name="prerequisites"></a>
 
-**[see docker/compose/mailcow/docker-compose.yml](https://github.com/3x3cut0r/proxmox/blob/main/docker/compose/mailcow/docker-compose.yml)**
+**[see docker/compose/mailcow/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/mailcow/docker-compose.yml)**
 
 # 3. usage <a name="usage"></a>
 

@@ -4,7 +4,7 @@
 
 # 2. configure your nginx reverse proxy
 
-**see: [webproxys.conf](https://github.com/3x3cut0r/proxmox/blob/main/docker/compose/nginx/conf.d/glype-proxy.conf)**
+**see: [webproxys.conf](https://github.com/3x3cut0r/vps/blob/main/docker/compose/nginx/conf.d/glype-proxy.conf)**
 
 ### Find Me <a name="findme"></a>
 
