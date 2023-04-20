@@ -1,7 +1,0 @@
-#!/bin/bash
-
-ip_eth0=`ip -o -4 addr show dev eth0 | sed 's/.* inet \([^/]*\).*/\1/' | head -n 1`
-ip_eth0_v6=`ip -o -6 addr show dev eth0 | sed 's/.* inet6 \([^/]*\).*/\1/' | head -n 1`
-ip_eth0_ipsec0=`ip -o -4 addr show dev eth0 | sed 's/.* inet \([^/]*\).*/\1/' | tail -n 1`
-ip_tun0=`ip a s tun0 | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -n 1`
-ip_tun0_v6=`ip -o -6 addr show dev tun0 | sed 's/.* inet6 \([^/]*\).*/\1/' | tail -n 1`
