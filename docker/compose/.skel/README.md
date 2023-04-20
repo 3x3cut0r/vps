@@ -4,34 +4,32 @@
 
 ## Index
 
-1. [deploy docker-compose.yml](#deploy)
-2. [reverse-proxy / nginx configuration](#reverse-proxy)
-3. [configuration](#configuration)  
-   3.1 [config-file](#config-file)
+1. [prerequisites](#prerequisites)
+2. [deploy docker-compose.yml](#deploy)
+3. [reverse-proxy / nginx configuration](#reverse-proxy)
 4. [usage](#usage)  
    4.1 [browse](#browse)
 
 \# [Find Me](#findme)  
 \# [License](#license)
 
-# 1. deploy docker-compose.yml <a name="deploy"></a>
+# 1. prerequisites <a name="prerequisites"></a>
 
-**[see docker/compose/skel/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/skel/docker-compose.yml)**
-
-# 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
-
-**[see nginx/conf.d/skel.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/skel.conf)**
-
-# 3. configuration <a name="configuration"></a>
-
-### 3.1 config-file <a name="config-file"></a>
-
-**/etc/skel/settings.conf**
+**do stuff:**
 
 ```shell
 # ...
 
 ```
+
+# 2. deploy docker-compose.yml <a name="deploy"></a>
+
+**[see docker/compose/skel/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/skel/docker-compose.yml)**
+
+# 3. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
+
+**add new proxy host to your nginx or nginx-proxy-manager**
+**[see nginx/conf.d/skel.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/skel.conf)**
 
 # 4. usage <a name="usage"></a>
 
