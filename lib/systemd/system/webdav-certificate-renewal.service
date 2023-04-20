@@ -1,0 +1,6 @@
+[Unit]
+Description=service to renew webdav certificate
+
+[Service]
+User=root
+ExecStart=openssl s_client -connect <your_domain>:<your_port> -showcerts </dev/null 2>/dev/null | openssl x509 -outform PEM > /etc/davfs2/certs/certificate.pem

@@ -1,0 +1,10 @@
+[Unit]
+Description=timer to restart neighbor discovery proxy daemon
+
+[Timer]
+OnCalendar=*:0/30
+Unit=ndppd-restart.service
+Persistent=true
+
+[Install]
+WantedBy=multi-user.target

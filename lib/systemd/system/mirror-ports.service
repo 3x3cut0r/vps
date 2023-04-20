@@ -1,0 +1,11 @@
+[Unit]
+Description=Port Mirroring for vmbr0 to vmbr10
+After=network.target
+
+[Service]
+ExecStart=/opt/scripts/network/mirror_ports.sh vmbr0 vmbr10
+Type=oneshot
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

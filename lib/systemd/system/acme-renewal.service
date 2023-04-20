@@ -1,0 +1,17 @@
+[Unit]
+Description=service to renew acme.sh created certificates
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/root/.acme.sh/acme.sh --renew \
+  --server 'https://acme-v02.api.letsencrypt.org/directory' \
+  --email executor55@gmx.de \
+  --home ~/.acme.sh \
+  --keylength ec-256 \
+  --dns dns_netcup \
+  --dnssleep 660 \
+  --reloadcmd "systemctl reload nginx" \
+  --domain 3x3cut0r.de \
+  --domain '*.3x3cut0r.de'
+SuccessExitStatus=0 2

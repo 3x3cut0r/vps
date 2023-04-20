@@ -1,0 +1,6 @@
+[Unit]
+Description=service to copy certificates to opt folder
+
+[Service]
+Type=oneshot
+ExecStart=/opt/scripts/certcopyToOpt.sh

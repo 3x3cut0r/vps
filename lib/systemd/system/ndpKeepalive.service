@@ -1,0 +1,6 @@
+[Unit]
+Description=service to keepalive neighbor discovery proxy
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/ping6 -w 60 -c 3 netcup.de

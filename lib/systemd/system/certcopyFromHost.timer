@@ -1,0 +1,10 @@
+[Unit]
+Description=timer to copy certificates from host to opt
+
+[Timer]
+OnCalendar=*-*-* 04:20:00
+Unit=certcopyFromHost.service
+Persistent=true
+
+[Install]
+WantedBy=multi-user.target

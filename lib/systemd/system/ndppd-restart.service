@@ -1,0 +1,6 @@
+[Unit]
+Description=service to restart neighbor discovery proxy daemon
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl restart ndppd.service

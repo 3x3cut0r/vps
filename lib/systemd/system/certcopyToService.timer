@@ -1,0 +1,10 @@
+[Unit]
+Description=timer to copy certificates to service folders
+
+[Timer]
+OnCalendar=*-*-* 04:25:00
+Unit=certcopyToService.service
+Persistent=true
+
+[Install]
+WantedBy=multi-user.target
