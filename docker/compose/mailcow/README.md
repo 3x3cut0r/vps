@@ -21,6 +21,12 @@ apt install cgroupfs-mount
 
 **LXC Container System Requirements: unpriviledged=1, nesting=1, keyctl=1, 6GB RAM, 2CPU, 64GB HDD**  
 
+**on LXC**  
+```shell
+apt purge postfix
+
+```
+
 # 2. deploy docker-compose.yml <a name="prerequisites"></a>
 
 **[see docker/compose/mailcow/docker-compose.yml](https://github.com/3x3cut0r/proxmox/blob/main/docker/compose/mailcow/docker-compose.yml)**
