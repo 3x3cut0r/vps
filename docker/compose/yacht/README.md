@@ -33,7 +33,7 @@ Definition:
 # 2. deploy docker-compose.yml
 
 # 3. configure your nginx reverse proxy
-**see: [yacht.conf](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/nginx/conf.d/yacht.conf)**
+**see: [yacht.conf](https://github.com/3x3cut0r/vps/blob/main/docker/compose/nginx/conf.d/yacht.conf)**
 
 # 4. login with your email and change the default password !!!
 **default password: pass**

@@ -35,13 +35,13 @@ mkdir -p $UMBREL_ROOT/db/jwt-private-key
 
 # 2. download config-files <a name="download-config-files"></a>
 ```shell
-wget -p https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/docker-compose/umbrel/tor/torrc -O $UMBREL_ROOT/tor/torrc
-wget -p https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/docker-compose/umbrel/bitcoin/bitcoin.conf -O $UMBREL_ROOT/bitcoin/bitcoin.conf
-wget -p https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/docker-compose/umbrel/lnd/lnd.conf -O $UMBREL_ROOT/lnd/lnd.conf
-wget -p https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/docker-compose/umbrel/nginx/nginx.conf -O $UMBREL_ROOT/nginx/nginx.conf
-wget -p https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/docker-compose/umbrel/electrs/electrs.toml -O $UMBREL_ROOT/electrs/electrs.toml
-wget -p https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/docker-compose/umbrel/docker-compose.yml -O $UMBREL_ROOT/docker-compose.yml
-wget -p https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/docker-compose/umbrel/.env -O $UMBREL_ROOT/.env
+wget -p https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/compose/umbrel/tor/torrc -O $UMBREL_ROOT/tor/torrc
+wget -p https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/compose/umbrel/bitcoin/bitcoin.conf -O $UMBREL_ROOT/bitcoin/bitcoin.conf
+wget -p https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/compose/umbrel/lnd/lnd.conf -O $UMBREL_ROOT/lnd/lnd.conf
+wget -p https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/compose/umbrel/nginx/nginx.conf -O $UMBREL_ROOT/nginx/nginx.conf
+wget -p https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/compose/umbrel/electrs/electrs.toml -O $UMBREL_ROOT/electrs/electrs.toml
+wget -p https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/compose/umbrel/docker-compose.yml -O $UMBREL_ROOT/docker-compose.yml
+wget -p https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/compose/umbrel/.env -O $UMBREL_ROOT/.env
 
 ```
 

@@ -3,7 +3,7 @@
 # 1. deploy docker-compose.yml
 
 # 2. configure your nginx reverse proxy
-**see: [send.conf](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/nginx/conf.d/send.conf)**
+**see: [send.conf](https://github.com/3x3cut0r/vps/blob/main/docker/compose/nginx/conf.d/send.conf)**
 
 ### Find Me <a name="findme"></a>
 

@@ -3,7 +3,7 @@
 # 1. deploy docker-compose.yml
 
 # 2. configure your nginx reverse proxy
-**see: [sspks.conf](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/nginx/conf.d/sspks.conf)**
+**see: [sspks.conf](https://github.com/3x3cut0r/vps/blob/main/docker/compose/nginx/conf.d/sspks.conf)**
 
 # 3. copy new packages (*.spk) in your sspks-packages volume
 

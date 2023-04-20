@@ -67,7 +67,7 @@ SAVE
 
 ## 1.3 prepare your homeserver.yaml
 **/home/docker/.local/share/docker/volumes/synapse-data/_data/homeserver.yaml**  
-**use the [homeserver.yaml](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/synapse/homeserver.yaml) on my repo as template
+**use the [homeserver.yaml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/synapse/homeserver.yaml) on my repo as template
 
 # 2. deploy docker-compose.yml
 

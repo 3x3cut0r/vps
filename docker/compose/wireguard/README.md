@@ -13,7 +13,7 @@
 \# [License](#license)  
 
 # 1. deploy docker-compose.yml <a name="deploy"></a>  
-**[see docker/docker-compose/wireguard/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/wireguard/docker-compose.yml)**  
+**[see docker/docker-compose/wireguard/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/wireguard/docker-compose.yml)**  
 
 # 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>  
 **[see nginx/conf.d/wireguard.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/wireguard.conf)**  

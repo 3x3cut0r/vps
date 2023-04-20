@@ -5,7 +5,7 @@
 # 2. fine-tune 50-server.cnf configuration
 **copy and replace from repo**  
 ```shell
-wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/docker-compose/mariadb/50-server.cnf -O /home/docker/.local/share/docker/volumes/mariadb-conf/_data/50-server.cnf
+wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/compose/mariadb/50-server.cnf -O /home/docker/.local/share/docker/volumes/mariadb-conf/_data/50-server.cnf
 
 ```
 

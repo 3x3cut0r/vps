@@ -18,7 +18,7 @@
 \# [License](#license)  
 
 # 1. download mongod.conf <a name="mongod.conf"></a>
-**[see docker/docker-compose/rocketchat/mongodb/mongod.conf](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/rocketchat/mongodb/mongod.conf)**  
+**[see docker/docker-compose/rocketchat/mongodb/mongod.conf](https://github.com/3x3cut0r/vps/blob/main/docker/compose/rocketchat/mongodb/mongod.conf)**  
 **Path:**
 ```shell
 /home/docker/config-files/mongodb/mongod.conf
@@ -26,7 +26,7 @@
 ```
 
 # 2. deploy docker-compose.yml <a name="deploy"></a>  
-**[see docker/docker-compose/skel/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/rocketchat/docker-compose.yml)**  
+**[see docker/docker-compose/skel/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/rocketchat/docker-compose.yml)**  
 
 # 3. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>  
 **[see nginx/conf.d/skel.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/rocketchat.conf)**

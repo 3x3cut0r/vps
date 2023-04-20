@@ -16,7 +16,7 @@
 \# [License](#license)  
 
 # 1. deploy docker-compose.yml <a name="deploy"></a>  
-**[see docker/docker-compose/emulatorjs/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/emulatorjs/docker-compose.yml)**  
+**[see docker/docker-compose/emulatorjs/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/emulatorjs/docker-compose.yml)**  
 
 # 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>  
 **[see nginx/conf.d/emulatorjs.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/emulatorjs.conf)**  

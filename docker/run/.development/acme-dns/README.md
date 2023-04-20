@@ -30,7 +30,7 @@ wget ...
 ```
 
 # 3. deploy docker-compose.yml <a name="deploy"></a>  
-**[see docker/docker-compose/acme-dns/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/acme-dns/docker-compose.yml)**  
+**[see docker/docker-compose/acme-dns/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/acme-dns/docker-compose.yml)**  
 
 # 4. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>  
 **[see nginx/conf.d/auth.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/auth.conf)**  

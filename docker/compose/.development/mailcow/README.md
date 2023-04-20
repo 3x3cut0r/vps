@@ -15,7 +15,7 @@
 \# [License](#license)  
 
 # 1. deploy docker-compose.yml <a name="deploy"></a>  
-**[see docker/docker-compose/mailcow/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/mailcow/docker-compose.yml)**  
+**[see docker/docker-compose/mailcow/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/mailcow/docker-compose.yml)**  
 **on your docker-compose.yml at service mailcow-ofelia, mailcow-ipv6nat**  
 **change docker.sock path:**  
 ```shell

@@ -16,7 +16,7 @@
 
 # 1. installation using script <a name="deploy"></a>
 
-**[see official documentation](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/azuracast/docker-compose.ymlhttps://docs.azuracast.com/en/getting-started/installation/docker)**
+**[see official documentation](https://github.com/3x3cut0r/vps/blob/main/docker/compose/azuracast/docker-compose.ymlhttps://docs.azuracast.com/en/getting-started/installation/docker)**
 
 # 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
 

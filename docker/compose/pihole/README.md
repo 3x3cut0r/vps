@@ -18,15 +18,15 @@
 ```shell
 mkdir -p /home/docker/config-files/pihole/pihole-updatelists
 cd /home/docker/config-files/pihole/pihole-updatelists
-wget https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/docker-compose/pihole/pihole-updatelists.conf
+wget https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/compose/pihole/pihole-updatelists.conf
 
 ```
 
 # 2. configure your nginx reverse proxy <a name="reverse-proxy"></a>  
-**see: [send.conf](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/nginx/conf.d/pihole.conf)**
+**see: [send.conf](https://github.com/3x3cut0r/vps/blob/main/docker/compose/nginx/conf.d/pihole.conf)**
 
 # 3. deploy docker-compose.yml <a name="deploy"></a>  
-**[see docker/docker-compose/pihole/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/pihole/docker-compose.yml)**  
+**[see docker/docker-compose/pihole/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/pihole/docker-compose.yml)**  
 
 # 4. usage <a name="usage"></a>  
 

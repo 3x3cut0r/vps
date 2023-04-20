@@ -12,13 +12,13 @@
 \# [License](#license) 
 
 # 1. deploy docker-compose.yml <a name="deploy"></a>  
-**[see docker/docker-compose/coturn/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/coturn/docker-compose.yml)**  
+**[see docker/docker-compose/coturn/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/coturn/docker-compose.yml)**  
 
 # 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>  
 **[see nginx/conf.d/coturn.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/coturn.conf)**  
 
 # 3. configuration <a name="configuration"></a>  
-**copy [docker/docker-compose/coturn/turnserver.conf](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/coturn/turnserver.conf) to /home/docker/config-files/coturn/turnserver.conf**  
+**copy [docker/docker-compose/coturn/turnserver.conf](https://github.com/3x3cut0r/vps/blob/main/docker/compose/coturn/turnserver.conf) to /home/docker/config-files/coturn/turnserver.conf**  
 **enter at least: **  
 ```shell
 ...

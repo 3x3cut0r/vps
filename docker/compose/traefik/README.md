@@ -10,7 +10,7 @@
 \# [License](#license)  
 
 # 1. deploy docker-compose.yml <a name="deploy"></a>  
-**[see docker/docker-compose/traefik/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/traefik/docker-compose.yml)**  
+**[see docker/docker-compose/traefik/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/traefik/docker-compose.yml)**  
 
 ### Find Me <a name="findme"></a>
 
