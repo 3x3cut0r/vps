@@ -4,12 +4,12 @@
 
 ## Index
 
-1. [deploy / docker-compose.yml](#deploy)  
+1. [deploy docker-compose.yml](#deploy)  
 
 \# [Find Me](#findme)  
 \# [License](#license)  
 
-# 1. deploy / docker-compose.yml <a name="deploy"></a>  
+# 1. deploy docker-compose.yml <a name="deploy"></a>  
 **[see docker/docker-compose/traefik/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/traefik/docker-compose.yml)**  
 
 ### Find Me <a name="findme"></a>

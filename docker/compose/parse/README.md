@@ -4,7 +4,7 @@
 
 ## Index
 
-1. [deploy / docker-compose.yml](#deploy)  
+1. [deploy docker-compose.yml](#deploy)  
 2. [reverse-proxy / nginx configuration](#reverse-proxy)  
 3. [usage](#usage)  
   3.1 [browse](#browse)  
@@ -12,7 +12,7 @@
 \# [Find Me](#findme)  
 \# [License](#license)  
 
-# 1. deploy / docker-compose.yml <a name="deploy"></a>  
+# 1. deploy docker-compose.yml <a name="deploy"></a>  
 **[see docker/docker-compose/parse/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/parse/docker-compose.yml)**  
 
 # 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>  

@@ -6,7 +6,7 @@
 
 1. [download pihole-updatelists.conf ](#download)  
 2. [reverse-proxy / nginx configuration](#reverse-proxy)  
-3. [deploy / docker-compose.yml](#deploy)  
+3. [deploy docker-compose.yml](#deploy)  
 4. [usage](#usage)  
   4.1 [browse](#browse)  
 
@@ -25,7 +25,7 @@ wget https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/docker-compose/p
 # 2. configure your nginx reverse proxy <a name="reverse-proxy"></a>  
 **see: [send.conf](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/nginx/conf.d/pihole.conf)**
 
-# 3. deploy / docker-compose.yml <a name="deploy"></a>  
+# 3. deploy docker-compose.yml <a name="deploy"></a>  
 **[see docker/docker-compose/pihole/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/pihole/docker-compose.yml)**  
 
 # 4. usage <a name="usage"></a>  

@@ -4,14 +4,14 @@
 
 ## Index
 
-1. [deploy / docker-compose.yml](#deploy)
+1. [deploy docker-compose.yml](#deploy)
 2. [configuration](#reverse-proxy)
 3. [prevent containers from being updated](#prevent_container_update)
 
 \# [Find Me](#findme)  
 \# [License](#license)
 
-# 1. deploy / docker-compose.yml <a name="deploy"></a>
+# 1. deploy docker-compose.yml <a name="deploy"></a>
 
 **[see docker/compose/watchtower/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/watchtower/docker-compose.yml)**
 

@@ -5,7 +5,7 @@
 ## Index
 
 1. [prepare mariadb](#mariadb)  
-2. [deploy / docker-compose.yml](#deploy)  
+2. [deploy docker-compose.yml](#deploy)  
 3. [reverse-proxy / nginx configuration](#reverse-proxy)  
 4. [usage](#usage)  
   4.1 [browse](#browse)  
@@ -19,7 +19,7 @@
 **3. import guacamole-auth-jdbc-1.4.0/mysql/schema/001-create-schema.sql into your new created guacamole database using phpmyadmin**  
 **4. import guacamole-auth-jdbc-1.4.0/mysql/schema/002-create-admin-user.sql into your new created guacamole database using phpmyadmin**  
 
-# 2. deploy / docker-compose.yml <a name="deploy"></a>  
+# 2. deploy docker-compose.yml <a name="deploy"></a>  
 **[see docker/docker-compose/guacamole/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/guacamole/docker-compose.yml)**  
 
 # 3. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>  

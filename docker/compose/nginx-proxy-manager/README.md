@@ -6,7 +6,7 @@
 
 1. [download custom folder to your harddrive](#custom)
 2. [generate dhparam.pem](#dhparam)
-3. [deploy / docker-compose.yml](#deploy)
+3. [deploy docker-compose.yml](#deploy)
 4. [configure npm initial via port 81](#port81)
 5. [configure lets encrypt](#le)
 6. [add npm proxy host](#proxy_host)
@@ -38,7 +38,7 @@ openssl dhparam -out dhparam.pem 4096
 
 ```
 
-# 3. deploy / docker-compose.yml <a name="deploy"></a>
+# 3. deploy docker-compose.yml <a name="deploy"></a>
 
 **[see docker/compose/nginx-proxy-manager/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/nginx-proxy-manager/docker-compose.yml)**
 

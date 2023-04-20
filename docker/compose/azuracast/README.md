@@ -4,7 +4,7 @@
 
 ## Index
 
-1. [deploy / docker-compose.yml](#deploy)
+1. [deploy docker-compose.yml](#deploy)
 2. [reverse-proxy / nginx configuration](#reverse-proxy)
 3. [configuration](#configuration)  
    3.1 [config-file](#config-file)

@@ -5,7 +5,7 @@
 ## Index
 
 1. [download mongod.conf](#mongod.conf)   
-2. [deploy / docker-compose.yml](#deploy)  
+2. [deploy docker-compose.yml](#deploy)  
 3. [reverse-proxy / nginx configuration](#reverse-proxy)  
 4. [Initialise ReplSet rs0 the first time you run mongo](#replset)  
 5. [usage](#usage)  
@@ -25,7 +25,7 @@
 
 ```
 
-# 2. deploy / docker-compose.yml <a name="deploy"></a>  
+# 2. deploy docker-compose.yml <a name="deploy"></a>  
 **[see docker/docker-compose/skel/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/docker-compose/rocketchat/docker-compose.yml)**  
 
 # 3. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>  
