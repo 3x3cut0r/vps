@@ -1,87 +1,49 @@
-# nginx
+# nginx configuration
 
-nginx as reverse proxy for docker containers
+installation of nginx as a reverse proxy on a pve
 
 ## Index
 
-1. [install nginx](#installation)  
-2. [configure nginx](#configure)  
-3. [configure subdomains / reverse proxy sites](#reverse_proxy)  
-4. [restart nginx](#restart)  
-5. [configure firewall](#firewall)  
+1. [installation](#installation)
+2. [configure ssl](#ssl)
 
 \# [Find Me](#findme)  
-\# [License](#license)  
+\# [License](#license)
 
-# 1. install nginx <a name="installation"></a>
+# 1. installation <a name="installation"></a>
+
 ```shell
 apt install nginx
-systemctl enable nginx
+
+rm /etc/nginx/conf.d/default
 
 ```
 
-# 2. configure nginx <a name="configure"></a>
-**remove default site:**  
-```shell
-rm /etc/nginx/sites-enabled/default
-mv /var/www/html/index.nginx-debian.html /var/www/html/index.html
+# 2. configure ssl <a name="ssl"></a>
 
-```
-**redirect all traffic from http to https:**  
-/etc/nginx/conf.d/default.conf  
-```shell
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    server_name *.3x3cut0r.de;
+**generate dhparam.pem**
 
-    # Enforce HTTPS
-    return 301 https://$host$request_uri;
-}
-
-```
-**create ssl.conf (copy from repo)**  
 ```shell
-vi /etc/nginx/conf.d/ssl.conf
-
-```
-**see [docke_run/certbox](https://github.com/3x3cut0r/vps/tree/main/docker/docker_run/certbot) howto create a lets encrypt wildcard certificate**  
-```shell
-ln -s /home/docker/.local/share/docker/volumes/certbot-letsencrypt/_data/ /etc/nginx/ssl
+cd /etc/ssl/
+openssl dhparam -out dhparam.pem 4096
 
 ```
 
-# 3. configure subdomains / reverse proxy sites <a name="reverse_proxy"></a>
-**e.g.: configure upstream server in /etc/nginx.conf (copy from repo)**  
+**link certificates**
+
 ```shell
-    # List of application servers
-    upstream portainer  { server 127.0.0.1:2101; }
-
-```
-**e.g.: create portainer.conf (copy from repo)**  
-```shell
-vi /etc/nginx/conf.d/portainer.conf
-
-```
-
-# 4. restart nginx <a name="restart"></a>
-```shell
-systemctl restart nginx
-
-```
-
-# 5. configure firewall <a name="firewall"></a>
-```shell
-ufw allow 'Nginx HTTP'
-ufw allow 'Nginx HTTPS'
+ln -s ~/.acme.sh/3x3cut0r.de_ecc/3x3cut0r.de.cer /etc/ssl/live/3x3cut0r.de/cert.pem
+ln -s ~/.acme.sh/3x3cut0r.de_ecc/3x3cut0r.de.key /etc/ssl/live/3x3cut0r.de/privkey.pem
+ln -s ~/.acme.sh/3x3cut0r.de_ecc/fullchain.cer /etc/ssl/live/3x3cut0r.de/fullchain.pem
 
 ```
 
 ### Find Me <a name="findme"></a>
 
 ![E-Mail](https://img.shields.io/badge/E--Mail-executor55%40gmx.de-red)
-* [GitHub](https://github.com/3x3cut0r)
-* [DockerHub](https://hub.docker.com/u/3x3cut0r)
+
+- [GitHub](https://github.com/3x3cut0r)
+- [DockerHub](https://hub.docker.com/u/3x3cut0r)
 
 ### License <a name="license"></a>
 
