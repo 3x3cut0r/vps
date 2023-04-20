@@ -1,0 +1,7 @@
+site_name: VPS - Virtual Privat Server
+theme: readthedocs
+nav:
+  - Startseite: index.md
+  - Proxmox:
+      - VPS/VDS: proxmox/README.md
+      - Minisforum HM90: proxmox/hm90.md
