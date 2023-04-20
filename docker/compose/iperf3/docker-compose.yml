@@ -1,0 +1,31 @@
+version: '3.9'
+
+# https://github.com/esnet/iperf
+services:
+  # https://hub.docker.com/r/networkstatic/iperf3
+  iperf3:
+    container_name: iperf3
+    image: networkstatic/iperf3:latest
+    command: -s
+    restart: unless-stopped
+    ports:
+      - '5201:5201'
+    networks:
+      iperf3:
+        ipv4_address: '10.24.29.2'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      TZ: 'Europe/Berlin'
+
+networks:
+  iperf3:
+    name: iperf3
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.24.29.0/24'
+          gateway: '10.24.29.1'

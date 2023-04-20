@@ -1,39 +1,39 @@
-version: "3.9"
+version: '3.9'
 
 # https://github.com/linuxserver/docker-dokuwiki
 services:
   # https://hub.docker.com/r/linuxserver/dokuwiki
-    dokuwiki:
-        container_name: dokuwiki
-        image: lscr.io/linuxserver/dokuwiki:latest
-        restart: unless-stopped
-        ports:
-            - "2123:80"
-          # - "443:443"
-        networks:
-            dokuwiki:
-                ipv4_address: 10.24.23.2
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-        environment:
-            TZ: "Europe/Berlin"
-          # PUID: "1000"
-          # PGID: "1000"
-        volumes:
-            - dokuwiki-conf:/config
+  dokuwiki:
+    container_name: dokuwiki
+    image: lscr.io/linuxserver/dokuwiki:latest
+    restart: unless-stopped
+    ports:
+      - '2123:80'
+      # - "443:443"
+    networks:
+      dokuwiki:
+        ipv4_address: '10.24.23.2'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      TZ: 'Europe/Berlin'
+      # PUID: "1000"
+      # PGID: "1000"
+    volumes:
+      - dokuwiki-conf:/config
 
 networks:
-    dokuwiki:
-        name: dokuwiki
-        ipam:
-            driver: default
-            config:
-                - subnet: "10.24.23.0/24"
-                  gateway: 10.24.23.1
+  dokuwiki:
+    name: dokuwiki
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.24.23.0/24'
+          gateway: '10.24.23.1'
 
 volumes:
-    dokuwiki-conf:
-        name: dokuwiki-conf
+  dokuwiki-conf:
+    name: dokuwiki-conf

@@ -8,18 +8,18 @@ services:
     restart: unless-stopped
     networks:
       teamspeak:
-        ipv4_address: 10.24.11.2
+        ipv4_address: '10.24.11.2'
       mariadb:
-        ipv4_address: 10.20.0.111
+        ipv4_address: '10.20.0.111'
     ports:
-      - 9987:9987/udp
-      - 10011:10011
-      - 30033:30033
+      - '9987:9987/udp'
+      - '10011:10011'
+      - '30033:30033'
     dns:
-      - 8.8.8.8
-      - 8.8.4.4
-      - 2001:4860:4860::8888
-      - 2001:4860:4860::8844
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
     environment:
       TS3SERVER_LICENSE: 'accept'
       TS3SERVER_LICENSEPATH: '/var/ts3server'
@@ -28,9 +28,12 @@ services:
       TS3SERVER_DB_HOST: 'mariadb'
       TS3SERVER_DB_NAME: 'teamspeak'
       TS3SERVER_DB_USER: 'teamspeak'
-      TS3SERVER_DB_PASSWORD: <TS3SERVER_DB_PASSWORD>
-      # TS3SERVER_DB_WAITUNTILREADY: 30
+      TS3SERVER_DB_PASSWORD: '<TS3SERVER_DB_PASSWORD>'
+      TS3SERVER_LOG_APPEND: '1'
+      TS3SERVER_LOG_QUERY_COMMANDS: '0'
+      # TS3SERVER_DB_WAITUNTILREADY: '30'
     volumes:
+      - /opt/docker/config-files/teamspeak/etc/logrotate.d/teamspeak3-server:/etc/logrotate.d/teamspeak3-server
       - teamspeak-data:/var/ts3server
 
 networks:
@@ -40,10 +43,10 @@ networks:
       driver: default
       config:
         - subnet: '10.24.11.0/24'
-          gateway: 10.24.11.1
+          gateway: '10.24.11.1'
   mariadb:
-    external:
-      name: mariadb
+    name: mariadb
+    external: true
 
 volumes:
   teamspeak-data:

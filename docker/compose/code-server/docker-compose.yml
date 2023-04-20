@@ -1,45 +1,42 @@
-version: "3.9"
+version: '3.9'
 
 services:
   # https://hub.docker.com/r/linuxserver/code-server
-    code-server:
-        container_name: code-server
-        image: linuxserver/code-server:latest
-        restart: unless-stopped
-        networks:
-            code-server:
-                ipv4_address: 10.24.18.2
-        ports:
-          - 2118:8443
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-        environment:
-          # PUID: 1000
-          # PGID: 1000
-            TZ: 'Europe/Berlin'
-            PASSWORD: 'password'        #optional
-          # HASHED_PASSWORD: 'hash'     #optional: https://github.com/cdr/code-server/blob/main/docs/FAQ.md#can-i-store-my-password-hashed
-          # SUDO_PASSWORD: 'password'   #optional
-          # SUDO_PASSWORD_HASH:         #optional: https://github.com/cdr/code-server/blob/main/docs/FAQ.md#can-i-store-my-password-hashed
-            PROXY_DOMAIN: 'vscode.3x3cut0r.de' #optional
-        volumes:
-          - code-server:/config
+  code-server:
+    container_name: code-server
+    image: linuxserver/code-server:latest
+    restart: unless-stopped
+    networks:
+      code-server:
+        ipv4_address: '10.24.18.2'
+    ports:
+      - '2118:8443'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      # PUID: 1000
+      # PGID: 1000
+      TZ: 'Europe/Berlin'
+      PASSWORD: 'password' #optional
+      # HASHED_PASSWORD: 'hash'     #optional: https://github.com/cdr/code-server/blob/main/docs/FAQ.md#can-i-store-my-password-hashed
+      # SUDO_PASSWORD: 'password'   #optional
+      # SUDO_PASSWORD_HASH:         #optional: https://github.com/cdr/code-server/blob/main/docs/FAQ.md#can-i-store-my-password-hashed
+      PROXY_DOMAIN: 'vscode.3x3cut0r.de' #optional
+    volumes:
+      - code-server:/config
 
 networks:
-    code-server:
-        name: code-server
-        ipam:
-            driver: default
-            config:
-                - subnet: "10.24.18.0/24"
-                  gateway: 10.24.18.1
-  # nginx:
-  #     external:
-  #         name: nginx
+  code-server:
+    name: code-server
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.24.18.0/24'
+          gateway: '10.24.18.1'
 
 volumes:
-    code-server:
-        name: code-server
+  code-server:
+    name: code-server

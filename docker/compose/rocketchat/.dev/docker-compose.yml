@@ -1,182 +1,174 @@
-version: "3.9"
+version: '3.9'
 
 services:
   # https://hub.docker.com/_/rocket-chat
-    rocketchat-dev:
-        container_name: rocketchat-dev
-        image: rocketchat/rocket.chat:4.5.2
-        command: >
-            bash -c
-            "for i in `seq 1 30`; do
-                node main.js &&
-                s=$$? && break || s=$$?;
-                echo \"Tried $$i times. Waiting 5 secs...\";
-                sleep 5;
-            done; (exit $$s)"
-        restart: unless-stopped
-        networks:
-            rocketchat-dev:
-                ipv4_address: 10.99.192.2
-            mongo-dev:
-                ipv4_address: 10.99.32.3
-          # nginx:
-          #     ipv4_address: 10.24.0.212
-        ports:
-            - "9212:3000"
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-        volumes:
-            - rocketchat-dev-uploads:/app/uploads
-        environment:
-            PORT: "3000"
-            ROOT_URL: https://chat-dev.3x3cut0r.de
-            MONGO_URL: 'mongodb://mongo-dev:27017/rocketchat?replSet=rs0'
-            MONGO_OPLOG_URL: 'mongodb://mongo-dev:27017/local?replSet=rs0'
-          # MAIL_URL: smtp://smtp.email
-          # HTTP_PROXY: http://proxy.domain.com
-          # HTTPS_PROXY: http://proxy.domain.com
-        depends_on:
-            - mongo-dev
-        labels:
-            - "traefik.backend=rocketchat-dev"
-            - "traefik.frontend.rule=Host: chat-dev.3x3cut0r.de"
+  rocketchat-dev:
+    container_name: rocketchat-dev
+    image: rocketchat/rocket.chat:5.4.2
+    command: >
+      bash -c
+      "for i in `seq 1 30`; do
+        node main.js &&
+        s=$$? && break || s=$$?;
+        echo \"Tried $$i times. Waiting 5 secs...\";
+        sleep 5;
+      done; (exit $$s)"
+    restart: unless-stopped
+    networks:
+      rocketchat-dev:
+        ipv4_address: '10.99.192.2'
+      mongo-dev:
+        ipv4_address: '10.99.32.3'
+    ports:
+      - '9212:3000'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    volumes:
+      - rocketchat-dev-uploads:/app/uploads
+    environment:
+      PORT: '3000'
+      ROOT_URL: https://chat-dev.3x3cut0r.de
+      MONGO_URL: 'mongodb://mongo-dev:27017/rocketchat?replicaSet=rs0'
+      MONGO_OPLOG_URL: 'mongodb://mongo-dev:27017/local?replicaSet=rs0'
+      # MAIL_URL: smtp://smtp.email
+      # HTTP_PROXY: http://proxy.domain.com
+      # HTTPS_PROXY: http://proxy.domain.com
+    labels:
+      - 'com.centurylinklabs.watchtower.enable=false'
+    depends_on:
+      - mongo-dev
 
   # https://hub.docker.com/_/traefik
-    # traefik-dev:
-    #    image: traefik:latest
-    #    restart: unless-stopped
-    #    command: >
-    #        traefik
-    #        --docker
-    #        --acme=true
-    #        --acme.domains='chat-dev.3x3cut0r.de'
-    #        --acme.email='executor55@gmx.de'
-    #        --acme.entrypoint=https
-    #        --acme.storagefile=acme.json
-    #        --defaultentrypoints=http
-    #        --defaultentrypoints=https
-    #        --entryPoints='Name:http Address::80 Redirect.EntryPoint:https'
-    #        --entryPoints='Name:https Address::443 TLS.Certificates:'
-    #    ports:
-    #        - 80:80
-    #        - 443:443
-    #    volumes:
-    #        - /run/user/1000/docker.sock:/var/run/docker.sock
+  # traefik-dev:
+  #   image: traefik:latest
+  #   restart: unless-stopped
+  #   command: >
+  #     traefik
+  #     --docker
+  #     --acme=true
+  #     --acme.domains='chat-dev.3x3cut0r.de'
+  #     --acme.email='executor55@gmx.de'
+  #     --acme.entrypoint=https
+  #     --acme.storagefile=acme.json
+  #     --defaultentrypoints=http
+  #     --defaultentrypoints=https
+  #     --entryPoints='Name:http Address::80 Redirect.EntryPoint:https'
+  #     --entryPoints='Name:https Address::443 TLS.Certificates:'
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   volumes:
+  #     - /run/user/1000/docker.sock:/var/run/docker.sock
 
   # https://hub.docker.com/_/mongo
-    mongo-dev:
-        container_name: mongo-dev
-        image: mongo:5.0
-        command: mongod --config /etc/mongod.conf
-        restart: unless-stopped
-        networks:
-            mongo-dev:
-                ipv4_address: 10.99.32.2
-      # ports:
-      #     - 27017:27017
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-        volumes:
-            - mongo-dev-data:/data/db
-            - mongo-dev-dump:/dump
-            - /home/docker/config-files/mongodb-dev/mongod.conf:/etc/mongod.conf
-        labels:
-            - "traefik.enable=false"
+  mongo-dev:
+    container_name: mongo-dev
+    image: mongo:5.0
+    command: mongod --config /etc/mongod.conf
+    restart: unless-stopped
+    networks:
+      mongo-dev:
+        ipv4_address: '10.99.32.2'
+    # ports:
+    #     - 27017:27017
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    volumes:
+      - mongo-dev-data:/data/db
+      - mongo-dev-dump:/dump
+      - /opt/docker/config-files/mongodb-dev/mongod.conf:/etc/mongod.conf
 
   # https://hub.docker.com/_/mongo
   # this container's job is just run the command to initialize the replica set.
   # it will run the command and remove himself (it will not stay running)
-    # mongo-init-replica:
-    #     container_name: mongo-init-replica
-    #     image: mongo:4.0
-    #     command: >
-    #         bash -c
-    #         "for i in `seq 1 30`; do
-    #             mongo mongo/rocketchat --eval \"
-    #                 rs.initiate({
-    #                 _id: 'rs0',
-    #                 members: [ { _id: 0, host: 'localhost:27017' } ]})\" &&
-    #             s=$$? && break || s=$$?;
-    #             echo \"Tried $$i times. Waiting 5 secs...\";
-    #             sleep 5;
-    #         done; (exit $$s)"
-    #     networks:
-    #         mongo:
-    #             ipv4_address: 10.20.32.99
-    #     dns:
-    #         - 8.8.8.8
-    #         - 8.8.4.4
-    #         - 2001:4860:4860::8888
-    #         - 2001:4860:4860::8844
-    #     depends_on:
-    #         - mongo
+  # mongo-init-replica:
+  #   container_name: mongo-init-replica
+  #   image: mongo:4.0
+  #   command: >
+  #     bash -c
+  #     "for i in `seq 1 30`; do
+  #        mongo mongo/rocketchat --eval \"
+  #          rs.initiate({
+  #            _id: 'rs0',
+  #            members: [ { _id: 0, host: 'localhost:27017' } ]})\" &&
+  #        s=$$? && break || s=$$?;
+  #        echo \"Tried $$i times. Waiting 5 secs...\";
+  #        sleep 5;
+  #      done; (exit $$s)"
+  #   networks:
+  #     mongo:
+  #       ipv4_address: 10.20.32.99
+  #   dns:
+  #     - '1.1.1.1'
+  #     - '1.0.0.1'
+  #     - '2606:4700:4700::1111'
+  #     - '2606:4700:4700::1001'
+  #   depends_on:
+  #     - mongo
 
   # https://hub.docker.com/r/rocketchat/hubot-rocketchat
   # hubot, the popular chatbot (add the bot user first and change the password before starting this image)
-    hubot-dev:
-        container_name: hubot-dev
-        image: rocketchat/hubot-rocketchat:latest
-        restart: unless-stopped
-        networks:
-            rocketchat-dev:
-                ipv4_address: 10.99.192.3
-      # this is used to expose the hubot port for notifications on the host on port 3001, e.g. for hubot-jenkins-notifier
-      # ports:
-      #     - 3001:8080
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-        environment:
-            ROCKETCHAT_URL: rocketchat-dev:3000
-            ROCKETCHAT_ROOM: ''
-            ROCKETCHAT_USER: 'hubot.bot'
-            ROCKETCHAT_PASSWORD: '<ROCKETCHAT_PASSWORD>'
-            BOT_NAME: 'hubot'
-            RESPOND_TO_DM: 'true'
-            LISTEN_ON_ALL_PUBLIC: "true" # DEPRICATED
-          # HUBOT_GOOGLE_CSE_ID: '<GOOGLE_CSE_ID>' # Instructions here: https://github.com/hubot-scripts/hubot-google-images
-          # HUBOT_GOOGLE_CSE_KEY: '<GOOGLE_CSE_KEY>'
-          # HUBOT_MUSTACHIFY_URL: 'https://mustachify.me/?src=YOUR-IMAGE-URL'
-          # you can add more scripts as you'd like here, they need to be installable by npm
-            EXTERNAL_SCRIPTS: hubot-pugme,hubot-help,hubot-seen,hubot-links,hubot-diagnostics,hubot-calculator,hubot-2048,hubot-darts,hubot-thesimpsons,hubot-tell,hubot-google-images
-        volumes:
-            - hubot-dev-scripts:/home/hubot/scripts
-        depends_on:
-            - rocketchat-dev
+  hubot-dev:
+    container_name: hubot-dev
+    image: rocketchat/hubot-rocketchat:latest
+    restart: unless-stopped
+    networks:
+      rocketchat-dev:
+        ipv4_address: '10.99.192.3'
+    # this is used to expose the hubot port for notifications on the host on port 3001, e.g. for hubot-jenkins-notifier
+    # ports:
+    #   - 3001:8080
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      ROCKETCHAT_URL: 'rocketchat-dev:3000'
+      ROCKETCHAT_ROOM: ''
+      ROCKETCHAT_USER: 'hubot.bot'
+      ROCKETCHAT_PASSWORD: '<ROCKETCHAT_PASSWORD>'
+      BOT_NAME: 'hubot'
+      RESPOND_TO_DM: 'true'
+      LISTEN_ON_ALL_PUBLIC: 'true' # DEPRICATED
+      # HUBOT_GOOGLE_CSE_ID: '<GOOGLE_CSE_ID>' # Instructions here: https://github.com/hubot-scripts/hubot-google-images
+      # HUBOT_GOOGLE_CSE_KEY: '<GOOGLE_CSE_KEY>'
+      # HUBOT_MUSTACHIFY_URL: 'https://mustachify.me/?src=YOUR-IMAGE-URL'
+      # you can add more scripts as you'd like here, they need to be installable by npm
+      EXTERNAL_SCRIPTS: hubot-pugme,hubot-help,hubot-seen,hubot-links,hubot-diagnostics,hubot-calculator,hubot-2048,hubot-darts,hubot-thesimpsons,hubot-tell,hubot-google-images
+    volumes:
+      - hubot-dev-scripts:/home/hubot/scripts
+    depends_on:
+      - rocketchat-dev
 
 networks:
-    mongo-dev:
-        name: mongo-dev
-        ipam:
-            driver: default
-            config:
-                - subnet: "10.99.32.0/20"
-                  gateway: 10.99.32.1
-    rocketchat-dev:
-        name: rocketchat-dev
-        ipam:
-            driver: default
-            config:
-                - subnet: "10.99.192.0/20"
-                  gateway: 10.99.192.1
-  # nginx:
-  #     external:
-  #         name: nginx
+  mongo-dev:
+    name: mongo-dev
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.99.32.0/20'
+          gateway: '10.99.32.1'
+  rocketchat-dev:
+    name: rocketchat-dev
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.99.192.0/20'
+          gateway: '10.99.192.1'
 
 volumes:
-    mongo-dev-data:
-        name: mongo-dev-data
-    mongo-dev-dump:
-        name: mongo-dev-dump
-    rocketchat-dev-uploads:
-        name: rocketchat-dev-uploads
-    hubot-dev-scripts:
-        name: hubot-dev-scripts
+  mongo-dev-data:
+    name: mongo-dev-data
+  mongo-dev-dump:
+    name: mongo-dev-dump
+  rocketchat-dev-uploads:
+    name: rocketchat-dev-uploads
+  hubot-dev-scripts:
+    name: hubot-dev-scripts

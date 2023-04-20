@@ -1,41 +1,51 @@
-version: "3.9"
+version: '3.9'
 
 services:
   # https://hub.docker.com/_/redis
-    redis:
-        container_name: redis
-        image: redis:6-alpine
-        command: redis-server --requirepass <REDIS_PASSWORD>
-        restart: always
-        networks:
-            redis:
-                ipv4_address: 10.20.96.2
-        # ports:
-        #     - 6379:6379
+  redis:
+    container_name: redis
+    image: redis:7-alpine
+    command: redis-server --requirepass <REDIS_PASSWORD>
+    restart: always
+    networks:
+      redis:
+        ipv4_address: '10.20.96.2'
+    # ports:
+    #     - 6379:6379
+    volumes:
+      - redis-data:/data
 
   # https://hub.docker.com/_/redis
-    redis-nopw:
-        container_name: redis-nopw
-        image: redis:6-alpine
-        restart: always
-        networks:
-            redis-nopw:
-                ipv4_address: 10.20.112.2
-        # ports:
-        #     - 6379:6379
+  redis-nopw:
+    container_name: redis-nopw
+    image: redis:7-alpine
+    restart: always
+    networks:
+      redis-nopw:
+        ipv4_address: '10.20.112.2'
+    # ports:
+    #     - 6379:6379
+    volumes:
+      - redis-nopw-data:/data
 
 networks:
-    redis:
-        name: redis
-        ipam:
-            driver: default
-            config:
-                - subnet: "10.20.96.0/20"
-                  gateway: 10.20.96.1
-    redis-nopw:
-        name: redis-nopw
-        ipam:
-            driver: default
-            config:
-                - subnet: "10.20.112.0/20"
-                  gateway: 10.20.112.1
+  redis:
+    name: redis
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.20.96.0/20'
+          gateway: '10.20.96.1'
+  redis-nopw:
+    name: redis-nopw
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.20.112.0/20'
+          gateway: '10.20.112.1'
+
+volumes:
+  redis-data:
+    name: redis-data
+  redis-nopw-data:
+    name: redis-nopw-data

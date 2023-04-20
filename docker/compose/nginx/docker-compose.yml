@@ -1,58 +1,86 @@
-version: "3.9"
+version: '3.9'
 
+# https://github.com/NginxProxyManager/nginx-proxy-manager
 services:
   # https://hub.docker.com/_/nginx
-    nginx:
-        container_name: nginx
-        image: nginx:latest
-        restart: unless-stopped
-        ports:
-            - 2100:80
-          # - 4100:443
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-        volumes:
-            - nginx-html:/var/www/html
-            - nginx-conf.d:/etc/nginx/conf.d
-          # - certbot-letsencrypt:/etc/nginx/ssl
-        depends_on:
-            - php-fpm
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    restart: unless-stopped
+    ports:
+      - '2100:80'
+      # - '4100:443'
+    networks:
+      nginx:
+        ipv4_address: '10.24.0.2'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    volumes:
+      - nginx-html:/var/www/html
+      - nginx-conf.d:/etc/nginx/conf.d
+    depends_on:
+      - php-fpm
+
+  # https://hub.docker.com/r/jc21/nginx-proxy-manager
+  nginx-proxy-manager:
+    container_name: nginx-proxy-manager
+    image: jc21/nginx-proxy-manager:latest
+    restart: unless-stopped
+    ports:
+      - '80:80' # Public HTTP Port
+      - '443:443' # Public HTTPS Port
+      - '81:81' # Admin Web Port
+    networks:
+      nginx:
+        ipv4_address: '10.24.0.3'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      TZ: 'Europe/Berlin'
+    volumes:
+      - nginx-proxy-manager-data:/data
+      - nginx-proxy-manager-letsencrypt:/etc/letsencrypt
 
   # https://hub.docker.com/_/php
-    php-fpm:
-        container_name: php-fpm
-        image: php:8-fpm-alpine
-        restart: always
-        networks:
-            nginx:
-                ipv4_address: 10.24.0.3
-        ports:
-           - 9000:9000
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-        volumes:
-            - nginx-html:/var/www/html
+  php-fpm:
+    container_name: php-fpm
+    image: php:8-fpm-alpine
+    restart: always
+    networks:
+      nginx:
+        ipv4_address: '10.24.0.4'
+    ports:
+      - '9000:9000'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    volumes:
+      - nginx-html:/var/www/html
 
 networks:
-    nginx:
-      name: nginx
-      driver: bridge
-      ipam:
-          driver: default
-          config:
-              - subnet: 10.24.0.0/24
-                gateway: 10.24.0.1
+  nginx:
+    name: nginx
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.24.0.0/24'
+          gateway: '10.24.0.1'
 
 volumes:
-    nginx-html:
-        name: nginx-html
-    nginx-conf.d:
-        name: nginx-conf.d
-  # certbot-letsencrypt:
-  #     name: certbot-letsencrypt
+  nginx-html:
+    name: nginx-html
+  nginx-conf.d:
+    name: nginx-conf.d
+  nginx-proxy-manager-data:
+    name: nginx-proxy-manager-data
+  nginx-proxy-manager-letsencrypt:
+    name: nginx-proxy-manager-letsencrypt

@@ -1,0 +1,126 @@
+version: '3.9'
+
+# https://github.com/AzuraCast/AzuraCast
+services:
+  # https://github.com/azuracast/AzuraCast/pkgs/container/web
+  azuracast:
+    container_name: azuracast
+    image: ghcr.io/azuracast/web:latest
+    restart: unless-stopped
+    env_file: ../../env-files/azuracast.env
+    ports:
+      - '2126:80'
+      # - "443:443"
+      - '2022:2022'
+    networks:
+      azuracast:
+        ipv4_address: '10.24.26.2'
+      mariadb:
+        ipv4_address: '10.20.0.126'
+      redis-nopw:
+        ipv4_address: '10.20.112.126'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      TZ: 'Europe/Berlin'
+      LANG: 'en_US.UTF-8'
+      AZURACAST_DC_REVISION: '13'
+      AZURACAST_VERSION: 'latest'
+      AZURACAST_SFTP_PORT: '2022'
+      NGINX_TIMEOUT: '1800'
+      LETSENCRYPT_HOST: ''
+      LETSENCRYPT_EMAIL: ''
+      PUID: '1000'
+      PGID: '1000'
+    volumes:
+      - azuracast-letsencrypt:/etc/nginx/certs
+      - azuracast-letsencrypt-acme:/etc/acme.sh
+      - azuracast-www-vendor:/var/azuracast/www/vendor
+      - azuracast-www-uploads:/var/azuracast/uploads
+      - azuracast-tmp-data:/var/azuracast/www_tmp
+      - azuracast-stations-data:/var/azuracast/stations
+      - azuracast-shoutcast2-install:/var/azuracast/servers/shoutcast2
+      - azuracast-geolite-install:/var/azuracast/geoip
+      - azuracast-sftpgo-data:/var/azuracast/sftpgo/persist
+      - azuracast-backups:/var/azuracast/backups
+    depends_on:
+      - stations
+    # - redis-nopw
+
+  # https://github.com/azuracast/docker-azuracast-radio/pkgs/container/radio
+  stations:
+    container_name: azuracast-stations
+    image: ghcr.io/azuracast/radio:latest
+    restart: unless-stopped
+    init: true
+    ports:
+      # This default mapping is the outgoing and incoming ports for the first 50 stations.
+      # You can override this port mapping in your own docker-compose.override.yml file.
+      # For instructions, see:
+      # https://docs.azuracast.com/en/administration/docker#expanding-the-station-port-range
+      - '8500-8999:8500-8999'
+    networks:
+      azuracast:
+        ipv4_address: '10.24.26.3'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      PUID: '1000'
+      PGID: '1000'
+    volumes:
+      - azuracast-stations-data:/var/azuracast/stations
+      - azuracast-shoutcast2-install:/var/azuracast/servers/shoutcast2
+      - azuracast-letsencrypt:/etc/nginx/certs
+      - azuracast-tmp-data:/var/azuracast/www_tmp
+
+  # https://hub.docker.com/_/redis
+  # redis:
+  #   container_name: azuracast-redis
+  #   image: redis:7-alpine
+  #   restart: always
+  #   networks:
+  #     azuracast:
+  #        ipv4_address: '10.24.26.4'
+
+networks:
+  azuracast:
+    name: azuracast
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.24.26.0/24'
+          gateway: '10.24.26.1'
+  mariadb:
+    name: mariadb
+    external: true
+  redis-nopw:
+    name: redis-nopw
+    external: true
+
+volumes:
+  azuracast-letsencrypt:
+    name: azuracast-letsencrypt
+  azuracast-letsencrypt-acme:
+    name: azuracast-letsencrypt-acme
+  azuracast-www-vendor:
+    name: azuracast-www-vendor
+  azuracast-www-uploads:
+    name: azuracast-www-uploads
+  azuracast-tmp-data:
+    name: azuracast-tmp-data
+  azuracast-shoutcast2-install:
+    name: azuracast-shoutcast2-install
+  azuracast-geolite-install:
+    name: azuracast-geolite-install
+  azuracast-sftpgo-data:
+    name: azuracast-sftpgo-data
+  azuracast-backups:
+    name: azuracast-backups
+  azuracast-stations-data:
+    name: azuracast-stations-data

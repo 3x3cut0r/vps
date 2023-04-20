@@ -1,213 +1,213 @@
-version: "3.9"
+version: '3.9'
 
 services:
   # https://hub.docker.com/r/matrixdotorg/synapse
-    synapse:
-        container_name: synapse
-        image: matrixdotorg/synapse:latest
-        restart: unless-stopped
-        networks:
-            synapse:
-                ipv4_address: 10.20.144.2
-            postgres:
-                ipv4_address: 10.20.16.209
-            redis:
-                ipv4_address: 10.20.96.209
-        ports:
-            - 8008:8008
-      #     - 8448:8448
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-        environment:
-            TZ: Europe/Berlin
-            SYNAPSE_CONFIG_DIR: '/data'
-            SYNAPSE_CONFIG_PATH: '/data/homeserver.yaml'
-            SYNAPSE_DATA_DIR: '/data'
-            SYNAPSE_WORKER: synapse.app.homeserver
-            UID: 991
-            GID: 991
-        volumes:
-            - synapse-data:/data
-            - /home/docker/config-files/synapse/shared_secret_authenticator.py:/usr/local/lib/python3.8/site-packages/shared_secret_authenticator.py
-        healthcheck:
-            test: ["CMD", "curl", "-fSs", "http://localhost:8008/health"]
-            interval: 1m
-            timeout: 10s
-            retries: 3
+  synapse:
+    container_name: synapse
+    image: matrixdotorg/synapse:latest
+    restart: unless-stopped
+    networks:
+      synapse:
+        ipv4_address: '10.20.144.2'
+      postgres:
+        ipv4_address: '10.20.16.209'
+      redis:
+        ipv4_address: '10.20.96.209'
+    ports:
+      - '8008:8008'
+    # - '8448:8448'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      TZ: Europe/Berlin
+      SYNAPSE_CONFIG_DIR: '/data'
+      SYNAPSE_CONFIG_PATH: '/data/homeserver.yaml'
+      SYNAPSE_DATA_DIR: '/data'
+      SYNAPSE_WORKER: 'synapse.app.homeserver'
+      UID: '991'
+      GID: '991'
+    volumes:
+      - synapse-data:/data
+      - /opt/docker/config-files/synapse/shared_secret_authenticator.py:/usr/local/lib/python3.8/site-packages/shared_secret_authenticator.py
+    healthcheck:
+      test: ['CMD', 'curl', '-fSs', 'http://localhost:8008/health']
+      interval: 1m
+      timeout: 10s
+      retries: 3
 
   # https://hub.docker.com/r/vectorim/element-web
-    element-web:
-        container_name: element-web
-        image: vectorim/element-web:latest
-        restart: unless-stopped
-        networks:
-            synapse:
-                ipv4_address: 10.20.144.3
-        ports:
-            - 2209:80
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-      # volumes:
-      #     - /home/docker/config-files/element-web/config.json:/app/config.json
-        depends_on:
-            - synapse
+  element-web:
+    container_name: element-web
+    image: vectorim/element-web:latest
+    restart: unless-stopped
+    networks:
+      synapse:
+        ipv4_address: '10.20.144.3'
+    ports:
+      - '2209:80'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    # volumes:
+    #     - /opt/docker/config-files/element-web/config.json:/app/config.json
+    depends_on:
+      - synapse
 
   # https://github.com/tulir/maubot
-    maubot:
-        container_name: maubot
-        image: dock.mau.dev/maubot/maubot:latest
-        restart: unless-stopped
-        networks:
-            synapse:
-                ipv4_address: 10.20.144.16
-            postgres:
-                ipv4_address: 10.20.26.209
-        ports:
-            - 29316:29316
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-        volumes:
-            - maubot-data:/data:z
+  maubot:
+    container_name: maubot
+    image: dock.mau.dev/maubot/maubot:latest
+    restart: unless-stopped
+    networks:
+      synapse:
+        ipv4_address: '10.20.144.16'
+      postgres:
+        ipv4_address: '10.20.26.209'
+    ports:
+      - '29316:29316'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    volumes:
+      - maubot-data:/data:z
 
   # https://github.com/tulir/mautrix-telegram
-    mautrix-telegram:
-        container_name: mautrix-telegram
-        image: dock.mau.dev/mautrix/telegram:latest
-        restart: unless-stopped
-        networks:
-            synapse:
-                ipv4_address: 10.20.144.17
-            postgres:
-                ipv4_address: 10.20.17.209
-      # ports:
-      #     - 29317:29317
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-        volumes:
-            - mautrix-telegram-data:/data:z
+  mautrix-telegram:
+    container_name: mautrix-telegram
+    image: dock.mau.dev/mautrix/telegram:latest
+    restart: unless-stopped
+    networks:
+      synapse:
+        ipv4_address: '10.20.144.17'
+      postgres:
+        ipv4_address: '10.20.17.209'
+    # ports:
+    #   - '29317:29317'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    volumes:
+      - mautrix-telegram-data:/data:z
 
   # https://github.com/tulir/mautrix-whatsapp
-    mautrix-whatsapp:
-        container_name: mautrix-whatsapp
-        image: dock.mau.dev/mautrix/whatsapp:latest
-        restart: unless-stopped
-        networks:
-            synapse:
-                ipv4_address: 10.20.144.18
-            postgres:
-                ipv4_address: 10.20.18.209
-      # ports:
-      #     - 29318:29318
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-        volumes:
-            - mautrix-whatsapp-data:/data:z
+  mautrix-whatsapp:
+    container_name: mautrix-whatsapp
+    image: dock.mau.dev/mautrix/whatsapp:latest
+    restart: unless-stopped
+    networks:
+      synapse:
+        ipv4_address: '10.20.144.18'
+      postgres:
+        ipv4_address: '10.20.18.209'
+    # ports:
+    #   - '29318:29318'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    volumes:
+      - mautrix-whatsapp-data:/data:z
 
   # https://hub.docker.com/r/signald/signald
-    signald:
-        container_name: signald
-        image: signald/signald:latest
-        restart: unless-stopped
-        networks:
-            synapse:
-                ipv4_address: 10.20.144.28
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-        volumes:
-            - signald-data:/signald:z
-          # - signald-gradle:/home/gradle/.gradle
+  signald:
+    container_name: signald
+    image: signald/signald:latest
+    restart: unless-stopped
+    networks:
+      synapse:
+        ipv4_address: '10.20.144.28'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    volumes:
+      - signald-data:/signald:z
+      # - signald-gradle:/opt/gradle/.gradle
 
   # https://github.com/tulir/mautrix-signal
-    mautrix-signal:
-        container_name: mautrix-signal
-        image: dock.mau.dev/mautrix/signal:latest
-        restart: unless-stopped
-        sysctls:
-            net.ipv6.conf.all.disable_ipv6: 1
-        networks:
-            synapse:
-                ipv4_address: 10.20.144.128
-            postgres:
-                ipv4_address: 10.20.28.209
-      # ports:
-      #     - 29328:29328
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-        volumes:
-            - signald-data:/var/run/signald
-            - mautrix-signal-data:/data:z
-        depends_on:
-            - signald
+  mautrix-signal:
+    container_name: mautrix-signal
+    image: dock.mau.dev/mautrix/signal:latest
+    restart: unless-stopped
+    sysctls:
+      net.ipv6.conf.all.disable_ipv6: 1
+    networks:
+      synapse:
+        ipv4_address: '10.20.144.128'
+      postgres:
+        ipv4_address: '10.20.28.209'
+    # ports:
+    #   - '29328:29328'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    volumes:
+      - signald-data:/var/run/signald
+      - mautrix-signal-data:/data:z
+    depends_on:
+      - signald
 
   # https://github.com/tulir/mautrix-wsproxy
-    mautrix-wsproxy:
-        container_name: mautrix-wsproxy
-        image: dock.mau.dev/mautrix/wsproxy:latest
-        restart: unless-stopped
-        networks:
-            synapse:
-                ipv4_address: 10.20.144.131
-        ports:
-            - 29331:29331
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-        environment:
-            LISTEN_ADDRESS: ":29331"
-            APPSERVICE_ID: imessage
-            AS_TOKEN: put your as_token here
-            HS_TOKEN: put your hs_token here
+  mautrix-wsproxy:
+    container_name: mautrix-wsproxy
+    image: dock.mau.dev/mautrix/wsproxy:latest
+    restart: unless-stopped
+    networks:
+      synapse:
+        ipv4_address: '10.20.144.131'
+    ports:
+      - '29331:29331'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      LISTEN_ADDRESS: ':29331'
+      APPSERVICE_ID: 'imessage'
+      AS_TOKEN: 'put your as_token here'
+      HS_TOKEN: 'put your hs_token here'
 
 networks:
-    synapse:
-        name: synapse
-        ipam:
-            driver: default
-            config:
-                - subnet: "10.20.144.0/20"
-                  gateway: 10.20.144.1
-    postgres:
-        external:
-            name: postgres
-    redis:
-        external:
-            name: redis
+  synapse:
+    name: synapse
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.20.144.0/20'
+          gateway: '10.20.144.1'
+  postgres:
+    external:
+      name: postgres
+  redis:
+    external:
+      name: redis
 
 volumes:
-    synapse-data:
-        name: synapse-data
-    maubot-data:
-        name: maubot-data
-    mautrix-telegram-data:
-        name: mautrix-telegram-data
-    mautrix-whatsapp-data:
-        name: mautrix-whatsapp-data
-    mautrix-signal-data:
-        name: mautrix-signal-data
-    signald-data:
-        name: signald-data
-    signald-gradle:
-        name: signald-gradle
+  synapse-data:
+    name: synapse-data
+  maubot-data:
+    name: maubot-data
+  mautrix-telegram-data:
+    name: mautrix-telegram-data
+  mautrix-whatsapp-data:
+    name: mautrix-whatsapp-data
+  mautrix-signal-data:
+    name: mautrix-signal-data
+  signald-data:
+    name: signald-data
+  signald-gradle:
+    name: signald-gradle

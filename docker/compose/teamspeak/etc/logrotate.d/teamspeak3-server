@@ -1,0 +1,8 @@
+/var/ts3server/logs/ts3server_*.log {
+    weekly
+    rotate 6
+    copytruncate
+    compress
+    notifempty
+    missingok
+}

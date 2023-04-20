@@ -1,0 +1,84 @@
+version: '3.9'
+
+# https://github.com/NginxProxyManager/nginx-proxy-manager
+services:
+  # https://hub.docker.com/r/jc21/nginx-proxy-manager
+  nginx-proxy-manager:
+    container_name: nginx-proxy-manager
+    image: jc21/nginx-proxy-manager:latest
+    restart: unless-stopped
+    ports:
+      - '80:80' # Public HTTP Port
+      - '443:443' # Public HTTPS Port
+      - '81:81' # Admin Web Port
+    networks:
+      nginx-proxy-manager:
+        ipv4_address: '10.24.0.2'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      TZ: 'Europe/Berlin'
+      # Mysql/Maria connection parameters:
+      DB_MYSQL_HOST: 'mariadb'
+      DB_MYSQL_PORT: '3306'
+      DB_MYSQL_NAME: 'npm'
+      DB_MYSQL_USER: 'npm'
+      DB_MYSQL_PASSWORD: '<MARIADB_PASSWORD>'
+      # Uncomment this if IPv6 is not enabled on your host
+      # DISABLE_IPV6: 'true'
+    volumes:
+      - nginx-proxy-manager-data:/data
+      - nginx-proxy-manager-letsencrypt:/etc/letsencrypt
+      - /opt/docker/config-files/nginx-proxy-manager/custom/:/data/nginx/custom/
+      - /opt/docker/config-files/nginx-proxy-manager/dhparam.pem:/etc/letsencrypt/dhparam.pem
+    depends_on:
+      - mariadb
+
+  # https://hub.docker.com/_/mariadb
+  mariadb:
+    container_name: mariadb
+    image: mariadb:10-focal
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: unless-stopped
+    networks:
+      nginx-proxy-manager:
+        ipv4_address: '10.24.0.3'
+    # ports:
+    #   - '3306:3306'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      MARIADB_ROOT_PASSWORD: '<MARIADB_ROOT_PASSWORD>'
+      MARIADB_DATABASE: 'npm'
+      MARIADB_USER: 'npm'
+      MARIADB_PASSWORD: '<MARIADB_PASSWORD>'
+      TZ: 'Europe/Berlin'
+    volumes:
+      - mariadb-data:/var/lib/mysql
+      - mariadb-conf:/etc/mysql/mariadb.conf.d
+
+networks:
+  nginx-proxy-manager:
+    name: nginx-proxy-manager
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.24.0.0/24'
+          gateway: '10.24.0.1'
+
+volumes:
+  nginx-proxy-manager-data:
+    name: nginx-proxy-manager-data
+  nginx-proxy-manager-letsencrypt:
+    name: nginx-proxy-manager-letsencrypt
+  mariadb-data:
+    name: mariadb-data
+  mariadb-conf:
+    name: mariadb-conf

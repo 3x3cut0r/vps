@@ -1,0 +1,6 @@
+[Unit]
+Description=service to restart azuracast 
+
+[Service]
+User=docker
+ExecStart=/usr/bin/docker container restart azuracast

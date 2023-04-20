@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  # https://hub.docker.com/r/containrrr/watchtower
+  watchtower:
+    container_name: watchtower
+    image: containrrr/watchtower:latest
+    command: --cleanup --rolling-restart --schedule "0 0 4 * * *"
+    restart: always
+    network_mode: host
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      TZ: 'Europe/Berlin'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      com.centurylinklabs.watchtower.enable: false

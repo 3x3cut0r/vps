@@ -1,55 +1,55 @@
-version: "3.9"
+version: '3.9'
 
 # https://hub.docker.com/_/registry
 services:
   # https://hub.docker.com/_/registry
-    docker-registry:
-        container_name: docker-registry
-        image: registry:latest
-        restart: always
-        ports:
-            - "4155:443"
-        networks:
-            docker-registry:
-                ipv4_address: 10.24.255.2
-            redis-nopw:
-                ipv4_address: 10.20.112.255
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-        environment:
-            REGISTRY_HTTP_ADDR: "0.0.0.0:443"
-            REGISTRY_HTTP_SECRET: '<REGISTRY_HTTP_SECRETY>'
-          # REGISTRY_HTTP_TLS_CERTIFICATE: "/certs/domain.crt"
-          # REGISTRY_HTTP_TLS_KEY: "/certs/domain.key"
-          # REGISTRY_AUTH: "htpasswd"
-          # REGISTRY_AUTH_HTPASSWD_PATH: "/auth/htpasswd"
-          # REGISTRY_AUTH_HTPASSWD_REALM: "Registry Realm"
-            REGISTRY_STORAGE_CACHE_BLOBDESCRIPTOR: "redis"
-            REGISTRY_REDIS_ADDR: "redis-nopw:6379"
-        volumes:
-            - docker-registry-data:/var/lib/registry
-          # - docker-registry-auth:/auth # for htpasswd
-          # - docker-registry-certs:/certs # for certs
+  docker-registry:
+    container_name: docker-registry
+    image: registry:latest
+    restart: always
+    ports:
+      - '4155:443'
+    networks:
+      docker-registry:
+        ipv4_address: '10.24.255.2'
+      redis-nopw:
+        ipv4_address: '10.20.112.255'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      REGISTRY_HTTP_ADDR: '0.0.0.0:443'
+      REGISTRY_HTTP_SECRET: '<REGISTRY_HTTP_SECRETY>'
+      # REGISTRY_HTTP_TLS_CERTIFICATE: "/certs/domain.crt"
+      # REGISTRY_HTTP_TLS_KEY: "/certs/domain.key"
+      # REGISTRY_AUTH: "htpasswd"
+      # REGISTRY_AUTH_HTPASSWD_PATH: "/auth/htpasswd"
+      # REGISTRY_AUTH_HTPASSWD_REALM: "Registry Realm"
+      REGISTRY_STORAGE_CACHE_BLOBDESCRIPTOR: 'redis'
+      REGISTRY_REDIS_ADDR: 'redis-nopw:6379'
+    volumes:
+      - docker-registry-data:/var/lib/registry
+      # - docker-registry-auth:/auth # for htpasswd
+      # - docker-registry-certs:/certs # for certs
 
 networks:
-    docker-registry:
-        name: docker-registry
-        ipam:
-            driver: default
-            config:
-                - subnet: "10.24.255.0/24"
-                  gateway: 10.24.255.1
-    redis-nopw:
-        external:
-            name: redis-nopw
+  docker-registry:
+    name: docker-registry
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.24.255.0/24'
+          gateway: '10.24.255.1'
+  redis-nopw:
+    name: redis-nopw
+    external: true
 
 volumes:
-    docker-registry-data:
-        name: docker-registry-data
-    docker-registry-auth:
-        name: docker-registry-auth
+  docker-registry-data:
+    name: docker-registry-data
+  docker-registry-auth:
+    name: docker-registry-auth
   # docker-registry-certs:
   #     name: docker-registry-certs

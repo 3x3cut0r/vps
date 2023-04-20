@@ -1,47 +1,51 @@
-version: "3.9"
+version: '3.9'
 
 # https://github.com/linuxserver/docker-paperless-ngx
 services:
   # https://hub.docker.com/r/linuxserver/paperless-ngx
-    paperless-ngx:
-        container_name: paperless-ngx
-        image: lscr.io/linuxserver/paperless-ngx
-        restart: unless-stopped
-        ports:
-            - "2121:8000"
-        networks:
-            paperless-ngx:
-                ipv4_address: 10.24.21.2
-            redis-nopw:
-                ipv4_address: 10.20.112.121
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-        environment:
-            TZ: "Europe/Berlin"
-            PUID: "1000"
-            PGID: "1000"
-            REDIS_URL: "redis-nopw"
-        volumes:
-            - paperless-ngx-conf:/config
-            - paperless-ngx-data:/data
+  paperless-ngx:
+    container_name: paperless-ngx
+    image: linuxserver/paperless-ngx:latest
+    restart: unless-stopped
+    ports:
+      - '2121:8000'
+    networks:
+      paperless-ngx:
+        ipv4_address: '10.24.21.2'
+      redis-nopw:
+        ipv4_address: '10.20.112.121'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      TZ: 'Europe/Berlin'
+      PUID: '1000'
+      PGID: '1000'
+      REDIS_URL: 'redis://redis-nopw:6379'
+      PAPERLESS_URL: 'https://paperless.3x3cut0r.de'
+      PAPERLESS_ALLOWED_HOSTS: 'paperless.3x3cut0r.de,localhost'
+      PAPERLESS_CORS_ALLOWED_HOSTS: 'https://paperless.3x3cut0r.de,http://localhost:8000,http://localhost'
+      PAPERLESS_CSRF_TRUSTED_ORIGINS: 'https://paperless.3x3cut0r.de'
+    volumes:
+      - paperless-ngx-conf:/config
+      - paperless-ngx-data:/data
 
 networks:
-    paperless-ngx:
-        name: paperless-ngx
-        ipam:
-            driver: default
-            config:
-                - subnet: "10.24.21.0/24"
-                  gateway: 10.24.21.1
-    redis-nopw:
-        external:
-            name: redis-nopw
+  paperless-ngx:
+    name: paperless-ngx
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.24.21.0/24'
+          gateway: '10.24.21.1'
+  redis-nopw:
+    name: redis-nopw
+    external: true
 
 volumes:
-    paperless-ngx-conf:
-        name: paperless-ngx-conf
-    paperless-ngx-data:
-        name: paperless-ngx-data
+  paperless-ngx-conf:
+    name: paperless-ngx-conf
+  paperless-ngx-data:
+    name: paperless-ngx-data
