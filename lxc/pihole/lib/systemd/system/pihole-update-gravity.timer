@@ -1,0 +1,10 @@
+[Unit]
+Description=timer to update pihole-gravity
+
+[Timer]
+OnCalendar=*-*-* 04:00:00
+Unit=pihole-update-gravity.service
+Persistent=true
+
+[Install]
+WantedBy=multi-user.target

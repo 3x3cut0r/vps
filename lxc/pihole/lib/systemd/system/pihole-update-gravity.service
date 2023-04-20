@@ -1,0 +1,6 @@
+[Unit]
+Description=service to update pihole-gravity
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/pihole -g

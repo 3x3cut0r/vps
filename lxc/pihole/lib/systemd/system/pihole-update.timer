@@ -1,0 +1,10 @@
+[Unit]
+Description=timer to update pihole
+
+[Timer]
+OnCalendar=*-*-* 03:30:00
+Unit=pihole-update.service
+Persistent=true
+
+[Install]
+WantedBy=multi-user.target

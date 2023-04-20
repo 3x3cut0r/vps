@@ -1,0 +1,7 @@
+[Unit]
+Description=service to update pihole-updatelists
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/pihole-updatelists
+SuccessExitStatus=0 1
