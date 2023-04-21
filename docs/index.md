@@ -1,24 +1,23 @@
-# Welcome to MkDocs
+# VPS - Virtual Private Server
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+here you will find
 
-## Commands
+- installation scripts
+- config files
+- docker related files
+- howto's
+- and more
 
-- `mkdocs new [dir-name]` - Create a new project.
-- `mkdocs serve` - Start the live-reloading docs server.
-- `mkdocs build` - Build the documentation site.
-- `mkdocs -h` - Print help message and exit.
+## Index
 
-## Project layout
+1. [Proxmox](#)  
+   1.1. [VPS/VDS](#)  
+   1.2. [Minisforum](#)
+2. [Docker](#)
+3. [nginx](#)
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
-
-# virtual private server
-
-installation scripts for (debian based) virtual private server
+\# [Find Me](#findme)  
+\# [License](#license)
 
 ### Find Me <a name="findme"></a>
 
