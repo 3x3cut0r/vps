@@ -2,11 +2,12 @@ site_name: 'VPS - Virtual Privat Server'
 theme: readthedocs
 nav:
   - Startseite: index.md
-  - docker: docker/README.md
-  - nginx: nginx/README.md
-  - iot: iot/README.md
-  - linux stuff: linux/README.md
-  - opnsense: opnsense/README.md
+  - docs:
+      - docker: docker/README.md
+      - nginx: nginx/README.md
+      - iot: iot/README.md
+      - linux: linux/README.md
+      - opnsense: opnsense/README.md
   - proxmox:
       - VPS/VDS: proxmox/README.md
       - Minisforum HM90: proxmox/hm90.md
