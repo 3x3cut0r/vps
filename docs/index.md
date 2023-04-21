@@ -8,32 +8,6 @@ here you will find
 - howto's
 - and more
 
-## Index
-
-### [docker](https://3x3cut0r.github.io/vps/docker/)
-
-### [nginx](https://3x3cut0r.github.io/vps/nginx/)
-
-### [IoT](https://3x3cut0r.github.io/vps/iot/)
-
-### [linux](https://3x3cut0r.github.io/vps/linux/)
-
-### [OPNsense](https://3x3cut0r.github.io/vps/opnsense/)
-
-## proxmox
-
-### [VPS/VDS](https://3x3cut0r.github.io/vps/proxmox/)
-
-### [Minisforum](https://3x3cut0r.github.io/vps/hm90/)
-
-## services
-
-- [pihole](https://3x3cut0r.github.io/vps/pihole/)
-- [FreePBX](https://3x3cut0r.github.io/vps/freepbx/)
-
-\# [Find Me](#findme)  
-\# [License](#license)
-
 ### Find Me <a name="findme"></a>
 
 ![E-Mail](https://img.shields.io/badge/E--Mail-executor55%40gmx.de-red)
