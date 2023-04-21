@@ -2,7 +2,7 @@ site_name: 'VPS - Virtual Privat Server'
 theme: readthedocs
 nav:
   - Startseite: index.md
-  - docs:
+  - Index:
       - docker: docker/README.md
       - nginx: nginx/README.md
       - iot: iot/README.md
