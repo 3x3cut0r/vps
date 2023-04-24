@@ -1,5 +1,7 @@
 services:
   web:
+    ports:
+      - '8500-8699:8500-8699'
     volumes:
       - /opt/certs/fullchain.pem:/var/azuracast/acme/ssl.crt:ro
       - /opt/certs/privkey.pem:/var/azuracast/acme/ssl.key:ro
