@@ -31,7 +31,7 @@
 # 3. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
 
 **add new proxy host to your nginx or nginx-proxy-manager**
-**[see nginx/conf.d/docker-elk.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/docker-elk.conf)**
+**[see nginx/conf.d/kibana.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/kibana.conf)**
 
 # 4. usage <a name="usage"></a>
 
