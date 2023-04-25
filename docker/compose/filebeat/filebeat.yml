@@ -1,0 +1,18 @@
+filebeat.inputs:
+  - type: container
+    paths:
+      - '/var/lib/docker/containers/*/*.log'
+    processors:
+      - decode_json_fields:
+          fields: ['message']
+          target: ''
+          overwrite_keys: true
+      - add_docker_metadata: ~
+      - drop_fields:
+          fields: ['agent', 'ecs', 'log']
+
+output.logstash:
+  hosts: ['logstash:5044']
+
+logging.level: info
+logging.to_files: false
