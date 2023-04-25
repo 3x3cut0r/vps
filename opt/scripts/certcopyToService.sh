@@ -1,24 +1,34 @@
 #!/bin/bash
-# synapse
-# cp -Lr /opt/certs/fullchain.pem /opt/docker/volumes/synapse-data/_data/3x3cut0r.de.tls.crt
-# cp -Lr /opt/certs/privkey.pem /opt/docker/volumes/synapse-data/_data/3x3cut0r.de.tls.key
-# cp -Lr /opt/certs/dhparam.pem /opt/docker/volumes/synapse-data/_data/dhparam.pem
-# chown 166526:166526 /opt/docker/volumes/synapse-data/_data/3x3cut0r.de.tls*
 
-# mailu
-# cp -Lr /opt/certs/fullchain.pem /opt/docker/config-files/mailu/certs/cert.pem
-# cp -Lr /opt/certs/privkey.pem   /opt/docker/config-files/mailu/certs/key.pem
-# cp -Lr /opt/certs/dhparam.pem   /opt/docker/config-files/mailu/certs/dhparam.pem
-# chown docker:docker /opt/docker/config-files/mailu/certs/*.pem
-#
-# cp -Lr /opt/certs/fullchain.pem /opt/docker/volumes/mailu-certs/_data/cert.pem
-# cp -Lr /opt/certs/privkey.pem   /opt/docker/volumes/mailu-certs/_data/key.pem
-# cp -Lr /opt/certs/dhparam.pem   /opt/docker/volumes/mailu-certs/_data/dhparam.pem
-# chown docker:docker /opt/docker/volumes/mailu-certs/_data/*.pem
+# stop mailcow-dockerized 
+cd /var/mailcow-dockerized/
+docker compose down
 
-# coturn
-# cp -Lr /opt/certs/fullchain.pem /opt/docker/config-files/coturn/turn_server_cert.pem
-# cp -Lr /opt/certs/privkey.pem   /opt/docker/config-files/coturn/turn_server_pkey.pem
-# cp -Lr /opt/certs/dhparam.pem   /opt/docker/config-files/coturn/turn_server_dhparam.pem
-# chown docker:docker /opt/docker/config-files/coturn/*.pem
-# chmod 644 /opt/docker/config-files/coturn/*.pem
+# wait until mailcow-dockerized stack is down
+while [[ $(docker ps --filter "label=com.docker.compose.project=mailcowdockerized" -q) ]]; do
+    sleep 1
+done
+
+# copy certs to mailcow-dockerized 
+cp -Lr /opt/certs/fullchain.pem /var/mailcow-dockerized/data/assets/ssl/cert.pem
+cp -Lr /opt/certs/privkey.pem   /var/mailcow-dockerized/data/assets/ssl/key.pem
+cp -Lr /opt/certs/dhparam.pem   /var/mailcow-dockerized/data/assets/ssl/dhparams.pem
+chown root:root /var/mailcow-dockerized/data/assets/ssl/*.pem
+chmod 644 /var/mailcow-dockerized/data/assets/ssl/*.pem
+
+# start mailcow-dockerized 
+docker compose up -d
+RETURN=$?
+
+# setup colors
+RED='\033[1;31m'
+GREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# print success
+if [ $RETURN -eq 0 ]; then
+  echo -e "${GREEN}success${NC}"
+else
+  echo -e "${RED}error: $RETURN${NC}"
+fi
