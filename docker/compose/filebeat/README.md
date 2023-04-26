@@ -1,45 +1,16 @@
 # filebeat
 
-**docker-compose.yml for filebeat - filebeat is a ...**
+**docker-compose.yml for filebeat**
 
-## Index
+# 1. download and configure filebeat.yml <a name="filebeat"></a>
 
-1. [prerequisites](#prerequisites)
-2. [deploy docker-compose.yml](#deploy)
-3. [reverse-proxy / nginx configuration](#reverse-proxy)
-4. [usage](#usage)  
-   4.1 [browse](#browse)
+**download to /opt/docker/config-files/filebeat/filebeat.yml**
+**[see docker/compose/filebeat/filebeat.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/filebeat/filebeat.yml)**
 
-\# [Find Me](#findme)  
-\# [License](#license)
-
-# 1. prerequisites <a name="prerequisites"></a>
-
-**do stuff:**
-
-```shell
-# ...
-
-```
 
 # 2. deploy docker-compose.yml <a name="deploy"></a>
 
 **[see docker/compose/filebeat/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/filebeat/docker-compose.yml)**
-
-# 3. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
-
-**add new proxy host to your nginx or nginx-proxy-manager**
-**[see nginx/conf.d/filebeat.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/filebeat.conf)**
-
-# 4. usage <a name="usage"></a>
-
-### 4.1 browse <a name="browse"></a>
-
-**Frontend**  
-[https://filebeat.3x3cut0r.de](https://filebeat.3x3cut0r.de)
-
-**Backend**  
-[https://filebeat.3x3cut0r.de/admin](https://filebeat.3x3cut0r.de/admin)
 
 ### Find Me <a name="findme"></a>
 
