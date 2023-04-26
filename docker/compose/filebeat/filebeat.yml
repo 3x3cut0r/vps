@@ -14,8 +14,8 @@ filebeat.inputs:
     processors:
       - decode_json_fields:
           fields: ['message']
-          target: ''
-          overwrite_keys: true
+          target: 'json'
+          overwrite_keys: false
       - add_docker_metadata: ~
       - drop_fields:
           fields: ['agent', 'ecs', 'log']
@@ -25,12 +25,12 @@ filebeat.config.modules:
   reload.enabled: false
 
 output.logstash:
-  hosts: ["logstash:5044"]
+  hosts: ["<LOGSTASH>:5044"]
   username: "filebeat"
   password: "<PASSWORD>"
 
 setup.kibana:
-  host: "kibana:5601"
+  host: "<KIBANA>:5601"
 
 setup.ilm.enabled: true
 setup.ilm.policy_name: "30_days_deletion_policy"
