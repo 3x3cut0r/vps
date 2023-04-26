@@ -1,17 +1,18 @@
 max_procs: 1
 
 filebeat.inputs:
-  - type: container
+  - type: filestream
     paths:
       - /var/lib/docker/containers/*/*.log
+    include_files: ['.*\.log']
+    exclude_files: ['.*\.gz$']
+    parsers:
+      - ndjson:
+          keys_under_root: true
+          message_key: log
+          ignore_decoding_error: true
     processors:
-      - decode_json_fields:
-          fields: ['message']
-          target: 'json'
-          overwrite_keys: false
       - add_docker_metadata: ~
-      - drop_fields:
-          fields: ['agent', 'ecs', 'log']
 
 filebeat.config.modules:
   path: ${path.config}/modules.d/*.yml
