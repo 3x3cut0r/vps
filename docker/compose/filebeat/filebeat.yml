@@ -12,7 +12,13 @@ filebeat.inputs:
           message_key: log
           ignore_decoding_error: true
     processors:
+      - decode_json_fields:
+          fields: ['message']
+          target: ''
+          overwrite_keys: false
       - add_docker_metadata: ~
+      - drop_fields:
+          fields: ['agent', 'ecs', 'log']
 
 filebeat.config.modules:
   path: ${path.config}/modules.d/*.yml
