@@ -16,9 +16,9 @@ services:
     environment:
       TZ: 'Europe/Berlin'
       ELASTICSEARCH_HOSTS: 'elasticsearch:9200'
-      ELASTICSEARCH_USERNAME: 'filebeat_internal'
+      ELASTICSEARCH_USERNAME: 'filebeat'
       ELASTICSEARCH_PASSWORD: '<ELASTICSEARCH_PASSWORD>'
     volumes:
       - /opt/docker/config-files/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    # - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
