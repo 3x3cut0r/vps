@@ -1,0 +1,10 @@
+[Unit]
+Description=timer to restart rocketchat docker container
+
+[Timer]
+OnCalendar=*-*-* 04:45:00
+Unit=docker-container-restart.service
+Persistent=true
+
+[Install]
+WantedBy=multi-user.target

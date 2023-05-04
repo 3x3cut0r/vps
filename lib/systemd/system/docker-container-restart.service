@@ -1,0 +1,6 @@
+[Unit]
+Description=service to restart rocketchat docker container
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/docker container restart rocketchat
