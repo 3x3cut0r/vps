@@ -5,7 +5,7 @@ services:
   # https://hub.docker.com/r/guacamole/guacd
   guacd:
     container_name: guacd
-    image: guacamole/guacd:1.4.0
+    image: guacamole/guacd:1.5.1
     restart: unless-stopped
     # ports:
     # - '4822:4822'
@@ -23,7 +23,7 @@ services:
   # https://hub.docker.com/r/guacamole/guacamole
   guacamole:
     container_name: guacamole
-    image: guacamole/guacamole:1.4.0
+    image: guacamole/guacamole:1.5.1
     restart: unless-stopped
     ports:
       - '2211:8080'
