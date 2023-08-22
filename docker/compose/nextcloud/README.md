@@ -46,7 +46,14 @@ docker container exec -u www-data nextcloud php occ app:disable richdocumentscod
 
 ```
 
-# 6. install image-magick
+# 6. fix missing indices (must be done after many updates)
+
+```shell
+docker container exec -u www-data nextcloud php occ db:add-missing-indices
+
+```
+
+# 7. install image-magick
 
 ```shell
 docker container exec -it nextcloud /bin/bash

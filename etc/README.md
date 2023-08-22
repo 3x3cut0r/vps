@@ -1,6 +1,16 @@
 # setup dns inside lxc container
 
 ```shell
+# use default dns
+rm /etc/resolv.conf
+touch /etc/resolv.conf
+echo "nameserver 1.1.1.1" > /etc/resolv.conf
+apt update && apt upgrade -y
+apt autoremove -y
+
+# install systemd-resolved
+apt install systemd-resolved -y
+
 # prevent resolv.conf from being overwritten
 rm /etc/resolv.conf
 touch /etc/.pve-ignore.resolv.conf
