@@ -1,0 +1,45 @@
+version: '3.9'
+
+# https://github.com/Forceu/Gokapi
+services:
+  # https://hub.docker.com/r/f0rc3/gokapi
+  gokapi:
+    container_name: gokapi
+    image: f0rc3/gokapi:latest
+    restart: unless-stopped
+    ports:
+      - '53842:53842'
+    networks:
+      gokapi:
+        ipv4_address: '10.24.31.2'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      TZ: 'Europe/Berlin'
+      GOKAPI_USERNAME: 'admin'
+      GOKAPI_PASSWORD: '<GOKAPI_PASSWORD>'
+      GOKAPI_LENGTH_ID: '15' # Sets the length of the download IDs. Value needs to be 5 or more
+      GOKAPI_MAX_FILESIZE: '102400' # Sets the maximum allowed file size in MB (default: 102400 = 100GB)
+      GOKAPI_MAX_MEMORY_UPLOAD: '20' # Sets the amount of RAM in MB that can be allocated for an upload. Any upload with a size greater than that will be written to a temporary file
+      GOKAPI_PORT: '53842'
+    volumes:
+      - gokapi-data:/app/data
+      - gokapi-conf:/app/config
+
+networks:
+  gokapi:
+    name: gokapi
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.24.31.0/24'
+          gateway: '10.24.31.1'
+
+volumes:
+  gokapi-data:
+    name: gokapi-data
+  gokapi-conf:
+    name: gokapi-conf
