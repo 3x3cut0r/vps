@@ -16,9 +16,9 @@
 # 1. prepare mariadb <a name="mariadb"></a>
 
 **1. create mariadb user and database for guacamole using phpmyadmin**  
-**2. download and extract [guacamole-auth-jdbc-1.5.1.tar.gz](https://guacamole.apache.org/releases/1.5.1/)**  
-**3. import guacamole-auth-jdbc-1.5.1/mysql/schema/001-create-schema.sql into your new created guacamole database using phpmyadmin**  
-**4. import guacamole-auth-jdbc-1.5.1/mysql/schema/002-create-admin-user.sql into your new created guacamole database using phpmyadmin**
+**2. download and extract [guacamole-auth-jdbc-1.5.3.tar.gz](https://guacamole.apache.org/releases/1.5.3/)**  
+**3. import guacamole-auth-jdbc-1.5.3/mysql/schema/001-create-schema.sql into your new created guacamole database using phpmyadmin**  
+**4. import guacamole-auth-jdbc-1.5.3/mysql/schema/002-create-admin-user.sql into your new created guacamole database using phpmyadmin**
 
 # 2. deploy docker-compose.yml <a name="deploy"></a>
 
