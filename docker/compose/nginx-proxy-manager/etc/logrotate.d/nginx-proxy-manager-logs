@@ -1,0 +1,13 @@
+/var/lib/docker/volumes/nginx-proxy-manager-data/\_data/logs/\*.log {
+    maxsize 100M
+    daily
+    missingok
+    rotate 10
+    compress
+    notifempty
+    create 0640 root root
+    sharedscripts
+    postrotate
+        docker container exec nginx-proxy-manager bash -c 'kill -USR1 `cat /var/run/nginx/nginx.pid`'
+    endscript
+}
