@@ -73,6 +73,27 @@ ls -l /sys/class/net/eno1/device
 service pf onestop
 ```
 
+**connect to WebIF, update to latest version (not major release) from your configuration file**
+
+**connect to WebIF, install the following packages**
+
+```shell
+os-acme-client
+os-chrony
+os-crowdsec
+os-ddclient
+os-dyndns
+os-igmp-proxy
+os-qemu-guest-agent
+os-siproxd
+os-theme-cicada
+os-upnp
+os-vnstat
+os-wireguard
+```
+
+**connect to WebIF, restore your backuped configuration**
+
 # 1. OPNsense defaults <a name="opnsense_defaults"></a>
 
 ### 1.9 GeoIP blocking <a name="19_geoip_blocking"></a>
