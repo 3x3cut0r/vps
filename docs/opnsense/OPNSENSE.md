@@ -33,7 +33,45 @@ all about OPNsense installation and configuration
 
 ### 0.1 VM installation (Proxmox) <a name="01_vm_installation"></a>
 
-**see VM installation in the [PROXMOX.md](https://github.com/3x3cut0r/vps/blob/main/PROXMOX.md)**
+**VM Settings**
+
+- VM, not CT!
+- Name: opnsense
+- boot at start = yes
+- OS Type = Linux, Kernel = 6.x - 2.6
+- Qemu Agent = yes
+- HDD = 64+8 GiB (8GiB will be swap)
+- CPU = 4, Sockets = 1, Typ = x86-64-v2-AES
+- RAM = 4096 (MiB), Balloning = Off
+
+**Installation (all default) with username = installer, password = opnsense**
+
+**For Minisforum HM90: add PCI Ethernet to VM**
+
+```shell
+# on proxmox host:
+lspci | grep Ethernet
+# 02:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 15) -> 1 GBit
+# 04:00.0 Ethernet controller: Intel Corporation Ethernet Controller I225-V (rev 01) -> 2.5 GBit
+cat /etc/network/interfaces
+# check which device is briged to vmbr0
+# -> change it, if it is the wrong one (eno1 or enp4s0, enp4s0 = 2.5 GBit in my case)
+ls -l /sys/class/net/enp4s0/device
+# lrwxrwxrwx 1 root root 0 Aug 26 09:09 /sys/class/net/enp4s0/device -> ../../../0000:04:00.0
+ls -l /sys/class/net/eno1/device
+# ls: cannot access '/sys/class/net/eno1/device': No such file or directory
+#
+# -> enp4s0 (04:00.0) is the device which has an ip !
+# -> means 02:00.0 is not connected and is available for pci passthrough!
+```
+
+**Proxmox VM Settings -> Hardware -> Add PCI-Device -> Raw Device -> 0000:02:00.0 -> All Functions -> Add**
+
+**After installation, choose Option 8 (Shell), disable Firewall once, to be able to logon:**
+
+```shell
+service pf onestop
+```
 
 # 1. OPNsense defaults <a name="opnsense_defaults"></a>
 
