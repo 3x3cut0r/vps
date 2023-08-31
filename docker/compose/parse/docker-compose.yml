@@ -5,7 +5,7 @@ services:
   # https://hub.docker.com/r/bitnami/parse
   parse-server:
     container_name: parse-server
-    image: bitnami/parse:5
+    image: bitnami/parse:6.2.1
     restart: unless-stopped
     ports:
       - '1337:1337'
@@ -19,7 +19,6 @@ services:
       - '2606:4700:4700::1001'
     environment:
       PARSE_ENABLE_HTTPS: 'no'
-      PARSE_BIND_HOST: 'parse-server'
       PARSE_HOST: 'parse-server'
       PARSE_PORT_NUMBER: '1337'
       PARSE_APP_ID: '<PARSE_APP_ID>'
@@ -29,8 +28,8 @@ services:
       PARSE_ENABLE_CLOUD_CODE: 'no'
       PARSE_DATABASE_HOST: 'parse-mongo'
       PARSE_DATABASE_PORT_NUMBER: '27017'
-      PARSE_DATABASE_USER: 'parse'
       PARSE_DATABASE_NAME: 'parse'
+      PARSE_DATABASE_USER: 'parse'
       PARSE_DATABASE_PASSWORD: '<MONGODB_PASSWORD>'
     volumes:
       - parse-server-conf:/bitnami/parse
@@ -42,7 +41,6 @@ services:
     container_name: parse-dashboard
     image: bitnami/parse-dashboard:latest
     restart: unless-stopped
-    command: 'parse-dashboard --dev'
     ports:
       - '4040:4040'
     networks:
@@ -61,7 +59,7 @@ services:
       PARSE_DASHBOARD_PORT_NUMBER: '4040'
       PARSE_DASHBOARD_PARSE_PORT_NUMBER: '1337'
       PARSE_DASHBOARD_PARSE_APP_ID: '<PARSE_APP_ID>'
-      PARSE_DASHBOARD_PARSE_APP_NAME: '<PARSE_APP_NAME>'
+      PARSE_DASHBOARD_APP_NAME: '<PARSE_APP_NAME>'
       PARSE_DASHBOARD_PARSE_MASTER_KEY: '<PARSE_MASTER_KEY>'
       PARSE_DASHBOARD_PARSE_MOUNT_PATH: '/parse'
       PARSE_DASHBOARD_PARSE_PROTOCOL: 'http'
@@ -75,7 +73,7 @@ services:
   # https://hub.docker.com/r/bitnami/mongodb
   parse-mongo:
     container_name: parse-mongo
-    image: bitnami/mongodb:5.0
+    image: bitnami/mongodb:6
     restart: unless-stopped
     networks:
       parse:
@@ -88,7 +86,8 @@ services:
       - '2606:4700:4700::1111'
       - '2606:4700:4700::1001'
     environment:
-      ALLOW_EMPTY_PASSWORD: 'yes'
+      MONGODB_ROOT_USER: 'root'
+      MONGODB_ROOT_PASSWORD: '<MONGODB_ROOT_PASSWORD>'
       MONGODB_DATABASE: 'parse'
       MONGODB_USERNAME: 'parse'
       MONGODB_PASSWORD: '<MONGODB_PASSWORD>'

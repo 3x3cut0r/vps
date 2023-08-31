@@ -1,13 +1,13 @@
 {
-    "apps": [
-      {
-        "serverURL": "http://parse-server:1337/parse",
-        "appId": "<PARSE_SERVER_APPLICATION_ID>",
-        "masterKey": "<PARSE_SERVER_MASTER_KEY>",
-        "appName": "<PARSE_APPLICATION_NAME>",
-        "iconName": "",
-        "primaryBackgroundColor": "",
-        "secondaryBackgroundColor": ""
-      }
-    ]
+  "apps": [
+    {
+      "serverURL": "http://parse-server:1337/parse",
+      "masterKey": "<PARSE_SERVER_MASTER_KEY>",
+      "appId": "<PARSE_SERVER_APPLICATION_ID>",
+      "appName": "<PARSE_APPLICATION_NAME>",
+      "iconName": "",
+      "primaryBackgroundColor": "",
+      "secondaryBackgroundColor": ""
+    }
+  ]
 }
