@@ -1,6 +1,10 @@
 {
+  "appId": "<PARSE_APP_ID>",
+  "masterKey": "<PARSE_MASTER_KEY>",
+  "appName": "<PARSE_APP_NAME>",
+  "mountPath": "/parse",
+  "port": "1337",
+  "host": "0.0.0.0",
   "serverURL": "http://parse-server:1337/parse",
-  "masterKey": "<PARSE_SERVER_MASTER_KEY>",
-  "appId": "<PARSE_SERVER_APPLICATION_ID>",
-  "appName": "<PARSE_APPLICATION_NAME>"
+  "databaseURI": "mongodb://<PARSE_DATABASE_USER>:<MONGODB_PASSWORD>@parse-mongo:27017/<PARSE_DATABASE_NAME>"
 }

@@ -9,5 +9,11 @@
       "primaryBackgroundColor": "",
       "secondaryBackgroundColor": ""
     }
+  ],
+  "users": [
+    {
+      "user": "<PARSE_DASHBOARD_USERNAME>",
+      "pass": "<PARSE_DASHBOARD_PASSWORD>"
+    }
   ]
 }
