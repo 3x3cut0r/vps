@@ -22,9 +22,6 @@ services:
       APPSMITH_API_HOST: 'appsmith-api'
       APPSMITH_RTS_HOST: 'appsmith-rts'
       APPSMITH_UI_HTTP_PORT: '8080'
-      APPSMITH_USERNAME: '<APPSMITH_USERNAME>'
-      APPSMITH_PASSWORD: '<APPSMITH_PASSWORD>'
-      APPSMITH_EMAIL: '<APPSMITH_EMAIL>'
     depends_on:
       - appsmith-api
       - appsmith-rts
@@ -51,6 +48,9 @@ services:
       APPSMITH_MODE: 'backend'
       BITNAMI_DEBUG: true
       APPSMITH_API_HOST: 'appsmith-api'
+      APPSMITH_USERNAME: '<APPSMITH_USERNAME>' # -> admin username
+      APPSMITH_PASSWORD: '<APPSMITH_PASSWORD>' # -> admin password (required for login)
+      APPSMITH_EMAIL: '<APPSMITH_EMAIL>' # -> admin email (required for login)
       APPSMITH_DATABASE_HOST: 'appsmith-mongodb,appsmith-mongodb-secondary' # mongodb,mongodb-secondary
       APPSMITH_DATABASE_PORT_NUMBER: 27017
       APPSMITH_DATABASE_USER: 'appsmith'
