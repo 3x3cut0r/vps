@@ -167,6 +167,8 @@ services:
       MONGODB_REPLICA_SET_KEY: '<MONGODB_REPLICA_SET_KEY>'
     volumes:
       - 'appsmith-mongodb-secondary-data:/bitnami/mongodb'
+    depends_on:
+      - appsmith-mongodb
 
 networks:
   appsmith:
@@ -178,8 +180,6 @@ networks:
           gateway: '10.24.32.1'
 
 volumes:
-  appsmith-data:
-    name: appsmith-data
   appsmith-api-data:
     name: appsmith-api-data
   appsmith-redis-data:
