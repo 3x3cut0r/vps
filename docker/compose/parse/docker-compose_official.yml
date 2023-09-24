@@ -5,8 +5,9 @@ services:
   # https://hub.docker.com/r/parseplatform/parse-server
   parse-server:
     container_name: parse-server
-    image: parseplatform/parse-server:5.4.1
+    image: parseplatform/parse-server:5.5.5
     restart: unless-stopped
+    entrypoint: ['/bin/sh', '-c', 'sleep 5;  node ./bin/parse-server'] #sleep few seconds for mongodb to come up
     ports:
       - '1337:1337'
     networks:
@@ -20,7 +21,8 @@ services:
     environment:
       PARSE_SERVER_APPLICATION_ID: '<PARSE_SERVER_APPLICATION_ID>'
       PARSE_SERVER_MASTER_KEY: '<PARSE_SERVER_MASTER_KEY>'
-      PARSE_SERVER_DATABASE_URI: 'mongodb://admin:<MONGO_INITDB_ROOT_PASSWORD>@parse-mongo/parse_server?authSource=admin'
+      PARSE_SERVER_DATABASE_URI: 'mongodb://<MONGODB_USER>:<MONGODB_PASSWORD>@parse-mongo/parse_server?authSource=<MONGODB_USER>'
+      PARSE_SERVER_MOUNT_PATH: '/parse'
       PARSE_ENABLE_CLOUD_CODE: 'no'
       VERBOSE: 1
     volumes:
@@ -45,9 +47,10 @@ services:
       - '2606:4700:4700::1001'
     environment:
       PARSE_DASHBOARD_APP_ID: '<PARSE_SERVER_APPLICATION_ID>'
+      PARSE_DASHBOARD_APP_NAME: '<PARSE_SERVER_APP_NAME>'
       PARSE_DASHBOARD_MASTER_KEY: '<PARSE_SERVER_MASTER_KEY>'
       PARSE_DASHBOARD_USER_ID: 'admin'
-      PARSE_DASHBOARD_USER_PASSWORD: '<MONGO_INITDB_ROOT_PASSWORD>'
+      PARSE_DASHBOARD_USER_PASSWORD: '<PARSE_DASHBOARD_USER_PASSWORD>'
       PARSE_DASHBOARD_ALLOW_INSECURE_HTTP: 'true'
       PARSE_DASHBOARD_SERVER_URL: 'http://parse-server:1337/parse'
       MOUNT_PATH: '/'
@@ -59,7 +62,7 @@ services:
   # https://hub.docker.com/_/mongo
   parse-mongo:
     container_name: parse-mongo
-    image: mongo:5.0
+    image: mongo:6
     restart: unless-stopped
     networks:
       parse:
@@ -72,11 +75,15 @@ services:
       - '2606:4700:4700::1111'
       - '2606:4700:4700::1001'
     environment:
-      MONGO_INITDB_ROOT_USERNAME: 'admin'
-      MONGO_INITDB_ROOT_PASSWORD: '<MONGO_INITDB_ROOT_PASSWORD>'
+      MONGO_INITDB_ROOT_USERNAME: 'root'
+      MONGO_INITDB_ROOT_PASSWORD: '<MONGO_ROOT_PASSWORD>'
+      MONGO_INITDB_DATABASE: '<MONGO_DATABASE>'
+      MONGODB_APP_USER: '<MONGODB_USER>'
+      MONGODB_APP_PWD: '<MONGODB_PASSWORD>'
     volumes:
       - parse-mongo-data:/data/db
       - parse-mongo-dump:/dump
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
 
 networks:
   parse:
