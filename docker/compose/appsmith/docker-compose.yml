@@ -58,9 +58,9 @@ services:
       APPSMITH_DATABASE_PASSWORD: '<MONGODB_PASSWORD>'
       APPSMITH_REDIS_HOST: 'appsmith-redis'
       APPSMITH_REDIS_PORT_NUMBER: '6379'
-      APPSMITH_REDIS_PASSWORD: '<REDIS_PASSWORD>'
+      APPSMITH_REDIS_PASSWORD: '<REDIS_PASSWORD>' # do not use special characters!
       APPSMITH_ENCRYPTION_PASSWORD: '<APPSMITH_ENCRYPTION_PASSWORD>'
-      APPSMITH_ENCRYPTION_SALT: '<APPSMITH_ENCRYPTION_SALT>'
+      APPSMITH_ENCRYPTION_SALT: '<APPSMITH_ENCRYPTION_SALT>' # do not use special characters!
       APPSMITH_DATABASE_INIT_DELAY: 90 # Hack: This is only necessary in docker-compose
     volumes:
       - appsmith-api-data:/bitnami/appsmith
@@ -114,7 +114,7 @@ services:
       - '2606:4700:4700::1111'
       - '2606:4700:4700::1001'
     environment:
-      REDIS_PASSWORD: '<REDIS_PASSWORD>'
+      REDIS_PASSWORD: '<REDIS_PASSWORD>' # do not use special characters!
     volumes:
       - 'appsmith-redis-data:/bitnami/redis'
 
@@ -140,7 +140,7 @@ services:
       MONGODB_PASSWORD: '<MONGODB_PASSWORD>'
       MONGODB_ROOT_PASSWORD: '<MONGODB_ROOT_PASSWORD>'
       MONGODB_REPLICA_SET_MODE: 'primary'
-      MONGODB_REPLICA_SET_KEY: '<MONGODB_REPLICA_SET_KEY>'
+      MONGODB_REPLICA_SET_KEY: '<MONGODB_REPLICA_SET_KEY>' # do not use special characters!
     volumes:
       - 'appsmith-mongodb-data:/bitnami/mongodb'
 
@@ -164,7 +164,7 @@ services:
       MONGODB_REPLICA_SET_MODE: 'secondary'
       MONGODB_INITIAL_PRIMARY_HOST: 'appsmith-mongodb'
       MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD: '<MONGODB_ROOT_PASSWORD>'
-      MONGODB_REPLICA_SET_KEY: '<MONGODB_REPLICA_SET_KEY>'
+      MONGODB_REPLICA_SET_KEY: '<MONGODB_REPLICA_SET_KEY>' # do not use special characters!
     volumes:
       - 'appsmith-mongodb-secondary-data:/bitnami/mongodb'
     depends_on:
