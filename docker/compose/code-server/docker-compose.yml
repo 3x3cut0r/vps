@@ -20,11 +20,14 @@ services:
       # PUID: 1000
       # PGID: 1000
       TZ: 'Europe/Berlin'
-      PASSWORD: 'password' #optional
-      # HASHED_PASSWORD: 'hash'     #optional: https://github.com/cdr/code-server/blob/main/docs/FAQ.md#can-i-store-my-password-hashed
-      # SUDO_PASSWORD: 'password'   #optional
-      # SUDO_PASSWORD_HASH:         #optional: https://github.com/cdr/code-server/blob/main/docs/FAQ.md#can-i-store-my-password-hashed
-      PROXY_DOMAIN: 'vscode.3x3cut0r.de' #optional
+      PASSWORD: 'password'                #optional
+      # HASHED_PASSWORD: 'hash'           #optional: https://github.com/cdr/code-server/blob/main/docs/FAQ.md#can-i-store-my-password-hashed
+      SUDO_PASSWORD: 'password'           #optional
+      # SUDO_PASSWORD_HASH:               #optional: https://github.com/cdr/code-server/blob/main/docs/FAQ.md#can-i-store-my-password-hashed
+      PROXY_DOMAIN: 'vscode.3x3cut0r.de'  #optional
+      # add mods to code-server. see available mod list here: https://github.com/linuxserver/docker-mods/blob/master/mod-list.yml
+      DOCKER_MODS: 'linuxserver/mods:code-server-flutter|linuxserver/mods:code-server-nodejs|linuxserver/mods:code-server-php8|linuxserver/mods:code-server-python3'
+      NODEJS_MOD_VERSION: '18'
     volumes:
       - code-server:/config
 
