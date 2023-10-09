@@ -34,6 +34,8 @@ services:
       DISPLAY_WIDTH: '1280'
       DISPLAY_HEIGHT: '800'
       CLEAN_TMP_DIR: '1'
+      SECURE_CONNECTION: '0'
+      SECURE_CONNECTION_CERTS_CHECK_INTERVAL: '0'
     volumes:
       - firefox-jlesage-data:/config
 
@@ -72,6 +74,8 @@ services:
       DISPLAY_WIDTH: '1280'
       DISPLAY_HEIGHT: '800'
       CLEAN_TMP_DIR: '1'
+      SECURE_CONNECTION: '0'
+      SECURE_CONNECTION_CERTS_CHECK_INTERVAL: '0'
     volumes:
       - firefox-linuxserver-data:/config
       
