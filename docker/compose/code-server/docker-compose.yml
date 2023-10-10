@@ -11,6 +11,7 @@ services:
         ipv4_address: '10.24.18.2'
     ports:
       - '2118:8443'
+      - '3118:3000' # for nodejs
     dns:
       - '1.1.1.1'
       - '1.0.0.1'
