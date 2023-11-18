@@ -52,7 +52,7 @@ services:
     image: wordpress:latest
     restart: unless-stopped
     networks:
-      wordpress-wordpress:
+      wordpress:
         ipv4_address: '10.29.0.4'
     ports:
       - '2980:80'

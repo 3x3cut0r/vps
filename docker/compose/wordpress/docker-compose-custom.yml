@@ -1,0 +1,89 @@
+version: '3.9'
+
+services:
+  # https://hub.docker.com/_/mariadb
+  wordpress-mariadb-custom:
+    container_name: wordpress-mariadb-custom
+    image: mariadb:10-focal
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: unless-stopped
+    networks:
+      wordpress-custom:
+        ipv4_address: '10.24.99.2'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      MYSQL_ROOT_PASSWORD: '<MYSQL_ROOT_PASSWORD>'
+      TZ: 'Europe/Berlin'
+    volumes:
+      - wordpress-mariadb-custom-data:/var/lib/mysql
+      - wordpress-mariadb-custom-conf:/etc/mysql/mariadb.conf.d
+
+  # https://hub.docker.com/_/phpmyadmin
+  wordpress-phpmyadmin-custom:
+    container_name: wordpress-phpmyadmin-custom
+    image: phpmyadmin/phpmyadmin:latest
+    restart: unless-stopped
+    networks:
+      wordpress-custom:
+        ipv4_address: '10.24.99.3'
+    ports:
+      - '2499:80'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      MYSQL_ROOT_PASSWORD: '<MYSQL_ROOT_PASSWORD>'
+      PMA_ARBITRARY: '1'
+      PMA_HOST: 'wordpress-mariadb-custom'
+      PMA_VERBOSE: 'wordpress-mariadb-custom'
+    volumes:
+      - /opt/docker/config-files/phpmyadmin-custom/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php:ro
+      - /opt/docker/config-files/phpmyadmin-custom/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
+
+  # https://hub.docker.com/_/wordpress
+  wordpress-custom:
+    container_name: wordpress-custom
+    image: wordpress:latest
+    restart: unless-stopped
+    networks:
+      wordpress-custom:
+        ipv4_address: '10.24.99.4'
+    ports:
+      - '2199:80'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      WORDPRESS_DB_HOST: 'wordpress-mariadb-custom'
+      WORDPRESS_DB_USER: 'wordpress-custom'
+      WORDPRESS_DB_PASSWORD: '<WORDPRESS_DB_PASSWORD>'
+      WORDPRESS_DB_NAME: 'wordpress-custom'
+    volumes:
+      - wordpress-custom:/var/www/html
+    depends_on:
+      - wordpress-mariadb-custom
+
+networks:
+  wordpress-custom:
+    name: wordpress-custom
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.24.99.0/24'
+          gateway: '10.24.99.1'
+
+volumes:
+  wordpress-mariadb-custom-conf:
+    name: wordpress-mariadb-custom-conf
+  wordpress-mariadb-custom-data:
+    name: wordpress-mariadb-custom-data
+  wordpress-custom:
+    name: wordpress-custom
