@@ -1,0 +1,20 @@
+model_list:
+  - model_name: mistral-tiny
+    litellm_params:
+      model: openai/mistral-tiny
+      api_key: <your-api-key>
+      api_base: https://api.mistral.ai/v1
+  - model_name: mistral-small
+    litellm_params:
+      model: openai/mistral-small
+      api_key: <your-api-key>
+      api_base: https://api.mistral.ai/v1
+  - model_name: mistral-medium
+    litellm_params:
+      model: openai/mistral-medium
+      api_key: <your-api-key>
+      api_base: https://api.mistral.ai/v1
+
+litellm_settings:
+  drop_params: False
+  set_verbose: False
