@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  meilisearch:
+    container_name: chat-meilisearch
+    image: getmeili/meilisearch:v1.6.2
+  litellm:
+    container_name: litellm
+    platform: linux/amd64
+    image: ghcr.io/berriai/litellm:main-v1.30.0
+    volumes:
+      - ./litellm/config.yaml:/app/config.yaml
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    # ports:
+    #   - "8000:8000"
+    command: --config /app/config.yaml
+      --port 8000
+      --host 0.0.0.0
+      --debug
+    environment:
+      - OPENAI_API_KEY=sk-1234
+      - HF_TOKEN=hf_abcd
+      - MISTRAL_API_KEY=MSx1234
