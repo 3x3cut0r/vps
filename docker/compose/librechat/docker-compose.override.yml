@@ -26,6 +26,7 @@ services:
       HF_TOKEN: 'hf_abcd'
       MISTRAL_API_KEY: 'MSx1234'
   redis:
+    container_name: redis
     image: redis:7-alpine
     command: sh -c redis-server --appendonly yes --requirepass $$REDIS_PASSWORD
     environment:
