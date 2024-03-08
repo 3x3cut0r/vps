@@ -21,7 +21,7 @@ wget git.io/wireguard -O wireguard-install.sh && bash wireguard-install.sh
 mkdir -p /opt/wireguard/db
 ```
 
-```
+```bash
 cd /etc/systemd/system/
 cat << EOF > wgui.service
 [Unit]
@@ -38,7 +38,7 @@ EOF
 
 ```
 
-```
+```bash
 cd /etc/systemd/system/
 cat << EOF > wgui.path
 [Unit]
@@ -52,7 +52,7 @@ WantedBy=multi-user.target
 EOF
 ```
 
-```
+```bash
 systemctl daemon-reload
 systemctl enable wgui.{path,service}
 systemctl start wgui.{path,service}
