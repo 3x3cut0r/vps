@@ -23,7 +23,7 @@ services:
       SESSION_SECRET: '<SESSION_SECRET>'
       WGUI_USERNAME: 'admin'
       WGUI_PASSWORD: '<WGUI_PASSWORD>'
-      WGUI_ENDPOINT_ADDRESS: 'wireguard.3x3cut0r.synology.me'
+      WGUI_ENDPOINT_ADDRESS: 'wireguard.3x3cut0r.synology.me:51820'
       WGUI_DNS: '8.8.8.8'
       WGUI_PERSISTENT_KEEPALIVE: '25'
       WGUI_CONFIG_FILE_PATH: '/etc/wireguard/wg0.conf'
