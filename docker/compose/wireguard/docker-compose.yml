@@ -8,16 +8,7 @@ services:
     restart: unless-stopped
     cap_add:
       - NET_ADMIN
-    ports:
-      - '5000:5000'
-    networks:
-      wireguard:
-        ipv4_address: '10.20.240.3'
-    dns:
-      - '8.8.8.8'
-      - '8.8.4.4'
-      - '2001:4860:4860::8888'
-      - '2001:4860:4860::8844'
+    network_mode: host
     environment:
       BIND_ADDRESS: '0.0.0.0:5000'
       SESSION_SECRET: '<SESSION_SECRET>'
