@@ -1,35 +1,32 @@
 version: '3.9'
 
 services:
+  api:
+    environment:
+      HOST: localhost
+      PORT: 3080
+      MONGO_URI: 'mongodb://127.0.0.1:27017/LibreChat'
+      DOMAIN_CLIENT: 'http://localhost:3080'
+      DOMAIN_SERVER: 'http://localhost:3080'
+      UID: 1000
+      GID: 1000
+      APP_TITLE: 'LibreChat'
+      CONFIG_PATH: '/app/librechat.yaml'
+      SEARCH: true
+      MEILI_NO_ANALYTICS: true
+      MEILI_HOST: 'http://0.0.0.0:7700'
+      MEILI_MASTER_KEY: '<MEILI_MASTER_KEY>'
+      ANTHROPIC_API_KEY: 'user_provided'
+      BINGAI_TOKEN: 'user_provided'
+      GOOGLE_KEY: 'user_provided'
+      OPENAI_API_KEY: 'user_provided'
+      # OPENAI_REVERSE_PROXY: 'http://litellm:8000/v1/chat/completions'
+      MISTRAL_API_KEY: 'user_provided'
+      OPENROUTER_KEY: 'user_provided'
+    volumes:
+      - ./librechat.yaml:/app/librechat.yaml
   meilisearch:
     container_name: chat-meilisearch
     image: getmeili/meilisearch:v1.6.2
-  litellm:
-    container_name: litellm
-    platform: linux/amd64
-    image: ghcr.io/berriai/litellm:main-v1.30.0
-    volumes:
-      - ./litellm/config.yaml:/app/config.yaml
-    extra_hosts:
-      - 'host.docker.internal:host-gateway'
-    # ports:
-    #   - "8000:8000"
-    command: --config /app/config.yaml
-      --port 8000
-      --host 0.0.0.0
-      --debug
     environment:
-      REDIS_HOST: 'redis'
-      REDIS_PORT: '6379'
-      REDIS_PASSWORD: '<REDIS_PASSWORD>'
-      OPENAI_API_KEY: 'sk-1234'
-      HF_TOKEN: 'hf_abcd'
-      MISTRAL_API_KEY: 'MSx1234'
-  redis:
-    container_name: redis
-    image: redis:7-alpine
-    command: sh -c redis-server --appendonly yes --requirepass $$REDIS_PASSWORD
-    environment:
-      REDIS_PASSWORD: <REDIS_PASSWORD>
-    volumes:
-      - ./redis:/data
+      MEILI_MASTER_KEY: 'MASTER_KEY'
