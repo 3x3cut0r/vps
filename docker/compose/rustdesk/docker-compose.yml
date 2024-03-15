@@ -7,7 +7,7 @@ services:
     container_name: hbbs
     image: rustdesk/rustdesk-server:latest
     restart: unless-stopped
-    command: hbbs -r rustdesk-relay.3x3cut0r.de -R rustdesk.3x3cut0r.de --mask 192.168.40.0/24
+    command: hbbs -r rustdesk-relay.3x3cut0r.de -R rustdesk.3x3cut0r.de --mask 192.168.0.0/16
     network_mode: host
     volumes:
       - rustdesk-data:/root
