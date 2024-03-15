@@ -1,0 +1,29 @@
+version: '3.9'
+
+# https://rustdesk.com/docs/en/self-host/rustdesk-server-oss/docker/
+services:
+  # https://hub.docker.com/r/rustdesk/rustdesk-server
+  hbbs:
+    container_name: hbbs
+    image: rustdesk/rustdesk-server:latest
+    restart: unless-stopped
+    command: hbbs -r rustdesk-relay.3x3cut0r.de -R rustdesk.3x3cut0r.de --mask 192.168.40.0/24
+    network_mode: host
+    volumes:
+      - rustdesk-data:/root
+    depends_on:
+      - hbbr
+
+  # https://hub.docker.com/r/rustdesk/rustdesk-server
+  hbbr:
+    container_name: hbbr
+    image: rustdesk/rustdesk-server:latest
+    restart: unless-stopped
+    command: hbbr
+    network_mode: host
+    volumes:
+      - rustdesk-data:/root
+
+volumes:
+  rustdesk-data:
+    name: rustdesk-data
