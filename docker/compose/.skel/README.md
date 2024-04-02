@@ -29,7 +29,7 @@
 # 3. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
 
 **add new proxy host to your nginx or nginx-proxy-manager**
-**[see nginx/conf.d/skel.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/skel.conf)**
+**[or see nginx/conf.d/skel.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/skel.conf)**
 
 # 4. usage <a name="usage"></a>
 
