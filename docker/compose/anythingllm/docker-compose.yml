@@ -26,6 +26,7 @@ services:
       GID: 1000
       GENERATE_SOURCEMAP: false
       VITE_API_BASE: 'http://anythingllm.3x3cut0r.de/api'
+      AUTH_TOKEN: '<AUTH_TOKEN>'
       JWT_SECRET: '<my-random-string-for-seeding>'
       # LLM API SElECTION
       LLM_PROVIDER: 'openai'
