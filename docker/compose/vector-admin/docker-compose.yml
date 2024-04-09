@@ -1,0 +1,79 @@
+version: '3.9'
+
+# https://github.com/Mintplex-Labs/vector-admin
+services:
+  # https://hub.docker.com/r/3x3cut0r/vector-admin
+  # https://github.com/Mintplex-Labs/vector-admin/tree/master/docker
+  vector-admin:
+    container_name: vector-admin
+    image: 3x3cut0r/vector-admin:latest
+    restart: unless-stopped
+    ports:
+      - '2138:3001'
+      - '3355:3355'
+      - '8288:8288'
+    networks:
+      vector-admin:
+        ipv4_address: '10.24.38.2'
+      anythingllm:
+        ipv4_address: '10.24.35.100'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment: # https://github.com/Mintplex-Labs/vector-admin/blob/master/docker/.env.example
+      SERVER_PORT: 3001
+      DATABASE_CONNECTION_STRING: 'postgresql://vectoradmin:<POSTGRES_PASSWORD>@vector-admin-postgres:5432/vectoradmin'
+      JWT_SECRET: '<your-random-string-here>'
+      INNGEST_EVENT_KEY: 'background_workers'
+      INNGEST_SIGNING_KEY: '<random-string-goes-here>'
+      INNGEST_LANDING_PAGE: 'true'
+    volumes:
+      #   - "./.env:/app/backend/.env"
+      - vector-admin-data:/app/backend/storage
+      - vector-admin-hotdir:/app/document-processor/hotdir
+    depends_on:
+      - vector-admin-postgres
+
+  # https://hub.docker.com/_/postgres
+  vector-admin-postgres:
+    container_name: vector-admin-postgres
+    image: postgres:16-alpine
+    restart: always
+    # ports:
+    #   - 5432:5432
+    networks:
+      vector-admin:
+        ipv4_address: '10.24.38.3'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    volumes:
+      - vector-admin-postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: 'vectoradmin'
+      POSTGRES_PASSWORD: '<POSTGRES_PASSWORD>'
+      POSTGRES_DB: 'vectoradmin'
+
+networks:
+  vector-admin:
+    name: vector-admin
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.24.38.0/24'
+          gateway: '10.24.38.1'
+  anythingllm:
+    name: anythingllm
+    external: true
+
+volumes:
+  vector-admin-postgres:
+    name: vector-admin-postgres
+  vector-admin-data:
+    name: vector-admin-data
+  vector-admin-hotdir:
+    name: vector-admin-hotdir
