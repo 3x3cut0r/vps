@@ -34,6 +34,7 @@ services:
       # LITELLM_PROXY_HOST: '127.0.0.1'
     volumes:
       - open-webui-data:/app/backend/data
+      - /opt/docker/config-files/open-webui/litellm/config.yaml:/app/backend/data/litellm/config.yaml
 
 networks:
   open-webui:
