@@ -1,0 +1,49 @@
+version: '3.9'
+
+# https://github.com/open-webui/open-webui
+services:
+  open-webui:
+    container_name: open-webui
+    image: ghcr.io/open-webui/open-webui:main
+    restart: unless-stopped
+    ports:
+      - '2139:8080'
+    networks:
+      open-webui:
+        ipv4_address: '10.24.39.2'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    # Environment Variables Configuration: https://docs.openwebui.com/getting-started/env-configuration
+    environment:
+      TZ: 'Europe/Berlin'
+      ENV: 'prod'
+      # WEBUI_AUTH: 'True'
+      # WEBUI_NAME: 'Open WebUI'
+      # ENABLE_SIGNUP: 'True'
+      # OLLAMA_BASE_URL: 'http://localhost:11434'
+      OPENAI_API_KEY: '<OPENAI_API_KEY>'
+      # OPENAI_API_BASE_URL: 'https://api.openai.com/v1'
+      ENABLE_IMAGE_GENERATION: 'True'
+      IMAGE_GENERATION_ENGINE: 'openai'
+      IMAGE_GENERATION_MODEL: 'dall-e-3'
+      # ENABLE_LITELLM: 'True'
+      # LITELLM_PROXY_PORT: '14365'
+      # LITELLM_PROXY_HOST: '127.0.0.1'
+    volumes:
+      - open-webui-data:/app/backend/data
+
+networks:
+  open-webui:
+    name: open-webui
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.24.39.0/24'
+          gateway: '10.24.39.1'
+
+volumes:
+  open-webui-data:
+    name: open-webui-data
