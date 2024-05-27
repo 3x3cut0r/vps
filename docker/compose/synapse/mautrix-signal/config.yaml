@@ -282,9 +282,9 @@ bridge:
     #     mxid - Specific user
     permissions:
         "*": relay
-        '@3x3cut0r:3x3cut0r.de': admin
-        '@3x3cut0r:matrix.org': admin
-        '@julz22x4:matrix.org': admin
+        "@3x3cut0r:3x3cut0r.de": admin
+        "@3x3cut0r:matrix.org": admin
+        "@julz22x4:matrix.org": admin
 
     # Settings for relay mode
     relay:
