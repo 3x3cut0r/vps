@@ -1,0 +1,10 @@
+[Unit]
+Description=timer to cleanup github runner
+
+[Timer]
+OnCalendar=Wed *-*-* 01:00:00
+Unit=cleanup-github-runner.service
+Persistent=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,6 @@
+[Unit]
+Description=service to cleanup github runner
+
+[Service]
+Type=oneshot
+ExecStart=/opt/scripts/cleanupGithubRunner.sh
