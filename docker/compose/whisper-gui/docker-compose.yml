@@ -1,0 +1,37 @@
+version: '3.9'
+
+# https://github.com/Pikurrot/whisper-gui
+services:
+  # https://hub.docker.com/r/3x3cut0r/whisper-gui
+  whisper-gui:
+    container_name: whisper-gui
+    image: 3x3cut0r/whisper-gui:latest
+    restart: unless-stopped
+    ports:
+      - '2140:7860'
+    networks:
+      whisper-gui:
+        ipv4_address: '10.24.40.2'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      TZ: 'Europe/Berlin'
+      LANGUAGE: 'de'
+    volumes:
+      - whisper-gui-data:/whisper-gui/outputs
+
+networks:
+  whisper-gui:
+    name: whisper-gui
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.24.40.0/24'
+          gateway: '10.24.40.1'
+
+volumes:
+  whisper-gui-data:
+    name: whisper-gui-data
