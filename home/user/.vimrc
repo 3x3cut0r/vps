@@ -11,7 +11,6 @@ set scrolloff=2 |"The number of screen lines to keep above and below the cursor.
 set ruler |"Always show cursor position.
 set cursorline |"Highlight the line currently under cursor.
 set visualbell |"lash the screen instead of beeping on errors.
-set mouse=a |"Enable mouse for scrolling and resizing.
 set title |"Set the window's title, reflecting the file currently being edited.
 set background=dark |"Use colors that suit a dark background.
 set history=1000 |"Increase the undo limit.
