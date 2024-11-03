@@ -4,15 +4,7 @@ services:
   # https://hub.docker.com/_/rocket-chat
   rocketchat-dev:
     container_name: rocketchat-dev
-    image: rocketchat/rocket.chat:5.4.2
-    command: >
-      bash -c
-      "for i in `seq 1 30`; do
-        node main.js &&
-        s=$$? && break || s=$$?;
-        echo \"Tried $$i times. Waiting 5 secs...\";
-        sleep 5;
-      done; (exit $$s)"
+    image: registry.rocket.chat/rocketchat/rocket.chat:7.0.0
     restart: unless-stopped
     networks:
       rocketchat-dev:
@@ -33,9 +25,7 @@ services:
       ROOT_URL: https://chat-dev.3x3cut0r.de
       MONGO_URL: 'mongodb://mongo-dev:27017/rocketchat?replicaSet=rs0'
       MONGO_OPLOG_URL: 'mongodb://mongo-dev:27017/local?replicaSet=rs0'
-      # MAIL_URL: smtp://smtp.email
-      # HTTP_PROXY: http://proxy.domain.com
-      # HTTPS_PROXY: http://proxy.domain.com
+      DEPLOY_METHOD: 'docker'
     labels:
       - 'com.centurylinklabs.watchtower.enable=false'
     depends_on:
@@ -66,8 +56,7 @@ services:
   # https://hub.docker.com/_/mongo
   mongo-dev:
     container_name: mongo-dev
-    image: mongo:5.0
-    command: mongod --config /etc/mongod.conf
+    image: bitnami/mongodb:7.0
     restart: unless-stopped
     networks:
       mongo-dev:
@@ -79,10 +68,19 @@ services:
       - '1.0.0.1'
       - '2606:4700:4700::1111'
       - '2606:4700:4700::1001'
+    environment:
+      MONGODB_REPLICA_SET_MODE: 'primary'
+      MONGODB_REPLICA_SET_NAME: 'rs0'
+      MONGODB_PORT_NUMBER: '27017'
+      MONGODB_INITIAL_PRIMARY_HOST: 'mongo-dev'
+      MONGODB_INITIAL_PRIMARY_PORT_NUMBER: '27017'
+      MONGODB_ADVERTISED_HOSTNAME: 'mongo-dev'
+      MONGODB_ENABLE_JOURNAL: 'true'
+      MONGODB_EXTRA_FLAGS: '--wiredTigerCacheSizeGB=1'
+      ALLOW_EMPTY_PASSWORD: 'yes'
     volumes:
       - mongo-dev-data:/data/db
       - mongo-dev-dump:/dump
-      - /opt/docker/config-files/mongodb-dev/mongod.conf:/etc/mongod.conf
 
   # https://hub.docker.com/_/mongo
   # this container's job is just run the command to initialize the replica set.
