@@ -14,5 +14,6 @@ set visualbell |"lash the screen instead of beeping on errors.
 set title |"Set the window's title, reflecting the file currently being edited.
 set background=dark |"Use colors that suit a dark background.
 set history=1000 |"Increase the undo limit.
+set mouse=a |"Enable Mouse support in all modes.
 
 syntax enable |"Enable syntax highlighting
