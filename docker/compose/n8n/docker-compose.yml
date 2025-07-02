@@ -1,0 +1,37 @@
+version: '3.9'
+
+# https://docs.n8n.io/hosting/installation/docker
+services:
+  # https://hub.docker.com/r/n8nio/n8n
+  n8n:
+    container_name: n8n
+    image: docker.n8n.io/n8nio/n8n
+    restart: unless-stopped
+    ports:
+      - '2142:5678'
+    networks:
+      n8n:
+        ipv4_address: '10.24.42.2'
+    dns:
+      - '1.1.1.1'
+      - '1.0.0.1'
+      - '2606:4700:4700::1111'
+      - '2606:4700:4700::1001'
+    environment:
+      GENERIC_TIMEZONE: 'Europe/Berlin'
+      TZ: 'Europe/Berlin'
+    volumes:
+      - n8n-data:/home/node/.n8n
+
+networks:
+  n8n:
+    name: n8n
+    ipam:
+      driver: default
+      config:
+        - subnet: '10.24.42.0/24'
+          gateway: '10.24.42.1'
+
+volumes:
+  n8n-data:
+    name: n8n-data
