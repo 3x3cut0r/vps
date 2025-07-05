@@ -18,8 +18,11 @@ services:
       - '2606:4700:4700::1111'
       - '2606:4700:4700::1001'
     environment:
-      GENERIC_TIMEZONE: 'Europe/Berlin'
       TZ: 'Europe/Berlin'
+      GENERIC_TIMEZONE: 'Europe/Berlin'
+      N8N_DEFAULT_LOCALE: 'de'
+      N8N_PROXY_HOPS: 1
+      WEBHOOK_URL: 'https://n8n.3x3cut0r.de'
     volumes:
       - n8n-data:/home/node/.n8n
 
