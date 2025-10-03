@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 
 # https://github.com/open-webui/open-webui
 services:
@@ -7,34 +7,54 @@ services:
     image: ghcr.io/open-webui/open-webui:main
     restart: unless-stopped
     ports:
-      - '2139:8080'
+      - "2139:8080"
     networks:
       open-webui:
-        ipv4_address: '10.24.39.2'
+        ipv4_address: "10.24.39.2"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     # Environment Variables Configuration: https://docs.openwebui.com/getting-started/env-configuration
     environment:
-      TZ: 'Europe/Berlin'
-      ENV: 'prod'
+      TZ: "Europe/Berlin"
+      ENV: "prod"
       # WEBUI_AUTH: 'True'
       # WEBUI_NAME: 'Open WebUI'
       # ENABLE_SIGNUP: 'True'
       # OLLAMA_BASE_URL: 'http://localhost:11434'
-      OPENAI_API_KEY: '<OPENAI_API_KEY>'
+      OPENAI_API_KEY: "<OPENAI_API_KEY>"
       # OPENAI_API_BASE_URL: 'https://api.openai.com/v1'
-      ENABLE_IMAGE_GENERATION: 'True'
-      IMAGE_GENERATION_ENGINE: 'openai'
-      IMAGE_GENERATION_MODEL: 'dall-e-3'
-      # ENABLE_LITELLM: 'True'
-      # LITELLM_PROXY_PORT: '14365'
-      # LITELLM_PROXY_HOST: '127.0.0.1'
+      ENABLE_IMAGE_GENERATION: "True"
+      IMAGE_GENERATION_ENGINE: "openai"
+      IMAGE_GENERATION_MODEL: "dall-e-3"
+      ENABLE_LITELLM: "True"
+      LITELLM_PROXY_PORT: "4000"
+      LITELLM_PROXY_HOST: "litellm"
     volumes:
       - open-webui-data:/app/backend/data
       - /opt/docker/config-files/open-webui/litellm/config.yaml:/app/backend/data/litellm/config.yaml
+
+  # https://github.com/berriai/litellm/
+  litellm:
+    container_name: litellm
+    image: ghcr.io/berriai/litellm:main-stable
+    restart: unless-stopped
+    networks:
+      open-webui:
+        ipv4_address: "10.24.39.3"
+    dns:
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
+    environment:
+      TZ: "Europe/Berlin"
+      PORT: "4000"
+      CONFIG_FILE: "/app/config/config.yaml"
+    volumes:
+      - /opt/docker/config-files/open-webui/litellm/config.yaml:/app/config/config.yaml
 
 networks:
   open-webui:
@@ -42,8 +62,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.24.39.0/24'
-          gateway: '10.24.39.1'
+        - subnet: "10.24.39.0/24"
+          gateway: "10.24.39.1"
 
 volumes:
   open-webui-data:
