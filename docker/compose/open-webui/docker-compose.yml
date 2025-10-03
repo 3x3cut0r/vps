@@ -24,7 +24,7 @@ services:
       # WEBUI_NAME: 'Open WebUI'
       # ENABLE_SIGNUP: 'True'
       # OLLAMA_BASE_URL: 'http://localhost:11434'
-      OPENAI_API_KEY: "<OPENAI_API_KEY>"
+      # OPENAI_API_KEY: "sk-<OPENAI_API_KEY>"
       # OPENAI_API_BASE_URL: 'https://api.openai.com/v1'
       ENABLE_IMAGE_GENERATION: "True"
       IMAGE_GENERATION_ENGINE: "openai"
@@ -51,7 +51,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
       PORT: "4000"
-      LITELLM_MASTER_KEY: "<LITELLM_MASTER_KEY>"
+      LITELLM_MASTER_KEY: "sk-<LITELLM_MASTER_KEY>"
       UI_USERNAME: "admin"
       UI_PASSWORD: "<UI_PASSWORD>"
       DATABASE_URL: "sqlite:////data/litellm.db"
