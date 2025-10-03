@@ -34,7 +34,6 @@ services:
       LITELLM_PROXY_HOST: "litellm"
     volumes:
       - open-webui-data:/app/backend/data
-      - /opt/docker/config-files/open-webui/litellm/config.yaml:/app/backend/data/litellm/config.yaml
 
   # https://github.com/berriai/litellm/
   litellm:
@@ -52,9 +51,13 @@ services:
     environment:
       TZ: "Europe/Berlin"
       PORT: "4000"
+      LITELLM_MASTER_KEY: "<LITELLM_MASTER_KEY>"
+      UI_USERNAME: "admin"
+      UI_PASSWORD: "<UI_PASSWORD>"
+      DATABASE_URL: "sqlite:////data/litellm.db"
       CONFIG_FILE: "/app/config/config.yaml"
     volumes:
-      - /opt/docker/config-files/open-webui/litellm/config.yaml:/app/config/config.yaml
+      - litellm-data:/data
 
 networks:
   open-webui:
@@ -68,3 +71,5 @@ networks:
 volumes:
   open-webui-data:
     name: open-webui-data
+  litellm-data:
+    name: litellm-data
