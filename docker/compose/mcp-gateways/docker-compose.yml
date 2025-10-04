@@ -1,26 +1,48 @@
 version: "3.9"
 
-# https://github.com/docker/mcp-gateway
 services:
+  # https://github.com/open-webui/mcpo
+  mcp-time:
+    container_name: mcp-time
+    image: ghcr.io/open-webui/mcpo:main
+    restart: unless-stopped
+    command:
+      [
+        "--port",
+        "8000",
+        "--server-type",
+        "stdio",
+        "--",
+        "uvx",
+        "mcp-server-time",
+        "--local-timezone",
+        "Europe/Berlin",
+      ]
+    # ports:
+    #   - "8000:8000"
+    networks:
+      mcp-gateways:
+        ipv4_address: "10.24.43.10"
+
   # https://hub.docker.com/r/docker/mcp-gateway
-  mcp-gateway-docker:
-    container_name: mcp-gateway-docker
+  mcp-docker:
+    container_name: mcp-docker
     image: docker/mcp-gateway:latest
     restart: unless-stopped
     command: ["--port=8080", "--transport=streaming"]
     # ports:
-    #   - "2143:8080"
+    #   - "8080:8080"
     networks:
-      mcp-gateway:
-        ipv4_address: "10.24.43.2"
+      mcp-gateways:
+        ipv4_address: "10.24.43.11"
     dns: ["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"]
     volumes:
       - /root/.docker/mcp:/root/.docker/mcp # config/secrets
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
 networks:
-  mcp-gateway:
-    name: mcp-gateway
+  mcp-gateways:
+    name: mcp-gateways
     ipam:
       driver: default
       config:
