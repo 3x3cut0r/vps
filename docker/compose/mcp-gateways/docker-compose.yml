@@ -1,23 +1,19 @@
-version: '3.9'
+version: "3.9"
 
 # https://github.com/docker/mcp-gateway
 services:
   # https://hub.docker.com/r/docker/mcp-gateway
-  mcp-gateway:
-    container_name: mcp-gateway
+  mcp-gateway-docker:
+    container_name: mcp-gateway-docker
     image: docker/mcp-gateway:latest
     restart: unless-stopped
-    command: ['--port=8080', '--transport=streaming']
-    ports:
-      - '2143:8080'
+    command: ["--port=8080", "--transport=streaming"]
+    # ports:
+    #   - "2143:8080"
     networks:
       mcp-gateway:
-        ipv4_address: '10.24.43.2'
-    dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+        ipv4_address: "10.24.43.2"
+    dns: ["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"]
     volumes:
       - /root/.docker/mcp:/root/.docker/mcp # config/secrets
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -28,5 +24,5 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.24.43.0/24'
-          gateway: '10.24.43.1'
+        - subnet: "10.24.43.0/24"
+          gateway: "10.24.43.1"

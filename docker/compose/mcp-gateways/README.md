@@ -1,6 +1,6 @@
-# mcp-gateway
+# mcp-gateways
 
-**docker-compose.yml for mcp-gateway - mcp-gateway is a ...**
+**docker-compose.yml for mcp-gateways**
 
 ## Index
 
@@ -33,8 +33,8 @@ go version
 ```shell
 # Install as Docker CLI plugin on your docker host
 cd /opt/docker
-git clone https://github.com/docker/mcp-gateway.git
-cd mcp-gateway
+git clone https://github.com/docker/mcp-gateways.git
+cd mcp-gateways
 mkdir -p "$HOME/.docker/cli-plugins"
 apt install make
 make docker-mcp                      # builds ~/.docker/cli-plugins/docker-mcp
@@ -44,7 +44,7 @@ docker mcp --help
 
 # 2. deploy docker-compose.yml <a name="deploy"></a>
 
-**[see docker/compose/mcp-gateway/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/mcp-gateway/docker-compose.yml)**
+**[see docker/compose/mcp-gateways/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/mcp-gateways/docker-compose.yml)**
 
 ### Find Me <a name="findme"></a>
 
