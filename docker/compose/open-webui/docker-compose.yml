@@ -23,9 +23,9 @@ services:
       # WEBUI_AUTH: 'True'
       # WEBUI_NAME: 'Open WebUI'
       # ENABLE_SIGNUP: 'True'
-      # OLLAMA_BASE_URL: 'http://localhost:11434'
-      # OPENAI_API_KEY: "sk-<OPENAI_API_KEY>"
-      # OPENAI_API_BASE_URL: 'https://api.openai.com/v1'
+      # OLLAMA_BASE_URL: 'http://ollama:11434'
+      OPENAI_API_BASE_URL: "http://litellm:4000/v1"
+      OPENAI_API_KEY: "sk-<LITELLM_MASTER_KEY>"
       ENABLE_IMAGE_GENERATION: "True"
       IMAGE_GENERATION_ENGINE: "openai"
       IMAGE_GENERATION_MODEL: "dall-e-3"
