@@ -1,36 +1,43 @@
 version: "3.9"
 
-# For more mcp-servers (mcpo), see https://github.com/modelcontextprotocol/servers
-# For more mcp-servers (docker), see https://hub.docker.com/mcp
 services:
   # https://github.com/open-webui/mcpo
-  mcp-time:
-    container_name: mcp-time
-    image: ghcr.io/open-webui/mcpo:main
-    restart: unless-stopped
-    command:
-      ["--", "uvx", "mcp-server-time", "--local-timezone", "Europe/Berlin"]
-    networks:
-      mcp-gateways:
-        ipv4_address: "10.24.43.10"
-
-  # https://github.com/open-webui/mcpo
-  mcp-fetch:
-    container_name: mcp-fetch
-    image: ghcr.io/open-webui/mcpo:main
-    restart: unless-stopped
-    command: ["--", "uvx", "mcp-server-fetch"]
-    networks:
-      mcp-gateways:
-        ipv4_address: "10.24.43.11"
+  # Available mcpo server: https://github.com/modelcontextprotocol/servers
+  #
+  # Example mcpo (stdio): time
+  #   -> provides an OpenAPI server
+  #   -> does NOT provide a MCP server
+  #   -> supported by OpenWebUI
+  #   -> NOT supported by LiteLLM
+  #
+  # mcp-time:
+  #   container_name: mcp-time
+  #   image: ghcr.io/open-webui/mcpo:main
+  #   restart: unless-stopped
+  #   command:
+  #     ["--", "uvx", "mcp-server-time", "--local-timezone", "Europe/Berlin"]
+  #   networks:
+  #     mcp-gateways:
+  #       ipv4_address: "10.24.43.2"
 
   # https://hub.docker.com/r/docker/mcp-gateway
+  # Available MCP servers: https://hub.docker.com/mcp
+  #
+  # Docker MCP gateway
+  #   -> provides multiple MCP server
+  #   -> provides multiple OpenAPI server (local mcpo/stdio server) via MCP
+  #   -> is supported by LiteLLM
+  #   -> LiteLLM can provide all server from this mcp-gateway to OpenWebUI
   mcp-docker:
     container_name: mcp-docker
     image: docker/mcp-gateway:latest
     restart: unless-stopped
     command:
-      ["--transport=streaming", "--port=8080", "--servers=dockerhub,duckduckgo"]
+      [
+        "--transport=streaming",
+        "--port=8080",
+        "--servers=dockerhub,duckduckgo,fetch,time",
+      ]
     networks:
       mcp-gateways:
         ipv4_address: "10.24.43.200"
