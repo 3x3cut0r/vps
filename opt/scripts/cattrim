@@ -1,2 +1,3 @@
 #!/bin/bash
+# cat a file and filter out commented and empty lines
 cat $1 | egrep -v "(^\ *#.*|^$)"
