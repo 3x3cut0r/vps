@@ -1,1 +1,0 @@
-autocmd BufNewFile,BufRead * setlocal formatoptions+=cqn
