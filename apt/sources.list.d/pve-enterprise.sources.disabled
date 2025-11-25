@@ -1,0 +1,5 @@
+Types: deb                                                                                                                                                     │Now try logging into the machine, with: "ssh -i /Users/julian/.ssh/id_rsa 'root@152.53.181.185'"
+URIs: https://enterprise.proxmox.com/debian/pve                                                                                                                │and check to make sure that only the key(s) you wanted were added.
+Suites: trixie                                                                                                                                                 │
+Components: pve-enterprise                                                                                                                                     │  .ssh $
+Signed-By: /usr/share/keyrings/proxmox-archive-keyring.gpg
