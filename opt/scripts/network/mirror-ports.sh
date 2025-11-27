@@ -1,9 +1,9 @@
 #!/bin/bash
 # Usage:
-#   ./mirror_ports.sh <INPUT> <OUTPUT>
+#   ./mirror-ports.sh <INPUT> <OUTPUT>
 #
 # Example:
-#   ./mirror_ports.sh vmbr0 vmbr1
+#   ./mirror-ports.sh vmbr0 vmbr1
 #
 
 # Set parameters
