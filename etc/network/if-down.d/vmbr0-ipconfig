@@ -1,0 +1,3 @@
+#!/bin/sh
+[ "$IFACE" = "vmbr0" ] || exit 0
+/opt/scripts/network/post-down.sh
