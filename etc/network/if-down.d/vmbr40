@@ -1,0 +1,9 @@
+#!/bin/sh
+LOGFILE="/var/log/ifdown-vmbr40.log"
+echo "$(date) if-down.d/vmbr40 called for IFACE=$IFACE" >> "$LOGFILE"
+
+[ "$IFACE" = "vmbr40" ] || exit 0
+
+echo "$(date) running /opt/scripts/network/post-down.sh" >> "$LOGFILE"
+/opt/scripts/network/post-down.sh >> "$LOGFILE" 2>&1
+echo "$(date) done" >> "$LOGFILE"
