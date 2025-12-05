@@ -1,2 +1,4 @@
 *.DS_Store
 site
+opt/scripts/network/post-down.sh
+opt/scripts/network/post-up.sh
