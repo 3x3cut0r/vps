@@ -4,7 +4,8 @@ an open-source and participative security solution offering crowdsourced server 
 
 ## Index
 
-0. [Installation](#install)
+0. [Installation](#install)  
+   0.1 [LAPI vs Collections vs Bouncer](#lapi)
 1. [Collection](#collection)  
    1.1 [sshd](#sshd)
 2. [Bouncer](#bouncer)  
@@ -12,6 +13,8 @@ an open-source and participative security solution offering crowdsourced server 
 3. [Statistics](#statistics)  
    3.1 [show metrics](#metrics)  
    3.2 [show decisions](#decisions)
+4. [Add other machines to crowdsec LAPI on pve host](#machines)  
+   4.1 [Add lxc-110 (npm)](#npm)
 
 \# [Find Me](#findme)  
 \# [License](#license)
@@ -28,6 +31,28 @@ apt install crowdsec
 systemctl status crowdsec
 cscli version
 ```
+
+### 0.1 LAPI vs Collections vs Bouncer <a name="lapi"></a>
+
+**Local API (LAPI)**
+
+- on the proxmox host as central management
+- receives alerts from collections
+- create and manage decisions
+- serve decisions to bouncers
+
+**Collection (Agent)**
+
+- on a machine where an application produces logs (proxmox + lxc)
+- example collections: sshd, http ...
+
+**Bouncer**
+
+- on a machine wherever you want to block traffic
+- enforce decisions created by the LAPI
+- connect to LAPI and pull ban list
+- apply ans using methods
+- example methods: iptables, nftables, ...
 
 # 1. Collection <a name="collection"></a>
 
@@ -63,6 +88,37 @@ cscli metrics
 ```bash
 # check decisions
 cscli decisions list
+```
+
+# 4. Add other machines to crowdsec LAPI on pve host <a name="machines"></a>
+
+### 4.1 Add lxc-110 (npm) <a name="npm"></a>
+
+```bash
+# on proxmox: add machine lxc-110 (npm)
+cscli machines add lxc-110 --auto --force
+# check added machine
+cscli machines list
+
+# check your credentials
+cat /etc/crowdsec/local_api_credentials.yaml
+
+# to delete a machine
+# cscli machines delete nginx-lxc-110
+
+# on lxc-110
+cat >/etc/crowdsec/local_api_credentials.yaml <<EOF
+url: http://192.168.40.1:8080/
+login: lxc-110
+password: <PASSWORD>
+EOF
+systemctl restart crowdsec.service
+cscli lapi status
+# expected output: You can successfully interact with Local API (LAPI)
+
+# on proxmox
+cscli machines list
+# you should see lxc-110 on the list
 ```
 
 ### Find Me <a name="findme"></a>
