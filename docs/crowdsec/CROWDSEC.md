@@ -7,14 +7,15 @@ an open-source and participative security solution offering crowdsourced server 
 0. [Installation](#install)  
    0.1 [LAPI vs Collections vs Bouncer](#lapi)
 1. [Collection](#collection)  
-   1.1 [sshd](#sshd)
+   1.1 [sshd](#sshd)  
+   1.2 [npm](#npm)
 2. [Bouncer](#bouncer)  
    2.1 [firewall-bouncer-iptables](#firewall-bouncer-iptables)
 3. [Statistics](#statistics)  
    3.1 [show metrics](#metrics)  
    3.2 [show decisions](#decisions)
 4. [Add other machines to crowdsec LAPI on pve host](#machines)  
-   4.1 [Add lxc-110 (npm)](#npm)
+   4.1 [Add lxc-110 (npm)](#lxc-110)
 
 \# [Find Me](#findme)  
 \# [License](#license)
@@ -56,11 +57,24 @@ cscli version
 
 # 1. Collection <a name="collection"></a>
 
+**(Collection List)[https://app.crowdsec.net/hub/collections]**
+
 ### 1.1 sshd <a name="sshd"></a>
 
 ```bash
 # install ssh collection
 cscli collections install crowdsecurity/sshd
+cscli hub update
+systemctl reload crowdsec
+```
+
+### 1.2 nginx-proxy-manager <a name="npm"></a>
+
+```bash
+# install nginx-proxy-manager collection
+cscli collections install crowdsecurity/nginx-proxy-manager
+cscli collections install crowdsecurity/http-cve
+cscli collections install crowdsecurity/base-http-scenarios
 cscli hub update
 systemctl reload crowdsec
 ```
@@ -92,7 +106,7 @@ cscli decisions list
 
 # 4. Add other machines to crowdsec LAPI on pve host <a name="machines"></a>
 
-### 4.1 Add lxc-110 (npm) <a name="npm"></a>
+### 4.1 Add lxc-110 (npm) <a name="lxc-110"></a>
 
 ```bash
 # on proxmox: add machine lxc-110 (npm)

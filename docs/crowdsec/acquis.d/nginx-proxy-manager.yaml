@@ -1,0 +1,5 @@
+filenames:
+  - /opt/docker/volumes/nginx-proxy-manager-data/_data/logs/*_access.log
+labels:
+  type: nginx
+  service: nginx-proxy-manager
