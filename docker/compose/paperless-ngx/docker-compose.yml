@@ -1,36 +1,108 @@
-version: '3.9'
+version: "3.9"
 
-# https://github.com/linuxserver/docker-paperless-ngx
+# https://docs.paperless-ngx.com/configuration/#required-services
 services:
   # https://hub.docker.com/r/linuxserver/paperless-ngx
   paperless-ngx:
     container_name: paperless-ngx
-    image: linuxserver/paperless-ngx:latest
+    image: paperlessngx/paperless-ngx:latest
     restart: unless-stopped
     ports:
-      - '2121:8000'
+      - "2121:8000"
     networks:
       paperless-ngx:
-        ipv4_address: '10.24.21.2'
-      redis-nopw:
-        ipv4_address: '10.20.112.121'
-    dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+        ipv4_address: "10.24.21.2"
+    dns: ["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"]
     environment:
-      TZ: 'Europe/Berlin'
-      PUID: '1000'
-      PGID: '1000'
-      REDIS_URL: 'redis://redis-nopw:6379'
-      PAPERLESS_URL: 'https://paperless.3x3cut0r.de'
-      PAPERLESS_ALLOWED_HOSTS: 'paperless.3x3cut0r.de,localhost'
-      PAPERLESS_CORS_ALLOWED_HOSTS: 'https://paperless.3x3cut0r.de,http://localhost:8000,http://localhost'
-      PAPERLESS_CSRF_TRUSTED_ORIGINS: 'https://paperless.3x3cut0r.de'
+      PAPERLESS_TIME_ZONE: "Europe/Berlin"
+      PAPERLESS_ADMIN_USER: "admin"
+      PAPERLESS_ADMIN_MAIL: "julianreith@gmx.de"
+      PAPERLESS_ADMIN_PASSWORD: "<PAPERLESS_ADMIN_PASSWORD>"
+      PAPERLESS_URL: "https://paperless.3x3cut0r.de"
+      PAPERLESS_ALLOWED_HOSTS: "paperless.3x3cut0r.de,localhost"
+      PAPERLESS_CORS_ALLOWED_HOSTS: "https://paperless.3x3cut0r.de,http://localhost:8000,http://localhost"
+      PAPERLESS_CSRF_TRUSTED_ORIGINS: "https://paperless.3x3cut0r.de"
+      PAPERLESS_COOKIE_PREFIX: "paperless_"
+      PAPERLESS_SECRET_KEY: "<PAPERLESS_SECRET_KEY>"
+      PAPERLESS_REDIS: "redis://default:<REDIS_PASSWORD>@paperless-redis:6379"
+      PAPERLESS_DB_READ_CACHE_ENABLED: true
+      PAPERLESS_DBENGINE: "postgresql"
+      PAPERLESS_DBHOST: "postgres"
+      PAPERLESS_DBPORT: "5432"
+      PAPERLESS_DBNAME: "paperless"
+      PAPERLESS_DBUSER: "paperless"
+      PAPERLESS_DBPASS: <PAPERLESS_DBPASS>
+      PAPERLESS_TIKA_ENABLED: true
+      PAPERLESS_TIKA_ENDPOINT: http://paperless-tika:9998
+      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-gotenberg:3000
+      PAPERLESS_EMAIL_PARSE_DEFAULT_LAYOUT: 1
+      PAPERLESS_OCR_MODE: skip # choices: skip, redo, force
+      PAPERLESS_OCR_LANGUAGES: "deu eng" # https://tesseract-ocr.github.io/tessdoc/Data-Files-in-different-versions.html
+      PAPERLESS_OCR_LANGUAGE: "deu+eng"
+      PAPERLESS_DATE_PARSER_LANGUAGES: "de+en"
+      PAPERLESS_ENABLE_UPDATE_CHECK: false
+      # PAPERLESS_APP_TITLE: "Paperless-ngx"
+      # PAPERLESS_APP_LOGO: "/logo/Atari_logo.svg"
     volumes:
-      - paperless-ngx-conf:/config
-      - paperless-ngx-data:/data
+      - paperless-ngx-data:/usr/src/paperless/data
+      - paperless-ngx-media:/usr/src/paperless/media
+      - paperless-ngx-consume:/usr/src/paperless/consume
+      - paperless-ngx-export:/usr/src/paperless/export
+
+  # https://hub.docker.com/r/apache/tika
+  paperless-tika:
+    container_name: paperless-tika
+    image: apache/tika:latest # latest-full to add GDAL and Tesseract OCR support
+    restart: always
+    # ports:
+    #   - '9998:9998'
+    networks:
+      postgres:
+        ipv4_address: "10.24.21.3"
+    dns: ["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"]
+
+  # https://hub.docker.com/r/gotenberg/gotenberg
+  paperless-gotenberg:
+    container_name: paperless-gotenberg
+    image: gotenberg/gotenberg:latest
+    restart: always
+    # ports:
+    #   - '3000:3000'
+    networks:
+      postgres:
+        ipv4_address: "10.24.21.4"
+    dns: ["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"]
+
+  # https://hub.docker.com/_/postgres
+  paperless-postgres:
+    container_name: paperless-postgres
+    image: postgres:latest-alpine
+    restart: always
+    # ports:
+    #   - '5432:5432'
+    networks:
+      postgres:
+        ipv4_address: "10.24.21.5"
+    dns: ["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"]
+    environment:
+      POSTGRES_PASSWORD: "<POSTGRES_PASSWORD>"
+    volumes:
+      - paperless-postgres-data:/var/lib/postgresql/data
+
+  # https://hub.docker.com/_/redis
+  paperless-redis:
+    container_name: paperless-redis
+    image: redis:latest-alpine
+    restart: always
+    command: redis-server --requirepass <REDIS_PASSWORD> # username = default
+    # ports:
+    #     - 6379:6379
+    networks:
+      postgres:
+        ipv4_address: "10.24.21.6"
+    dns: ["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"]
+    volumes:
+      - paperless-redis-data:/data
 
 networks:
   paperless-ngx:
@@ -38,14 +110,19 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.24.21.0/24'
-          gateway: '10.24.21.1'
-  redis-nopw:
-    name: redis-nopw
-    external: true
+        - subnet: "10.24.21.0/24"
+          gateway: "10.24.21.1"
 
 volumes:
-  paperless-ngx-conf:
-    name: paperless-ngx-conf
   paperless-ngx-data:
     name: paperless-ngx-data
+  paperless-ngx-media:
+    name: paperless-ngx-media
+  paperless-ngx-consume:
+    name: paperless-ngx-consume
+  paperless-ngx-export:
+    name: paperless-ngx-export
+  paperless-postgres-data:
+    name: paperless-postgres-data
+  paperless-redis-data:
+    name: paperless-redis-data
