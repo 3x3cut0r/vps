@@ -1,15 +1,15 @@
-version: '3.9'
+version: "3.9"
 
 services:
   # https://hub.docker.com/_/redis
   redis:
     container_name: redis
     image: redis:7-alpine
-    command: redis-server --requirepass <REDIS_PASSWORD>
+    command: redis-server --requirepass <REDIS_PASSWORD> # username = default
     restart: always
     networks:
       redis:
-        ipv4_address: '10.20.96.2'
+        ipv4_address: "10.20.96.2"
     # ports:
     #     - 6379:6379
     volumes:
@@ -22,7 +22,7 @@ services:
     restart: always
     networks:
       redis-nopw:
-        ipv4_address: '10.20.112.2'
+        ipv4_address: "10.20.112.2"
     # ports:
     #     - 6379:6379
     volumes:
@@ -34,15 +34,15 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.20.96.0/20'
-          gateway: '10.20.96.1'
+        - subnet: "10.20.96.0/20"
+          gateway: "10.20.96.1"
   redis-nopw:
     name: redis-nopw
     ipam:
       driver: default
       config:
-        - subnet: '10.20.112.0/20'
-          gateway: '10.20.112.1'
+        - subnet: "10.20.112.0/20"
+          gateway: "10.20.112.1"
 
 volumes:
   redis-data:
