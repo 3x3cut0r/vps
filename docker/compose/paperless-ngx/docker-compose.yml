@@ -3,14 +3,14 @@ version: "3.9"
 # https://docs.paperless-ngx.com/configuration/#required-services
 services:
   # https://hub.docker.com/r/linuxserver/paperless-ngx
-  paperless-ngx:
-    container_name: paperless-ngx
+  paperless:
+    container_name: paperless
     image: paperlessngx/paperless-ngx:latest
     restart: unless-stopped
     ports:
       - "2121:8000"
     networks:
-      paperless-ngx:
+      paperless:
         ipv4_address: "10.24.21.2"
     dns: ["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"]
     environment:
@@ -27,11 +27,11 @@ services:
       PAPERLESS_REDIS: "redis://default:<REDIS_PASSWORD>@paperless-redis:6379"
       PAPERLESS_DB_READ_CACHE_ENABLED: true
       PAPERLESS_DBENGINE: "postgresql"
-      PAPERLESS_DBHOST: "postgres"
+      PAPERLESS_DBHOST: "paperless-postgres"
       PAPERLESS_DBPORT: "5432"
       PAPERLESS_DBNAME: "paperless"
       PAPERLESS_DBUSER: "paperless"
-      PAPERLESS_DBPASS: <PAPERLESS_DBPASS>
+      PAPERLESS_DBPASS: "<PAPERLESS_DBPASS>"
       PAPERLESS_TIKA_ENABLED: true
       PAPERLESS_TIKA_ENDPOINT: http://paperless-tika:9998
       PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-gotenberg:3000
@@ -44,10 +44,10 @@ services:
       # PAPERLESS_APP_TITLE: "Paperless-ngx"
       # PAPERLESS_APP_LOGO: "/logo/Atari_logo.svg"
     volumes:
-      - paperless-ngx-data:/usr/src/paperless/data
-      - paperless-ngx-media:/usr/src/paperless/media
-      - paperless-ngx-consume:/usr/src/paperless/consume
-      - paperless-ngx-export:/usr/src/paperless/export
+      - paperless-data:/usr/src/paperless/data
+      - paperless-media:/usr/src/paperless/media
+      - paperless-consume:/usr/src/paperless/consume
+      - paperless-export:/usr/src/paperless/export
 
   # https://hub.docker.com/r/apache/tika
   paperless-tika:
@@ -57,7 +57,7 @@ services:
     # ports:
     #   - '9998:9998'
     networks:
-      postgres:
+      paperless:
         ipv4_address: "10.24.21.3"
     dns: ["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"]
 
@@ -69,22 +69,24 @@ services:
     # ports:
     #   - '3000:3000'
     networks:
-      postgres:
+      paperless:
         ipv4_address: "10.24.21.4"
     dns: ["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"]
 
   # https://hub.docker.com/_/postgres
   paperless-postgres:
     container_name: paperless-postgres
-    image: postgres:latest-alpine
+    image: postgres:latest
     restart: always
     # ports:
     #   - '5432:5432'
     networks:
-      postgres:
+      paperless:
         ipv4_address: "10.24.21.5"
     dns: ["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"]
     environment:
+      POSTGRES_DB: "paperless"
+      POSTGRES_USER: "paperless"
       POSTGRES_PASSWORD: "<POSTGRES_PASSWORD>"
     volumes:
       - paperless-postgres-data:/var/lib/postgresql/data
@@ -92,21 +94,21 @@ services:
   # https://hub.docker.com/_/redis
   paperless-redis:
     container_name: paperless-redis
-    image: redis:latest-alpine
+    image: redis:latest
     restart: always
     command: redis-server --requirepass <REDIS_PASSWORD> # username = default
     # ports:
     #     - 6379:6379
     networks:
-      postgres:
+      paperless:
         ipv4_address: "10.24.21.6"
     dns: ["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"]
     volumes:
       - paperless-redis-data:/data
 
 networks:
-  paperless-ngx:
-    name: paperless-ngx
+  paperless:
+    name: paperless
     ipam:
       driver: default
       config:
@@ -114,14 +116,14 @@ networks:
           gateway: "10.24.21.1"
 
 volumes:
-  paperless-ngx-data:
-    name: paperless-ngx-data
-  paperless-ngx-media:
-    name: paperless-ngx-media
-  paperless-ngx-consume:
-    name: paperless-ngx-consume
-  paperless-ngx-export:
-    name: paperless-ngx-export
+  paperless-data:
+    name: paperless-data
+  paperless-media:
+    name: paperless-media
+  paperless-consume:
+    name: paperless-consume
+  paperless-export:
+    name: paperless-export
   paperless-postgres-data:
     name: paperless-postgres-data
   paperless-redis-data:
