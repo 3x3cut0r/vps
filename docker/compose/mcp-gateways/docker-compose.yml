@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   # https://github.com/open-webui/mcpo
   # Available mcpo server: https://github.com/modelcontextprotocol/servers

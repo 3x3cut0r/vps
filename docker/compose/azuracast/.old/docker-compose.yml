@@ -1,5 +1,3 @@
-version: '3.9'
-
 # https://github.com/AzuraCast/AzuraCast
 services:
   # https://github.com/azuracast/AzuraCast/pkgs/container/web

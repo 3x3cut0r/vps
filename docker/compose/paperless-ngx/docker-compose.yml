@@ -1,5 +1,3 @@
-version: "3.9"
-
 # https://docs.paperless-ngx.com/configuration/#required-services
 services:
   # https://hub.docker.com/r/linuxserver/paperless-ngx
@@ -76,7 +74,7 @@ services:
   # https://hub.docker.com/_/postgres
   paperless-postgres:
     container_name: paperless-postgres
-    image: postgres:latest
+    image: postgres:18-alpine
     restart: always
     # ports:
     #   - '5432:5432'
@@ -94,7 +92,7 @@ services:
   # https://hub.docker.com/_/redis
   paperless-redis:
     container_name: paperless-redis
-    image: redis:latest
+    image: redis:8-alpine
     restart: always
     command: redis-server --requirepass <REDIS_PASSWORD> # username = default
     # ports:

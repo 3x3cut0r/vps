@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   #############################
   # choose 1 service out of 2 #

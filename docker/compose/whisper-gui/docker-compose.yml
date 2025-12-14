@@ -1,5 +1,3 @@
-version: '3.9'
-
 # https://github.com/Pikurrot/whisper-gui
 services:
   # https://hub.docker.com/r/3x3cut0r/whisper-gui

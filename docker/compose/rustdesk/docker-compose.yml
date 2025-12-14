@@ -1,5 +1,3 @@
-version: '3.9'
-
 # https://rustdesk.com/docs/en/self-host/rustdesk-server-oss/docker/
 services:
   # https://hub.docker.com/r/rustdesk/rustdesk-server

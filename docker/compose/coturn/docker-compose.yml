@@ -1,5 +1,3 @@
-version: '3.9'
-
 # https://github.com/coturn/coturn
 services:
   # https://hub.docker.com/r/coturn/coturn

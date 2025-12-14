@@ -1,5 +1,3 @@
-version: "3.9"
-
 # https://www.bsmithio.com/post/opnsense-dashboard/#docker
 services:
   # https://hub.docker.com/_/mongo
