@@ -14,7 +14,6 @@ services:
       TZ: "Europe/Berlin"
       WUD_AUTH_BASIC_ADMIN_USER: "admin" # Change username in variablename (WUD_AUTH_BASIC_<USERNAME>_USER and WUD_AUTH_BASIC_<USERNAME>_HASH)
       # WUD_AUTH_BASIC_ADMIN_HASH: $$apr1$$aefKbZEa$$ZSA5Y3zv9vDQOxr283NGx/ # htpasswd -nib admin <PASSWORD> (double the first 2 '$' signs and do nt add single or double quotes around the hash)
-    env_file: /opt/docker/env/whatsupdocker.env
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
