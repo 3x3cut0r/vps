@@ -14,11 +14,7 @@ services:
     ports:
       - "8008:8008"
     # - '8448:8448'
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     environment:
       TZ: Europe/Berlin
       SYNAPSE_CONFIG_DIR: "/data"
@@ -46,11 +42,7 @@ services:
         ipv4_address: "10.20.144.3"
     ports:
       - "2209:80"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     # volumes:
     #     - /opt/docker/config-files/element-web/config.json:/app/config.json
     depends_on:
@@ -68,11 +60,7 @@ services:
         ipv4_address: "10.20.26.209"
     ports:
       - "29316:29316"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     volumes:
       - maubot-data:/data:z
 
@@ -88,11 +76,7 @@ services:
         ipv4_address: "10.20.17.209"
     # ports:
     #   - '29317:29317'
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     volumes:
       - mautrix-telegram-data:/data:z
 
@@ -108,11 +92,7 @@ services:
         ipv4_address: "10.20.18.209"
     # ports:
     #   - '29318:29318'
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     volumes:
       - mautrix-whatsapp-data:/data:z
 
@@ -124,11 +104,7 @@ services:
     networks:
       synapse:
         ipv4_address: "10.20.144.28"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     volumes:
       - signald-data:/signald:z
       # - signald-gradle:/opt/gradle/.gradle
@@ -147,11 +123,7 @@ services:
         ipv4_address: "10.20.28.209"
     # ports:
     #   - '29328:29328'
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     volumes:
       - signald-data:/var/run/signald
       - mautrix-signal-data:/data:z
@@ -168,11 +140,7 @@ services:
         ipv4_address: "10.20.144.131"
     ports:
       - "29331:29331"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     environment:
       LISTEN_ADDRESS: ":29331"
       APPSERVICE_ID: "imessage"

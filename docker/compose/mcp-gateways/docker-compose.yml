@@ -39,6 +39,7 @@ services:
     networks:
       mcp-gateways:
         ipv4_address: "10.24.43.200"
+    dns: ["192.168.40.253"]
     environment:
       HUB_PAT_TOKEN: "<HUB_PAT_TOKEN>" # dockerhub pat_token
     volumes:

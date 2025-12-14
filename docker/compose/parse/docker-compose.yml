@@ -10,11 +10,7 @@ services:
     networks:
       parse:
         ipv4_address: "10.24.37.2"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     environment:
       PARSE_ENABLE_HTTPS: "no"
       PARSE_BIND_HOST: "127.0.0.1"
@@ -45,11 +41,7 @@ services:
     networks:
       parse:
         ipv4_address: "10.24.37.3"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     environment:
       PARSE_DASHBOARD_ENABLE_HTTPS: "no"
       PARSE_DASHBOARD_EXTERNAL_HTTP_PORT_NUMBER: "80"
@@ -79,11 +71,7 @@ services:
         ipv4_address: "10.24.37.4"
     # ports:
     #   - '27017:27017'
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     environment:
       MONGODB_ROOT_USER: "root"
       MONGODB_ROOT_PASSWORD: "<MONGODB_ROOT_PASSWORD>"

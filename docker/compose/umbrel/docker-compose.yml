@@ -14,11 +14,7 @@ services:
     networks:
       umbrel:
         ipv4_address: "10.21.21.214"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
 
   # https://hub.docker.com/r/lncm/tor
   umbrel-tor:
@@ -38,11 +34,7 @@ services:
     networks:
       umbrel:
         ipv4_address: "10.21.21.11"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     depends_on:
       - umbrel-syslog-ng
 
@@ -109,11 +101,7 @@ services:
     networks:
       umbrel:
         ipv4_address: "10.21.21.4"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     depends_on:
       - umbrel-syslog-ng
       - umbrel-tor
@@ -137,11 +125,7 @@ services:
     networks:
       umbrel:
         ipv4_address: "10.21.21.8"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     depends_on:
       - umbrel-syslog-ng
       - umbrel-tor
@@ -164,11 +148,7 @@ services:
     networks:
       umbrel:
         ipv4_address: "10.21.21.9"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     depends_on:
       - umbrel-syslog-ng
       - umbrel-tor
@@ -191,11 +171,7 @@ services:
     networks:
       umbrel:
         ipv4_address: "10.21.21.10"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     depends_on:
       - umbrel-syslog-ng
       - umbrel-bitcoind
@@ -230,11 +206,7 @@ services:
     networks:
       umbrel:
         ipv4_address: "10.21.21.5"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     depends_on:
       - umbrel-syslog-ng
       - umbrel-manager
@@ -258,11 +230,7 @@ services:
     networks:
       umbrel:
         ipv4_address: "10.21.21.3"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     depends_on:
       - umbrel-syslog-ng
 
@@ -282,11 +250,7 @@ services:
     networks:
       umbrel:
         ipv4_address: "10.21.21.2"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     depends_on:
       - umbrel-syslog-ng
       - umbrel-dashboard
@@ -307,11 +271,7 @@ services:
     networks:
       umbrel:
         ipv4_address: "10.21.21.7"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     depends_on:
       - umbrel-syslog-ng
 

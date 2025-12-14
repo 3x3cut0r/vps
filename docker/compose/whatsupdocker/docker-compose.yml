@@ -9,7 +9,7 @@ services:
     networks:
       whatsupdocker:
         ipv4_address: "10.24.3.2"
-    dns: ["1.1.1.1", "1.0.0.1", "2606:4700:4700::1111", "2606:4700:4700::1001"]
+    dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
       WUD_AUTH_BASIC_ADMIN_USER: "admin" # Change username in variablename (WUD_AUTH_BASIC_<USERNAME>_USER and WUD_AUTH_BASIC_<USERNAME>_HASH)

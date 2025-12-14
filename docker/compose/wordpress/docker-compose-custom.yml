@@ -8,11 +8,7 @@ services:
     networks:
       wordpress-custom:
         ipv4_address: "10.24.99.2"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     environment:
       MYSQL_ROOT_PASSWORD: "<MYSQL_ROOT_PASSWORD>"
       TZ: "Europe/Berlin"
@@ -30,11 +26,7 @@ services:
         ipv4_address: "10.24.99.3"
     ports:
       - "2499:80"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     environment:
       MYSQL_ROOT_PASSWORD: "<MYSQL_ROOT_PASSWORD>"
       PMA_ARBITRARY: "1"
@@ -54,11 +46,7 @@ services:
         ipv4_address: "10.24.99.4"
     ports:
       - "2199:80"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     environment:
       WORDPRESS_DB_HOST: "wordpress-mariadb-custom"
       WORDPRESS_DB_USER: "wordpress-custom"

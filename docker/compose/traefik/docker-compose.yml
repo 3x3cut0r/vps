@@ -26,11 +26,7 @@ services:
     networks:
       traefik:
         ipv4_address: 10.10.0.2
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
-      - 2001:4860:4860::8888
-      - 2001:4860:4860::8844
+    dns: ["192.168.40.253"]
     volumes:
       - /run/user/1000/docker.sock:/var/run/docker.sock:ro
       - /home/docker/config-files/letsencrypt:/etc/letsencrypt

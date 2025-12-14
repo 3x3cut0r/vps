@@ -11,11 +11,7 @@ services:
         ipv4_address: "10.20.32.3"
     ports:
       - "2212:3000"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     volumes:
       - rocketchat-uploads:/app/uploads
     environment:
@@ -39,11 +35,7 @@ services:
         ipv4_address: "10.20.32.2"
     # ports:
     #     - 27017:27017
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     environment:
       MONGODB_REPLICA_SET_MODE: "primary"
       MONGODB_REPLICA_SET_NAME: "rs0"
@@ -98,11 +90,7 @@ services:
     # this is used to expose the hubot port for notifications on the host on port 3001, e.g. for hubot-jenkins-notifier
     # ports:
     #     - 3001:8080
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     environment:
       ROCKETCHAT_URL: "rocketchat:3000"
       ROCKETCHAT_ROOM: ""

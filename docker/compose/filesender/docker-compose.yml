@@ -12,11 +12,7 @@ services:
     ports:
       - "2116:80"
     # - "9116:9000"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     environment:
       FILESENDER_URL: "https://filesender.3x3cut0r.de"
       FILESENDER_TRUSTED_DOMAINS: "filesender.3x3cut0r.de"

@@ -15,11 +15,7 @@ services:
         ipv4_address: "10.24.38.2"
       anythingllm:
         ipv4_address: "10.24.35.100"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     environment: # https://github.com/Mintplex-Labs/vector-admin/blob/master/docker/.env.example
       SERVER_PORT: 3001
       DATABASE_CONNECTION_STRING: "postgresql://vectoradmin:<POSTGRES_PASSWORD>@vector-admin-postgres:5432/vectoradmin"
@@ -44,11 +40,7 @@ services:
     networks:
       vector-admin:
         ipv4_address: "10.24.38.3"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     volumes:
       - vector-admin-postgres:/var/lib/postgresql/data
     environment:

@@ -18,11 +18,7 @@ services:
     ports:
       - "2210:80"
       # - '4210:443'
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     volumes:
       - nextcloud-html:/var/www/html
       - nextcloud-data:/var/www/html/data
@@ -59,11 +55,7 @@ services:
     ports:
       - "4210:80"
     #   - '443:443'
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     environment:
       JWT_SECRET: "<JWT_SECRET>"
     #   ONLYOFFICE_HTTPS_HSTS_ENABLED: 'true'

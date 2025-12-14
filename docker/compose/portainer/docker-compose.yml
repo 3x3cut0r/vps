@@ -12,11 +12,7 @@ services:
       - "2101:9000"
     environment:
       COMPOSE_HTTP_TIMEOUT: "240"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer-data:/data

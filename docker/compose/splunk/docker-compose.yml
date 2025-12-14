@@ -10,11 +10,7 @@ services:
     ports:
       - "8000:8000"
       - "8089:8089"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     environment:
       SPLUNK_START_ARGS: "--accept-license"
       SPLUNK_PASSWORD: "<SPLUNK_PASSWORD>"

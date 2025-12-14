@@ -10,11 +10,7 @@ services:
     networks:
       n8n:
         ipv4_address: "10.24.42.2"
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "2606:4700:4700::1111"
-      - "2606:4700:4700::1001"
+    dns: ["192.168.40.253"]
     environment:
       GENERIC_TIMEZONE: "Europe/Berlin"
       NODE_ENV: "production"

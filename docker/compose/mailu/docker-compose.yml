@@ -23,9 +23,7 @@ services:
       - "127.0.0.1:995:995"
       - "127.0.0.1:143:143"
       - "127.0.0.1:993:993"
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
+    dns: ["192.168.40.253"]
     volumes:
       - mailu-certs:/certs
       - mailu-overrides-nginx:/overrides:ro
@@ -44,9 +42,7 @@ services:
     # ports:
     #     - "127.0.0.1:53:53/tcp
     #     - "127.0.0.1:53:53/udp
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
+    dns: ["192.168.40.253"]
     volumes:
       - mailu-resolver-conf:/etc/unbound
 
@@ -67,9 +63,7 @@ services:
         ipv4_address: 10.20.112.228
       # postgres:
       #     ipv4_address: 10.20.16.208
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
+    dns: ["192.168.40.253"]
     volumes:
       - mailu-data:/data
       - mailu-dkim:/dkim
@@ -87,9 +81,7 @@ services:
     networks:
       mailu:
         ipv4_address: 10.20.128.4
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
+    dns: ["192.168.40.253"]
     volumes:
       - mailu-mail:/mail
       - mailu-overrides-dovecot:/overrides:ro
@@ -107,9 +99,7 @@ services:
     networks:
       mailu:
         ipv4_address: 10.20.128.5
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
+    dns: ["192.168.40.253"]
     volumes:
       - mailu-mailqueue:/queue
       - mailu-overrides-postfix:/overrides:ro
@@ -130,9 +120,7 @@ services:
         ipv4_address: 10.20.128.6
       redis-nopw:
         ipv4_address: 10.20.112.208
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
+    dns: ["192.168.40.253"]
     volumes:
       - mailu-filter:/var/lib/rspamd
       - mailu-dkim:/dkim:ro
@@ -152,9 +140,7 @@ services:
     networks:
       mailu:
         ipv4_address: 10.20.128.7
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
+    dns: ["192.168.40.253"]
     volumes:
       - mailu-filter:/data
     depends_on:
@@ -171,9 +157,7 @@ services:
     networks:
       mailu:
         ipv4_address: 10.20.128.8
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
+    dns: ["192.168.40.253"]
     volumes:
       - mailu-dav:/data"
 
@@ -188,9 +172,7 @@ services:
     networks:
       mailu:
         ipv4_address: 10.20.128.9
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
+    dns: ["192.168.40.253"]
     depends_on:
       - mailu-resolver
 
@@ -209,9 +191,7 @@ services:
         ipv4_address: 10.20.0.228
       # postgres:
       #     ipv4_address: 10.20.16.208
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
+    dns: ["192.168.40.253"]
     volumes:
       - mailu-webmail:/data
     depends_on:

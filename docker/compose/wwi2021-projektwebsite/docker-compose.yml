@@ -10,11 +10,7 @@ services:
     ports:
       - "2119:80"
       # - "4119:443"
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
-      - 2001:4860:4860::8888
-      - 2001:4860:4860::8844
+    dns: ["192.168.40.253"]
     volumes:
       - wwi2021-projektwebsite-nginx-html:/usr/share/nginx/html
     depends_on:
@@ -31,11 +27,7 @@ services:
         ipv4_address: 10.24.19.3
     # ports:
     #     - 9000:9000
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
-      - 2001:4860:4860::8888
-      - 2001:4860:4860::8844
+    dns: ["192.168.40.253"]
     volumes:
       - wwi2021-projektwebsite-nginx-html:/usr/share/nginx/html
 
@@ -49,11 +41,7 @@ services:
         ipv4_address: 10.24.19.4
     ports:
       - "8119:22"
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
-      - 2001:4860:4860::8888
-      - 2001:4860:4860::8844
+    dns: ["192.168.40.253"]
     environment:
       SSH_ENABLE_ROOT: "true"
       SSH_ENABLE_PASSWORD_AUTH: "false"

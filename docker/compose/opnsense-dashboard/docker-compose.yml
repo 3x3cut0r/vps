@@ -8,11 +8,7 @@ services:
     networks:
       opnsense-dashboard:
         ipv4_address: 10.90.0.27
-    dns:
-      - 1.1.1.1
-      - 1.0.0.1
-      - 2606:4700:4700::1111
-      - 2606:4700:4700::1001
+    dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
     volumes:
@@ -29,11 +25,7 @@ services:
     networks:
       opnsense-dashboard:
         ipv4_address: 10.90.0.86
-    dns:
-      - 1.1.1.1
-      - 1.0.0.1
-      - 2606:4700:4700::1111
-      - 2606:4700:4700::1001
+    dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
     volumes:
@@ -74,11 +66,7 @@ services:
     networks:
       opnsense-dashboard:
         ipv4_address: 10.90.0.30
-    dns:
-      - 1.1.1.1
-      - 1.0.0.1
-      - 2606:4700:4700::1111
-      - 2606:4700:4700::1001
+    dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
       GF_SECURITY_ADMIN_USER: "grafana"
@@ -100,11 +88,7 @@ services:
     networks:
       opnsense-dashboard:
         ipv4_address: 10.90.0.31
-    dns:
-      - 1.1.1.1
-      - 1.0.0.1
-      - 2606:4700:4700::1111
-      - 2606:4700:4700::1001
+    dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
     volumes:
@@ -119,11 +103,7 @@ services:
     networks:
       opnsense-dashboard:
         ipv4_address: 10.90.0.32
-    dns:
-      - 1.1.1.1
-      - 1.0.0.1
-      - 2606:4700:4700::1111
-      - 2606:4700:4700::1001
+    dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
     volumes:
@@ -200,11 +180,7 @@ services:
     networks:
       opnsense-dashboard:
         ipv4_address: 10.90.0.92
-    dns:
-      - 1.1.1.1
-      - 1.0.0.1
-      - 2606:4700:4700::1111
-      - 2606:4700:4700::1001
+    dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
       ES_JAVA_OPTS: "-Dlog4j2.formatMsgNoLookups=true -Xmx256m -Xms256m"
@@ -247,11 +223,7 @@ services:
     networks:
       opnsense-dashboard:
         ipv4_address: 10.90.0.50
-    dns:
-      - 1.1.1.1
-      - 1.0.0.1
-      - 2606:4700:4700::1111
-      - 2606:4700:4700::1001
+    dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
@@ -271,11 +243,7 @@ services:
     networks:
       opnsense-dashboard:
         ipv4_address: 10.90.0.56
-    dns:
-      - 1.1.1.1
-      - 1.0.0.1
-      - 2606:4700:4700::1111
-      - 2606:4700:4700::1001
+    dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
       SERVER_NAME: "kibana"
