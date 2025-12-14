@@ -1,44 +1,44 @@
 # https://www.bsmithio.com/post/opnsense-dashboard/#docker
 services:
   # https://hub.docker.com/_/mongo
-    mongodb:
-        container_name: mongodb
-        image: mongo:5.0.12
-        restart: unless-stopped
-        networks:
-            opnsense-dashboard:
-                ipv4_address: 10.90.0.27
-        dns:
-            - 1.1.1.1
-            - 1.0.0.1
-            - 2606:4700:4700::1111
-            - 2606:4700:4700::1001
-        environment:
-            TZ: "Europe/Berlin"
-        volumes:
-            - mongodb-data:/data/db
-            - mongodb-conf:/data/configdb
+  mongodb:
+    container_name: mongodb
+    image: mongo:5.0.12
+    restart: unless-stopped
+    networks:
+      opnsense-dashboard:
+        ipv4_address: 10.90.0.27
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
+      - 2606:4700:4700::1111
+      - 2606:4700:4700::1001
+    environment:
+      TZ: "Europe/Berlin"
+    volumes:
+      - mongodb-data:/data/db
+      - mongodb-conf:/data/configdb
 
   # https://hub.docker.com/_/influxdb
-    influxdb2:
-        container_name: influxdb2
-        image: influxdb:2.4
-        restart: unless-stopped
-        ports:
-            - '8086:8086'
-        networks:
-            opnsense-dashboard:
-                ipv4_address: 10.90.0.86
-        dns:
-            - 1.1.1.1
-            - 1.0.0.1
-            - 2606:4700:4700::1111
-            - 2606:4700:4700::1001
-        environment:
-            TZ: "Europe/Berlin"
-        volumes:
-            - influxdb2-data:/var/lib/influxdb2
-            - influxdb2-conf:/etc/influxdb2
+  influxdb2:
+    container_name: influxdb2
+    image: influxdb:2.4
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    networks:
+      opnsense-dashboard:
+        ipv4_address: 10.90.0.86
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
+      - 2606:4700:4700::1111
+      - 2606:4700:4700::1001
+    environment:
+      TZ: "Europe/Berlin"
+    volumes:
+      - influxdb2-data:/var/lib/influxdb2
+      - influxdb2-conf:/etc/influxdb2
 
   # https://hub.docker.com/_/influxdb
   # !!! doesn't work with docker rootless !!!
@@ -65,69 +65,69 @@ services:
   #         - /run/user/2000/docker.sock:/var/run/docker.sock
 
   # https://hub.docker.com/r/grafana/grafana
-    grafana:
-        container_name: grafana
-        image: grafana/grafana:9.1.4
-        restart: unless-stopped
-        ports:
-            - '3000:3000'
-        networks:
-            opnsense-dashboard:
-                ipv4_address: 10.90.0.30
-        dns:
-            - 1.1.1.1
-            - 1.0.0.1
-            - 2606:4700:4700::1111
-            - 2606:4700:4700::1001
-        environment:
-            TZ: "Europe/Berlin"
-            GF_SECURITY_ADMIN_USER: 'grafana'
-            GF_SECURITY_ADMIN_PASSWORD: '<GF_SECURITY_ADMIN_PASSWORD>'
-            GF_INSTALL_PLUGINS: 'grafana-worldmap-panel'
-        volumes:
-            - grafana-data:/var/lib/grafana
-        depends_on:
-            - influxdb
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:9.1.4
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    networks:
+      opnsense-dashboard:
+        ipv4_address: 10.90.0.30
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
+      - 2606:4700:4700::1111
+      - 2606:4700:4700::1001
+    environment:
+      TZ: "Europe/Berlin"
+      GF_SECURITY_ADMIN_USER: "grafana"
+      GF_SECURITY_ADMIN_PASSWORD: "<GF_SECURITY_ADMIN_PASSWORD>"
+      GF_INSTALL_PLUGINS: "grafana-worldmap-panel"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - influxdb
 
   # https://hub.docker.com/r/grafana/loki
-    grafana-loki:
-        container_name: grafana-loki
-        image: grafana/loki:2.6.1
-        restart: unless-stopped
-        command: -config.file=/etc/loki/local-config.yaml
-        ports:
-            - "3100:3100"
-        networks:
-            opnsense-dashboard:
-                ipv4_address: 10.90.0.31
-        dns:
-            - 1.1.1.1
-            - 1.0.0.1
-            - 2606:4700:4700::1111
-            - 2606:4700:4700::1001
-        environment:
-            TZ: "Europe/Berlin"
-        volumes:
-            - grafana-loki-conf:/etc/loki/
+  grafana-loki:
+    container_name: grafana-loki
+    image: grafana/loki:2.6.1
+    restart: unless-stopped
+    command: -config.file=/etc/loki/local-config.yaml
+    ports:
+      - "3100:3100"
+    networks:
+      opnsense-dashboard:
+        ipv4_address: 10.90.0.31
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
+      - 2606:4700:4700::1111
+      - 2606:4700:4700::1001
+    environment:
+      TZ: "Europe/Berlin"
+    volumes:
+      - grafana-loki-conf:/etc/loki/
 
   # https://hub.docker.com/r/grafana/promtail
-    grafana-promtail:
-        container_name: grafana-promtail
-        image: grafana/promtail:2.6.1
-        restart: unless-stopped
-        command: -config.file=/etc/promtail/config.yml
-        networks:
-            opnsense-dashboard:
-                ipv4_address: 10.90.0.32
-        dns:
-            - 1.1.1.1
-            - 1.0.0.1
-            - 2606:4700:4700::1111
-            - 2606:4700:4700::1001
-        environment:
-            TZ: "Europe/Berlin"
-        volumes:
-            - grafana-promtail-conf:/etc/promtail/
+  grafana-promtail:
+    container_name: grafana-promtail
+    image: grafana/promtail:2.6.1
+    restart: unless-stopped
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      opnsense-dashboard:
+        ipv4_address: 10.90.0.32
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
+      - 2606:4700:4700::1111
+      - 2606:4700:4700::1001
+    environment:
+      TZ: "Europe/Berlin"
+    volumes:
+      - grafana-promtail-conf:/etc/promtail/
 
   # https://hub.docker.com/r/graylog/graylog
   # !!! only supports elasticsearch <= 7.10.x !!!
@@ -182,145 +182,152 @@ services:
   #         - elasticsearch
 
   # https://hub.docker.com/_/elasticsearch
-    elasticsearch:
-        container_name: elasticsearch
-        image: elasticsearch:8.4.1
-        restart: unless-stopped
-      # ulimits:
-      #     memlock:
-      #         soft: -1
-      #             hard: -1
-      # deploy:
-      #     resources:
-      #         limits:
-      #             memory: 1g
-        ports:
-            - "9200:9200"
-            - "9300:9300"
-        networks:
-            opnsense-dashboard:
-                ipv4_address: 10.90.0.92
-        dns:
-            - 1.1.1.1
-            - 1.0.0.1
-            - 2606:4700:4700::1111
-            - 2606:4700:4700::1001
-        environment:
-            TZ: "Europe/Berlin"
-            ES_JAVA_OPTS: '-Dlog4j2.formatMsgNoLookups=true -Xmx256m -Xms256m'
-            MEM_LIMIT: '1073741824'
-            xpack.security.enabled: 'true'
-            ELASTIC_PASSWORD: '<ELASTIC_PASSWORD>'
-            ES_PORT: '9200'
-            KIBANA_PASSWORD: '<KIBANA_SYSTEM_PASSWORD>'
-            # if the kibana_system password doesn't work, set it on the host with:
-            # docker container exec -it elasticsearch /usr/share/elasticsearch/bin/elasticsearch-reset-password -u kibana_system
-            KIBANA_PORT: '5601'
-            LOGSTASH_INTERNAL_PASSWORD: '<LOGSTASH_INTERNAL_PASSWORD>'
-            LICENSE: 'basic'
-            discovery.type: 'single-node'
-            http.host: '0.0.0.0'
-            transport.host: 'localhost'
-            network.host: '0.0.0.0'
-          # node.max_local_storage_nodes: 4
-        volumes:
-            - elasticsearch-data:/usr/share/elasticsearch/data
-        healthcheck:
-            test: [ "CMD-SHELL", "curl -s --cacert config/certs/ca/ca.crt https://localhost:9200 | grep -q 'missing authentication credentials'", ]
-            interval: 10s
-            timeout: 10s
-            retries: 120
+  elasticsearch:
+    container_name: elasticsearch
+    image: elasticsearch:8.4.1
+    restart: unless-stopped
+    # ulimits:
+    #     memlock:
+    #         soft: -1
+    #             hard: -1
+    # deploy:
+    #     resources:
+    #         limits:
+    #             memory: 1g
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      opnsense-dashboard:
+        ipv4_address: 10.90.0.92
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
+      - 2606:4700:4700::1111
+      - 2606:4700:4700::1001
+    environment:
+      TZ: "Europe/Berlin"
+      ES_JAVA_OPTS: "-Dlog4j2.formatMsgNoLookups=true -Xmx256m -Xms256m"
+      MEM_LIMIT: "1073741824"
+      xpack.security.enabled: "true"
+      ELASTIC_PASSWORD: "<ELASTIC_PASSWORD>"
+      ES_PORT: "9200"
+      KIBANA_PASSWORD: "<KIBANA_SYSTEM_PASSWORD>"
+      # if the kibana_system password doesn't work, set it on the host with:
+      # docker container exec -it elasticsearch /usr/share/elasticsearch/bin/elasticsearch-reset-password -u kibana_system
+      KIBANA_PORT: "5601"
+      LOGSTASH_INTERNAL_PASSWORD: "<LOGSTASH_INTERNAL_PASSWORD>"
+      LICENSE: "basic"
+      discovery.type: "single-node"
+      http.host: "0.0.0.0"
+      transport.host: "localhost"
+      network.host: "0.0.0.0"
+      # node.max_local_storage_nodes: 4
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -s --cacert config/certs/ca/ca.crt https://localhost:9200 | grep -q 'missing authentication credentials'",
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 120
 
   # https://hub.docker.com/_/logstash
-    logstash:
-        container_name: logstash
-        image: logstash:8.4.1
-        restart: unless-stopped
-        ports:
-            - "5000:5000/tcp"
-            - "5000:5000/udp"
-            - "9600:9600"
-        networks:
-            opnsense-dashboard:
-                ipv4_address: 10.90.0.50
-        dns:
-            - 1.1.1.1
-            - 1.0.0.1
-            - 2606:4700:4700::1111
-            - 2606:4700:4700::1001
-        environment:
-            TZ: "Europe/Berlin"
-            LS_JAVA_OPTS: "-Xmx256m -Xms256m"
-        volumes:
-            - logstash-pipeline:/usr/share/logstash/pipeline
-          # - /home/docker/config-files/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
-        depends_on:
-            - elasticsearch
+  logstash:
+    container_name: logstash
+    image: logstash:8.4.1
+    restart: unless-stopped
+    ports:
+      - "5000:5000/tcp"
+      - "5000:5000/udp"
+      - "9600:9600"
+    networks:
+      opnsense-dashboard:
+        ipv4_address: 10.90.0.50
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
+      - 2606:4700:4700::1111
+      - 2606:4700:4700::1001
+    environment:
+      TZ: "Europe/Berlin"
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    volumes:
+      - logstash-pipeline:/usr/share/logstash/pipeline
+      # - /home/docker/config-files/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+    depends_on:
+      - elasticsearch
 
   # https://hub.docker.com/_/kibana
-    kibana:
-        container_name: kibana
-        image: kibana:8.4.1
-        restart: unless-stopped
-        ports:
-            - "5601:5601"
-        networks:
-            opnsense-dashboard:
-                ipv4_address: 10.90.0.56
-        dns:
-            - 1.1.1.1
-            - 1.0.0.1
-            - 2606:4700:4700::1111
-            - 2606:4700:4700::1001
-        environment:
-            TZ: "Europe/Berlin"
-            SERVER_NAME: 'kibana'
-            SERVER_HOST: '0.0.0.0'
-            SERVER_BASEPATH: ''
-            ELASTICSEARCH_USERNAME: 'kibana_system'
-            ELASTICSEARCH_PASSWORD: '<KIBANA_SYSTEM_PASSWORD>'
-            ELASTICSEARCH_HOSTS: 'http://elasticsearch:9200'
-            xpack.security.enabled: 'true'
-        healthcheck:
-            test: 
-                [ "CMD-SHELL", "curl -s -I http://localhost:5601 | grep -q 'HTTP/1.1 302 Found'", ]
-            interval: 10s
-            timeout: 10s
-            retries: 120
-        depends_on:
-            - elasticsearch
+  kibana:
+    container_name: kibana
+    image: kibana:8.4.1
+    restart: unless-stopped
+    ports:
+      - "5601:5601"
+    networks:
+      opnsense-dashboard:
+        ipv4_address: 10.90.0.56
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
+      - 2606:4700:4700::1111
+      - 2606:4700:4700::1001
+    environment:
+      TZ: "Europe/Berlin"
+      SERVER_NAME: "kibana"
+      SERVER_HOST: "0.0.0.0"
+      SERVER_BASEPATH: ""
+      ELASTICSEARCH_USERNAME: "kibana_system"
+      ELASTICSEARCH_PASSWORD: "<KIBANA_SYSTEM_PASSWORD>"
+      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+      xpack.security.enabled: "true"
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -s -I http://localhost:5601 | grep -q 'HTTP/1.1 302 Found'",
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+    depends_on:
+      - elasticsearch
 
 networks:
-    opnsense-dashboard:
-        name: opnsense-dashboard
-        ipam:
-            driver: default
-            config:
-                - subnet: "10.90.0.0/20"
-                  gateway: 10.90.0.1
+  opnsense-dashboard:
+    name: opnsense-dashboard
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.90.0.0/20"
+          gateway: 10.90.0.1
 
 volumes:
-    mongodb-data:
-        name: mongodb-data
-    mongodb-conf:
-        name: mongodb-conf       
-    influxdb2-data:
-        name: influxdb2-data
-    influxdb2-conf:
-        name: influxdb2-conf
+  mongodb-data:
+    name: mongodb-data
+  mongodb-conf:
+    name: mongodb-conf
+  influxdb2-data:
+    name: influxdb2-data
+  influxdb2-conf:
+    name: influxdb2-conf
   # telegraf-conf:
   #     name: telegraf-conf
-    grafana-data:
-        name: grafana-data
-    grafana-loki-conf:
-        name: grafana-loki-conf    
-    grafana-promtail-conf:
-        name: grafana-promtail-conf        
+  grafana-data:
+    name: grafana-data
+  grafana-loki-conf:
+    name: grafana-loki-conf
+  grafana-promtail-conf:
+    name: grafana-promtail-conf
   # graylog-data:
   #     name: graylog-data
   # graylog-conf:
   #     name: graylog-conf
-    elasticsearch-data:
-        name: elasticsearch-data
-    logstash-pipeline:
-        name: logstash-pipeline
+  elasticsearch-data:
+    name: elasticsearch-data
+  logstash-pipeline:
+    name: logstash-pipeline

@@ -7,17 +7,17 @@ services:
     restart: unless-stopped
     networks:
       mariadb:
-        ipv4_address: '10.20.0.2'
+        ipv4_address: "10.20.0.2"
     # ports:
     #   - '3306:3306'
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      MYSQL_ROOT_PASSWORD: '<MYSQL_ROOT_PASSWORD>'
-      TZ: 'Europe/Berlin'
+      MYSQL_ROOT_PASSWORD: "<MYSQL_ROOT_PASSWORD>"
+      TZ: "Europe/Berlin"
     volumes:
       - mariadb-data:/var/lib/mysql
       - mariadb-conf:/etc/mysql/mariadb.conf.d
@@ -29,19 +29,19 @@ services:
     restart: unless-stopped
     networks:
       mariadb:
-        ipv4_address: '10.20.0.3'
+        ipv4_address: "10.20.0.3"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     ports:
-      - '2200:80'
+      - "2200:80"
     environment:
-      MYSQL_ROOT_PASSWORD: '<MYSQL_ROOT_PASSWORD>'
-      PMA_ARBITRARY: '1'
-      PMA_HOST: 'mariadb'
-      PMA_VERBOSE: 'mariadb'
+      MYSQL_ROOT_PASSWORD: "<MYSQL_ROOT_PASSWORD>"
+      PMA_ARBITRARY: "1"
+      PMA_HOST: "mariadb"
+      PMA_VERBOSE: "mariadb"
     volumes:
       - /opt/docker/config-files/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
       - /opt/docker/config-files/phpmyadmin/php.ini:/usr/local/etc/php/conf.d/php.ini
@@ -52,8 +52,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.20.0.0/20'
-          gateway: '10.20.0.1'
+        - subnet: "10.20.0.0/20"
+          gateway: "10.20.0.1"
 
 volumes:
   mariadb-conf:

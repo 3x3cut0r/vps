@@ -7,14 +7,14 @@ services:
     command: mongod --logpath /dev/null --oplogSize 128 --quiet
     networks:
       wekan:
-        ipv4_address: '10.24.13.3'
+        ipv4_address: "10.24.13.3"
     # ports:
     #   - '27017'
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
@@ -28,17 +28,17 @@ services:
     restart: unless-stopped
     networks:
       wekan:
-        ipv4_address: '10.24.13.2'
+        ipv4_address: "10.24.13.2"
     ports:
       - 2113:8080
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      MONGO_URL: 'mongodb://wekan-mongo:27017/wekan'
-      ROOT_URL: 'http://wekan.3x3cut0r.de'
+      MONGO_URL: "mongodb://wekan-mongo:27017/wekan"
+      ROOT_URL: "http://wekan.3x3cut0r.de"
     depends_on:
       - wekan-mongo
     volumes:
@@ -51,8 +51,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.24.13.0/24'
-          gateway: '10.24.13.1'
+        - subnet: "10.24.13.0/24"
+          gateway: "10.24.13.1"
 
 volumes:
   wekan-mongo-data:

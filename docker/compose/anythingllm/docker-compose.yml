@@ -8,36 +8,36 @@ services:
     cap_add:
       - SYS_ADMIN
     ports:
-      - '2135:3001'
+      - "2135:3001"
     networks:
       anythingllm:
-        ipv4_address: '10.24.35.2'
+        ipv4_address: "10.24.35.2"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment: # https://github.com/Mintplex-Labs/anything-llm/blob/master/docker/.env.example
       SERVER_PORT: 3001
-      STORAGE_DIR: '/app/server/storage'
+      STORAGE_DIR: "/app/server/storage"
       UID: 1000
       GID: 1000
       GENERATE_SOURCEMAP: false
-      VITE_API_BASE: 'http://anythingllm.3x3cut0r.de/api'
-      AUTH_TOKEN: '<AUTH_TOKEN>'
-      JWT_SECRET: '<my-random-string-for-seeding>'
+      VITE_API_BASE: "http://anythingllm.3x3cut0r.de/api"
+      AUTH_TOKEN: "<AUTH_TOKEN>"
+      JWT_SECRET: "<my-random-string-for-seeding>"
       # LLM API SElECTION
-      LLM_PROVIDER: 'openai'
-      OPEN_AI_KEY: '<sk-1234>'
-      OPEN_MODEL_PREF: 'gpt-4-turbo-preview'
+      LLM_PROVIDER: "openai"
+      OPEN_AI_KEY: "<sk-1234>"
+      OPEN_MODEL_PREF: "gpt-4-turbo-preview"
       # Embedding API SElECTION
-      EMBEDDING_ENGINE: 'openai'
-      EMBEDDING_MODEL_PREF: 'text-embedding-3-small'
+      EMBEDDING_ENGINE: "openai"
+      EMBEDDING_MODEL_PREF: "text-embedding-3-small"
       # Vector Database Selection
-      VECTOR_DB: 'qdrant'
-      QDRANT_ENDPOINT: 'http://qdrant:6333'
+      VECTOR_DB: "qdrant"
+      QDRANT_ENDPOINT: "http://qdrant:6333"
       # Audio Model Selection
-      WHISPER_PROVIDER: 'openai'
+      WHISPER_PROVIDER: "openai"
     volumes:
       - anythingllm-data:/app/server/storage
     depends_on:
@@ -54,12 +54,12 @@ services:
     #   - '6334:6334'
     networks:
       anythingllm:
-        ipv4_address: '10.24.35.3'
+        ipv4_address: "10.24.35.3"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     volumes:
       - qdrant-data:/qdrant/storage
 
@@ -69,8 +69,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.24.35.0/24'
-          gateway: '10.24.35.1'
+        - subnet: "10.24.35.0/24"
+          gateway: "10.24.35.1"
 
 volumes:
   anythingllm-data:

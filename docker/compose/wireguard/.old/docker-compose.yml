@@ -9,30 +9,30 @@ services:
       - NET_ADMIN
       - SYS_MODULE
     sysctls:
-      net.ipv4.conf.all.src_valid_mark: '1'
+      net.ipv4.conf.all.src_valid_mark: "1"
     ports:
-      - '51820:51820/udp'
+      - "51820:51820/udp"
     networks:
       wireguard:
-        ipv4_address: '10.20.240.2'
+        ipv4_address: "10.20.240.2"
       # pihole:
       #   ipv4_address: '10.20.208.8'
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
       TZ: Europe/Berlin
-      PUID: '1000'
-      PGID: '1000'
-      SERVERURL: 'wireguard.3x3cut0r.de' #optional
-      SERVERPORT: '51820' #optional
-      PEERS: '1' #optional
-      PEERDNS: '10.20.208.3' # = pihole, auto = 8.8.8.8
-      INTERNAL_SUBNET: '10.20.240.0/20' #optional
-      ALLOWEDIPS: '0.0.0.0/0, ::0/0' #optional
-      PERSISTENTKEEPALIVE_PEERS: '25'
+      PUID: "1000"
+      PGID: "1000"
+      SERVERURL: "wireguard.3x3cut0r.de" #optional
+      SERVERPORT: "51820" #optional
+      PEERS: "1" #optional
+      PEERDNS: "10.20.208.3" # = pihole, auto = 8.8.8.8
+      INTERNAL_SUBNET: "10.20.240.0/20" #optional
+      ALLOWEDIPS: "0.0.0.0/0, ::0/0" #optional
+      PERSISTENTKEEPALIVE_PEERS: "25"
     volumes:
       - /lib/modules:/lib/modules
       - wireguard-conf:/config
@@ -45,39 +45,39 @@ services:
     cap_add:
       - NET_ADMIN
     ports:
-      - '2215:5000'
+      - "2215:5000"
     networks:
       wireguard:
-        ipv4_address: '10.20.240.3'
+        ipv4_address: "10.20.240.3"
       # pihole:
       #   ipv4_address: '10.20.208.9'
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      BIND_ADDRESS: '0.0.0.0:5000'
-      SENDGRID_API_KEY: '<SENDGRID_API_KEY>'
-      EMAIL_FROM_ADDRESS: 'executor55@gmx.de'
-      EMAIL_FROM_NAME: '3x3cut0r'
-      SESSION_SECRET: '<SESSION_SECRET>'
-      WGUI_USERNAME: 'admin'
-      WGUI_PASSWORD: '<WGUI_PASSWORD>'
-      WGUI_DNS: '1.1.1.1'
-      WGUI_PERSISTENT_KEEPALIVE: '25'
-      WGUI_FORWARD_MARK: '0xca6c'
-      WGUI_CONFIG_FILE_PATH: '/etc/wireguard/wg0.conf'
+      BIND_ADDRESS: "0.0.0.0:5000"
+      SENDGRID_API_KEY: "<SENDGRID_API_KEY>"
+      EMAIL_FROM_ADDRESS: "executor55@gmx.de"
+      EMAIL_FROM_NAME: "3x3cut0r"
+      SESSION_SECRET: "<SESSION_SECRET>"
+      WGUI_USERNAME: "admin"
+      WGUI_PASSWORD: "<WGUI_PASSWORD>"
+      WGUI_DNS: "1.1.1.1"
+      WGUI_PERSISTENT_KEEPALIVE: "25"
+      WGUI_FORWARD_MARK: "0xca6c"
+      WGUI_CONFIG_FILE_PATH: "/etc/wireguard/wg0.conf"
       # defaults for server configuration
-      WGUI_SERVER_INTERFACE_ADDRESSES: '10.40.0.0/24'
-      WGUI_SERVER_LISTEN_PORT: '51820'
-      WGUI_SERVER_POST_UP_SCRIPT: 'iptables -A FORWARD -i %1 -j ACCEPT; iptables -A FORWARD -o wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth+ -j MASQUERADE'
-      WGUI_SERVER_POST_DOWN_SCRIPT: 'iptables -D FORWARD -i %1 -j ACCEPT; iptables -D FORWARD -o wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth+ -j MASQUERADE'
+      WGUI_SERVER_INTERFACE_ADDRESSES: "10.40.0.0/24"
+      WGUI_SERVER_LISTEN_PORT: "51820"
+      WGUI_SERVER_POST_UP_SCRIPT: "iptables -A FORWARD -i %1 -j ACCEPT; iptables -A FORWARD -o wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth+ -j MASQUERADE"
+      WGUI_SERVER_POST_DOWN_SCRIPT: "iptables -D FORWARD -i %1 -j ACCEPT; iptables -D FORWARD -o wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth+ -j MASQUERADE"
       # defaults to new clients
-      WGUI_DEFAULT_CLIENT_ALLOWED_IPS: '0.0.0.0/0'
+      WGUI_DEFAULT_CLIENT_ALLOWED_IPS: "0.0.0.0/0"
       # docker only
-      WGUI_MANAGE_START: 'false'
-      WGUI_MANAGE_RESTART: 'false'
+      WGUI_MANAGE_START: "false"
+      WGUI_MANAGE_RESTART: "false"
     volumes:
       - wireguard-conf:/app/db
       - wireguard-conf:/config
@@ -90,8 +90,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.20.240.0/20'
-          gateway: '10.20.240.1'
+        - subnet: "10.20.240.0/20"
+          gateway: "10.20.240.1"
   # pihole:
   #   name: pihole
   #   external: true

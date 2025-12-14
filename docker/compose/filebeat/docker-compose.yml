@@ -7,10 +7,10 @@ services:
     restart: unless-stopped
     user: root
     environment:
-      TZ: 'Europe/Berlin'
-      ELASTICSEARCH_HOSTS: 'elasticsearch:9200'
-      ELASTICSEARCH_USERNAME: 'elastic'
-      ELASTICSEARCH_PASSWORD: '<ELASTICSEARCH_PASSWORD>'
+      TZ: "Europe/Berlin"
+      ELASTICSEARCH_HOSTS: "elasticsearch:9200"
+      ELASTICSEARCH_USERNAME: "elastic"
+      ELASTICSEARCH_PASSWORD: "<ELASTICSEARCH_PASSWORD>"
     volumes:
       - /opt/docker/config-files/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro

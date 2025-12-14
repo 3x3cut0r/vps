@@ -6,20 +6,20 @@ services:
     image: linuxserver/heimdall:latest
     restart: unless-stopped
     ports:
-      - '2128:80'
+      - "2128:80"
       # - "443:443"
     networks:
       heimdall:
-        ipv4_address: '10.24.28.2'
+        ipv4_address: "10.24.28.2"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      TZ: 'Europe/Berlin'
-      UID: '1000'
-      GID: '1000'
+      TZ: "Europe/Berlin"
+      UID: "1000"
+      GID: "1000"
     volumes:
       - heimdall-conf:/config
 
@@ -29,8 +29,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.24.28.0/24'
-          gateway: '10.24.28.1'
+        - subnet: "10.24.28.0/24"
+          gateway: "10.24.28.1"
 
 volumes:
   heimdall-conf:

@@ -1,14 +1,14 @@
 services:
   api:
     environment:
-      CONFIG_PATH: '/app/librechat.yaml'
-      ANTHROPIC_API_KEY: 'user_provided'
-      BINGAI_TOKEN: 'user_provided'
-      GOOGLE_KEY: 'user_provided'
-      OPENAI_API_KEY: 'user_provided'
+      CONFIG_PATH: "/app/librechat.yaml"
+      ANTHROPIC_API_KEY: "user_provided"
+      BINGAI_TOKEN: "user_provided"
+      GOOGLE_KEY: "user_provided"
+      OPENAI_API_KEY: "user_provided"
       # OPENAI_REVERSE_PROXY: 'http://litellm:8000/v1/chat/completions'
-      MISTRAL_API_KEY: 'user_provided'
-      OPENROUTER_KEY: 'user_provided'
+      MISTRAL_API_KEY: "user_provided"
+      OPENROUTER_KEY: "user_provided"
     volumes:
       - ./librechat.yaml:/app/librechat.yaml
   meilisearch:

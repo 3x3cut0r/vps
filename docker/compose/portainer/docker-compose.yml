@@ -6,17 +6,17 @@ services:
     restart: always
     networks:
       portainer:
-        ipv4_address: '10.24.1.2'
+        ipv4_address: "10.24.1.2"
     ports:
       # - '8000:8000'
-      - '2101:9000'
+      - "2101:9000"
     environment:
-      COMPOSE_HTTP_TIMEOUT: '240'
+      COMPOSE_HTTP_TIMEOUT: "240"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer-data:/data
@@ -27,8 +27,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.24.1.0/24'
-          gateway: '10.24.1.1'
+        - subnet: "10.24.1.0/24"
+          gateway: "10.24.1.1"
 
 volumes:
   portainer-data:

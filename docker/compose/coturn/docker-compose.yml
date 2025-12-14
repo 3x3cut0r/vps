@@ -5,7 +5,7 @@ services:
     container_name: coturn
     image: coturn/coturn:latest
     restart: unless-stopped
-    command: '-c /etc/coturn/turnserver.conf'
+    command: "-c /etc/coturn/turnserver.conf"
     network_mode: host # for docker rootful only!
     # ports:
     #   - "2214:8214" # web-admin
@@ -18,12 +18,12 @@ services:
     #   coturn:
     #     ipv4_address: '10.20.224.2'
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      TZ: 'Europe/Berlin'
+      TZ: "Europe/Berlin"
     volumes:
       - /opt/docker/config-files/coturn/turnserver.conf:/etc/coturn/turnserver.conf
       - /opt/certs/cert.pem:/etc/coturn/cert.pem
@@ -42,13 +42,13 @@ services:
     # ports:
     #   - '3306:3306'
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      MYSQL_ROOT_PASSWORD: '<MYSQL_ROOT_PASSWORD>'
-      TZ: 'Europe/Berlin'
+      MYSQL_ROOT_PASSWORD: "<MYSQL_ROOT_PASSWORD>"
+      TZ: "Europe/Berlin"
     volumes:
       - /opt/docker/config-files/mariadb/00-schema.sql:/docker-entrypoint-initdb.d/00-schema.sql
       - /opt/docker/config-files/mariadb/01-user.sql:/docker-entrypoint-initdb.d/01-user.sql
@@ -68,28 +68,28 @@ services:
     #   coturn:
     #     ipv4_address: '10.20.224.3'
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      TZ: 'Europe/Berlin'
-      HTTP_LISTEN: '127.0.0.1:8080'
+      TZ: "Europe/Berlin"
+      HTTP_LISTEN: "127.0.0.1:8080"
       # HTTPS_LISTEN: '127.0.0.1:8443'
-      HASH_KEY: '<HASH_KEY>'
-      BLOCK_KEY: '<BLOCK_KEY>'
-      INTERNAL_SHARED_SECRET_KEY: '<INTERNAL_SHARED_SECRET_KEY>'
-      BACKENDS: '1'
-      BACKEND_1_URL: 'https://nextcloud.3x3cut0r.de'
-      BACKEND_1_SHARED_SECRET: '<BACKEND_1_SHARED_SECRET>'
-      STATS_IPS: '192.168.40.214'
-      TURN_API_KEY: '<TURN_API_KEY>'
-      TURN_SECRET: '<TURN_SECRET>'
-      TURN_SERVERS: 'turn:turn.3x3cut0r.de:3468'
-      USE_JANUS: '1'
-      JANUS_URL: 'ws://192.168.40.214:8188'
-      NATS_URL: 'nats://natsuser:<NATS_PASSWORD>@192.168.40.214:4222'
-      GEOIP_LICENSE: '<GEOIP_LICENSE>'
+      HASH_KEY: "<HASH_KEY>"
+      BLOCK_KEY: "<BLOCK_KEY>"
+      INTERNAL_SHARED_SECRET_KEY: "<INTERNAL_SHARED_SECRET_KEY>"
+      BACKENDS: "1"
+      BACKEND_1_URL: "https://nextcloud.3x3cut0r.de"
+      BACKEND_1_SHARED_SECRET: "<BACKEND_1_SHARED_SECRET>"
+      STATS_IPS: "192.168.40.214"
+      TURN_API_KEY: "<TURN_API_KEY>"
+      TURN_SECRET: "<TURN_SECRET>"
+      TURN_SERVERS: "turn:turn.3x3cut0r.de:3468"
+      USE_JANUS: "1"
+      JANUS_URL: "ws://192.168.40.214:8188"
+      NATS_URL: "nats://natsuser:<NATS_PASSWORD>@192.168.40.214:4222"
+      GEOIP_LICENSE: "<GEOIP_LICENSE>"
     volumes:
       - /opt/certs/fullchain.pem:/etc/nginx/ssl/server.crt
       - /opt/certs/privkey.pem:/etc/nginx/ssl/server.key
@@ -100,7 +100,7 @@ services:
     image: canyan/janus-gateway:latest
     restart: unless-stopped
     network_mode: host
-    command: 'janus --full-trickle --stun-server=192.168.40.214:3468'
+    command: "janus --full-trickle --stun-server=192.168.40.214:3468"
     # ports:
     #   - '8088:8088' # HTTP webserver
     #   - '8188:8188' # WebSockets server
@@ -108,14 +108,14 @@ services:
     #   coturn:
     #     ipv4_address: '10.20.224.10'
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      TZ: 'Europe/Berlin'
+      TZ: "Europe/Berlin"
     volumes:
-      - '/opt/docker/config-files/janus/janus.jcfg:/usr/local/etc/janus/janus.jcfg'
+      - "/opt/docker/config-files/janus/janus.jcfg:/usr/local/etc/janus/janus.jcfg"
     #   - "./etc/janus/janus.eventhandler.sampleevh.jcfg:/usr/local/etc/janus/janus.eventhandler.sampleevh.jcfg"
 
   # https://github.com/nats-io/nats-server
@@ -124,7 +124,7 @@ services:
     image: nats:2-alpine
     restart: unless-stopped
     network_mode: host
-    command: '--port=4222 --log_size_limit=2048 --cluster_name=nats_cluster --user=natsuser --pass=<NATS_PASSWORD>'
+    command: "--port=4222 --log_size_limit=2048 --cluster_name=nats_cluster --user=natsuser --pass=<NATS_PASSWORD>"
     # ports:
     #   - '4222:4222' # client connections
     #   - '6222:6222' # route connections
@@ -133,12 +133,12 @@ services:
     #   coturn:
     #     ipv4_address: '10.20.224.42'
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      TZ: 'Europe/Berlin'
+      TZ: "Europe/Berlin"
 
 # networks:
 #   coturn:

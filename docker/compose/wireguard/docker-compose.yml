@@ -8,24 +8,24 @@ services:
       - NET_ADMIN
     network_mode: host
     environment:
-      BIND_ADDRESS: '0.0.0.0:5000'
-      SESSION_SECRET: '<SESSION_SECRET>'
-      WGUI_USERNAME: 'admin'
-      WGUI_PASSWORD: '<WGUI_PASSWORD>'
-      WGUI_ENDPOINT_ADDRESS: 'wireguard.3x3cut0r.synology.me:51820'
-      WGUI_DNS: '8.8.8.8'
-      WGUI_PERSISTENT_KEEPALIVE: '25'
-      WGUI_CONFIG_FILE_PATH: '/etc/wireguard/wg0.conf'
+      BIND_ADDRESS: "0.0.0.0:5000"
+      SESSION_SECRET: "<SESSION_SECRET>"
+      WGUI_USERNAME: "admin"
+      WGUI_PASSWORD: "<WGUI_PASSWORD>"
+      WGUI_ENDPOINT_ADDRESS: "wireguard.3x3cut0r.synology.me:51820"
+      WGUI_DNS: "8.8.8.8"
+      WGUI_PERSISTENT_KEEPALIVE: "25"
+      WGUI_CONFIG_FILE_PATH: "/etc/wireguard/wg0.conf"
       # defaults for server configuration
-      WGUI_SERVER_INTERFACE_ADDRESSES: '10.7.0.1/24'
-      WGUI_SERVER_LISTEN_PORT: '51820'
-      WGUI_SERVER_POST_UP_SCRIPT: 'iptables -A FORWARD -i %1 -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth+ -j MASQUERADE'
-      WGUI_SERVER_POST_DOWN_SCRIPT: 'iptables -D FORWARD -i %1 -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth+ -j MASQUERADE'
+      WGUI_SERVER_INTERFACE_ADDRESSES: "10.7.0.1/24"
+      WGUI_SERVER_LISTEN_PORT: "51820"
+      WGUI_SERVER_POST_UP_SCRIPT: "iptables -A FORWARD -i %1 -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth+ -j MASQUERADE"
+      WGUI_SERVER_POST_DOWN_SCRIPT: "iptables -D FORWARD -i %1 -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth+ -j MASQUERADE"
       # defaults to new clients
-      WGUI_DEFAULT_CLIENT_ALLOWED_IPS: '0.0.0.0/0'
+      WGUI_DEFAULT_CLIENT_ALLOWED_IPS: "0.0.0.0/0"
       # docker only
-      WGUI_MANAGE_START: 'false'
-      WGUI_MANAGE_RESTART: 'true'
+      WGUI_MANAGE_START: "false"
+      WGUI_MANAGE_RESTART: "true"
     volumes:
       - /opt/wireguard/db:/app/db
       - /etc/wireguard:/etc/wireguard
@@ -36,8 +36,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.20.240.0/24'
-          gateway: '10.20.240.1'
+        - subnet: "10.20.240.0/24"
+          gateway: "10.20.240.1"
 
 volumes:
   wireguard-conf:

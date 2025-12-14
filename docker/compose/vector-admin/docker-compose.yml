@@ -7,26 +7,26 @@ services:
     image: 3x3cut0r/vector-admin:latest
     restart: unless-stopped
     ports:
-      - '2138:3001'
-      - '3355:3355'
-      - '8288:8288'
+      - "2138:3001"
+      - "3355:3355"
+      - "8288:8288"
     networks:
       vector-admin:
-        ipv4_address: '10.24.38.2'
+        ipv4_address: "10.24.38.2"
       anythingllm:
-        ipv4_address: '10.24.35.100'
+        ipv4_address: "10.24.35.100"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment: # https://github.com/Mintplex-Labs/vector-admin/blob/master/docker/.env.example
       SERVER_PORT: 3001
-      DATABASE_CONNECTION_STRING: 'postgresql://vectoradmin:<POSTGRES_PASSWORD>@vector-admin-postgres:5432/vectoradmin'
-      JWT_SECRET: '<your-random-string-here>'
-      INNGEST_EVENT_KEY: 'background_workers'
-      INNGEST_SIGNING_KEY: '<random-string-goes-here>'
-      INNGEST_LANDING_PAGE: 'true'
+      DATABASE_CONNECTION_STRING: "postgresql://vectoradmin:<POSTGRES_PASSWORD>@vector-admin-postgres:5432/vectoradmin"
+      JWT_SECRET: "<your-random-string-here>"
+      INNGEST_EVENT_KEY: "background_workers"
+      INNGEST_SIGNING_KEY: "<random-string-goes-here>"
+      INNGEST_LANDING_PAGE: "true"
     volumes:
       #   - "./.env:/app/backend/.env"
       - vector-admin-data:/app/backend/storage
@@ -43,18 +43,18 @@ services:
     #   - 5432:5432
     networks:
       vector-admin:
-        ipv4_address: '10.24.38.3'
+        ipv4_address: "10.24.38.3"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     volumes:
       - vector-admin-postgres:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: 'vectoradmin'
-      POSTGRES_PASSWORD: '<POSTGRES_PASSWORD>'
-      POSTGRES_DB: 'vectoradmin'
+      POSTGRES_USER: "vectoradmin"
+      POSTGRES_PASSWORD: "<POSTGRES_PASSWORD>"
+      POSTGRES_DB: "vectoradmin"
 
 networks:
   vector-admin:
@@ -62,8 +62,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.24.38.0/24'
-          gateway: '10.24.38.1'
+        - subnet: "10.24.38.0/24"
+          gateway: "10.24.38.1"
   anythingllm:
     name: anythingllm
     external: true

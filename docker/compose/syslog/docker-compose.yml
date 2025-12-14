@@ -7,22 +7,22 @@ services:
       - NET_BIND_SERVICE
     restart: always
     logging:
-      driver: 'syslog'
+      driver: "syslog"
       options:
-        syslog-address: 'udp://syslog-ng:514'
+        syslog-address: "udp://syslog-ng:514"
     volumes:
       - syslog-ng-logs:/var/log
       - syslog-ng-conf.d:/etc/syslog-ng/conf.d
     networks:
       syslog-ng:
-        ipv4_address: '10.255.0.2'
+        ipv4_address: "10.255.0.2"
     # ports:
     #   - 514:514/udp
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
 
 networks:
   syslog-ng:
@@ -30,8 +30,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.255.0.0/16'
-          gateway: '10.255.0.1'
+        - subnet: "10.255.0.0/16"
+          gateway: "10.255.0.1"
 
 volumes:
   syslog-ng-conf.d:

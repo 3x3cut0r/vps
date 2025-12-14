@@ -1,89 +1,89 @@
 services:
   # https://hub.docker.com/_/nginx
-    wwi2021-projektwebsite-nginx:
-        container_name: wwi2021-projektwebsite-nginx
-        image: nginx:latest
-        restart: unless-stopped
-        networks:
-            wwi2021-projektwebsite-nginx:
-                ipv4_address: 10.24.19.2
-        ports:
-            - "2119:80"
-          # - "4119:443"
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-        volumes:
-            - wwi2021-projektwebsite-nginx-html:/usr/share/nginx/html
-        depends_on:
-            - wwi2021-projektwebsite-php-fpm
-            - wwi2021-projektwebsite-sshd
+  wwi2021-projektwebsite-nginx:
+    container_name: wwi2021-projektwebsite-nginx
+    image: nginx:latest
+    restart: unless-stopped
+    networks:
+      wwi2021-projektwebsite-nginx:
+        ipv4_address: 10.24.19.2
+    ports:
+      - "2119:80"
+      # - "4119:443"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 2001:4860:4860::8888
+      - 2001:4860:4860::8844
+    volumes:
+      - wwi2021-projektwebsite-nginx-html:/usr/share/nginx/html
+    depends_on:
+      - wwi2021-projektwebsite-php-fpm
+      - wwi2021-projektwebsite-sshd
 
   # https://hub.docker.com/_/php
-    wwi2021-projektwebsite-php-fpm:
-        container_name: wwi2021-projektwebsite-php-fpm
-        image: php:8-fpm-alpine
-        restart: unless-stopped
-        networks:
-            wwi2021-projektwebsite-nginx:
-                ipv4_address: 10.24.19.3
-      # ports:
-      #     - 9000:9000
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-        volumes:
-            - wwi2021-projektwebsite-nginx-html:/usr/share/nginx/html
+  wwi2021-projektwebsite-php-fpm:
+    container_name: wwi2021-projektwebsite-php-fpm
+    image: php:8-fpm-alpine
+    restart: unless-stopped
+    networks:
+      wwi2021-projektwebsite-nginx:
+        ipv4_address: 10.24.19.3
+    # ports:
+    #     - 9000:9000
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 2001:4860:4860::8888
+      - 2001:4860:4860::8844
+    volumes:
+      - wwi2021-projektwebsite-nginx-html:/usr/share/nginx/html
 
   # https://github.com/panubo/docker-sshd
-    wwi2021-projektwebsite-sshd:
-        container_name: wwi2021-projektwebsite-sshd
-        image: panubo/sshd:latest
-        restart: unless-stopped
-        networks:
-            wwi2021-projektwebsite-nginx:
-                ipv4_address: 10.24.19.4
-        ports:
-            - "8119:22"
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 2001:4860:4860::8888
-            - 2001:4860:4860::8844
-        environment:
-            SSH_ENABLE_ROOT: "true"
-            SSH_ENABLE_PASSWORD_AUTH: "false"
-            SSH_ENABLE_ROOT_PASSWORD_AUTH: "false"
-            MOTD: "### wwi2021-projektwebsite-sshd ###"
-            GATEWAY_PORTS: "false"
-            TCP_FORWARDING: "true"
-            DISABLE_SFTP: "false"
-            SFTP_MODE: "false"
-            SFTP_CHROOT: "/data"
-            SCP_MODE: "false"
-            RSYNC_MODE: "true"
-        volumes:
-            - wwi2021-projektwebsite-nginx-html:/data
-            - wwi2021-projektwebsite-sshd-keys:/etc/ssh/keys
-            - /home/docker/config-files/wwi2021-projektwebsite/sshd/authorized_keys:/root/.ssh/authorized_keys
-            - /home/docker/config-files/wwi2021-projektwebsite/sshd/setpasswd.sh:/etc/entrypoint.d/setpasswd.sh
+  wwi2021-projektwebsite-sshd:
+    container_name: wwi2021-projektwebsite-sshd
+    image: panubo/sshd:latest
+    restart: unless-stopped
+    networks:
+      wwi2021-projektwebsite-nginx:
+        ipv4_address: 10.24.19.4
+    ports:
+      - "8119:22"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 2001:4860:4860::8888
+      - 2001:4860:4860::8844
+    environment:
+      SSH_ENABLE_ROOT: "true"
+      SSH_ENABLE_PASSWORD_AUTH: "false"
+      SSH_ENABLE_ROOT_PASSWORD_AUTH: "false"
+      MOTD: "### wwi2021-projektwebsite-sshd ###"
+      GATEWAY_PORTS: "false"
+      TCP_FORWARDING: "true"
+      DISABLE_SFTP: "false"
+      SFTP_MODE: "false"
+      SFTP_CHROOT: "/data"
+      SCP_MODE: "false"
+      RSYNC_MODE: "true"
+    volumes:
+      - wwi2021-projektwebsite-nginx-html:/data
+      - wwi2021-projektwebsite-sshd-keys:/etc/ssh/keys
+      - /home/docker/config-files/wwi2021-projektwebsite/sshd/authorized_keys:/root/.ssh/authorized_keys
+      - /home/docker/config-files/wwi2021-projektwebsite/sshd/setpasswd.sh:/etc/entrypoint.d/setpasswd.sh
 
 networks:
-    wwi2021-projektwebsite-nginx:
-      name: wwi2021-projektwebsite-nginx
-      driver: bridge
-      ipam:
-          driver: default
-          config:
-              - subnet: 10.24.19.0/24
-                gateway: 10.24.19.1
+  wwi2021-projektwebsite-nginx:
+    name: wwi2021-projektwebsite-nginx
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.24.19.0/24
+          gateway: 10.24.19.1
 
 volumes:
-    wwi2021-projektwebsite-nginx-html:
-        name: wwi2021-projektwebsite-nginx-html
-    wwi2021-projektwebsite-sshd-keys:
-        name: wwi2021-projektwebsite-sshd-keys
+  wwi2021-projektwebsite-nginx-html:
+    name: wwi2021-projektwebsite-nginx-html
+  wwi2021-projektwebsite-sshd-keys:
+    name: wwi2021-projektwebsite-sshd-keys

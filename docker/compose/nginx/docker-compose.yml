@@ -6,16 +6,16 @@ services:
     image: nginx:latest
     restart: unless-stopped
     ports:
-      - '2100:80'
+      - "2100:80"
       # - '4100:443'
     networks:
       nginx:
-        ipv4_address: '10.24.0.2'
+        ipv4_address: "10.24.0.2"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     volumes:
       - nginx-html:/var/www/html
       - nginx-conf.d:/etc/nginx/conf.d
@@ -28,19 +28,19 @@ services:
     image: jc21/nginx-proxy-manager:latest
     restart: unless-stopped
     ports:
-      - '80:80' # Public HTTP Port
-      - '443:443' # Public HTTPS Port
-      - '81:81' # Admin Web Port
+      - "80:80" # Public HTTP Port
+      - "443:443" # Public HTTPS Port
+      - "81:81" # Admin Web Port
     networks:
       nginx:
-        ipv4_address: '10.24.0.3'
+        ipv4_address: "10.24.0.3"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      TZ: 'Europe/Berlin'
+      TZ: "Europe/Berlin"
     volumes:
       - nginx-proxy-manager-data:/data
       - nginx-proxy-manager-letsencrypt:/etc/letsencrypt
@@ -52,14 +52,14 @@ services:
     restart: always
     networks:
       nginx:
-        ipv4_address: '10.24.0.4'
+        ipv4_address: "10.24.0.4"
     ports:
-      - '9000:9000'
+      - "9000:9000"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     volumes:
       - nginx-html:/var/www/html
 
@@ -70,8 +70,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.24.0.0/24'
-          gateway: '10.24.0.1'
+        - subnet: "10.24.0.0/24"
+          gateway: "10.24.0.1"
 
 volumes:
   nginx-html:

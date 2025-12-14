@@ -6,21 +6,21 @@ services:
     image: jupyter/base-notebook:latest
     restart: unless-stopped
     ports:
-      - '2136:8888'
+      - "2136:8888"
     networks:
       jupyter-notebook:
-        ipv4_address: '10.24.36.2'
+        ipv4_address: "10.24.36.2"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     user: root
     working_dir: /home/jupyter
     environment:
-      TZ: 'Europe/Berlin'
+      TZ: "Europe/Berlin"
       CHOWN_HOME: yes
-      NB_USER: 'jupyter'
+      NB_USER: "jupyter"
     volumes:
       - jupyter-notebook-data:/home/jupyter
 
@@ -30,8 +30,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.24.36.0/24'
-          gateway: '10.24.36.1'
+        - subnet: "10.24.36.0/24"
+          gateway: "10.24.36.1"
 
 volumes:
   jupyter-notebook-data:

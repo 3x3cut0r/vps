@@ -7,15 +7,15 @@ services:
     restart: unless-stopped
     networks:
       wordpress:
-        ipv4_address: '10.29.0.2'
+        ipv4_address: "10.29.0.2"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      MYSQL_ROOT_PASSWORD: '<MYSQL_ROOT_PASSWORD>'
-      TZ: 'Europe/Berlin'
+      MYSQL_ROOT_PASSWORD: "<MYSQL_ROOT_PASSWORD>"
+      TZ: "Europe/Berlin"
     volumes:
       - wordpress-mariadb-data:/var/lib/mysql
       - wordpress-mariadb-conf:/etc/mysql/mariadb.conf.d
@@ -27,19 +27,19 @@ services:
     restart: unless-stopped
     networks:
       wordpress:
-        ipv4_address: '10.29.0.3'
+        ipv4_address: "10.29.0.3"
     ports:
-      - '2900:80'
+      - "2900:80"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      MYSQL_ROOT_PASSWORD: '<MYSQL_ROOT_PASSWORD>'
-      PMA_ARBITRARY: '1'
-      PMA_HOST: 'wordpress-mariadb'
-      PMA_VERBOSE: 'wordpress-mariadb'
+      MYSQL_ROOT_PASSWORD: "<MYSQL_ROOT_PASSWORD>"
+      PMA_ARBITRARY: "1"
+      PMA_HOST: "wordpress-mariadb"
+      PMA_VERBOSE: "wordpress-mariadb"
     volumes:
       - /opt/docker/config-files/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php:ro
       - /opt/docker/config-files/phpmyadmin/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
@@ -51,19 +51,19 @@ services:
     restart: unless-stopped
     networks:
       wordpress:
-        ipv4_address: '10.29.0.4'
+        ipv4_address: "10.29.0.4"
     ports:
-      - '2980:80'
+      - "2980:80"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      WORDPRESS_DB_HOST: 'wordpress-mariadb'
-      WORDPRESS_DB_USER: 'wordpress'
-      WORDPRESS_DB_PASSWORD: '<WORDPRESS_DB_PASSWORD>'
-      WORDPRESS_DB_NAME: 'wordpress'
+      WORDPRESS_DB_HOST: "wordpress-mariadb"
+      WORDPRESS_DB_USER: "wordpress"
+      WORDPRESS_DB_PASSWORD: "<WORDPRESS_DB_PASSWORD>"
+      WORDPRESS_DB_NAME: "wordpress"
     volumes:
       - wordpress:/var/www/html
     depends_on:
@@ -75,8 +75,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.29.0.0/20'
-          gateway: '10.29.0.1'
+        - subnet: "10.29.0.0/20"
+          gateway: "10.29.0.1"
 
 volumes:
   wordpress-mariadb-conf:

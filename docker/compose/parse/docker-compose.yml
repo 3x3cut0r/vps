@@ -6,30 +6,30 @@ services:
     image: bitnami/parse:6.2.1
     restart: unless-stopped
     ports:
-      - '1337:1337'
+      - "1337:1337"
     networks:
       parse:
-        ipv4_address: '10.24.37.2'
+        ipv4_address: "10.24.37.2"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      PARSE_ENABLE_HTTPS: 'no'
-      PARSE_BIND_HOST: '127.0.0.1'
-      PARSE_HOST: '127.0.0.1'
-      PARSE_PORT_NUMBER: '1337'
-      PARSE_APP_ID: '<PARSE_APP_ID>'
-      PARSE_MASTER_KEY: '<PARSE_MASTER_KEY>'
-      PARSE_APP_NAME: '<PARSE_APP_NAME>'
-      PARSE_MOUNT_PATH: '/parse'
-      PARSE_ENABLE_CLOUD_CODE: 'no'
-      PARSE_DATABASE_HOST: 'parse-mongo'
-      PARSE_DATABASE_PORT_NUMBER: '27017'
-      PARSE_DATABASE_NAME: 'parse'
-      PARSE_DATABASE_USER: 'parse'
-      PARSE_DATABASE_PASSWORD: '<MONGODB_PASSWORD>'
+      PARSE_ENABLE_HTTPS: "no"
+      PARSE_BIND_HOST: "127.0.0.1"
+      PARSE_HOST: "127.0.0.1"
+      PARSE_PORT_NUMBER: "1337"
+      PARSE_APP_ID: "<PARSE_APP_ID>"
+      PARSE_MASTER_KEY: "<PARSE_MASTER_KEY>"
+      PARSE_APP_NAME: "<PARSE_APP_NAME>"
+      PARSE_MOUNT_PATH: "/parse"
+      PARSE_ENABLE_CLOUD_CODE: "no"
+      PARSE_DATABASE_HOST: "parse-mongo"
+      PARSE_DATABASE_PORT_NUMBER: "27017"
+      PARSE_DATABASE_NAME: "parse"
+      PARSE_DATABASE_USER: "parse"
+      PARSE_DATABASE_PASSWORD: "<MONGODB_PASSWORD>"
     volumes:
       - parse-server-conf:/bitnami/parse
     depends_on:
@@ -41,29 +41,29 @@ services:
     image: bitnami/parse-dashboard:latest
     restart: unless-stopped
     ports:
-      - '4040:4040'
+      - "4040:4040"
     networks:
       parse:
-        ipv4_address: '10.24.37.3'
+        ipv4_address: "10.24.37.3"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      PARSE_DASHBOARD_ENABLE_HTTPS: 'no'
-      PARSE_DASHBOARD_EXTERNAL_HTTP_PORT_NUMBER: '80'
-      PARSE_DASHBOARD_EXTERNAL_HTTPS_PORT_NUMBER: '80'
-      PARSE_DASHBOARD_PARSE_HOST: 'parse-server'
-      PARSE_DASHBOARD_PORT_NUMBER: '4040'
-      PARSE_DASHBOARD_PARSE_PORT_NUMBER: '1337'
-      PARSE_DASHBOARD_PARSE_APP_ID: '<PARSE_APP_ID>'
-      PARSE_DASHBOARD_APP_NAME: '<PARSE_APP_NAME>'
-      PARSE_DASHBOARD_PARSE_MASTER_KEY: '<PARSE_MASTER_KEY>'
-      PARSE_DASHBOARD_PARSE_MOUNT_PATH: '/parse'
-      PARSE_DASHBOARD_PARSE_PROTOCOL: 'http'
-      PARSE_DASHBOARD_USERNAME: 'admin'
-      PARSE_DASHBOARD_PASSWORD: '<PARSE_PASSWORD>'
+      PARSE_DASHBOARD_ENABLE_HTTPS: "no"
+      PARSE_DASHBOARD_EXTERNAL_HTTP_PORT_NUMBER: "80"
+      PARSE_DASHBOARD_EXTERNAL_HTTPS_PORT_NUMBER: "80"
+      PARSE_DASHBOARD_PARSE_HOST: "parse-server"
+      PARSE_DASHBOARD_PORT_NUMBER: "4040"
+      PARSE_DASHBOARD_PARSE_PORT_NUMBER: "1337"
+      PARSE_DASHBOARD_PARSE_APP_ID: "<PARSE_APP_ID>"
+      PARSE_DASHBOARD_APP_NAME: "<PARSE_APP_NAME>"
+      PARSE_DASHBOARD_PARSE_MASTER_KEY: "<PARSE_MASTER_KEY>"
+      PARSE_DASHBOARD_PARSE_MOUNT_PATH: "/parse"
+      PARSE_DASHBOARD_PARSE_PROTOCOL: "http"
+      PARSE_DASHBOARD_USERNAME: "admin"
+      PARSE_DASHBOARD_PASSWORD: "<PARSE_PASSWORD>"
     volumes:
       - parse-dashboard-conf:/bitnami
     depends_on:
@@ -76,20 +76,20 @@ services:
     restart: unless-stopped
     networks:
       parse:
-        ipv4_address: '10.24.37.4'
+        ipv4_address: "10.24.37.4"
     # ports:
     #   - '27017:27017'
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      MONGODB_ROOT_USER: 'root'
-      MONGODB_ROOT_PASSWORD: '<MONGODB_ROOT_PASSWORD>'
-      MONGODB_DATABASE: 'parse'
-      MONGODB_USERNAME: 'parse'
-      MONGODB_PASSWORD: '<MONGODB_PASSWORD>'
+      MONGODB_ROOT_USER: "root"
+      MONGODB_ROOT_PASSWORD: "<MONGODB_ROOT_PASSWORD>"
+      MONGODB_DATABASE: "parse"
+      MONGODB_USERNAME: "parse"
+      MONGODB_PASSWORD: "<MONGODB_PASSWORD>"
     volumes:
       - parse-mongo-data:/bitnami/mongodb
 
@@ -99,8 +99,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.24.37.0/24'
-          gateway: '10.24.37.1'
+        - subnet: "10.24.37.0/24"
+          gateway: "10.24.37.1"
 
 volumes:
   parse-server-conf:

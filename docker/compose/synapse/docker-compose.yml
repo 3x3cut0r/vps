@@ -6,32 +6,32 @@ services:
     restart: unless-stopped
     networks:
       synapse:
-        ipv4_address: '10.20.144.2'
+        ipv4_address: "10.20.144.2"
       postgres:
-        ipv4_address: '10.20.16.209'
+        ipv4_address: "10.20.16.209"
       redis:
-        ipv4_address: '10.20.96.209'
+        ipv4_address: "10.20.96.209"
     ports:
-      - '8008:8008'
+      - "8008:8008"
     # - '8448:8448'
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
       TZ: Europe/Berlin
-      SYNAPSE_CONFIG_DIR: '/data'
-      SYNAPSE_CONFIG_PATH: '/data/homeserver.yaml'
-      SYNAPSE_DATA_DIR: '/data'
-      SYNAPSE_WORKER: 'synapse.app.homeserver'
-      UID: '991'
-      GID: '991'
+      SYNAPSE_CONFIG_DIR: "/data"
+      SYNAPSE_CONFIG_PATH: "/data/homeserver.yaml"
+      SYNAPSE_DATA_DIR: "/data"
+      SYNAPSE_WORKER: "synapse.app.homeserver"
+      UID: "991"
+      GID: "991"
     volumes:
       - synapse-data:/data
       - /opt/docker/config-files/synapse/shared_secret_authenticator.py:/usr/local/lib/python3.8/site-packages/shared_secret_authenticator.py
     healthcheck:
-      test: ['CMD', 'curl', '-fSs', 'http://localhost:8008/health']
+      test: ["CMD", "curl", "-fSs", "http://localhost:8008/health"]
       interval: 1m
       timeout: 10s
       retries: 3
@@ -43,14 +43,14 @@ services:
     restart: unless-stopped
     networks:
       synapse:
-        ipv4_address: '10.20.144.3'
+        ipv4_address: "10.20.144.3"
     ports:
-      - '2209:80'
+      - "2209:80"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     # volumes:
     #     - /opt/docker/config-files/element-web/config.json:/app/config.json
     depends_on:
@@ -63,16 +63,16 @@ services:
     restart: unless-stopped
     networks:
       synapse:
-        ipv4_address: '10.20.144.16'
+        ipv4_address: "10.20.144.16"
       postgres:
-        ipv4_address: '10.20.26.209'
+        ipv4_address: "10.20.26.209"
     ports:
-      - '29316:29316'
+      - "29316:29316"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     volumes:
       - maubot-data:/data:z
 
@@ -83,16 +83,16 @@ services:
     restart: unless-stopped
     networks:
       synapse:
-        ipv4_address: '10.20.144.17'
+        ipv4_address: "10.20.144.17"
       postgres:
-        ipv4_address: '10.20.17.209'
+        ipv4_address: "10.20.17.209"
     # ports:
     #   - '29317:29317'
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     volumes:
       - mautrix-telegram-data:/data:z
 
@@ -103,16 +103,16 @@ services:
     restart: unless-stopped
     networks:
       synapse:
-        ipv4_address: '10.20.144.18'
+        ipv4_address: "10.20.144.18"
       postgres:
-        ipv4_address: '10.20.18.209'
+        ipv4_address: "10.20.18.209"
     # ports:
     #   - '29318:29318'
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     volumes:
       - mautrix-whatsapp-data:/data:z
 
@@ -123,12 +123,12 @@ services:
     restart: unless-stopped
     networks:
       synapse:
-        ipv4_address: '10.20.144.28'
+        ipv4_address: "10.20.144.28"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     volumes:
       - signald-data:/signald:z
       # - signald-gradle:/opt/gradle/.gradle
@@ -142,16 +142,16 @@ services:
       net.ipv6.conf.all.disable_ipv6: 1
     networks:
       synapse:
-        ipv4_address: '10.20.144.128'
+        ipv4_address: "10.20.144.128"
       postgres:
-        ipv4_address: '10.20.28.209'
+        ipv4_address: "10.20.28.209"
     # ports:
     #   - '29328:29328'
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     volumes:
       - signald-data:/var/run/signald
       - mautrix-signal-data:/data:z
@@ -165,19 +165,19 @@ services:
     restart: unless-stopped
     networks:
       synapse:
-        ipv4_address: '10.20.144.131'
+        ipv4_address: "10.20.144.131"
     ports:
-      - '29331:29331'
+      - "29331:29331"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      LISTEN_ADDRESS: ':29331'
-      APPSERVICE_ID: 'imessage'
-      AS_TOKEN: 'put your as_token here'
-      HS_TOKEN: 'put your hs_token here'
+      LISTEN_ADDRESS: ":29331"
+      APPSERVICE_ID: "imessage"
+      AS_TOKEN: "put your as_token here"
+      HS_TOKEN: "put your hs_token here"
 
 networks:
   synapse:
@@ -185,8 +185,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.20.144.0/20'
-          gateway: '10.20.144.1'
+        - subnet: "10.20.144.0/20"
+          gateway: "10.20.144.1"
   postgres:
     external:
       name: postgres

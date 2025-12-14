@@ -2,7 +2,7 @@ services:
   #############################
   # choose 1 service out of 2 #
   #############################
-  
+
   # 1. jlesage/firefox
   #    -> container is using vnc
   #    -> you are unable to change KEYBOARD-LAYOUT
@@ -14,31 +14,31 @@ services:
     restart: always
     networks:
       firefox:
-        ipv4_address: '10.24.4.2'
+        ipv4_address: "10.24.4.2"
     ports:
-      - '5800:5800'
+      - "5800:5800"
     # - '5900:5900'
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      TZ: 'Europe/Berlin'
-      VNC_PASSWORD: '<VNC_PASSWORD>'
-      USER_ID: '1000'
-      GROUP_ID: '1000'
-      KEEP_APP_RUNNING: '1'
-      DISPLAY_WIDTH: '1280'
-      DISPLAY_HEIGHT: '800'
-      CLEAN_TMP_DIR: '1'
-      SECURE_CONNECTION: '0'
-      SECURE_CONNECTION_CERTS_CHECK_INTERVAL: '0'
+      TZ: "Europe/Berlin"
+      VNC_PASSWORD: "<VNC_PASSWORD>"
+      USER_ID: "1000"
+      GROUP_ID: "1000"
+      KEEP_APP_RUNNING: "1"
+      DISPLAY_WIDTH: "1280"
+      DISPLAY_HEIGHT: "800"
+      CLEAN_TMP_DIR: "1"
+      SECURE_CONNECTION: "0"
+      SECURE_CONNECTION_CERTS_CHECK_INTERVAL: "0"
     volumes:
       - firefox-jlesage-data:/config
 
-  # 2. linuxserver/firefox 
-  #    -> container is using rdp 
+  # 2. linuxserver/firefox
+  #    -> container is using rdp
   #    -> you are able to change KEYBOARD-LAYOUT
   # https://hub.docker.com/r/linuxserver/firefox
   firefox-linuxserver:
@@ -50,41 +50,41 @@ services:
     restart: always
     networks:
       firefox:
-        ipv4_address: '10.24.4.3'
+        ipv4_address: "10.24.4.3"
     ports:
-      - '3000:3000'
+      - "3000:3000"
     # - '3001:3001'
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      TZ: 'Europe/Berlin'
-      PUID: '1000'
-      PGID: '1000'
-      CUSTOM_PORT: '3000'
-      CUSTOM_USER: '<USERNAME>'
-      PASSWORD: '<PASSWORD>'
-      TITLE: 'Firefox'
-      KEYBOARD: 'de-de-qwertz' # see https://github.com/linuxserver/gclient#keyboard-layouts
-      FM_HOME: '/config'
-      DISPLAY_WIDTH: '1280'
-      DISPLAY_HEIGHT: '800'
-      CLEAN_TMP_DIR: '1'
-      SECURE_CONNECTION: '0'
-      SECURE_CONNECTION_CERTS_CHECK_INTERVAL: '0'
+      TZ: "Europe/Berlin"
+      PUID: "1000"
+      PGID: "1000"
+      CUSTOM_PORT: "3000"
+      CUSTOM_USER: "<USERNAME>"
+      PASSWORD: "<PASSWORD>"
+      TITLE: "Firefox"
+      KEYBOARD: "de-de-qwertz" # see https://github.com/linuxserver/gclient#keyboard-layouts
+      FM_HOME: "/config"
+      DISPLAY_WIDTH: "1280"
+      DISPLAY_HEIGHT: "800"
+      CLEAN_TMP_DIR: "1"
+      SECURE_CONNECTION: "0"
+      SECURE_CONNECTION_CERTS_CHECK_INTERVAL: "0"
     volumes:
       - firefox-linuxserver-data:/config
-      
+
 networks:
   firefox:
     name: firefox
     ipam:
       driver: default
       config:
-        - subnet: '10.24.4.0/24'
-          gateway: '10.24.4.1'
+        - subnet: "10.24.4.0/24"
+          gateway: "10.24.4.1"
 
 volumes:
   firefox-jlesage-data:

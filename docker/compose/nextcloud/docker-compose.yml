@@ -6,23 +6,23 @@ services:
     restart: unless-stopped
     networks:
       nextcloud:
-        ipv4_address: '10.20.160.2'
+        ipv4_address: "10.20.160.2"
       mariadb:
-        ipv4_address: '10.20.0.210'
+        ipv4_address: "10.20.0.210"
       redis:
-        ipv4_address: '10.20.96.210'
+        ipv4_address: "10.20.96.210"
       # coturn:
       #   ipv4_address: '10.20.224.210'
       # nginx:
       #   ipv4_address: '10.24.0.210'
     ports:
-      - '2210:80'
+      - "2210:80"
       # - '4210:443'
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     volumes:
       - nextcloud-html:/var/www/html
       - nextcloud-data:/var/www/html/data
@@ -30,23 +30,23 @@ services:
       # - /home/docker/config-files/nextcloud/000-default.conf:/etc/apache2/sites-available/000-default.conf
     environment:
       # MYSQL
-      MYSQL_DATABASE: 'nextcloud'
-      MYSQL_USER: 'nextcloud'
-      MYSQL_PASSWORD: '<MYSQL_NEXTCLOUD_PASSWORD>'
-      MYSQL_HOST: 'mariadb'
+      MYSQL_DATABASE: "nextcloud"
+      MYSQL_USER: "nextcloud"
+      MYSQL_PASSWORD: "<MYSQL_NEXTCLOUD_PASSWORD>"
+      MYSQL_HOST: "mariadb"
       # REDIS
-      REDIS_HOST: 'redis'
-      REDIS_HOST_PORT: '6379'
-      REDIS_HOST_PASSWORD: '<REDIS_HOST_PASSWORD>'
+      REDIS_HOST: "redis"
+      REDIS_HOST_PORT: "6379"
+      REDIS_HOST_PASSWORD: "<REDIS_HOST_PASSWORD>"
       # REVERSE_PROXY
       # only if your nextcloud-container is behind a reverse proxy
-      APACHE_DISABLE_REWRITE_IP: '1'
-      TRUSTED_PROXIES: '10.20.160.1,192.168.40.1'
-      OVERWRITEHOST: 'nextcloud.3x3cut0r.de'
-      OVERWRITEPROTOCOL: 'https'
+      APACHE_DISABLE_REWRITE_IP: "1"
+      TRUSTED_PROXIES: "10.20.160.1,192.168.40.1"
+      OVERWRITEHOST: "nextcloud.3x3cut0r.de"
+      OVERWRITEPROTOCOL: "https"
       # OVERWRITEWEBROOT: '/domain.tld/nextcloud'
       # OVERWRITECONDADDR: '^10\.0\.0\.1$'
-      NC_DEFAULT_PHONE_REGION: 'DE'
+      NC_DEFAULT_PHONE_REGION: "DE"
 
   # https://hub.docker.com/r/onlyoffice/documentserver
   onlyoffice-documentserver:
@@ -55,17 +55,17 @@ services:
     restart: unless-stopped
     networks:
       nextcloud:
-        ipv4_address: '10.20.160.3'
+        ipv4_address: "10.20.160.3"
     ports:
-      - '4210:80'
+      - "4210:80"
     #   - '443:443'
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      JWT_SECRET: '<JWT_SECRET>'
+      JWT_SECRET: "<JWT_SECRET>"
     #   ONLYOFFICE_HTTPS_HSTS_ENABLED: 'true'
     #   ONLYOFFICE_HTTPS_HSTS_MAXAGE: '31536000'
     #   SSL_CERTIFICATE_PATH: '/var/www/onlyoffice/Data/certs/onlyoffice.crt'
@@ -82,8 +82,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.20.160.0/20'
-          gateway: '10.20.160.1'
+        - subnet: "10.20.160.0/20"
+          gateway: "10.20.160.1"
   mariadb:
     name: mariadb
     external: true

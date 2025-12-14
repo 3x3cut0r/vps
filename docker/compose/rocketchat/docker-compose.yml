@@ -6,26 +6,26 @@ services:
     restart: unless-stopped
     networks:
       rocketchat:
-        ipv4_address: '10.20.192.2'
+        ipv4_address: "10.20.192.2"
       mongo:
-        ipv4_address: '10.20.32.3'
+        ipv4_address: "10.20.32.3"
     ports:
-      - '2212:3000'
+      - "2212:3000"
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     volumes:
       - rocketchat-uploads:/app/uploads
     environment:
-      PORT: '3000'
-      ROOT_URL: 'https://chat.3x3cut0r.de/'
-      MONGO_URL: 'mongodb://mongo:27017/rocketchat?replicaSet=rs0'
-      MONGO_OPLOG_URL: 'mongodb://mongo:27017/local?replicaSet=rs0'
-      DEPLOY_METHOD: 'docker'
+      PORT: "3000"
+      ROOT_URL: "https://chat.3x3cut0r.de/"
+      MONGO_URL: "mongodb://mongo:27017/rocketchat?replicaSet=rs0"
+      MONGO_OPLOG_URL: "mongodb://mongo:27017/local?replicaSet=rs0"
+      DEPLOY_METHOD: "docker"
     labels:
-      - 'com.centurylinklabs.watchtower.enable=false'
+      - "com.centurylinklabs.watchtower.enable=false"
     depends_on:
       - mongo
 
@@ -36,24 +36,24 @@ services:
     restart: unless-stopped
     networks:
       mongo:
-        ipv4_address: '10.20.32.2'
+        ipv4_address: "10.20.32.2"
     # ports:
     #     - 27017:27017
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      MONGODB_REPLICA_SET_MODE: 'primary'
-      MONGODB_REPLICA_SET_NAME: 'rs0'
-      MONGODB_PORT_NUMBER: '27017'
-      MONGODB_INITIAL_PRIMARY_HOST: 'mongo'
-      MONGODB_INITIAL_PRIMARY_PORT_NUMBER: '27017'
-      MONGODB_ADVERTISED_HOSTNAME: 'mongo'
-      MONGODB_ENABLE_JOURNAL: 'true'
-      MONGODB_EXTRA_FLAGS: '--wiredTigerCacheSizeGB=1'
-      ALLOW_EMPTY_PASSWORD: 'yes'
+      MONGODB_REPLICA_SET_MODE: "primary"
+      MONGODB_REPLICA_SET_NAME: "rs0"
+      MONGODB_PORT_NUMBER: "27017"
+      MONGODB_INITIAL_PRIMARY_HOST: "mongo"
+      MONGODB_INITIAL_PRIMARY_PORT_NUMBER: "27017"
+      MONGODB_ADVERTISED_HOSTNAME: "mongo"
+      MONGODB_ENABLE_JOURNAL: "true"
+      MONGODB_EXTRA_FLAGS: "--wiredTigerCacheSizeGB=1"
+      ALLOW_EMPTY_PASSWORD: "yes"
     volumes:
       - mongo-data:/bitnami/mongodb/data/db
       - mongo-dump:/bitnami/mongodb/dump
@@ -94,28 +94,28 @@ services:
     restart: unless-stopped
     networks:
       rocketchat:
-        ipv4_address: '10.20.192.3'
+        ipv4_address: "10.20.192.3"
     # this is used to expose the hubot port for notifications on the host on port 3001, e.g. for hubot-jenkins-notifier
     # ports:
     #     - 3001:8080
     dns:
-      - '1.1.1.1'
-      - '1.0.0.1'
-      - '2606:4700:4700::1111'
-      - '2606:4700:4700::1001'
+      - "1.1.1.1"
+      - "1.0.0.1"
+      - "2606:4700:4700::1111"
+      - "2606:4700:4700::1001"
     environment:
-      ROCKETCHAT_URL: 'rocketchat:3000'
-      ROCKETCHAT_ROOM: ''
-      ROCKETCHAT_USER: 'hubot.bot'
-      ROCKETCHAT_PASSWORD: '<ROCKETCHAT_PASSWORD>'
-      BOT_NAME: 'hubot'
-      RESPOND_TO_DM: 'true'
-      LISTEN_ON_ALL_PUBLIC: 'true' # DEPRICATED
-      HUBOT_GOOGLE_CSE_ID: '<GOOGLE_CSE_ID>' # Instructions here: https://github.com/hubot-scripts/hubot-google-images
-      HUBOT_GOOGLE_CSE_KEY: '<GOOGLE_CSE_KEY>'
-      HUBOT_GOOGLE_IMAGES_HEAR: 'true'
+      ROCKETCHAT_URL: "rocketchat:3000"
+      ROCKETCHAT_ROOM: ""
+      ROCKETCHAT_USER: "hubot.bot"
+      ROCKETCHAT_PASSWORD: "<ROCKETCHAT_PASSWORD>"
+      BOT_NAME: "hubot"
+      RESPOND_TO_DM: "true"
+      LISTEN_ON_ALL_PUBLIC: "true" # DEPRICATED
+      HUBOT_GOOGLE_CSE_ID: "<GOOGLE_CSE_ID>" # Instructions here: https://github.com/hubot-scripts/hubot-google-images
+      HUBOT_GOOGLE_CSE_KEY: "<GOOGLE_CSE_KEY>"
+      HUBOT_GOOGLE_IMAGES_HEAR: "true"
       # you can add more scripts as you'd like here, they need to be installable by npm
-      EXTERNAL_SCRIPTS: 'hubot-pugme,hubot-help,hubot-seen,hubot-links,hubot-diagnostics,hubot-calculator,hubot-2048,hubot-darts,hubot-thesimpsons,hubot-tell,hubot-google-images'
+      EXTERNAL_SCRIPTS: "hubot-pugme,hubot-help,hubot-seen,hubot-links,hubot-diagnostics,hubot-calculator,hubot-2048,hubot-darts,hubot-thesimpsons,hubot-tell,hubot-google-images"
     volumes:
       - hubot-scripts:/home/hubot/scripts
     depends_on:
@@ -127,15 +127,15 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: '10.20.32.0/20'
-          gateway: '10.20.32.1'
+        - subnet: "10.20.32.0/20"
+          gateway: "10.20.32.1"
   rocketchat:
     name: rocketchat
     ipam:
       driver: default
       config:
-        - subnet: '10.20.192.0/20'
-          gateway: '10.20.192.1'
+        - subnet: "10.20.192.0/20"
+          gateway: "10.20.192.1"
 
 volumes:
   mongo-data:
