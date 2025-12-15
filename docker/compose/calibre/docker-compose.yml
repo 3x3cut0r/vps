@@ -1,6 +1,5 @@
-# https://github.com/linuxserver/docker-calibre-web
 services:
-  # https://hub.docker.com/r/linuxserver/calibre-web
+  # Docker Hub: https://hub.docker.com/r/linuxserver/calibre-web
   calibre:
     container_name: calibre
     image: lscr.io/linuxserver/calibre-web:latest
