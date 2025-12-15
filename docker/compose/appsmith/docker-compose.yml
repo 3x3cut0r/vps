@@ -1,6 +1,6 @@
-# https://github.com/appsmithorg/appsmith
 services:
-  # https://hub.docker.com/r/bitnami/appsmith
+  # Docker Hub: https://hub.docker.com/r/bitnami/appsmith
+  # Github: https://github.com/appsmithorg/appsmith
   appsmith:
     container_name: appsmith
     image: docker.io/bitnami/appsmith:1
@@ -20,7 +20,7 @@ services:
       - appsmith-api
       - appsmith-rts
 
-  # https://hub.docker.com/r/bitnami/appsmith
+  # Docker Hub: https://hub.docker.com/r/bitnami/appsmith
   appsmith-api:
     container_name: appsmith-api
     image: docker.io/bitnami/appsmith:1
@@ -38,19 +38,19 @@ services:
       APPSMITH_MODE: "backend"
       BITNAMI_DEBUG: true
       APPSMITH_API_HOST: "appsmith-api"
-      APPSMITH_USERNAME: "<APPSMITH_USERNAME>" # -> admin username
-      APPSMITH_PASSWORD: "<APPSMITH_PASSWORD>" # -> admin password (required for login)
-      APPSMITH_EMAIL: "<APPSMITH_EMAIL>" # -> admin email (required for login)
+      APPSMITH_USERNAME: # <APPSMITH_USERNAME> # -> admin username
+      APPSMITH_PASSWORD: # <APPSMITH_PASSWORD> # -> admin password (required for login)
+      APPSMITH_EMAIL: # <APPSMITH_EMAIL> # -> admin email (required for login)
       APPSMITH_DATABASE_HOST: "appsmith-mongodb,appsmith-mongodb-secondary" # mongodb,mongodb-secondary
       APPSMITH_DATABASE_PORT_NUMBER: 27017
       APPSMITH_DATABASE_USER: "appsmith"
       APPSMITH_DATABASE_NAME: "appsmith"
-      APPSMITH_DATABASE_PASSWORD: "<MONGODB_PASSWORD>"
+      APPSMITH_DATABASE_PASSWORD: # <MONGODB_PASSWORD>
       APPSMITH_REDIS_HOST: "appsmith-redis"
       APPSMITH_REDIS_PORT_NUMBER: "6379"
-      APPSMITH_REDIS_PASSWORD: "<REDIS_PASSWORD>" # do not use special characters!
-      APPSMITH_ENCRYPTION_PASSWORD: "<APPSMITH_ENCRYPTION_PASSWORD>"
-      APPSMITH_ENCRYPTION_SALT: "<APPSMITH_ENCRYPTION_SALT>" # do not use special characters!
+      APPSMITH_REDIS_PASSWORD: # <REDIS_PASSWORD> # do not use special characters!
+      APPSMITH_ENCRYPTION_PASSWORD: # <APPSMITH_ENCRYPTION_PASSWORD>
+      APPSMITH_ENCRYPTION_SALT: # <APPSMITH_ENCRYPTION_SALT> # do not use special characters!
       APPSMITH_DATABASE_INIT_DELAY: 90 # Hack: This is only necessary in docker-compose
     volumes:
       - appsmith-api-data:/bitnami/appsmith
@@ -58,7 +58,7 @@ services:
       - appsmith-mongodb
       - appsmith-redis
 
-  # https://hub.docker.com/r/bitnami/appsmith
+  # Docker Hub: https://hub.docker.com/r/bitnami/appsmith
   appsmith-rts:
     container_name: appsmith-rts
     image: docker.io/bitnami/appsmith:1
@@ -79,12 +79,12 @@ services:
       APPSMITH_DATABASE_PORT_NUMBER: 27017
       APPSMITH_DATABASE_USER: "appsmith"
       APPSMITH_DATABASE_NAME: "appsmith"
-      APPSMITH_DATABASE_PASSWORD: "<MONGODB_PASSWORD>"
+      APPSMITH_DATABASE_PASSWORD: # <MONGODB_PASSWORD>
       APPSMITH_DATABASE_INIT_DELAY: 60 # Hack: This is only necessary in docker-compose
     depends_on:
       - appsmith-mongodb
 
-  # https://hub.docker.com/r/bitnami/redis
+  # Docker Hub: https://hub.docker.com/r/bitnami/redis
   appsmith-redis:
     container_name: appsmith-redis
     image: docker.io/bitnami/redis:7.0
@@ -96,11 +96,11 @@ services:
         ipv4_address: "10.24.32.7"
     dns: ["192.168.40.253"]
     environment:
-      REDIS_PASSWORD: "<REDIS_PASSWORD>" # do not use special characters!
+      REDIS_PASSWORD: # <REDIS_PASSWORD> # do not use special characters!
     volumes:
       - "appsmith-redis-data:/bitnami/redis"
 
-  # https://hub.docker.com/r/bitnami/mongodb
+  # Docker Hub: https://hub.docker.com/r/bitnami/mongodb
   appsmith-mongodb:
     container_name: appsmith-mongodb
     image: docker.io/bitnami/mongodb:7.0
@@ -115,14 +115,14 @@ services:
       MONGODB_ADVERTISED_HOSTNAME: "appsmith-mongodb"
       MONGODB_USERNAME: "appsmith"
       MONGODB_DATABASE: "appsmith"
-      MONGODB_PASSWORD: "<MONGODB_PASSWORD>"
-      MONGODB_ROOT_PASSWORD: "<MONGODB_ROOT_PASSWORD>"
+      MONGODB_PASSWORD: # <MONGODB_PASSWORD>
+      MONGODB_ROOT_PASSWORD: # <MONGODB_ROOT_PASSWORD>
       MONGODB_REPLICA_SET_MODE: "primary"
-      MONGODB_REPLICA_SET_KEY: "<MONGODB_REPLICA_SET_KEY>" # do not use special characters!
+      MONGODB_REPLICA_SET_KEY: # <MONGODB_REPLICA_SET_KEY> # do not use special characters!
     volumes:
       - "appsmith-mongodb-data:/bitnami/mongodb"
 
-  # https://hub.docker.com/r/bitnami/mongodb
+  # Docker Hub: https://hub.docker.com/r/bitnami/mongodb
   appsmith-mongodb-secondary:
     container_name: appsmith-mongodb-secondary
     image: docker.io/bitnami/mongodb:7.0
@@ -137,8 +137,8 @@ services:
       MONGODB_ADVERTISED_HOSTNAME: "appsmith-mongodb-secondary"
       MONGODB_REPLICA_SET_MODE: "secondary"
       MONGODB_INITIAL_PRIMARY_HOST: "appsmith-mongodb"
-      MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD: "<MONGODB_ROOT_PASSWORD>"
-      MONGODB_REPLICA_SET_KEY: "<MONGODB_REPLICA_SET_KEY>" # do not use special characters!
+      MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD: # <MONGODB_ROOT_PASSWORD>
+      MONGODB_REPLICA_SET_KEY: # <MONGODB_REPLICA_SET_KEY> # do not use special characters!
     volumes:
       - "appsmith-mongodb-secondary-data:/bitnami/mongodb"
     depends_on:
