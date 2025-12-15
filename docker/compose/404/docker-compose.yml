@@ -15,8 +15,6 @@ services:
       TZ: "Europe/Berlin"
       TITLE: "404 Not Found"
       LINK: "https://404.3x3cut0r.de"
-    labels:
-      wud.trigger.include: dockercompose.404
 
 networks:
   "404":
