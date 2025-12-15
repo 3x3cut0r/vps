@@ -1,6 +1,6 @@
-# https://github.com/3x3cut0r/docker/tree/main/404
 services:
-  # https://hub.docker.com/r/3x3cut0r/404
+  # Docker Hub: https://hub.docker.com/r/3x3cut0r/404
+  # Github: https://github.com/3x3cut0r/docker/tree/main/404
   "404":
     container_name: "404"
     image: 3x3cut0r/404:latest
@@ -15,6 +15,8 @@ services:
       TZ: "Europe/Berlin"
       TITLE: "404 Not Found"
       LINK: "https://404.3x3cut0r.de"
+    labels:
+      wud.trigger.include: dockercompose.404
 
 networks:
   "404":
