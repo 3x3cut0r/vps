@@ -18,6 +18,7 @@ services:
       WUD_AUTH_BASIC_ADMIN_HASH: # $$apr1$$aefKbZEa$$ZSA5Y3zv9vDQOxr283NGx/ # htpasswd -nib admin <PASSWORD> (double the first 2 '$' signs and do nt add single or double quotes around the hash)
       WUD_REGISTRY_HUB_PUBLIC_LOGIN: "3x3cut0r" # Your Docker Hub username (Docker Hub login is required to avoid rate limits)
       WUD_REGISTRY_HUB_PUBLIC_PASSWORD: # <WUD_REGISTRY_HUB_PUBLIC_PASSWORD> # Your Docker Hub password or Personal access token
+      WUD_WATCHER_LOCAL_WATCHALL: true # Watch all containers regardless of their status (created, paused, exited, restarting, running...)
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - whatsupdocker-data:/store
