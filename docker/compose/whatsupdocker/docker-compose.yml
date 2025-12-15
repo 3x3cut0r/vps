@@ -19,6 +19,9 @@ services:
       WUD_REGISTRY_HUB_PUBLIC_LOGIN: "3x3cut0r" # Your Docker Hub username (Docker Hub login is required to avoid rate limits)
       WUD_REGISTRY_HUB_PUBLIC_PASSWORD: # <WUD_REGISTRY_HUB_PUBLIC_PASSWORD> # Your Docker Hub password or Personal access token
       WUD_WATCHER_LOCAL_WATCHALL: true # Watch all containers regardless of their status (created, paused, exited, restarting, running...)
+      # WUD_WATCHER_LOCAL_SOCKET: "/var/run/docker.sock"
+      # WUD_WATCHER_MYREMOTEHOST1_HOST: nginx-proxy-manager # Watch a remote docker host via TCP on 2375
+      # WUD_WATCHER_MYREMOTEHOST2_HOST: bigbluebutton # Watch a remote docker host via TCP on 2375
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - whatsupdocker-data:/store
