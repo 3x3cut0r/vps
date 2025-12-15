@@ -1,5 +1,6 @@
 services:
-  # https://hub.docker.com/r/getwud/wud
+  # Docker Hub: https://hub.docker.com/r/getwud/wud
+  # Documentation: https://getwud.github.io/wud/#/?id=introduction
   whatsupdocker:
     container_name: whatsupdocker
     image: getwud/wud:latest
@@ -12,6 +13,7 @@ services:
     dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
+      WUD_WATCHER_LOCAL_CRON: 0 2 * * * # Cron schedule for local image watcher (every day at 02:00)
       WUD_AUTH_BASIC_ADMIN_USER: "admin" # Change username in variablename (WUD_AUTH_BASIC_<USERNAME>_USER and WUD_AUTH_BASIC_<USERNAME>_HASH)
       WUD_AUTH_BASIC_ADMIN_HASH: # $$apr1$$aefKbZEa$$ZSA5Y3zv9vDQOxr283NGx/ # htpasswd -nib admin <PASSWORD> (double the first 2 '$' signs and do nt add single or double quotes around the hash)
       WUD_REGISTRY_HUB_PUBLIC_LOGIN: "3x3cut0r" # Your Docker Hub username (Docker Hub login is required to avoid rate limits)
