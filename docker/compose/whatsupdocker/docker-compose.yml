@@ -16,6 +16,7 @@ services:
       WUD_AUTH_BASIC_ADMIN_HASH: # $$apr1$$aefKbZEa$$ZSA5Y3zv9vDQOxr283NGx/ # htpasswd -nib admin <PASSWORD> (double the first 2 '$' signs and do nt add single or double quotes around the hash)
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - whatsupdocker-data:/store
 
 networks:
   whatsupdocker:
@@ -25,3 +26,7 @@ networks:
       config:
         - subnet: "10.24.3.0/24"
           gateway: "10.24.3.1"
+
+volumes:
+  whatsupdocker-data:
+    name: whatsupdocker-data
