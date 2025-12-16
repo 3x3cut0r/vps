@@ -1,5 +1,5 @@
 services:
-  # https://hub.docker.com/r/3x3cut0r/filesender
+  # Docker Hub: https://hub.docker.com/r/3x3cut0r/filesender
   filesender:
     container_name: filesender
     image: 3x3cut0r/filesender:latest
@@ -19,13 +19,13 @@ services:
       SIMPLESAML_LANGUAGE_DEFAULT: "de"
       ADMIN_EMAIL: "executor55@gmx.de"
       ADMIN_USER: "3x3cut0r"
-      ADMIN_PASSWORD: "<ADMIN_PASSWORD>"
+      ADMIN_PASSWORD: # <ADMIN_PASSWORD>
       DB_TYPE: "mysql"
       DB_HOST: "mariadb"
       DB_NAME: "filesender"
       DB_PORT: "3306"
       DB_USER: "filesender"
-      DB_PASSWORD: "<DB_PASSWORD>"
+      DB_PASSWORD: # <DB_PASSWORD>
       TZ: "Europe/Berlin"
     volumes:
       - filesender-conf:/config
