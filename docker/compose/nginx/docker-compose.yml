@@ -1,6 +1,6 @@
-# https://github.com/NginxProxyManager/nginx-proxy-manager
 services:
-  # https://hub.docker.com/_/nginx
+  # Docker Hub: https://hub.docker.com/_/nginx
+  # Github: https://github.com/NginxProxyManager/nginx-proxy-manager
   nginx:
     container_name: nginx
     image: nginx:latest
@@ -18,7 +18,7 @@ services:
     depends_on:
       - php-fpm
 
-  # https://hub.docker.com/r/jc21/nginx-proxy-manager
+  # Docker Hub: https://hub.docker.com/r/jc21/nginx-proxy-manager
   nginx-proxy-manager:
     container_name: nginx-proxy-manager
     image: jc21/nginx-proxy-manager:latest
@@ -37,7 +37,7 @@ services:
       - nginx-proxy-manager-data:/data
       - nginx-proxy-manager-letsencrypt:/etc/letsencrypt
 
-  # https://hub.docker.com/_/php
+  # Docker Hub: https://hub.docker.com/_/php
   php-fpm:
     container_name: php-fpm
     image: php:8-fpm-alpine
