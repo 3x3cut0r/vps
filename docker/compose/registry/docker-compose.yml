@@ -1,6 +1,5 @@
-# https://hub.docker.com/_/registry
 services:
-  # https://hub.docker.com/_/registry
+  # Docker Hub: https://hub.docker.com/_/registry
   docker-registry:
     container_name: docker-registry
     image: registry:latest
@@ -15,7 +14,7 @@ services:
     dns: ["192.168.40.253"]
     environment:
       REGISTRY_HTTP_ADDR: "0.0.0.0:443"
-      REGISTRY_HTTP_SECRET: "<REGISTRY_HTTP_SECRETY>"
+      REGISTRY_HTTP_SECRET: # <REGISTRY_HTTP_SECRETY>
       # REGISTRY_HTTP_TLS_CERTIFICATE: "/certs/domain.crt"
       # REGISTRY_HTTP_TLS_KEY: "/certs/domain.key"
       # REGISTRY_AUTH: "htpasswd"
