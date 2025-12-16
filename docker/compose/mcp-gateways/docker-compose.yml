@@ -1,5 +1,5 @@
 services:
-  # https://github.com/open-webui/mcpo
+  # Github: https://github.com/open-webui/mcpo
   # Available mcpo server: https://github.com/modelcontextprotocol/servers
   #
   # Example mcpo (stdio): time
@@ -18,7 +18,7 @@ services:
   #     mcp-gateways:
   #       ipv4_address: "10.24.43.2"
 
-  # https://hub.docker.com/r/docker/mcp-gateway
+  # Docker Hub: https://hub.docker.com/r/docker/mcp-gateway
   # Available MCP servers: https://hub.docker.com/mcp
   #
   # Docker MCP gateway
@@ -41,7 +41,7 @@ services:
         ipv4_address: "10.24.43.200"
     dns: ["192.168.40.253"]
     environment:
-      HUB_PAT_TOKEN: "<HUB_PAT_TOKEN>" # dockerhub pat_token
+      HUB_PAT_TOKEN: # <HUB_PAT_TOKEN> # Docker Hub PAT token
     volumes:
       - /root/.docker/mcp:/root/.docker/mcp # config/secrets
       - /var/run/docker.sock:/var/run/docker.sock:ro
