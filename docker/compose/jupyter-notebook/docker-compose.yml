@@ -1,6 +1,6 @@
-# https://jupyter-docker-stacks.readthedocs.io/en/latest/index.html
 services:
-  # https://hub.docker.com/r/jupyter/base-notebook
+  # Docker Hub: https://hub.docker.com/r/jupyter/base-notebook
+  # Homepage: https://jupyter-docker-stacks.readthedocs.io/en/latest/index.html
   jupyter-notebook:
     container_name: jupyter-notebook
     image: jupyter/base-notebook:latest
