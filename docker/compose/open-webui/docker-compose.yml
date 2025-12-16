@@ -98,7 +98,7 @@ services:
       open-webui:
         ipv4_address: "10.24.39.5"
       mcp-gateways:
-        ipv4_address: "10.24.43.3"
+        ipv4_address: "10.24.43.4"
 
 networks:
   open-webui:
