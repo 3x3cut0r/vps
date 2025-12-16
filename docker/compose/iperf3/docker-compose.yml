@@ -1,6 +1,6 @@
-# https://github.com/esnet/iperf
 services:
-  # https://hub.docker.com/r/networkstatic/iperf3
+  # Docker Hub: https://hub.docker.com/r/networkstatic/iperf3
+  # Github: https://github.com/esnet/iperf
   iperf3:
     container_name: iperf3
     image: networkstatic/iperf3:latest
