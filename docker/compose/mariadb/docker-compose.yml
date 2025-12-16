@@ -1,5 +1,5 @@
 services:
-  # https://hub.docker.com/_/mariadb
+  # Docker Hub: https://hub.docker.com/_/mariadb
   mariadb:
     container_name: mariadb
     image: mariadb:10-focal
@@ -12,13 +12,13 @@ services:
     #   - '3306:3306'
     dns: ["192.168.40.253"]
     environment:
-      MYSQL_ROOT_PASSWORD: "<MYSQL_ROOT_PASSWORD>"
+      MYSQL_ROOT_PASSWORD: # <MYSQL_ROOT_PASSWORD>
       TZ: "Europe/Berlin"
     volumes:
       - mariadb-data:/var/lib/mysql
       - mariadb-conf:/etc/mysql/mariadb.conf.d
 
-  # https://hub.docker.com/_/phpmyadmin
+  # Docker Hub: https://hub.docker.com/_/phpmyadmin
   phpmyadmin:
     container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin:latest
@@ -30,7 +30,7 @@ services:
     ports:
       - "2200:80"
     environment:
-      MYSQL_ROOT_PASSWORD: "<MYSQL_ROOT_PASSWORD>"
+      MYSQL_ROOT_PASSWORD: # <MYSQL_ROOT_PASSWORD>
       PMA_ARBITRARY: "1"
       PMA_HOST: "mariadb"
       PMA_VERBOSE: "mariadb"
