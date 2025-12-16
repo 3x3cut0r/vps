@@ -1,0 +1,44 @@
+services:
+  # Docker Hub: https://hub.docker.com/r/crowdsecurity/crowdsec
+  # Github: https://github.com/crowdsecurity/crowdsec
+  crowdsec:
+    container_name: crowdsec
+    image: crowdsecurity/crowdsec:latest
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "6060:6060"
+    networks:
+      crowdsec:
+        ipv4_address: "10.10.0.2"
+    dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+      DISABLE_AGENT: true
+      DISABLE_LOCAL_API: false
+      DISABLE_ONLINE_API: false
+      LOCAL_API_URL: "http://0.0.0.0:8080"
+      METRICS_PORT: "6060"
+      CONFIG_FILE: "/etc/crowdsec/config.yaml"
+      PLUGIN_DIR: "/usr/local/lib/crowdsec/plugins/"
+      USE_TLS: false
+      AGENT_USERNAME: "crowdsec"
+      AGENT_PASSWORD: # <AGENT_PASSWORD>
+    volumes:
+      - crowdsec-conf:/etc/crowdsec
+      - crowdsec-data:/var/lib/crowdsec/data
+
+networks:
+  crowdsec:
+    name: crowdsec
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.10.0.0/24"
+          gateway: "10.10.0.1"
+
+volumes:
+  crowdsec-conf:
+    name: crowdsec-conf
+  crowdsec-data:
+    name: crowdsec-data
