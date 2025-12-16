@@ -3,7 +3,7 @@ services:
   # Github: https://github.com/elastic/beats/tree/master/filebeat
   filebeat:
     container_name: filebeat
-    image: elastic/filebeat:9.8.1
+    image: elastic/filebeat:9.1.8
     restart: unless-stopped
     user: root
     environment:
