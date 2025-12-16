@@ -1,16 +1,16 @@
-# https://github.com/elastic/beats/tree/master/filebeat
 services:
-  # https://hub.docker.com/r/elastic/filebeat
+  # Docker Hub: https://hub.docker.com/r/elastic/filebeat
+  # Github: https://github.com/elastic/beats/tree/master/filebeat
   filebeat:
     container_name: filebeat
-    image: elastic/filebeat:8.7.0
+    image: elastic/filebeat:9.8.1
     restart: unless-stopped
     user: root
     environment:
       TZ: "Europe/Berlin"
       ELASTICSEARCH_HOSTS: "elasticsearch:9200"
       ELASTICSEARCH_USERNAME: "elastic"
-      ELASTICSEARCH_PASSWORD: "<ELASTICSEARCH_PASSWORD>"
+      ELASTICSEARCH_PASSWORD: # <ELASTICSEARCH_PASSWORD>
     volumes:
       - /opt/docker/config-files/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
