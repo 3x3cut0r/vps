@@ -1,6 +1,6 @@
-# https://hub.docker.com/r/guacamole/guacamole
 services:
-  # https://hub.docker.com/r/guacamole/guacd
+  # Docker Hub: https://hub.docker.com/r/guacamole/
+  # Github: https://hub.docker.com/r/guacamole/guacamole
   guacd:
     container_name: guacd
     image: guacamole/guacd:1.5.3
@@ -32,7 +32,7 @@ services:
       MYSQL_HOSTNAME: "mariadb"
       MYSQL_DATABASE: "guacamole"
       MYSQL_USER: "guacamole"
-      MYSQL_PASSWORD: "<MYSQL_PASSWORD>"
+      MYSQL_PASSWORD: # <MYSQL_PASSWORD>
     depends_on:
       - guacd
       # - mariadb // depends_on not working for external services!
