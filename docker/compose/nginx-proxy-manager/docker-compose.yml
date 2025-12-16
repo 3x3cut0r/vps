@@ -1,6 +1,6 @@
-# https://github.com/NginxProxyManager/nginx-proxy-manager
 services:
-  # https://hub.docker.com/r/jc21/nginx-proxy-manager
+  # Docker Hub: https://hub.docker.com/r/jc21/nginx-proxy-manager
+  # Github: https://github.com/NginxProxyManager/nginx-proxy-manager
   nginx-proxy-manager:
     container_name: nginx-proxy-manager
     image: jc21/nginx-proxy-manager:latest
@@ -20,7 +20,7 @@ services:
       DB_MYSQL_PORT: "3306"
       DB_MYSQL_NAME: "npm"
       DB_MYSQL_USER: "npm"
-      DB_MYSQL_PASSWORD: "<MARIADB_PASSWORD>"
+      DB_MYSQL_PASSWORD: # <MARIADB_PASSWORD>
       # Uncomment this if IPv6 is not enabled on your host
       # DISABLE_IPV6: 'true'
     volumes:
@@ -31,7 +31,7 @@ services:
     depends_on:
       - mariadb
 
-  # https://hub.docker.com/_/mariadb
+  # Docker Hub: https://hub.docker.com/_/mariadb
   mariadb:
     container_name: mariadb
     image: mariadb:10-focal
@@ -44,10 +44,10 @@ services:
     #   - '3306:3306'
     dns: ["192.168.40.253"]
     environment:
-      MARIADB_ROOT_PASSWORD: "<MARIADB_ROOT_PASSWORD>"
+      MARIADB_ROOT_PASSWORD: # <MARIADB_ROOT_PASSWORD>
       MARIADB_DATABASE: "npm"
       MARIADB_USER: "npm"
-      MARIADB_PASSWORD: "<MARIADB_PASSWORD>"
+      MARIADB_PASSWORD: # <MARIADB_PASSWORD>
       TZ: "Europe/Berlin"
     volumes:
       - mariadb-data:/var/lib/mysql
