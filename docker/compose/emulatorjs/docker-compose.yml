@@ -1,6 +1,5 @@
-# https://github.com/.../...
 services:
-  # https://hub.docker.com/r/linuxserver/emulatorjs
+  # Docker Hub: https://hub.docker.com/r/linuxserver/emulatorjs
   emulatorjs:
     container_name: emulatorjs
     image: lscr.io/linuxserver/emulatorjs:latest
