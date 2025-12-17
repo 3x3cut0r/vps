@@ -7,7 +7,7 @@ services:
     shm_size: 2gb
     restart: unless-stopped
     security_opt:
-      - seccomp:unconfined #optional
+      - seccomp:unconfined # optional
     ports:
       - "2122:3000"
     networks:
@@ -20,7 +20,7 @@ services:
       # PUID: "1000"
       # PGID: "1000"
       # SUBFOLDER: "/"
-      LC_ALL: "de-DE.UTF-8"
+      LC_ALL: "de_DE.UTF-8"
     volumes:
       - webtop-conf:/config
       # - /var/run/docker.sock:/var/run/docker.sock   #optional
