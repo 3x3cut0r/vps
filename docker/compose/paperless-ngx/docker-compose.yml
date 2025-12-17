@@ -15,7 +15,7 @@ services:
       PAPERLESS_TIME_ZONE: "Europe/Berlin"
       PAPERLESS_ADMIN_USER: "admin"
       PAPERLESS_ADMIN_MAIL: "julianreith@gmx.de"
-      PAPERLESS_ADMIN_PASSWORD: # <PAPERLESS_ADMIN_PASSWORD>
+      PAPERLESS_ADMIN_PASSWORD: "${PAPERLESS_ADMIN_PASSWORD}"
       PAPERLESS_URL: "https://paperless.3x3cut0r.de"
       PAPERLESS_ALLOWED_HOSTS: "paperless.3x3cut0r.de,localhost"
       PAPERLESS_CORS_ALLOWED_HOSTS: "https://paperless.3x3cut0r.de,http://localhost:8000,http://localhost"
@@ -29,7 +29,7 @@ services:
       PAPERLESS_DBPORT: "5432"
       PAPERLESS_DBNAME: "paperless"
       PAPERLESS_DBUSER: "paperless"
-      PAPERLESS_DBPASS: # <PAPERLESS_DBPASS>
+      PAPERLESS_DBPASS: "${POSTGRES_PASSWORD}"
       PAPERLESS_TIKA_ENABLED: true
       PAPERLESS_TIKA_ENDPOINT: http://paperless-tika:9998
       PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-gotenberg:3000
@@ -85,7 +85,7 @@ services:
     environment:
       POSTGRES_DB: "paperless"
       POSTGRES_USER: "paperless"
-      POSTGRES_PASSWORD: # <POSTGRES_PASSWORD>
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
     volumes:
       - paperless-postgres-data:/var/lib/postgresql/data
 
