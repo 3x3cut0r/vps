@@ -1,5 +1,5 @@
 services:
-  # https://hub.docker.com/r/selfhostedpro/yacht
+  # Docker Hub: https://hub.docker.com/r/selfhostedpro/yacht
   yacht:
     container_name: yacht
     image: selfhostedpro/yacht:latest
@@ -18,10 +18,9 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      SECRET_KEY: "<GENERATE_YOUR_OWN_SECRET_KEY_AND_PASTE_HERE>"
+      SECRET_KEY: ${SECRET_KEY}
       ADMIN_EMAIL: "executor55@gmx.de"
-      # DATABASE_URL: 'postgresql://user:password@postgresserver/db'
-      DATABASE_URL: "postgresql://yacht:<YACHT_POSTGRES_PASSWORD>@postgres/yacht"
+      DATABASE_URL: "postgresql://yacht:${POSTGRES_PASSWORD}@postgres/yacht"
       COMPOSE_DIR: "/config/docker-compose"
       DISABLE_AUTH: "false"
 
