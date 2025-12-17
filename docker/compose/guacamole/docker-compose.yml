@@ -32,7 +32,7 @@ services:
       MYSQL_HOSTNAME: "mariadb"
       MYSQL_DATABASE: "guacamole"
       MYSQL_USER: "guacamole"
-      MYSQL_PASSWORD: # <MYSQL_PASSWORD>
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
     depends_on:
       - guacd
       # - mariadb // depends_on not working for external services!

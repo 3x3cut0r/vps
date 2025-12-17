@@ -22,7 +22,7 @@ services:
     dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
-      VNC_PASSWORD: # <VNC_PASSWORD>
+      VNC_PASSWORD: "${VNC_PASSWORD}"
       USER_ID: "1000"
       GROUP_ID: "1000"
       KEEP_APP_RUNNING: "1"
@@ -58,8 +58,8 @@ services:
   #     PUID: "1000"
   #     PGID: "1000"
   #     CUSTOM_PORT: "3000"
-  #     CUSTOM_USER: # <USERNAME>
-  #     PASSWORD: # <PASSWORD>
+  #     CUSTOM_USER: "${CUSTOM_USER}"
+  #     PASSWORD: "${PASSWORD}"
   #     TITLE: "Firefox"
   #     KEYBOARD: "de-de-qwertz" # see https://github.com/linuxserver/gclient#keyboard-layouts
   #     FM_HOME: "/config"

@@ -12,7 +12,7 @@ services:
     #   - '3306:3306'
     dns: ["192.168.40.253"]
     environment:
-      MYSQL_ROOT_PASSWORD: # <MYSQL_ROOT_PASSWORD>
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
       TZ: "Europe/Berlin"
     volumes:
       - mariadb-data:/var/lib/mysql
@@ -30,7 +30,7 @@ services:
     ports:
       - "2200:80"
     environment:
-      MYSQL_ROOT_PASSWORD: # <MYSQL_ROOT_PASSWORD>
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
       PMA_ARBITRARY: "1"
       PMA_HOST: "mariadb"
       PMA_VERBOSE: "mariadb"

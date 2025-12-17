@@ -14,7 +14,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
       GOKAPI_USERNAME: "admin"
-      GOKAPI_PASSWORD: # <GOKAPI_PASSWORD>
+      GOKAPI_PASSWORD: "${GOKAPI_PASSWORD}"
       GOKAPI_LENGTH_ID: "15" # Sets the length of the download IDs. Value needs to be 5 or more
       GOKAPI_MAX_FILESIZE: "102400" # Sets the maximum allowed file size in MB (default: 102400 = 100GB)
       GOKAPI_MAX_MEMORY_UPLOAD: "20" # Sets the amount of RAM in MB that can be allocated for an upload. Any upload with a size greater than that will be written to a temporary file

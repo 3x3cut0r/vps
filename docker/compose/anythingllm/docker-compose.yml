@@ -20,12 +20,12 @@ services:
       GID: 1000
       GENERATE_SOURCEMAP: false
       VITE_API_BASE: "http://anythingllm.3x3cut0r.de/api"
-      AUTH_TOKEN: # <AUTH_TOKEN>
-      JWT_SECRET: # <my-random-string-for-seeding>
+      AUTH_TOKEN: "${AUTH_TOKEN}"
+      JWT_SECRET: "${JWT_SECRET}"
       # LLM API SElECTION
       LLM_PROVIDER: "openai"
-      OPEN_AI_KEY: # <sk-1234>
-      OPEN_MODEL_PREF: "gpt-4-turbo-preview"
+      OPEN_AI_KEY: "${OPEN_AI_KEY}"
+      OPEN_MODEL_PREF: "gpt-5.2-chat-latest"
       # Embedding API SElECTION
       EMBEDDING_ENGINE: "openai"
       EMBEDDING_MODEL_PREF: "text-embedding-3-small"

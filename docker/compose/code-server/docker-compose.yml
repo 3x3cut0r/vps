@@ -15,9 +15,9 @@ services:
       # PUID: 1000
       # PGID: 1000
       TZ: "Europe/Berlin"
-      PASSWORD: # password #optional
+      PASSWORD: "${PASSWORD}" #optional
       # HASHED_PASSWORD: # <HASHED_PASSWORD> #optional: https://github.com/cdr/code-server/blob/main/docs/FAQ.md#can-i-store-my-password-hashed
-      SUDO_PASSWORD: # password #optional
+      SUDO_PASSWORD: "${SUDO_PASSWORD}" #optional
       # SUDO_PASSWORD_HASH: # <SUDO_PASSWORD_HASH> #optional: https://github.com/cdr/code-server/blob/main/docs/FAQ.md#can-i-store-my-password-hashed
       PROXY_DOMAIN: "vscode.3x3cut0r.de" #optional
       # add mods to code-server. see available mod list here: https://github.com/linuxserver/docker-mods/blob/master/mod-list.yml
