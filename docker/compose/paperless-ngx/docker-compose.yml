@@ -1,6 +1,6 @@
-# https://docs.paperless-ngx.com/configuration/#required-services
 services:
-  # https://hub.docker.com/r/linuxserver/paperless-ngx
+  # Docker Hub: https://hub.docker.com/r/linuxserver/paperless-ngx
+  # Documentation: https://docs.paperless-ngx.com/configuration/#required-services
   paperless:
     container_name: paperless
     image: paperlessngx/paperless-ngx:latest
@@ -15,21 +15,21 @@ services:
       PAPERLESS_TIME_ZONE: "Europe/Berlin"
       PAPERLESS_ADMIN_USER: "admin"
       PAPERLESS_ADMIN_MAIL: "julianreith@gmx.de"
-      PAPERLESS_ADMIN_PASSWORD: "<PAPERLESS_ADMIN_PASSWORD>"
+      PAPERLESS_ADMIN_PASSWORD: # <PAPERLESS_ADMIN_PASSWORD>
       PAPERLESS_URL: "https://paperless.3x3cut0r.de"
       PAPERLESS_ALLOWED_HOSTS: "paperless.3x3cut0r.de,localhost"
       PAPERLESS_CORS_ALLOWED_HOSTS: "https://paperless.3x3cut0r.de,http://localhost:8000,http://localhost"
       PAPERLESS_CSRF_TRUSTED_ORIGINS: "https://paperless.3x3cut0r.de"
       PAPERLESS_COOKIE_PREFIX: "paperless_"
-      PAPERLESS_SECRET_KEY: "<PAPERLESS_SECRET_KEY>"
-      PAPERLESS_REDIS: "redis://default:<REDIS_PASSWORD>@paperless-redis:6379"
+      PAPERLESS_SECRET_KEY: # <PAPERLESS_SECRET_KEY>
+      PAPERLESS_REDIS: # redis://default:<REDIS_PASSWORD>@paperless-redis:6379
       PAPERLESS_DB_READ_CACHE_ENABLED: true
       PAPERLESS_DBENGINE: "postgresql"
       PAPERLESS_DBHOST: "paperless-postgres"
       PAPERLESS_DBPORT: "5432"
       PAPERLESS_DBNAME: "paperless"
       PAPERLESS_DBUSER: "paperless"
-      PAPERLESS_DBPASS: "<PAPERLESS_DBPASS>"
+      PAPERLESS_DBPASS: # <PAPERLESS_DBPASS>
       PAPERLESS_TIKA_ENABLED: true
       PAPERLESS_TIKA_ENDPOINT: http://paperless-tika:9998
       PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-gotenberg:3000
@@ -47,7 +47,7 @@ services:
       - paperless-consume:/usr/src/paperless/consume
       - paperless-export:/usr/src/paperless/export
 
-  # https://hub.docker.com/r/apache/tika
+  # Docker Hub: https://hub.docker.com/r/apache/tika
   paperless-tika:
     container_name: paperless-tika
     image: apache/tika:latest # latest-full to add GDAL and Tesseract OCR support
@@ -59,7 +59,7 @@ services:
         ipv4_address: "10.24.21.3"
     dns: ["192.168.40.253"]
 
-  # https://hub.docker.com/r/gotenberg/gotenberg
+  # Docker Hub: https://hub.docker.com/r/gotenberg/gotenberg
   paperless-gotenberg:
     container_name: paperless-gotenberg
     image: gotenberg/gotenberg:latest
@@ -71,7 +71,7 @@ services:
         ipv4_address: "10.24.21.4"
     dns: ["192.168.40.253"]
 
-  # https://hub.docker.com/_/postgres
+  # Docker Hub: https://hub.docker.com/_/postgres
   paperless-postgres:
     container_name: paperless-postgres
     image: postgres:18-alpine
@@ -85,16 +85,16 @@ services:
     environment:
       POSTGRES_DB: "paperless"
       POSTGRES_USER: "paperless"
-      POSTGRES_PASSWORD: "<POSTGRES_PASSWORD>"
+      POSTGRES_PASSWORD: # <POSTGRES_PASSWORD>
     volumes:
       - paperless-postgres-data:/var/lib/postgresql/data
 
-  # https://hub.docker.com/_/redis
+  # Docker Hub: https://hub.docker.com/_/redis
   paperless-redis:
     container_name: paperless-redis
     image: redis:8-alpine
     restart: always
-    command: redis-server --requirepass <REDIS_PASSWORD> # username = default
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"] # username = default
     # ports:
     #     - 6379:6379
     networks:
