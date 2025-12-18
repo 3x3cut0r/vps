@@ -20,6 +20,7 @@ services:
       MONGO_URL: "mongodb://mongo-dev:27017/rocketchat?replicaSet=rs0"
       MONGO_OPLOG_URL: "mongodb://mongo-dev:27017/local?replicaSet=rs0"
       DEPLOY_METHOD: "docker"
+      DEPOY_PLATFORM: "compose"
     labels:
       - "wud.enable=false"
     depends_on:
@@ -50,7 +51,7 @@ services:
   # Docker Hub: https://hub.docker.com/_/mongo
   mongo-dev:
     container_name: mongo-dev
-    image: bitnami/mongodb:8.0
+    image: bitnamilegacy/mongodb:8.0.13
     restart: unless-stopped
     networks:
       mongo-dev:
