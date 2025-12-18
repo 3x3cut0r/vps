@@ -1,6 +1,6 @@
-# https://github.com/louislam/uptime-kuma
 services:
-  # https://hub.docker.com/r/louislam/uptime-kuma
+  # Docker Hub: https://hub.docker.com/r/louislam/uptime-kuma
+  # Github: https://github.com/louislam/uptime-kuma
   uptime-kuma:
     container_name: uptime-kuma
     image: louislam/uptime-kuma:latest
