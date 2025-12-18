@@ -1,6 +1,6 @@
-# https://github.com/Pikurrot/whisper-gui
 services:
-  # https://hub.docker.com/r/3x3cut0r/whisper-gui
+  # Docker Hub:https://hub.docker.com/r/3x3cut0r/whisper-gui
+  # Github: https://github.com/Pikurrot/whisper-gui
   whisper-gui:
     container_name: whisper-gui
     image: 3x3cut0r/whisper-gui:latest
