@@ -15,7 +15,7 @@ services:
     logging:
       driver: "syslog"
       options:
-        syslog-address: "udp://syslog-ng:514"
+        syslog-address: "udp://10.255.0.2:514"
     volumes:
       - syslog-ng-logs:/var/log
       - syslog-ng-conf.d:/etc/syslog-ng/conf.d
