@@ -1,8 +1,8 @@
 services:
-  # https://hub.docker.com/_/rocket-chat
+  # Docker Hub: https://hub.docker.com/_/rocket-chat
   rocketchat:
     container_name: rocketchat
-    image: registry.rocket.chat/rocketchat/rocket.chat:7.0.0
+    image: registry.rocket.chat/rocketchat/rocket.chat:7.13.1
     restart: unless-stopped
     networks:
       rocketchat:
@@ -21,11 +21,11 @@ services:
       MONGO_OPLOG_URL: "mongodb://mongo:27017/local?replicaSet=rs0"
       DEPLOY_METHOD: "docker"
     labels:
-      - "com.centurylinklabs.watchtower.enable=false"
+      - "wud.enable=false"
     depends_on:
       - mongo
 
-  # https://hub.docker.com/_/mongo
+  # Docker Hub: https://hub.docker.com/_/mongo
   mongo:
     container_name: mongo
     image: bitnami/mongodb:7.0
@@ -50,7 +50,7 @@ services:
       - mongo-data:/bitnami/mongodb/data/db
       - mongo-dump:/bitnami/mongodb/dump
 
-  # https://hub.docker.com/_/mongo
+  # Docker Hub: https://hub.docker.com/_/mongo
   # this container's job is just run the command to initialize the replica set.
   # it will run the command and remove himself (it will not stay running)
   #   mongo-init-replica:
@@ -70,15 +70,11 @@ services:
   #     networks:
   #       mongo:
   #         ipv4_address: 10.20.32.99
-  #     dns:
-  #       - '1.1.1.1'
-  #       - '1.0.0.1'
-  #       - '2606:4700:4700::1111'
-  #       - '2606:4700:4700::1001'
+  #     dns: ["192.168.40.253"]
   #     depends_on:
   #       - mongo
 
-  # https://hub.docker.com/r/rocketchat/hubot-rocketchat
+  # Docker Hub: https://hub.docker.com/r/rocketchat/hubot-rocketchat
   # hubot, the popular chatbot (add the bot user first and change the password before starting this image)
   hubot:
     container_name: hubot
@@ -95,12 +91,12 @@ services:
       ROCKETCHAT_URL: "rocketchat:3000"
       ROCKETCHAT_ROOM: ""
       ROCKETCHAT_USER: "hubot.bot"
-      ROCKETCHAT_PASSWORD: "<ROCKETCHAT_PASSWORD>"
+      ROCKETCHAT_PASSWORD: "${ROCKETCHAT_PASSWORD}"
       BOT_NAME: "hubot"
       RESPOND_TO_DM: "true"
       LISTEN_ON_ALL_PUBLIC: "true" # DEPRICATED
-      HUBOT_GOOGLE_CSE_ID: "<GOOGLE_CSE_ID>" # Instructions here: https://github.com/hubot-scripts/hubot-google-images
-      HUBOT_GOOGLE_CSE_KEY: "<GOOGLE_CSE_KEY>"
+      HUBOT_GOOGLE_CSE_ID: "${GOOGLE_CSE_ID}" # Instructions here: https://github.com/hubot-scripts/hubot-google-images
+      HUBOT_GOOGLE_CSE_KEY: "${GOOGLE_CSE_KEY}"
       HUBOT_GOOGLE_IMAGES_HEAR: "true"
       # you can add more scripts as you'd like here, they need to be installable by npm
       EXTERNAL_SCRIPTS: "hubot-pugme,hubot-help,hubot-seen,hubot-links,hubot-diagnostics,hubot-calculator,hubot-2048,hubot-darts,hubot-thesimpsons,hubot-tell,hubot-google-images"
