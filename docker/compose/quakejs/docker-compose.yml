@@ -1,5 +1,5 @@
 services:
-  # https://github.com/treyyoder/quakejs-docker
+  # Github: https://github.com/treyyoder/quakejs-docker
   quakejs:
     container_name: quakejs
     image: treyyoder/quakejs:latest
