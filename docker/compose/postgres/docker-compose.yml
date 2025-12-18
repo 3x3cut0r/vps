@@ -1,5 +1,5 @@
 services:
-  # https://hub.docker.com/_/postgres
+  # Docker Hub: https://hub.docker.com/_/postgres
   postgres:
     container_name: postgres
     image: postgres:15-alpine
@@ -10,11 +10,11 @@ services:
     # ports:
     #   - '5432:5432'
     environment:
-      POSTGRES_PASSWORD: "<POSTGRES_PASSWORD>"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
-  # https://hub.docker.com/r/dpage/pgadmin4
+  # Docker Hub: https://hub.docker.com/r/dpage/pgadmin4
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4:latest
@@ -25,15 +25,15 @@ services:
     ports:
       - "5050:5050"
     environment:
-      PGADMIN_DEFAULT_EMAIL: "executor55@gmx.de"
-      PGADMIN_DEFAULT_PASSWORD: "<PGADMIN_DEFAULT_PASSWORD>"
+      PGADMIN_DEFAULT_EMAIL: "julianreith@gmx.de"
+      PGADMIN_DEFAULT_PASSWORD: "${PGADMIN_DEFAULT_PASSWORD}"
       PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "True"
       PGADMIN_LISTEN_PORT: "5050"
     volumes:
       - pgadmin-data:/var/lib/pgadmin
       # - pgadmin-certs:/certs
 
-  # https://hub.docker.com/_/adminer
+  # Docker Hub: https://hub.docker.com/_/adminer
   adminer:
     container_name: adminer
     image: adminer:latest
