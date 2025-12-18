@@ -15,9 +15,9 @@ services:
       TZ: "Europe/Berlin"
       WUD_WATCHER_LOCAL_CRON: 0 2 * * * # Cron schedule for local image watcher (every day at 02:00)
       WUD_AUTH_BASIC_ADMIN_USER: "admin" # Change username in variablename (WUD_AUTH_BASIC_<USERNAME>_USER and WUD_AUTH_BASIC_<USERNAME>_HASH)
-      WUD_AUTH_BASIC_ADMIN_HASH: # $$apr1$$aefKbZEa$$ZSA5Y3zv9vDQOxr283NGx/ # htpasswd -nib admin <PASSWORD> (double the first 2 '$' signs and do nt add single or double quotes around the hash)
+      WUD_AUTH_BASIC_ADMIN_HASH: "${WUD_AUTH_BASIC_ADMIN_HASH}" # $$apr1$$aefKbZEa$$ZSA5Y3zv9vDQOxr283NGx/ # htpasswd -nib admin <PASSWORD> (double the first 2 '$' signs and do nt add single or double quotes around the hash)
       WUD_REGISTRY_HUB_PUBLIC_LOGIN: "3x3cut0r" # Your Docker Hub username (Docker Hub login is required to avoid rate limits)
-      WUD_REGISTRY_HUB_PUBLIC_PASSWORD: # <WUD_REGISTRY_HUB_PUBLIC_PASSWORD> # Your Docker Hub password or Personal access token
+      WUD_REGISTRY_HUB_PUBLIC_PASSWORD: "${WUD_REGISTRY_HUB_PUBLIC_PASSWORD}" # Your Docker Hub password or Personal access token
       WUD_WATCHER_LOCAL_WATCHALL: true # Watch all containers regardless of their status (created, paused, exited, restarting, running...)
       # WUD_WATCHER_LOCAL_SOCKET: "/var/run/docker.sock"
       # WUD_WATCHER_MYREMOTEHOST1_HOST: nginx-proxy-manager # Watch a remote docker host via TCP on 2375
