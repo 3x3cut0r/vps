@@ -1,6 +1,6 @@
-# https://rustdesk.com/docs/en/self-host/rustdesk-server-oss/docker/
 services:
-  # https://hub.docker.com/r/rustdesk/rustdesk-server
+  # Docker Hub: https://hub.docker.com/r/rustdesk/rustdesk-server
+  # Homepage: https://rustdesk.com/docs/en/self-host/rustdesk-server-oss/docker/
   hbbs:
     container_name: hbbs
     image: rustdesk/rustdesk-server:latest
@@ -13,7 +13,7 @@ services:
     depends_on:
       - hbbr
 
-  # https://hub.docker.com/r/rustdesk/rustdesk-server
+  # Docker Hub: https://hub.docker.com/r/rustdesk/rustdesk-server
   hbbr:
     container_name: hbbr
     image: rustdesk/rustdesk-server:latest
