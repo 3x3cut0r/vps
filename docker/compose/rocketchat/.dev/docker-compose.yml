@@ -50,7 +50,7 @@ services:
   # Docker Hub: https://hub.docker.com/_/mongo
   mongo-dev:
     container_name: mongo-dev
-    image: bitnami/mongodb:8.2
+    image: bitnami/mongodb:8.0
     restart: unless-stopped
     networks:
       mongo-dev:
