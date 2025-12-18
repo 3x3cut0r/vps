@@ -1,5 +1,5 @@
 services:
-  # https://hub.docker.com/_/teamspeak
+  # Docker Hub: https://hub.docker.com/_/teamspeak
   teamspeak:
     container_name: teamspeak
     image: teamspeak:latest
@@ -22,7 +22,7 @@ services:
       TS3SERVER_DB_HOST: "mariadb"
       TS3SERVER_DB_NAME: "teamspeak"
       TS3SERVER_DB_USER: "teamspeak"
-      TS3SERVER_DB_PASSWORD: "<TS3SERVER_DB_PASSWORD>"
+      TS3SERVER_DB_PASSWORD: "${TEAMSPEAK_DB_PASSWORD}"
       TS3SERVER_LOG_APPEND: "1"
       TS3SERVER_LOG_QUERY_COMMANDS: "0"
       # TS3SERVER_DB_WAITUNTILREADY: '30'
