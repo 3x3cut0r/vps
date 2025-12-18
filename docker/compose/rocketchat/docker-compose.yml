@@ -28,7 +28,7 @@ services:
   # Docker Hub: https://hub.docker.com/_/mongo
   mongo:
     container_name: mongo
-    image: bitnami/mongodb:7.0
+    image: bitnami/mongodb:8.0
     restart: unless-stopped
     networks:
       mongo:
