@@ -6,6 +6,12 @@ services:
     cap_add:
       - NET_BIND_SERVICE
     restart: always
+    # ports:
+    #   - 514:514/udp
+    networks:
+      syslog-ng:
+        ipv4_address: "10.255.0.2"
+    dns: ["192.168.40.253"]
     logging:
       driver: "syslog"
       options:
@@ -13,12 +19,6 @@ services:
     volumes:
       - syslog-ng-logs:/var/log
       - syslog-ng-conf.d:/etc/syslog-ng/conf.d
-    networks:
-      syslog-ng:
-        ipv4_address: "10.255.0.2"
-    # ports:
-    #   - 514:514/udp
-    dns: ["192.168.40.253"]
 
 networks:
   syslog-ng:
