@@ -1,5 +1,5 @@
 services:
-  # https://hub.docker.com/r/3x3cut0r/glype-proxy
+  # Docker Hub: https://hub.docker.com/r/3x3cut0r/glype-proxy
   glype-proxy:
     container_name: glype-proxy
     image: 3x3cut0r/glype-proxy:latest
