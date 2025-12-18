@@ -1,5 +1,5 @@
 services:
-  # https://hub.docker.com/r/matrixdotorg/synapse
+  # Docker Hub: https://hub.docker.com/r/matrixdotorg/synapse
   synapse:
     container_name: synapse
     image: matrixdotorg/synapse:latest
@@ -32,7 +32,7 @@ services:
       timeout: 10s
       retries: 3
 
-  # https://hub.docker.com/r/vectorim/element-web
+  # Docker Hub: https://hub.docker.com/r/vectorim/element-web
   element-web:
     container_name: element-web
     image: vectorim/element-web:latest
@@ -48,7 +48,7 @@ services:
     depends_on:
       - synapse
 
-  # https://github.com/tulir/maubot
+  # Docker Hub: https://hub.docker.com/r/mautrix/maubot
   maubot:
     container_name: maubot
     image: dock.mau.dev/maubot/maubot:latest
@@ -64,7 +64,7 @@ services:
     volumes:
       - maubot-data:/data:z
 
-  # https://github.com/tulir/mautrix-telegram
+  # Docker Hub: https://hub.docker.com/r/mautrix/telegram
   mautrix-telegram:
     container_name: mautrix-telegram
     image: dock.mau.dev/mautrix/telegram:latest
@@ -80,7 +80,7 @@ services:
     volumes:
       - mautrix-telegram-data:/data:z
 
-  # https://github.com/tulir/mautrix-whatsapp
+  # Docker Hub: https://hub.docker.com/r/mautrix/whatsapp
   mautrix-whatsapp:
     container_name: mautrix-whatsapp
     image: dock.mau.dev/mautrix/whatsapp:latest
@@ -96,7 +96,7 @@ services:
     volumes:
       - mautrix-whatsapp-data:/data:z
 
-  # https://hub.docker.com/r/signald/signald
+  # Docker Hub: https://hub.docker.com/r/signald/signald
   signald:
     container_name: signald
     image: signald/signald:latest
@@ -109,7 +109,7 @@ services:
       - signald-data:/signald:z
       # - signald-gradle:/opt/gradle/.gradle
 
-  # https://github.com/tulir/mautrix-signal
+  # Docker Hub: https://hub.docker.com/r/mautrix/signal
   mautrix-signal:
     container_name: mautrix-signal
     image: dock.mau.dev/mautrix/signal:latest
@@ -130,7 +130,7 @@ services:
     depends_on:
       - signald
 
-  # https://github.com/tulir/mautrix-wsproxy
+  # Docker Hub: https://hub.docker.com/r/mautrix/wsproxy
   mautrix-wsproxy:
     container_name: mautrix-wsproxy
     image: dock.mau.dev/mautrix/wsproxy:latest
@@ -144,8 +144,8 @@ services:
     environment:
       LISTEN_ADDRESS: ":29331"
       APPSERVICE_ID: "imessage"
-      AS_TOKEN: "put your as_token here"
-      HS_TOKEN: "put your hs_token here"
+      AS_TOKEN: "${AS_TOKEN}"
+      HS_TOKEN: "${HS_TOKEN}"
 
 networks:
   synapse:
