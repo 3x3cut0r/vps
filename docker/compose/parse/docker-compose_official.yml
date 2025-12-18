@@ -1,6 +1,6 @@
-# https://github.com/parse-community/parse-server
 services:
-  # https://hub.docker.com/r/parseplatform/parse-server
+  # Docker Hub: https://hub.docker.com/r/parseplatform/parse-server
+  # Github: https://github.com/parse-community/parse-server
   parse-server:
     container_name: parse-server
     image: parseplatform/parse-server:5.5.5
@@ -13,9 +13,9 @@ services:
         ipv4_address: "10.24.37.2"
     dns: ["192.168.40.253"]
     environment:
-      PARSE_SERVER_APPLICATION_ID: "<PARSE_SERVER_APPLICATION_ID>"
-      PARSE_SERVER_MASTER_KEY: "<PARSE_SERVER_MASTER_KEY>"
-      PARSE_SERVER_DATABASE_URI: "mongodb://<MONGODB_USER>:<MONGODB_PASSWORD>@parse-mongo/parse_server?authSource=<MONGODB_USER>"
+      PARSE_SERVER_APPLICATION_ID: "${PARSE_SERVER_APPLICATION_ID}"
+      PARSE_SERVER_MASTER_KEY: "${PARSE_SERVER_MASTER_KEY}"
+      PARSE_SERVER_DATABASE_URI: "mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@parse-mongo/parse_server?authSource=${MONGODB_USER}"
       PARSE_SERVER_MOUNT_PATH: "/parse"
       PARSE_ENABLE_CLOUD_CODE: "no"
       VERBOSE: 1
@@ -24,7 +24,7 @@ services:
     depends_on:
       - parse-mongo
 
-  # https://hub.docker.com/r/parseplatform/parse-dashboard
+  # Docker Hub: https://hub.docker.com/r/parseplatform/parse-dashboard
   parse-dashboard:
     container_name: parse-dashboard
     image: parseplatform/parse-dashboard:latest
@@ -36,11 +36,11 @@ services:
         ipv4_address: "10.24.37.3"
     dns: ["192.168.40.253"]
     environment:
-      PARSE_DASHBOARD_APP_ID: "<PARSE_SERVER_APPLICATION_ID>"
-      PARSE_DASHBOARD_APP_NAME: "<PARSE_SERVER_APP_NAME>"
-      PARSE_DASHBOARD_MASTER_KEY: "<PARSE_SERVER_MASTER_KEY>"
+      PARSE_DASHBOARD_APP_ID: "${PARSE_SERVER_APPLICATION_ID}"
+      PARSE_DASHBOARD_APP_NAME: "${PARSE_APP_NAME}"
+      PARSE_DASHBOARD_MASTER_KEY: "${PARSE_SERVER_MASTER_KEY}"
       PARSE_DASHBOARD_USER_ID: "admin"
-      PARSE_DASHBOARD_USER_PASSWORD: "<PARSE_DASHBOARD_USER_PASSWORD>"
+      PARSE_DASHBOARD_USER_PASSWORD: "${PARSE_DASHBOARD_USER_PASSWORD}"
       PARSE_DASHBOARD_ALLOW_INSECURE_HTTP: "true"
       PARSE_DASHBOARD_SERVER_URL: "http://parse-server:1337/parse"
       MOUNT_PATH: "/"
@@ -49,7 +49,7 @@ services:
     depends_on:
       - parse-server
 
-  # https://hub.docker.com/_/mongo
+  # Docker Hub: https://hub.docker.com/_/mongo
   parse-mongo:
     container_name: parse-mongo
     image: mongo:6
@@ -62,10 +62,10 @@ services:
     dns: ["192.168.40.253"]
     environment:
       MONGO_INITDB_ROOT_USERNAME: "root"
-      MONGO_INITDB_ROOT_PASSWORD: "<MONGO_ROOT_PASSWORD>"
-      MONGO_INITDB_DATABASE: "<MONGO_DATABASE>"
-      MONGODB_APP_USER: "<MONGODB_USER>"
-      MONGODB_APP_PWD: "<MONGODB_PASSWORD>"
+      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_ROOT_PASSWORD}"
+      MONGO_INITDB_DATABASE: "${MONGO_DATABASE}"
+      MONGODB_APP_USER: "${MONGODB_USER}"
+      MONGODB_APP_PWD: "${MONGODB_PASSWORD}"
     volumes:
       - parse-mongo-data:/data/db
       - parse-mongo-dump:/dump

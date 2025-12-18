@@ -1,5 +1,5 @@
-# https://hub.docker.com/r/ngoduykhanh/wireguard-ui
 services:
+  # Docker Hub: https://hub.docker.com/r/ngoduykhanh/wireguard-ui
   wireguard-ui:
     container_name: wireguard-ui
     image: ngoduykhanh/wireguard-ui:latest
@@ -9,11 +9,11 @@ services:
     network_mode: host
     environment:
       BIND_ADDRESS: "0.0.0.0:5000"
-      SESSION_SECRET: "<SESSION_SECRET>"
+      SESSION_SECRET: "${SESSION_SECRET}"
       WGUI_USERNAME: "admin"
-      WGUI_PASSWORD: "<WGUI_PASSWORD>"
+      WGUI_PASSWORD: "${WGUI_PASSWORD}"
       WGUI_ENDPOINT_ADDRESS: "wireguard.3x3cut0r.synology.me:51820"
-      WGUI_DNS: "8.8.8.8"
+      WGUI_DNS: "192.168.40.253"
       WGUI_PERSISTENT_KEEPALIVE: "25"
       WGUI_CONFIG_FILE_PATH: "/etc/wireguard/wg0.conf"
       # defaults for server configuration

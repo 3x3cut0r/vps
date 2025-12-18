@@ -18,7 +18,7 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      SECRET_KEY: ${SECRET_KEY}
+      SECRET_KEY: "${SECRET_KEY}"
       ADMIN_EMAIL: "executor55@gmx.de"
       DATABASE_URL: "postgresql://yacht:${POSTGRES_PASSWORD}@postgres/yacht"
       COMPOSE_DIR: "/config/docker-compose"

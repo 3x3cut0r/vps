@@ -1,5 +1,5 @@
 services:
-  # https://hub.docker.com/r/klutchell/unbound
+  # Docker Hub: https://hub.docker.com/r/klutchell/unbound
   pihole-unbound:
     container_name: pihole-unbound
     # cap_add:
@@ -28,7 +28,7 @@ services:
     #     retries: "3"
     #     start_period: "5s"
 
-  # https://hub.docker.com/r/pihole/pihole
+  # Docker Hub: https://hub.docker.com/r/pihole/pihole
   pihole:
     container_name: pihole
     cap_add:
@@ -53,8 +53,8 @@ services:
     dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
-      ADMIN_EMAIL: "executor55@gmx.de"
-      WEBPASSWORD: "<WEBPASSWORD>"
+      ADMIN_EMAIL: "julianreith@gmx.de"
+      WEBPASSWORD: "${WEBPASSWORD}"
       ServerIP: "11.22.33.44"
       ServerIPv6: "2003:abcd:1234:567::1" # If you have a v6 network set to your server's LAN IPv6 to block IPv6 ads fully
       PIHOLE_DNS_: "10.20.208.2#5053" # Upstream DNS server(s) for Pi-hole

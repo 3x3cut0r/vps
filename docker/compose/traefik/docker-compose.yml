@@ -1,9 +1,9 @@
-# https://github.com/traefik/traefik
 services:
-  # https://hub.docker.com/_/traefik
+  # Docker Hub: https://hub.docker.com/_/traefik
+  # GitHub: https://github.com/traefik/traefik
   traefik:
     container_name: traefik
-    image: traefik:v2.6
+    image: traefik:latest
     restart: unless-stopped
     command:
       - "--log.level=INFO"
@@ -17,7 +17,7 @@ services:
       - "--entrypoints.websecure.address=:443"
       - "--certificatesresolvers.leresolver.acme.tlschallenge=true"
       - "--certificatesresolvers.leresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-      - "--certificatesresolvers.leresolver.acme.email=executor55@gmx.de"
+      - "--certificatesresolvers.leresolver.acme.email=julianreith@gmx.de"
       - "--certificatesresolvers.leresolver.acme.storage=/etc/letsencrypt/acme.json"
     ports:
       - "80:80"

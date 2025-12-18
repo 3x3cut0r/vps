@@ -10,7 +10,7 @@ services:
         ipv4_address: "10.29.0.2"
     dns: ["192.168.40.253"]
     environment:
-      MYSQL_ROOT_PASSWORD: "<MYSQL_ROOT_PASSWORD>"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
       TZ: "Europe/Berlin"
     volumes:
       - wordpress-mariadb-data:/var/lib/mysql
@@ -28,7 +28,7 @@ services:
       - "2900:80"
     dns: ["192.168.40.253"]
     environment:
-      MYSQL_ROOT_PASSWORD: "<MYSQL_ROOT_PASSWORD>"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
       PMA_ARBITRARY: "1"
       PMA_HOST: "wordpress-mariadb"
       PMA_VERBOSE: "wordpress-mariadb"
@@ -50,7 +50,7 @@ services:
     environment:
       WORDPRESS_DB_HOST: "wordpress-mariadb"
       WORDPRESS_DB_USER: "wordpress"
-      WORDPRESS_DB_PASSWORD: "<WORDPRESS_DB_PASSWORD>"
+      WORDPRESS_DB_PASSWORD: "${WORDPRESS_DB_PASSWORD}"
       WORDPRESS_DB_NAME: "wordpress"
     volumes:
       - wordpress:/var/www/html
