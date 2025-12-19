@@ -34,9 +34,9 @@ services:
       WUD_TRIGGER_DOCKER_AUTOUPDATE_DRYRUN: false # Do not perform a dry run, actually update containers with label 'wud.trigger.include: docker.autoupdate'
     labels:
       - "wud.enable=true"
-      - "wud.display.name: WhatsUpDocker"
+      - "wud.display.name=WhatsUpDocker"
       - "wud.trigger.include=docker.autoupdate"
-      - "wud.link.template: https://github.com/getwud/wud/releases/tag/$${majjor}.$${minor}.$${patch}"
+      - "wud.link.template=https://github.com/getwud/wud/releases/tag/$${majjor}.$${minor}.$${patch}"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - whatsupdocker-data:/store
