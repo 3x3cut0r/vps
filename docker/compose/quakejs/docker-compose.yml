@@ -12,7 +12,7 @@ services:
       - "3333:80"
       - "27960:27960"
     environment:
-      SERVER: "3x3cut0r.de"
+      SERVER: "quakejs.3x3cut0r.de"
       HTTP_PORT: "3333"
     labels:
       - "wud.enable=true"
