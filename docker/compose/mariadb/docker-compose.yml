@@ -16,7 +16,7 @@ services:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
       TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=true"
+      - "wud.enable=false"
       - "wud.watch.digest=true"
       - "wud.display.name=MariaDB"
       - "wud.link.template=https://mariadb.com/docs/release-notes/community-server/$${major}.$${minor}/$${major}.$${minor}.$${patch}"
