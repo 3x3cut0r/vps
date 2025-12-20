@@ -23,6 +23,12 @@ services:
       DB_MYSQL_PASSWORD: "${MARIADB_PASSWORD}"
       # Uncomment this if IPv6 is not enabled on your host
       # DISABLE_IPV6: 'true'
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Nginx Proxy Manager"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/NginxProxyManager/nginx-proxy-manager/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - nginx-proxy-manager-data:/data
       - nginx-proxy-manager-letsencrypt:/etc/letsencrypt
@@ -49,6 +55,11 @@ services:
       MARIADB_USER: "npm"
       MARIADB_PASSWORD: "${MARIADB_PASSWORD}"
       TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Nginx Proxy Manager - MariaDB"
+      - "wud.link.template=https://mariadb.com/docs/release-notes/community-server/$${major}.$${minor}/$${major}.$${minor}.$${patch}"
     volumes:
       - mariadb-data:/var/lib/mysql
       - mariadb-conf:/etc/mysql/mariadb.conf.d

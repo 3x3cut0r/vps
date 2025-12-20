@@ -1,5 +1,6 @@
 services:
   # Docker Hub: https://hub.docker.com/r/klutchell/unbound
+  # Github: https://github.com/NLnetLabs/unbound
   pihole-unbound:
     container_name: pihole-unbound
     # cap_add:
@@ -19,6 +20,14 @@ services:
         aliases:
           - unbound
     dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Pi-hole Unbound"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/NLnetLabs/unbound/releases/tag/release-$${major}.$${minor}.$${patch}"
     volumes:
       - pihole-unbound-conf:/etc/unbound
     # healthcheck:
@@ -29,6 +38,7 @@ services:
     #     start_period: "5s"
 
   # Docker Hub: https://hub.docker.com/r/pihole/pihole
+  # Github: https://github.com/pi-hole/pi-hole
   pihole:
     container_name: pihole
     cap_add:
@@ -82,6 +92,12 @@ services:
       DNSMASQ_LISTENING: "all" # local listens on all local subnets, all permits listening on internet origin subnets in addition to local, single listens only on the interface specified. <local|all|single>
       # WEB_PORT: ""                    # This will break the 'webpage blocked' functionality of Pi-hole however it may help advanced setups like those running synology or --net=host docker argument. This guide explains how to restore webpage blocked functionality using a linux router DNAT rule: Alternative Synology installation method
       # SKIPGRAVITYONBOOT: ""           # Use this option to skip updating the Gravity Database when booting up the container. By default this environment variable is not set so the Gravity Database will be updated when the container starts up. Setting this environment variable to 1 (or anything) will cause the Gravity Database to not be updated when container starts up. <unset|1>
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Pi-hole"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/pi-hole/pi-hole/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - pihole-data:/etc/pihole/
       - pihole-dnsmasq.d:/etc/dnsmasq.d/

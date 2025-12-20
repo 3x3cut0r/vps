@@ -19,6 +19,12 @@ services:
       GOKAPI_MAX_FILESIZE: "102400" # Sets the maximum allowed file size in MB (default: 102400 = 100GB)
       GOKAPI_MAX_MEMORY_UPLOAD: "20" # Sets the amount of RAM in MB that can be allocated for an upload. Any upload with a size greater than that will be written to a temporary file
       GOKAPI_PORT: "53842"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Gokapi"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/Forceu/Gokapi/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - gokapi-data:/app/data
       - gokapi-conf:/app/config

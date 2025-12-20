@@ -2,7 +2,7 @@ services:
   # Docker Hub: https://hub.docker.com/r/jdel/sspks
   sspks:
     container_name: sspks
-    image: jdel/sspks:v1.1.6
+    image: jdel/sspks:v1.3.0
     restart: unless-stopped
     networks:
       sspks:
@@ -14,6 +14,12 @@ services:
       SSPKS_SITE_NAME: "3x3cut0r's Synology Packages"
       SSPKS_PACKAGES_DISTRIBUTOR_URL: "https://sspks.3x3cut0r.de"
       SSPKS_PACKAGES_FILE_MASK: "*.spk"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=SSPKS"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/jdel/sspks/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - sspks-packages:/packages
       - sspks-cache:/cache

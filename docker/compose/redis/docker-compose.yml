@@ -1,5 +1,6 @@
 services:
   # Docker Hub: https://hub.docker.com/_/redis
+  # Github: https://github.com/redis/redis
   redis:
     container_name: redis
     image: redis:8-alpine
@@ -10,10 +11,16 @@ services:
         ipv4_address: "10.20.96.2"
     # ports:
     #     - 6379:6379
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Redis"
+      - "wud.link.template=https://github.com/redis/redis/releases/tag/$${major}.$${minor}.$${patch}"
     volumes:
       - redis-data:/data
 
   # Docker Hub: https://hub.docker.com/_/redis
+  # Github: https://github.com/redis/redis
   redis-nopw:
     container_name: redis-nopw
     image: redis:8-alpine
@@ -23,6 +30,11 @@ services:
         ipv4_address: "10.20.112.2"
     # ports:
     #     - 6379:6379
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Redis NoPW"
+      - "wud.link.template=https://github.com/redis/redis/releases/tag/$${major}.$${minor}.$${patch}"
     volumes:
       - redis-nopw-data:/data
 

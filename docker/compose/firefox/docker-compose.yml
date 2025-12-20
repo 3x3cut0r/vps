@@ -33,9 +33,10 @@ services:
       SECURE_CONNECTION_CERTS_CHECK_INTERVAL: "0"
     labels:
       - "wud.enable=true"
+      - "wud.watch.digest=true"
       - "wud.display.name=Firefox Jlesage"
       - "wud.trigger.include=docker.autoupdate"
-      - "wud.link.template=https://github.com/jlesage/docker-firefox/releases/tag/v$${majjor}.$${minor}.$${patch}"
+      - "wud.link.template=https://github.com/jlesage/docker-firefox/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - firefox-jlesage-data:/config
 
@@ -75,6 +76,7 @@ services:
   #     SECURE_CONNECTION_CERTS_CHECK_INTERVAL: "0"
   #   labels:
   #     - "wud.enable=true"
+  #     - "wud.watch.digest=true"
   #     - "wud.display.name=Firefox LinuxServer"
   #     - "wud.trigger.include=docker.autoupdate"
   #     - "wud.link.template=https://github.com/linuxserver/docker-firefox/releases"

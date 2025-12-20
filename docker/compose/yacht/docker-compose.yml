@@ -1,5 +1,6 @@
 services:
   # Docker Hub: https://hub.docker.com/r/selfhostedpro/yacht
+  # Github: https://github.com/Yacht-sh/Yacht
   yacht:
     container_name: yacht
     image: selfhostedpro/yacht:latest
@@ -12,17 +13,24 @@ services:
     ports:
       - "2102:8000"
     dns: ["192.168.40.253"]
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - yacht-config:/config
     environment:
+      TZ: "Europe/Berlin"
       PUID: "1000"
       PGID: "1000"
       SECRET_KEY: "${SECRET_KEY}"
-      ADMIN_EMAIL: "executor55@gmx.de"
+      ADMIN_EMAIL: "julianreith@gmx.de"
       DATABASE_URL: "postgresql://yacht:${POSTGRES_PASSWORD}@postgres/yacht"
       COMPOSE_DIR: "/config/docker-compose"
       DISABLE_AUTH: "false"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Yacht"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/Yacht-sh/Yacht/releases"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - yacht-config:/config
 
 networks:
   yacht:

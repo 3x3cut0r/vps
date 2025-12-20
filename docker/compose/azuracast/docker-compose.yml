@@ -1,6 +1,5 @@
-# https://github.com/AzuraCast/AzuraCast
 services:
-  # https://github.com/azuracast/AzuraCast/pkgs/container/web
+  # Github: https://github.com/AzuraCast/AzuraCast
   azuracast:
     container_name: azuracast
     image: ghcr.io/azuracast/web:latest
@@ -29,6 +28,12 @@ services:
       LETSENCRYPT_EMAIL: ""
       PUID: "1000"
       PGID: "1000"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=AzuraCast Web"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/AzuraCast/AzuraCast/blob/main/CHANGELOG.md"
     volumes:
       - azuracast-letsencrypt:/etc/nginx/certs
       - azuracast-letsencrypt-acme:/etc/acme.sh
@@ -44,7 +49,7 @@ services:
       - stations
       - redis
 
-  # https://github.com/azuracast/docker-azuracast-radio/pkgs/container/radio
+  # Github: https://github.com/azuracast/docker-azuracast-radio/pkgs/container/radio
   stations:
     container_name: azuracast-stations
     image: ghcr.io/azuracast/radio:latest
@@ -62,13 +67,20 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=AzuraCast Stations"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/AzuraCast/AzuraCast/blob/main/CHANGELOG.md"
     volumes:
       - azuracast-stations-data:/var/azuracast/stations
       - azuracast-shoutcast2-install:/var/azuracast/servers/shoutcast2
       - azuracast-letsencrypt:/etc/nginx/certs
       - azuracast-tmp-data:/var/azuracast/www_tmp
 
-  # https://hub.docker.com/_/redis
+  # Docker Hub: https://hub.docker.com/_/redis
+  # Github: https://github.com/redis/redis
   redis:
     container_name: azuracast-redis
     image: redis:6-alpine
@@ -76,6 +88,11 @@ services:
     networks:
       azuracast:
         ipv4_address: 10.24.26.4
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Azuracast - Redis"
+      - "wud.link.template=https://github.com/redis/redis/releases/tag/$${major}.$${minor}.$${patch}"
 
 networks:
   azuracast:

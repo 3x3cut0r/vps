@@ -1,6 +1,6 @@
-# https://github.com/blacklabelops/logrotate
 services:
-  # https://hub.docker.com/r/blacklabelops/logrotate
+  # Docker Hub: https://hub.docker.com/r/blacklabelops/logrotate
+  # Github: https://github.com/blacklabelops/logrotate
   logrotate:
     container_name: logrotate
     image: blacklabelops/logrotate:latest
@@ -18,6 +18,12 @@ services:
     # LOGROTATE_CRONSCHEDULE: '* * * * * *'
     # LOG_FILE: '/var/log/docker/cron.log'
     # LOGROTATE_AUTOUPDATE: true # default = true
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Logrotate"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/blacklabelops/logrotate/releases"
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers
     # - /var/log/docker:/var/log/docker

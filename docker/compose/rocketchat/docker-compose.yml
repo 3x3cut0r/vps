@@ -23,10 +23,14 @@ services:
       DEPOY_PLATFORM: "compose"
     labels:
       - "wud.enable=false"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Rocket.Chat"
+      - "wud.link.template=https://github.com/RocketChat/Rocket.Chat/releases/tag/$${major}.$${minor}.$${patch}"
     depends_on:
       - mongo
 
   # Docker Hub: https://hub.docker.com/_/mongo
+  # Github: https://github.com/mongodb/mongo
   mongo:
     container_name: mongo
     image: bitnamilegacy/mongodb:8.0.13
@@ -47,11 +51,17 @@ services:
       MONGODB_ENABLE_JOURNAL: "true"
       MONGODB_EXTRA_FLAGS: "--wiredTigerCacheSizeGB=1"
       ALLOW_EMPTY_PASSWORD: "yes"
+    labels:
+      - "wud.enable=false"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Rocket.Chat - MongoDB"
+      - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"
     volumes:
       - mongo-data:/bitnami/mongodb/data/db
       - mongo-dump:/bitnami/mongodb/dump
 
   # Docker Hub: https://hub.docker.com/_/mongo
+  # Github: https://github.com/mongodb/mongo
   # this container's job is just run the command to initialize the replica set.
   # it will run the command and remove himself (it will not stay running)
   #   mongo-init-replica:
@@ -76,6 +86,7 @@ services:
   #       - mongo
 
   # Docker Hub: https://hub.docker.com/r/rocketchat/hubot-rocketchat
+  # Github: https://github.com/hubotio/hubot
   # hubot, the popular chatbot (add the bot user first and change the password before starting this image)
   hubot:
     container_name: hubot
@@ -102,7 +113,13 @@ services:
       # you can add more scripts as you'd like here, they need to be installable by npm
       EXTERNAL_SCRIPTS: "hubot-pugme,hubot-help,hubot-seen,hubot-links,hubot-diagnostics,hubot-calculator,hubot-2048,hubot-darts,hubot-thesimpsons,hubot-tell,hubot-google-images"
     volumes:
-      - hubot-scripts:/home/hubot/scripts
+      - hubot-scripts:/home/hubot/
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Rocket.Chat - Hubot"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/hubotio/hubot/releases/tag/v$${major}.$${minor}.$${patch}"
     depends_on:
       - rocketchat
 

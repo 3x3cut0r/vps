@@ -14,6 +14,12 @@ services:
     dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=iperf3"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/esnet/iperf/releases/tag/$${major}.$${minor}.$${patch}"
 
 networks:
   iperf3:

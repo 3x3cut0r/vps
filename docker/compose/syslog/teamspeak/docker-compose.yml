@@ -26,6 +26,12 @@ services:
       TS3SERVER_LOG_APPEND: "1"
       TS3SERVER_LOG_QUERY_COMMANDS: "0"
       # TS3SERVER_DB_WAITUNTILREADY: '30'
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Teamspeak"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/teamspeak/teamspeak6-server/releases"
     volumes:
       - /opt/docker/config-files/teamspeak/etc/logrotate.d/teamspeak3-server:/etc/logrotate.d/teamspeak3-server
       - teamspeak-data:/var/ts3server

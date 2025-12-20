@@ -1,5 +1,6 @@
 services:
   # Docker Hub: https://hub.docker.com/r/rustdesk/rustdesk-server
+  # GitHub: https://github.com/rustdesk/rustdesk-server
   # Homepage: https://rustdesk.com/docs/en/self-host/rustdesk-server-oss/docker/
   hbbs:
     container_name: hbbs
@@ -8,6 +9,12 @@ services:
     command: hbbs -r rustdesk-relay.3x3cut0r.de -R rustdesk.3x3cut0r.de --mask 192.168.0.0/16
     network_mode: host
     dns: ["192.168.40.253"]
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=RustDesk Server - HBBS"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/rustdesk/rustdesk-server/releases/tag/$${major}.$${minor}.$${patch}"
     volumes:
       - rustdesk-data:/root
     depends_on:
@@ -20,6 +27,12 @@ services:
     restart: unless-stopped
     command: hbbr
     network_mode: host
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=RustDesk Server - HBBR"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/rustdesk/rustdesk-server/releases/tag/$${major}.$${minor}.$${patch}"
     volumes:
       - rustdesk-data:/root
 

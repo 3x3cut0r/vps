@@ -16,6 +16,12 @@ services:
       MAX_FILE_SIZE: "2147483648"
       NODE_ENV: "production"
       BASE_URL: "https://send.3x3cut0r.de"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Mozilla Send"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/mozilla/send"
 
 networks:
   send:

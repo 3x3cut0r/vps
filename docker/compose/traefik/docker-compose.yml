@@ -27,6 +27,12 @@ services:
       traefik:
         ipv4_address: 10.10.0.2
     dns: ["192.168.40.253"]
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Traefik"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/traefik/traefik/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - /run/user/1000/docker.sock:/var/run/docker.sock:ro
       - /home/docker/config-files/letsencrypt:/etc/letsencrypt
@@ -44,6 +50,11 @@ services:
       - "traefik.http.routers.whoami.entrypoints=websecure"
       - "traefik.http.routers.whoami.tls=true"
       - "traefik.http.routers.whoami.tls.certresolver=leresolver"
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Traefik - Whoami"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/traefik/whoami/releases/tag/v$${major}.$${minor}.$${patch}"
 
 networks:
   traefik:

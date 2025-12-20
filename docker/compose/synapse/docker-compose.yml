@@ -1,5 +1,6 @@
 services:
-  # Docker Hub: https://hub.docker.com/r/matrixdotorg/synapse
+  # Docker Hub: https://hub.docker.com/r/matrixdotorg/
+  # Github: https://github.com/element-hq/synapse
   synapse:
     container_name: synapse
     image: matrixdotorg/synapse:latest
@@ -23,6 +24,12 @@ services:
       SYNAPSE_WORKER: "synapse.app.homeserver"
       UID: "991"
       GID: "991"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Synapse"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/element-hq/synapse/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - synapse-data:/data
       - /opt/docker/config-files/synapse/shared_secret_authenticator.py:/usr/local/lib/python3.8/site-packages/shared_secret_authenticator.py
@@ -33,6 +40,7 @@ services:
       retries: 3
 
   # Docker Hub: https://hub.docker.com/r/vectorim/element-web
+  # Github: https://github.com/element-hq/element-web
   element-web:
     container_name: element-web
     image: vectorim/element-web:latest
@@ -43,12 +51,21 @@ services:
     ports:
       - "2209:80"
     dns: ["192.168.40.253"]
+    environment:
+      TZ: Europe/Berlin
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Element Web"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/element-hq/element-web/releases/tag/v$${major}.$${minor}.$${patch}"
     # volumes:
     #     - /opt/docker/config-files/element-web/config.json:/app/config.json
     depends_on:
       - synapse
 
   # Docker Hub: https://hub.docker.com/r/mautrix/maubot
+  # Github: https://github.com/maubot/maubot
   maubot:
     container_name: maubot
     image: dock.mau.dev/maubot/maubot:latest
@@ -61,10 +78,19 @@ services:
     ports:
       - "29316:29316"
     dns: ["192.168.40.253"]
+    environment:
+      TZ: Europe/Berlin
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Maubot"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/maubot/maubot/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - maubot-data:/data:z
 
   # Docker Hub: https://hub.docker.com/r/mautrix/telegram
+  # Github: https://github.com/mautrix/telegram
   mautrix-telegram:
     container_name: mautrix-telegram
     image: dock.mau.dev/mautrix/telegram:latest
@@ -77,10 +103,19 @@ services:
     # ports:
     #   - '29317:29317'
     dns: ["192.168.40.253"]
+    environment:
+      TZ: Europe/Berlin
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Mautrix Telegram"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/mautrix/telegram/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - mautrix-telegram-data:/data:z
 
   # Docker Hub: https://hub.docker.com/r/mautrix/whatsapp
+  # Github: https://github.com/mautrix/whatsapp
   mautrix-whatsapp:
     container_name: mautrix-whatsapp
     image: dock.mau.dev/mautrix/whatsapp:latest
@@ -93,6 +128,14 @@ services:
     # ports:
     #   - '29318:29318'
     dns: ["192.168.40.253"]
+    environment:
+      TZ: Europe/Berlin
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Mautrix WhatsApp"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/mautrix/whatsapp/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - mautrix-whatsapp-data:/data:z
 
@@ -105,11 +148,19 @@ services:
       synapse:
         ipv4_address: "10.20.144.28"
     dns: ["192.168.40.253"]
+    environment:
+      TZ: Europe/Berlin
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Signald"
+      - "wud.trigger.include=docker.autoupdate"
     volumes:
       - signald-data:/signald:z
       # - signald-gradle:/opt/gradle/.gradle
 
   # Docker Hub: https://hub.docker.com/r/mautrix/signal
+  # Github: https://github.com/mautrix/signal
   mautrix-signal:
     container_name: mautrix-signal
     image: dock.mau.dev/mautrix/signal:latest
@@ -124,6 +175,14 @@ services:
     # ports:
     #   - '29328:29328'
     dns: ["192.168.40.253"]
+    environment:
+      TZ: Europe/Berlin
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Mautrix Signal"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/mautrix/signal/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - signald-data:/var/run/signald
       - mautrix-signal-data:/data:z
@@ -131,6 +190,7 @@ services:
       - signald
 
   # Docker Hub: https://hub.docker.com/r/mautrix/wsproxy
+  # Github: https://github.com/mautrix/wsproxy
   mautrix-wsproxy:
     container_name: mautrix-wsproxy
     image: dock.mau.dev/mautrix/wsproxy:latest
@@ -146,6 +206,12 @@ services:
       APPSERVICE_ID: "imessage"
       AS_TOKEN: "${AS_TOKEN}"
       HS_TOKEN: "${HS_TOKEN}"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Mautrix WSProxy"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/mautrix/wsproxy/releases/tag/v$${major}.$${minor}.$${patch}"
 
 networks:
   synapse:

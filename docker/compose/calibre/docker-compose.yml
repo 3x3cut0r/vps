@@ -16,6 +16,12 @@ services:
       PGID: "1000"
       # DOCKER_MODS: linuxserver/calibre-web:calibre #optional
       # OAUTHLIB_RELAX_TOKEN_SCOPE: 1 #optional
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Calibre"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/kovidgoyal/calibre/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - calibre-books:/books
       - calibre-conf:/config

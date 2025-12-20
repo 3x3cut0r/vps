@@ -1,6 +1,6 @@
-# https://github.com/coturn/coturn
 services:
-  # https://hub.docker.com/r/coturn/coturn
+  # Docker Hub: https://hub.docker.com/r/coturn/coturn
+  # Github: https://github.com/coturn/coturn
   coturn:
     container_name: coturn
     image: coturn/coturn:latest
@@ -20,6 +20,12 @@ services:
     dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=CoTURN"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/coturn/coturn/blob/master/ChangeLog"
     volumes:
       - /opt/docker/config-files/coturn/turnserver.conf:/etc/coturn/turnserver.conf
       - /opt/certs/cert.pem:/etc/coturn/cert.pem
@@ -28,7 +34,8 @@ services:
       - /opt/certs/dhparam.pem:/etc/coturn/dhparam.pem
       - coturn-data:/var/lib/coturn
 
-  # https://hub.docker.com/_/mariadb
+  # Docker Hub: https://hub.docker.com/_/mariadb
+  # Github: https://github.com/mariadb
   mariadb:
     container_name: mariadb
     image: mariadb:10-focal
@@ -41,13 +48,19 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "<MYSQL_ROOT_PASSWORD>"
       TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=CoTURN - MariaDB"
+      - "wud.link.template=https://mariadb.com/docs/release-notes/community-server/$${major}.$${minor}/$${major}.$${minor}.$${patch}"
     volumes:
       - /opt/docker/config-files/mariadb/00-schema.sql:/docker-entrypoint-initdb.d/00-schema.sql
       - /opt/docker/config-files/mariadb/01-user.sql:/docker-entrypoint-initdb.d/01-user.sql
       - mariadb-data:/var/lib/mysql
       - mariadb-conf:/etc/mysql/mariadb.conf.d
 
-  # https://hub.docker.com/r/strukturag/nextcloud-spreed-signaling
+  # Docker Hub: https://hub.docker.com/r/strukturag/nextcloud-spreed-signaling
+  # Github: https://github.com/strukturag/nextcloud-spreed-signaling
   nextcloud-spreed-signaling:
     container_name: nextcloud-spreed-signaling
     image: strukturag/nextcloud-spreed-signaling:latest
@@ -78,11 +91,18 @@ services:
       JANUS_URL: "ws://192.168.40.214:8188"
       NATS_URL: "nats://natsuser:<NATS_PASSWORD>@192.168.40.214:4222"
       GEOIP_LICENSE: "<GEOIP_LICENSE>"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=CoTURN - Nextcloud Spreed Signaling"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/strukturag/nextcloud-spreed-signaling/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - /opt/certs/fullchain.pem:/etc/nginx/ssl/server.crt
       - /opt/certs/privkey.pem:/etc/nginx/ssl/server.key
 
-  # https://github.com/meetecho/janus-gateway
+  # Docker Hub: https://hub.docker.com/r/canyan/janus-gateway
+  # Github: https://github.com/meetecho/janus-gateway
   janus:
     container_name: janus
     image: canyan/janus-gateway:latest
@@ -98,11 +118,18 @@ services:
     dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=CoTURN - Janus Gateway"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/meetecho/janus-gateway/blob/master/CHANGELOG.md"
     volumes:
       - "/opt/docker/config-files/janus/janus.jcfg:/usr/local/etc/janus/janus.jcfg"
     #   - "./etc/janus/janus.eventhandler.sampleevh.jcfg:/usr/local/etc/janus/janus.eventhandler.sampleevh.jcfg"
 
-  # https://github.com/nats-io/nats-server
+  # Docker Hub: https://hub.docker.com/_/nats
+  # Github: https://github.com/nats-io/nats-server
   nats:
     container_name: nats
     image: nats:2-alpine
@@ -119,6 +146,12 @@ services:
     dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=CoTURN - NATS"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/nats-io/nats-server/releases/tag/v$${major}.$${minor}.$${patch}"
 
 # networks:
 #   coturn:

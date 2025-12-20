@@ -1,5 +1,6 @@
 services:
   # Docker Hub: https://hub.docker.com/r/3x3cut0r/filesender
+  # Github: https://github.com/filesender/filesender
   filesender:
     container_name: filesender
     image: 3x3cut0r/filesender:latest
@@ -27,6 +28,12 @@ services:
       DB_USER: "filesender"
       DB_PASSWORD: "${DB_PASSWORD}"
       TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=FileSender"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/filesender/filesender/releases"
     volumes:
       - filesender-conf:/config
       - filesender-data:/data

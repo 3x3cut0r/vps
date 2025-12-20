@@ -16,7 +16,8 @@ services:
         ipv4_address: "10.21.21.214"
     dns: ["192.168.40.253"]
 
-  # Docker Hub: ://hub.docker.com/r/lncm/tor
+  # Docker Hub: https://hub.docker.com/r/lncm/tor
+  # Github: https://github.com/lncm/docker-tor
   umbrel-tor:
     container_name: umbrel-tor
     image: lncm/tor:latest
@@ -25,20 +26,29 @@ services:
       driver: "syslog"
       options:
         syslog-address: "udp://10.21.21.214:514"
-    volumes:
-      - /opt/docker/config-files/umbrel/tor/torrc:/etc/tor/torrc
-      - /opt/docker/config-files/umbrel/tor/data:/var/lib/tor
-      - /opt/docker/config-files/umbrel/tor/run:/var/run/tor
     # ports:
     #   - '9050:9050'
     networks:
       umbrel:
         ipv4_address: "10.21.21.11"
     dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Umbrel Tor"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/lncm/docker-tor/releases"
+    volumes:
+      - /opt/docker/config-files/umbrel/tor/torrc:/etc/tor/torrc
+      - /opt/docker/config-files/umbrel/tor/data:/var/lib/tor
+      - /opt/docker/config-files/umbrel/tor/run:/var/run/tor
     depends_on:
       - umbrel-syslog-ng
 
   # Docker Hub: https://hub.docker.com/r/getumbrel/manager
+  # Github: https://github.com/getumbrel/umbrel-manager
   umbrel-manager:
     container_name: umbrel-manager
     image: getumbrel/manager:latest
@@ -47,7 +57,14 @@ services:
       driver: "syslog"
       options:
         syslog-address: "udp://10.21.21.214:514"
+    # ports:
+    #   - '3006:3006'
+    networks:
+      umbrel:
+        ipv4_address: "10.21.21.4"
+    dns: ["192.168.40.253"]
     environment:
+      TZ: "Europe/Berlin"
       PORT: "3006"
       USER_PASSWORD_FILE: "/db/user.json"
       JWT_PUBLIC_KEY_FILE: "/db/jwt-public-key/jwt.pem"
@@ -83,6 +100,11 @@ services:
       TOR_HIDDEN_SERVICE_DIR: "/var/lib/tor"
       ELECTRUM_HIDDEN_SERVICE_FILE: "/var/lib/tor/electrum/hostname"
       ELECTRUM_PORT: "50011"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Umbrel Manager"
+      - "wud.trigger.include=docker.autoupdate"
     volumes:
       - /opt/docker/config-files/umbrel:/opt/docker/config-files/umbrel
       - /opt/docker/config-files/umbrel/info.json:/info.json
@@ -96,17 +118,12 @@ services:
       - /usr/local/bin/docker:/usr/bin/docker
       - /opt/docker/config-files/umbrel/db/jwt-public-key:/jwt-public-key
       - /opt/docker/config-files/umbrel/db/jwt-private-key:/jwt-private-key
-    # ports:
-    #   - '3006:3006'
-    networks:
-      umbrel:
-        ipv4_address: "10.21.21.4"
-    dns: ["192.168.40.253"]
     depends_on:
       - umbrel-syslog-ng
       - umbrel-tor
 
   # Docker Hub: https://hub.docker.com/r/lncm/bitcoind
+  # Github: https://github.com/getumbrel/umbrel-bitcoin
   umbrel-bitcoind:
     container_name: umbrel-bitcoind
     image: lncm/bitcoind:v22.0
@@ -115,6 +132,13 @@ services:
       driver: "syslog"
       options:
         syslog-address: "udp://10.21.21.214:514"
+    environment:
+      TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Umbrel Bitcoind"
+      - "wud.trigger.include=docker.autoupdate"
     volumes:
       - /opt/docker/config-files/umbrel/bitcoin:/data/.bitcoin
     # ports:
@@ -140,8 +164,6 @@ services:
       driver: "syslog"
       options:
         syslog-address: "udp://10.21.21.214:514"
-    volumes:
-      - /opt/docker/config-files/umbrel/lnd:/data/.lnd
     # ports:
     #   - '9735:9735'
     #   - '10009:10009'
@@ -149,12 +171,22 @@ services:
       umbrel:
         ipv4_address: "10.21.21.9"
     dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Umbrel LND"
+      - "wud.trigger.include=docker.autoupdate"
+    volumes:
+      - /opt/docker/config-files/umbrel/lnd:/data/.lnd
     depends_on:
       - umbrel-syslog-ng
       - umbrel-tor
       - umbrel-manager
 
   # Docker Hub: https://hub.docker.com/r/getumbrel/electrs
+  # Github: https://github.com/getumbrel/docker-electrs
   umbrel-electrs:
     container_name: umbrel-electrs
     image: getumbrel/electrs:v0.9.4
@@ -163,15 +195,22 @@ services:
       driver: "syslog"
       options:
         syslog-address: "udp://10.21.21.214:514"
-    volumes:
-      - /opt/docker/config-files/umbrel/bitcoin:/data/.bitcoin:ro
-      - /opt/docker/config-files/umbrel/electrs:/data
     # ports:
     #   - '50011:50011'
     networks:
       umbrel:
         ipv4_address: "10.21.21.10"
     dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Umbrel Electrs"
+      - "wud.trigger.include=docker.autoupdate"
+    volumes:
+      - /opt/docker/config-files/umbrel/bitcoin:/data/.bitcoin:ro
+      - /opt/docker/config-files/umbrel/electrs:/data
     depends_on:
       - umbrel-syslog-ng
       - umbrel-bitcoind
@@ -185,7 +224,14 @@ services:
       driver: "syslog"
       options:
         syslog-address: "udp://10.21.21.214:514"
+    # ports:
+    #   - '3005:3005'
+    networks:
+      umbrel:
+        ipv4_address: "10.21.21.5"
+    dns: ["192.168.40.253"]
     environment:
+      TZ: "Europe/Berlin"
       PORT: "3005"
       BITCOIN_HOST: "10.21.21.8"
       RPC_PORT: "8332"
@@ -198,15 +244,14 @@ services:
       DEVICE_HOSTS: "${DEVICE_HOSTS}"
       TLS_FILE: "/lnd/tls.cert"
       MACAROON_DIR: "/lnd/data/chain/bitcoin/mainnet/"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Umbrel Middleware"
+      - "wud.trigger.include=docker.autoupdate"
     volumes:
       - /opt/docker/config-files/umbrel/lnd:/lnd
       - /opt/docker/config-files/umbrel/db/jwt-public-key:/jwt-public-key
-    # ports:
-    #   - '3005:3005'
-    networks:
-      umbrel:
-        ipv4_address: "10.21.21.5"
-    dns: ["192.168.40.253"]
     depends_on:
       - umbrel-syslog-ng
       - umbrel-manager
@@ -222,15 +267,21 @@ services:
       driver: "syslog"
       options:
         syslog-address: "udp://10.21.21.214:514"
-    environment:
-      VUE_APP_MANAGER_API_URL: "http://10.21.21.4:3006"
-      VUE_APP_MIDDLEWARE_API_URL: "http://10.21.21.5:3005"
     # ports:
     #   - '3004:3004'
     networks:
       umbrel:
         ipv4_address: "10.21.21.3"
     dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+      VUE_APP_MANAGER_API_URL: "http://10.21.21.4:3006"
+      VUE_APP_MIDDLEWARE_API_URL: "http://10.21.21.5:3005"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Umbrel Dashboard"
+      - "wud.trigger.include=docker.autoupdate"
     depends_on:
       - umbrel-syslog-ng
 
@@ -243,20 +294,28 @@ services:
       driver: "syslog"
       options:
         syslog-address: "udp://10.21.21.214:514"
-    volumes:
-      - /opt/docker/config-files/umbrel/nginx/:/etc/nginx
     # ports:
     #   - '80:80'
     networks:
       umbrel:
         ipv4_address: "10.21.21.2"
     dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Umbrel Nginx"
+      - "wud.trigger.include=docker.autoupdate"
+    volumes:
+      - /opt/docker/config-files/umbrel/nginx/:/etc/nginx
     depends_on:
       - umbrel-syslog-ng
       - umbrel-dashboard
       - umbrel-manager
 
   # Docker Hub: https://hub.docker.com/r/getumbrel/frontail
+  # Github: https://github.com/getumbrel/umbrel-frontail
   umbrel-frontail:
     container_name: umbrel-frontail
     image: getumbrel/frontail:latest
@@ -266,12 +325,19 @@ services:
       driver: "syslog"
       options:
         syslog-address: "udp://10.21.21.214:514"
-    volumes:
-      - /opt/docker/config-files/umbrel/logs/messages:/var/log/syslog:ro
     networks:
       umbrel:
         ipv4_address: "10.21.21.7"
     dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Umbrel Frontail"
+      - "wud.trigger.include=docker.autoupdate"
+    volumes:
+      - /opt/docker/config-files/umbrel/logs/messages:/var/log/syslog:ro
     depends_on:
       - umbrel-syslog-ng
 

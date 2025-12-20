@@ -1,5 +1,6 @@
 services:
   # Docker Hub: https://hub.docker.com/r/jupyter/base-notebook
+  # Github: https://github.com/jupyter/notebook
   # Homepage: https://jupyter-docker-stacks.readthedocs.io/en/latest/index.html
   jupyter-notebook:
     container_name: jupyter-notebook
@@ -17,6 +18,12 @@ services:
       TZ: "Europe/Berlin"
       CHOWN_HOME: yes
       NB_USER: "jupyter"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Jupyter Notebook"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/jupyter/notebook/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - jupyter-notebook-data:/home/jupyter
 

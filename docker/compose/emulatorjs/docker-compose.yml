@@ -17,6 +17,12 @@ services:
       # PUID: "1000"
       # PGID: "1000"
       # SUBFOLDER: "/"  #optional
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=EmulatorJS"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/linuxserver/docker-emulatorjs/releases"
     volumes:
       - emulatorjs-data:/data
       - emulatorjs-conf:/config

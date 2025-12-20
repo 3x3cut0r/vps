@@ -1,5 +1,7 @@
 services:
   # Docker Hub: https://hub.docker.com/_/postgres
+  # Github: https://github.com/postgres/postgres
+  # Homepage: https://www.postgresql.org
   postgres:
     container_name: postgres
     image: postgres:15-alpine
@@ -11,10 +13,16 @@ services:
     #   - '5432:5432'
     environment:
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Postgres"
+      - "wud.link.template=https://www.postgresql.org/docs/release/$${major}.$${minor}"
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
   # Docker Hub: https://hub.docker.com/r/dpage/pgadmin4
+  # Github: https://github.com/pgadmin-org/pgadmin4
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4:latest
@@ -29,6 +37,11 @@ services:
       PGADMIN_DEFAULT_PASSWORD: "${PGADMIN_DEFAULT_PASSWORD}"
       PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "True"
       PGADMIN_LISTEN_PORT: "5050"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=PGAdmin"
+      - "wud.link.template=https://www.pgadmin.org/news/"
     volumes:
       - pgadmin-data:/var/lib/pgadmin
       # - pgadmin-certs:/certs

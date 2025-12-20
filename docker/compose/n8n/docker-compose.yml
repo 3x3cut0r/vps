@@ -23,6 +23,12 @@ services:
       N8N_RUNNERS_ENABLED: true
       WEBHOOK_URL: "https://n8n.3x3cut0r.de/"
       VUE_APP_URL_BASE_API: "https://n8n.3x3cut0r.de/"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=n8n"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/n8n-io/n8n/releases/tag/n8n%40$${major}.$${minor}.$${patch}"
     volumes:
       - n8n-data:/home/node/.n8n
 

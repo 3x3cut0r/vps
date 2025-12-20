@@ -1,5 +1,6 @@
 services:
   # Docker Hub: https://hub.docker.com/r/ngoduykhanh/wireguard-ui
+  # Github: https://github.com/ngoduykhanh/wireguard-ui
   wireguard-ui:
     container_name: wireguard-ui
     image: ngoduykhanh/wireguard-ui:latest
@@ -26,6 +27,12 @@ services:
       # docker only
       WGUI_MANAGE_START: "false"
       WGUI_MANAGE_RESTART: "true"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=WireGuard-UI"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/ngoduykhanh/wireguard-ui/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - /opt/wireguard/db:/app/db
       - /etc/wireguard:/etc/wireguard

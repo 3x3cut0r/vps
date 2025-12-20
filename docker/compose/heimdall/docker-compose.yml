@@ -16,6 +16,12 @@ services:
       TZ: "Europe/Berlin"
       UID: "1000"
       GID: "1000"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Heimdall"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/linuxserver/docker-heimdall/releases"
     volumes:
       - heimdall-conf:/config
 

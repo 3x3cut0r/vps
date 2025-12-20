@@ -13,6 +13,12 @@ services:
     dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Uptime Kuma"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/louislam/uptime-kuma/releases/tag/$${major}.$${minor}.$${patch}"
     volumes:
       - uptime-kuma-data:/app/data
 

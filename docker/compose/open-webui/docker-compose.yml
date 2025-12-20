@@ -1,5 +1,6 @@
 services:
   # Docker Hub: https://github.com/open-webui/open-webui
+  # Github: https://github.com/open-webui/open-webui
   # Documentation: https://docs.openwebui.com/getting-started/env-configuration
   open-webui:
     container_name: open-webui
@@ -28,6 +29,12 @@ services:
       ENABLE_LITELLM: "True"
       LITELLM_PROXY_PORT: "4000"
       LITELLM_PROXY_HOST: "litellm"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=OpenWebUI"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/open-webui/open-webui/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - open-webui-data:/app/backend/data
 
@@ -54,12 +61,20 @@ services:
       DATABASE_URL: "postgresql://litellm:${POSTGRES_PASSWORD}@litellm-postgres:5432/litellm"
       STORE_MODEL_IN_DB: "True"
       CONFIG_FILE: "/app/config/config.yaml"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=LiteLLM"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/BerriAI/litellm/releases"
     volumes:
       - litellm-conf:/app/config
     depends_on:
       - litellm-postgres
 
-  # https://hub.docker.com/_/postgres
+  # Docker Hub: https://hub.docker.com/_/postgres
+  # Github: https://github.com/postgres/postgres
+  # Homepage: https://www.postgresql.org
   litellm-postgres:
     container_name: litellm-postgres
     image: postgres:15
@@ -72,6 +87,11 @@ services:
       POSTGRES_USER: litellm
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
       POSTGRES_DB: litellm
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=LiteLLM - Postgres"
+      - "wud.link.template=https://www.postgresql.org/docs/release/$${major}.$${minor}"
     volumes:
       - litellm-postgres-data:/var/lib/postgresql/data
 
@@ -99,6 +119,12 @@ services:
         ipv4_address: "10.24.39.5"
       mcp-gateways:
         ipv4_address: "10.24.43.4"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=OpenWebUI - MCPo"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/open-webui/mcpo/releases/tag/v$${major}.$${minor}.$${patch}"
 
 networks:
   open-webui:

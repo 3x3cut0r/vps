@@ -1,6 +1,6 @@
-# https://github.com/.../...
 services:
-  # https://hub.docker.com/r/...
+  # Docker Hub: https://hub.docker.com/r/...
+  # Github: https://github.com/.../...
   skel:
     container_name: skel
     image: app/image:tag
@@ -20,6 +20,12 @@ services:
       TZ: "Europe/Berlin"
       UID: "1000"
       GID: "1000"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=skel"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/skel/releases/tag/$${major}.$${minor}.$${patch}"
     volumes:
       - skel-data:/var/www/html
       - skel-conf:/etc/skel

@@ -16,6 +16,12 @@ services:
       TZ: "Europe/Berlin"
       # PUID: "1000"
       # PGID: "1000"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=DokuWiki"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/linuxserver/docker-dokuwiki/releases"
     volumes:
       - dokuwiki-conf:/config
 

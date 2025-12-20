@@ -22,6 +22,11 @@ services:
       # REGISTRY_AUTH_HTPASSWD_REALM: "Registry Realm"
       REGISTRY_STORAGE_CACHE_BLOBDESCRIPTOR: "redis"
       REGISTRY_REDIS_ADDR: "redis-nopw:6379"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Docker Registry"
+      - "wud.trigger.include=docker.autoupdate"
     volumes:
       - docker-registry-data:/var/lib/registry
       # - docker-registry-auth:/auth # for htpasswd

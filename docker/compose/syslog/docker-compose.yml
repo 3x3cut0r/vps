@@ -16,6 +16,12 @@ services:
       driver: "syslog"
       options:
         syslog-address: "udp://10.255.0.2:514"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Syslog NG"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/syslog-ng/syslog-ng/releases/tag/syslog-ng-$${major}.$${minor}.$${patch}"
     volumes:
       - syslog-ng-logs:/var/log
       - syslog-ng-conf.d:/etc/syslog-ng/conf.d

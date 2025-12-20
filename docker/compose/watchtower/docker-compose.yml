@@ -1,5 +1,6 @@
 services:
   # Docker Hub: https://hub.docker.com/r/containrrr/watchtower
+  # Github: https://github.com/containrrr/watchtower
   watchtower:
     container_name: watchtower
     image: containrrr/watchtower:latest
@@ -11,10 +12,14 @@ services:
     dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=WatchTower"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/containrrr/watchtower/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    labels:
-      com.centurylinklabs.watchtower.enable: false
 
 networks:
   watchtower:

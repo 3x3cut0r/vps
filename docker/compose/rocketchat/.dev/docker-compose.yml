@@ -23,6 +23,9 @@ services:
       DEPOY_PLATFORM: "compose"
     labels:
       - "wud.enable=false"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Rocket.Chat DEV"
+      - "wud.link.template=https://github.com/RocketChat/Rocket.Chat/releases/tag/$${major}.$${minor}.$${patch}"
     depends_on:
       - mongo-dev
 
@@ -49,6 +52,7 @@ services:
   #     - /run/user/1000/docker.sock:/var/run/docker.sock
 
   # Docker Hub: https://hub.docker.com/_/mongo
+  # Github: https://github.com/mongodb/mongo
   mongo-dev:
     container_name: mongo-dev
     image: bitnamilegacy/mongodb:8.0.13
@@ -69,6 +73,11 @@ services:
       MONGODB_ENABLE_JOURNAL: "true"
       MONGODB_EXTRA_FLAGS: "--wiredTigerCacheSizeGB=1"
       ALLOW_EMPTY_PASSWORD: "yes"
+    labels:
+      - "wud.enable=false"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Rocket.Chat DEV - MongoDB"
+      - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"
     volumes:
       - mongo-dev-data:/data/db
       - mongo-dev-dump:/dump
@@ -98,6 +107,7 @@ services:
   #     - mongo
 
   # Docker Hub: https://hub.docker.com/r/rocketchat/hubot-rocketchat
+  # Github: https://github.com/hubotio/hub
   # hubot, the popular chatbot (add the bot user first and change the password before starting this image)
   hubot-dev:
     container_name: hubot-dev
@@ -123,6 +133,12 @@ services:
       # HUBOT_MUSTACHIFY_URL: 'https://mustachify.me/?src=YOUR-IMAGE-URL'
       # you can add more scripts as you'd like here, they need to be installable by npm
       EXTERNAL_SCRIPTS: hubot-pugme,hubot-help,hubot-seen,hubot-links,hubot-diagnostics,hubot-calculator,hubot-2048,hubot-darts,hubot-thesimpsons,hubot-tell,hubot-google-images
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Rocket.Chat DEV - Hubot"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/hubotio/hubot/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - hubot-dev-scripts:/home/hubot/scripts
     depends_on:

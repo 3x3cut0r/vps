@@ -1,5 +1,6 @@
 services:
   # Docker Hub: https://hub.docker.com/_/nextcloud
+  # Github: https://github.com/nextcloud/server
   nextcloud:
     container_name: nextcloud
     image: nextcloud:26-apache
@@ -43,8 +44,14 @@ services:
       # OVERWRITEWEBROOT: '/domain.tld/nextcloud'
       # OVERWRITECONDADDR: '^10\.0\.0\.1$'
       NC_DEFAULT_PHONE_REGION: "DE"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Nextcloud"
+      - "wud.link.template=https://github.com/nextcloud/server/releases/tag/v$${major}.$${minor}.$${patch}"
 
   # https://hub.docker.com/r/onlyoffice/documentserver
+  # Github: https://github.com/ONLYOFFICE/Docker-DocumentServer
   onlyoffice-documentserver:
     container_name: onlyoffice-documentserver
     image: onlyoffice/documentserver:latest
@@ -64,6 +71,12 @@ services:
     #   SSL_KEY_PATH: '/var/www/onlyoffice/Data/certs/onlyoffice.key'
     #   SSL_DHPARAM_PATH: '/var/www/onlyoffice/Data/certs/dhparam.pem'
     #   SSL_VERIFY_CLIENT: 'false'
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=OnlyOffice Document Server"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/ONLYOFFICE/DocumentServer/blob/master/CHANGELOG.md#$${major}$${minor}$${patch}"
     volumes:
       - onlyoffice-documentserver-data:/var/www/onlyoffice/Data
       - onlyoffice-documentserver-log:/var/log/onlyoffice

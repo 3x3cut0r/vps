@@ -1,6 +1,6 @@
 services:
   # Docker Hub: https://hub.docker.com/_/nginx
-  # Github: https://github.com/NginxProxyManager/nginx-proxy-manager
+  # Github: https://github.com/nginx/nginx
   nginx:
     container_name: nginx
     image: nginx:latest
@@ -12,6 +12,14 @@ services:
       nginx:
         ipv4_address: "10.24.0.2"
     dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Nginx"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/nginx/nginx/releases/tag/release-$${major}.$${minor}.$${patch}"
     volumes:
       - nginx-html:/var/www/html
       - nginx-conf.d:/etc/nginx/conf.d
@@ -19,6 +27,7 @@ services:
       - php-fpm
 
   # Docker Hub: https://hub.docker.com/r/jc21/nginx-proxy-manager
+  # Github: https://github.com/NginxProxyManager/nginx-proxy-manager
   nginx-proxy-manager:
     container_name: nginx-proxy-manager
     image: jc21/nginx-proxy-manager:latest
@@ -33,11 +42,18 @@ services:
     dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Nginx Proxy Manager"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/NginxProxyManager/nginx-proxy-manager/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - nginx-proxy-manager-data:/data
       - nginx-proxy-manager-letsencrypt:/etc/letsencrypt
 
   # Docker Hub: https://hub.docker.com/_/php
+  # Github: https://github.com/php/php-src
   php-fpm:
     container_name: php-fpm
     image: php:8-fpm-alpine
@@ -48,6 +64,14 @@ services:
     ports:
       - "9000:9000"
     dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=PHP-FPM"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/php/php-src/releases/tag/php-$${major}.$${minor}.$${patch}"
     volumes:
       - nginx-html:/var/www/html
 

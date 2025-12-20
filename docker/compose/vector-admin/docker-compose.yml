@@ -22,6 +22,12 @@ services:
       INNGEST_EVENT_KEY: "background_workers"
       INNGEST_SIGNING_KEY: "${INNGEST_SIGNING_KEY}"
       INNGEST_LANDING_PAGE: "true"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Vector Admin"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/Mintplex-Labs/vector-admin"
     volumes:
       # - "./.env:/app/backend/.env"
       - vector-admin-data:/app/backend/storage
@@ -40,6 +46,11 @@ services:
       vector-admin:
         ipv4_address: "10.24.38.3"
     dns: ["192.168.40.253"]
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Vector Admin Postgres"
+      - "wud.link.template=https://www.postgresql.org/docs/release/$${major}.$${minor}"
     volumes:
       - vector-admin-postgres:/var/lib/postgresql/data
     environment:

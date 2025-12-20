@@ -1,5 +1,6 @@
 services:
   # Docker Hub: https://hub.docker.com/_/mariadb
+  # Github: https://github.com/mariadb
   mariadb:
     container_name: mariadb
     image: mariadb:10-focal
@@ -14,11 +15,17 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
       TZ: "Europe/Berlin"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=MariaDB"
+      - "wud.link.template=https://mariadb.com/docs/release-notes/community-server/$${major}.$${minor}/$${major}.$${minor}.$${patch}"
     volumes:
       - mariadb-data:/var/lib/mysql
       - mariadb-conf:/etc/mysql/mariadb.conf.d
 
   # Docker Hub: https://hub.docker.com/_/phpmyadmin
+  # Github: https://github.com/phpmyadmin/phpmyadmin
   phpmyadmin:
     container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin:latest
@@ -34,6 +41,12 @@ services:
       PMA_ARBITRARY: "1"
       PMA_HOST: "mariadb"
       PMA_VERBOSE: "mariadb"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=phpMyAdmin"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/phpmyadmin/docker/releases/tag/$${major}.$${minor}.$${patch}"
     volumes:
       - /opt/docker/config-files/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
       - /opt/docker/config-files/phpmyadmin/php.ini:/usr/local/etc/php/conf.d/php.ini

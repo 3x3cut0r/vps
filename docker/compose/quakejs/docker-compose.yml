@@ -14,6 +14,12 @@ services:
     environment:
       SERVER: "3x3cut0r.de"
       HTTP_PORT: "3333"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=QuakeJS"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/treyyoder/quakejs-docker"
     volumes:
       - /opt/docker/config-files/quakejs/server.cfg:/quakejs/base/baseq3/server.cfg
       - /opt/docker/config-files/quakejs/server.cfg:/quakejs/base/cpma/server.cfg

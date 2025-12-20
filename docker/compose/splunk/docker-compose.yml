@@ -1,5 +1,6 @@
 services:
   # Docker Hub: https://hub.docker.com/r/splunk/splunk
+  # Github: https://github.com/splunk/docker-splunk
   splunk:
     container_name: splunk
     image: splunk/splunk:latest
@@ -15,6 +16,12 @@ services:
       SPLUNK_START_ARGS: "--accept-license"
       SPLUNK_PASSWORD: "${SPLUNK_PASSWORD}"
       # DEBUG: true
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Splunk"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/splunk/docker-splunk/releases/tag/$${major}.$${minor}.$${patch}"
     volumes:
       - splunk-conf:/opt/splunk/etc
       - splunk-index:/opt/splunk/var

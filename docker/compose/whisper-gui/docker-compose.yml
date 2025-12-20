@@ -14,6 +14,12 @@ services:
     environment:
       TZ: "Europe/Berlin"
       LANGUAGE: "de"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Whisper GUI"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/Pikurrot/whisper-gui/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - whisper-gui-data:/whisper-gui/outputs
 

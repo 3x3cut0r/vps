@@ -1,6 +1,6 @@
 services:
   # Docker Hub: https://hub.docker.com/r/guacamole/
-  # Github: https://hub.docker.com/r/guacamole/guacamole
+  # Github: https://github.com/apache/guacamole-server
   guacd:
     container_name: guacd
     image: guacamole/guacd:1.6.0
@@ -13,6 +13,12 @@ services:
       # nginx:
       #     ipv4_address: 10.24.0.199
     dns: ["192.168.40.253"]
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=GUACD"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/apache/guacamole-server/releases/tag/$${major}.$${minor}.$${patch}"
 
   # https://hub.docker.com/r/guacamole/guacamole
   guacamole:
@@ -33,6 +39,12 @@ services:
       MYSQL_DATABASE: "guacamole"
       MYSQL_USER: "guacamole"
       MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+    labels:
+      - "wud.enable=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Guacamole"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/apache/guacamole-server/releases/tag/$${major}.$${minor}.$${patch}"
     depends_on:
       - guacd
       # - mariadb // depends_on not working for external services!
