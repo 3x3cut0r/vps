@@ -14,7 +14,7 @@ services:
     environment:
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
     labels:
-      - "wud.enable=true"
+      - "wud.enable=false"
       - "wud.watch.digest=true"
       - "wud.display.name=Postgres"
       - "wud.link.template=https://www.postgresql.org/docs/release/$${major}.$${minor}"
