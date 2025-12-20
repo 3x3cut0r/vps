@@ -35,7 +35,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Umbrel Tor"
       - "wud.trigger.include=docker.autoupdate"
@@ -101,7 +101,7 @@ services:
       ELECTRUM_HIDDEN_SERVICE_FILE: "/var/lib/tor/electrum/hostname"
       ELECTRUM_PORT: "50011"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Umbrel Manager"
       - "wud.trigger.include=docker.autoupdate"
@@ -135,7 +135,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Umbrel Bitcoind"
       - "wud.trigger.include=docker.autoupdate"
@@ -174,7 +174,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Umbrel LND"
       - "wud.trigger.include=docker.autoupdate"
@@ -204,7 +204,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Umbrel Electrs"
       - "wud.trigger.include=docker.autoupdate"
@@ -245,7 +245,7 @@ services:
       TLS_FILE: "/lnd/tls.cert"
       MACAROON_DIR: "/lnd/data/chain/bitcoin/mainnet/"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Umbrel Middleware"
       - "wud.trigger.include=docker.autoupdate"
@@ -278,7 +278,7 @@ services:
       VUE_APP_MANAGER_API_URL: "http://10.21.21.4:3006"
       VUE_APP_MIDDLEWARE_API_URL: "http://10.21.21.5:3005"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Umbrel Dashboard"
       - "wud.trigger.include=docker.autoupdate"
@@ -303,7 +303,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Umbrel Nginx"
       - "wud.trigger.include=docker.autoupdate"
@@ -332,7 +332,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Umbrel Frontail"
       - "wud.trigger.include=docker.autoupdate"

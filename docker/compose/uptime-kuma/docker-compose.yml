@@ -14,7 +14,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Uptime Kuma"
       - "wud.trigger.include=docker.autoupdate"

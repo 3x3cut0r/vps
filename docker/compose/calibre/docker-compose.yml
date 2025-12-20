@@ -17,7 +17,7 @@ services:
       # DOCKER_MODS: linuxserver/calibre-web:calibre #optional
       # OAUTHLIB_RELAX_TOKEN_SCOPE: 1 #optional
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Calibre"
       - "wud.trigger.include=docker.autoupdate"

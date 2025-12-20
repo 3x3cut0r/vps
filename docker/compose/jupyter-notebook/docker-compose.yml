@@ -19,7 +19,7 @@ services:
       CHOWN_HOME: yes
       NB_USER: "jupyter"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Jupyter Notebook"
       - "wud.trigger.include=docker.autoupdate"

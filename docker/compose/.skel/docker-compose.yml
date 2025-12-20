@@ -21,7 +21,7 @@ services:
       UID: "1000"
       GID: "1000"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=skel"
       - "wud.trigger.include=docker.autoupdate"

@@ -45,7 +45,7 @@ services:
       # OVERWRITECONDADDR: '^10\.0\.0\.1$'
       NC_DEFAULT_PHONE_REGION: "DE"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Nextcloud"
       - "wud.link.template=https://github.com/nextcloud/server/releases/tag/v$${major}.$${minor}.$${patch}"
@@ -72,7 +72,7 @@ services:
     #   SSL_DHPARAM_PATH: '/var/www/onlyoffice/Data/certs/dhparam.pem'
     #   SSL_VERIFY_CLIENT: 'false'
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=OnlyOffice Document Server"
       - "wud.trigger.include=docker.autoupdate"

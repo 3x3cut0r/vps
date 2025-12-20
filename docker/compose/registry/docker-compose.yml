@@ -23,7 +23,7 @@ services:
       REGISTRY_STORAGE_CACHE_BLOBDESCRIPTOR: "redis"
       REGISTRY_REDIS_ADDR: "redis-nopw:6379"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Docker Registry"
       - "wud.trigger.include=docker.autoupdate"

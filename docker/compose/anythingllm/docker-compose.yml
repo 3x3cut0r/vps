@@ -35,7 +35,7 @@ services:
       # Audio Model Selection
       WHISPER_PROVIDER: "openai"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=AnythingLLM"
       - "wud.trigger.include=docker.autoupdate"
@@ -62,7 +62,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Qdrant"
       - "wud.trigger.include=docker.autoupdate"

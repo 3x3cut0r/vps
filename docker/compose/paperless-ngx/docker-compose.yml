@@ -42,7 +42,7 @@ services:
       # PAPERLESS_APP_TITLE: "Paperless-ngx"
       # PAPERLESS_APP_LOGO: "/logo/Atari_logo.svg"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Paperless-NGX"
       - "wud.trigger.include=docker.autoupdate"
@@ -66,7 +66,7 @@ services:
         ipv4_address: "10.24.21.3"
     dns: ["192.168.40.253"]
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Paperless-NGX - Tika"
       - "wud.trigger.include=docker.autoupdate"
@@ -85,7 +85,7 @@ services:
         ipv4_address: "10.24.21.4"
     dns: ["192.168.40.253"]
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Paperless-NGX - Gotenberg"
       - "wud.trigger.include=docker.autoupdate"
@@ -107,7 +107,7 @@ services:
       POSTGRES_USER: "paperless"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Paperless-NGX - Postgres"
       - "wud.link.template=https://www.postgresql.org/docs/release/$${major}.$${minor}"
@@ -127,7 +127,7 @@ services:
         ipv4_address: "10.24.21.6"
     dns: ["192.168.40.253"]
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Paperless-NGX - Redis"
       - "wud.link.template=https://github.com/redis/redis/releases/tag/$${major}.$${minor}.$${patch}"

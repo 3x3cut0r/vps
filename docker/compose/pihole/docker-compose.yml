@@ -23,7 +23,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Pi-hole Unbound"
       - "wud.trigger.include=docker.autoupdate"
@@ -93,7 +93,7 @@ services:
       # WEB_PORT: ""                    # This will break the 'webpage blocked' functionality of Pi-hole however it may help advanced setups like those running synology or --net=host docker argument. This guide explains how to restore webpage blocked functionality using a linux router DNAT rule: Alternative Synology installation method
       # SKIPGRAVITYONBOOT: ""           # Use this option to skip updating the Gravity Database when booting up the container. By default this environment variable is not set so the Gravity Database will be updated when the container starts up. Setting this environment variable to 1 (or anything) will cause the Gravity Database to not be updated when container starts up. <unset|1>
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Pi-hole"
       - "wud.trigger.include=docker.autoupdate"

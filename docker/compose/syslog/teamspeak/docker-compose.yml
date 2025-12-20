@@ -27,7 +27,7 @@ services:
       TS3SERVER_LOG_QUERY_COMMANDS: "0"
       # TS3SERVER_DB_WAITUNTILREADY: '30'
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Teamspeak"
       - "wud.trigger.include=docker.autoupdate"

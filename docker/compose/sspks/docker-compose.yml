@@ -15,7 +15,7 @@ services:
       SSPKS_PACKAGES_DISTRIBUTOR_URL: "https://sspks.3x3cut0r.de"
       SSPKS_PACKAGES_FILE_MASK: "*.spk"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=SSPKS"
       - "wud.trigger.include=docker.autoupdate"

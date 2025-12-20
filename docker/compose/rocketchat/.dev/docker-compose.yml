@@ -22,7 +22,7 @@ services:
       DEPLOY_METHOD: "docker"
       DEPOY_PLATFORM: "compose"
     labels:
-      - "wud.enable=false"
+      - "wud.watch=false"
       - "wud.watch.digest=true"
       - "wud.display.name=Rocket.Chat DEV"
       - "wud.link.template=https://github.com/RocketChat/Rocket.Chat/releases/tag/$${major}.$${minor}.$${patch}"
@@ -74,7 +74,7 @@ services:
       MONGODB_EXTRA_FLAGS: "--wiredTigerCacheSizeGB=1"
       ALLOW_EMPTY_PASSWORD: "yes"
     labels:
-      - "wud.enable=false"
+      - "wud.watch=false"
       - "wud.watch.digest=true"
       - "wud.display.name=Rocket.Chat DEV - MongoDB"
       - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"
@@ -134,7 +134,7 @@ services:
       # you can add more scripts as you'd like here, they need to be installable by npm
       EXTERNAL_SCRIPTS: hubot-pugme,hubot-help,hubot-seen,hubot-links,hubot-diagnostics,hubot-calculator,hubot-2048,hubot-darts,hubot-thesimpsons,hubot-tell,hubot-google-images
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Rocket.Chat DEV - Hubot"
       - "wud.trigger.include=docker.autoupdate"

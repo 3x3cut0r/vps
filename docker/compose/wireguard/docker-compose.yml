@@ -28,7 +28,7 @@ services:
       WGUI_MANAGE_START: "false"
       WGUI_MANAGE_RESTART: "true"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=WireGuard-UI"
       - "wud.trigger.include=docker.autoupdate"

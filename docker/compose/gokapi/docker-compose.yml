@@ -20,7 +20,7 @@ services:
       GOKAPI_MAX_MEMORY_UPLOAD: "20" # Sets the amount of RAM in MB that can be allocated for an upload. Any upload with a size greater than that will be written to a temporary file
       GOKAPI_PORT: "53842"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Gokapi"
       - "wud.trigger.include=docker.autoupdate"

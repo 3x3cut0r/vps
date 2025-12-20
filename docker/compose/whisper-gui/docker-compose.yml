@@ -15,7 +15,7 @@ services:
       TZ: "Europe/Berlin"
       LANGUAGE: "de"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Whisper GUI"
       - "wud.trigger.include=docker.autoupdate"

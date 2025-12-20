@@ -22,7 +22,7 @@ services:
       # SUBFOLDER: "/"
       LC_ALL: "de_DE.UTF-8"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=WebTop"
       - "wud.trigger.include=docker.autoupdate"

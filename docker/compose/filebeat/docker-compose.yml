@@ -12,7 +12,7 @@ services:
       # ELASTICSEARCH_USERNAME: "elastic"
       # ELASTICSEARCH_PASSWORD: "${ELASTICSEARCH_PASSWORD}"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Filebeat"
       - "wud.trigger.include=docker.autoupdate"

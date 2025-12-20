@@ -10,7 +10,7 @@ services:
     network_mode: host
     dns: ["192.168.40.253"]
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=RustDesk Server - HBBS"
       - "wud.trigger.include=docker.autoupdate"
@@ -28,7 +28,7 @@ services:
     command: hbbr
     network_mode: host
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=RustDesk Server - HBBR"
       - "wud.trigger.include=docker.autoupdate"

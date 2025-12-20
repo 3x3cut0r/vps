@@ -25,7 +25,7 @@ services:
       AGENT_USERNAME: "crowdsec"
       AGENT_PASSWORD: "${AGENT_PASSWORD}"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=CrowdSec"
       - "wud.trigger.include=docker.autoupdate"

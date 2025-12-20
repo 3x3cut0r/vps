@@ -29,7 +29,7 @@ services:
       PUID: "1000"
       PGID: "1000"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=AzuraCast Web"
       - "wud.trigger.include=docker.autoupdate"
@@ -68,7 +68,7 @@ services:
       PUID: "1000"
       PGID: "1000"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=AzuraCast Stations"
       - "wud.trigger.include=docker.autoupdate"
@@ -89,7 +89,7 @@ services:
       azuracast:
         ipv4_address: 10.24.26.4
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Azuracast - Redis"
       - "wud.link.template=https://github.com/redis/redis/releases/tag/$${major}.$${minor}.$${patch}"

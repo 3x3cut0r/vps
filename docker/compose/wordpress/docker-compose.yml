@@ -17,7 +17,7 @@ services:
       WORDPRESS_DB_PASSWORD: "${WORDPRESS_DB_PASSWORD}"
       WORDPRESS_DB_NAME: "wordpress"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=WordPress"
       - "wud.trigger.include=docker.autoupdate"
@@ -42,7 +42,7 @@ services:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
       TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=false"
+      - "wud.watch=false"
       - "wud.watch.digest=true"
       - "wud.display.name=WordPress - MariaDB"
       - "wud.link.template=https://mariadb.com/docs/release-notes/community-server/$${major}.$${minor}/$${major}.$${minor}.$${patch}"
@@ -68,7 +68,7 @@ services:
       PMA_HOST: "wordpress-mariadb"
       PMA_VERBOSE: "wordpress-mariadb"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=WordPress - phpMyAdmin"
       - "wud.trigger.include=docker.autoupdate"

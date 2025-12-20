@@ -29,7 +29,7 @@ services:
       DB_PASSWORD: "${DB_PASSWORD}"
       TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=FileSender"
       - "wud.trigger.include=docker.autoupdate"

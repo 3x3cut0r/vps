@@ -19,7 +19,7 @@ services:
     # LOG_FILE: '/var/log/docker/cron.log'
     # LOGROTATE_AUTOUPDATE: true # default = true
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Logrotate"
       - "wud.trigger.include=docker.autoupdate"

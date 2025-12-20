@@ -23,7 +23,7 @@ services:
       COMPOSE_DIR: "/config/docker-compose"
       DISABLE_AUTH: "false"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Yacht"
       - "wud.trigger.include=docker.autoupdate"

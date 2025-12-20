@@ -12,7 +12,7 @@ services:
     #   - '27017'
     dns: ["192.168.40.253"]
     labels:
-      - "wud.enable=false"
+      - "wud.watch=false"
       - "wud.watch.digest=true"
       - "wud.display.name=Wekan - MongoDB"
       - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"
@@ -38,7 +38,7 @@ services:
       MONGO_URL: "mongodb://wekan-mongo:27017/wekan"
       ROOT_URL: "http://wekan.3x3cut0r.de"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Wekan"
       - "wud.trigger.include=docker.autoupdate"

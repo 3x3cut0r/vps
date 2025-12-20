@@ -21,7 +21,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=CoTURN"
       - "wud.trigger.include=docker.autoupdate"
@@ -49,7 +49,7 @@ services:
       MYSQL_ROOT_PASSWORD: "<MYSQL_ROOT_PASSWORD>"
       TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=false"
+      - "wud.watch=false"
       - "wud.watch.digest=true"
       - "wud.display.name=CoTURN - MariaDB"
       - "wud.link.template=https://mariadb.com/docs/release-notes/community-server/$${major}.$${minor}/$${major}.$${minor}.$${patch}"
@@ -92,7 +92,7 @@ services:
       NATS_URL: "nats://natsuser:<NATS_PASSWORD>@192.168.40.214:4222"
       GEOIP_LICENSE: "<GEOIP_LICENSE>"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=CoTURN - Nextcloud Spreed Signaling"
       - "wud.trigger.include=docker.autoupdate"
@@ -119,7 +119,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=CoTURN - Janus Gateway"
       - "wud.trigger.include=docker.autoupdate"
@@ -147,7 +147,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=CoTURN - NATS"
       - "wud.trigger.include=docker.autoupdate"

@@ -24,7 +24,7 @@ services:
       DOCKER_MODS: "linuxserver/mods:code-server-flutter|linuxserver/mods:code-server-nodejs|linuxserver/mods:code-server-php8|linuxserver/mods:code-server-python3"
       NODEJS_MOD_VERSION: "22"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Code Server"
       - "wud.trigger.include=docker.autoupdate"

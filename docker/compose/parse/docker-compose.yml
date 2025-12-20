@@ -27,7 +27,7 @@ services:
       PARSE_DATABASE_USER: "parse"
       PARSE_DATABASE_PASSWORD: "${MONGODB_PASSWORD}"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Parse Server"
       - "wud.trigger.include=docker.autoupdate"
@@ -64,7 +64,7 @@ services:
       PARSE_DASHBOARD_USERNAME: "admin"
       PARSE_DASHBOARD_PASSWORD: "${PARSE_PASSWORD}"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Parse Dashboard"
       - "wud.trigger.include=docker.autoupdate"
@@ -92,7 +92,7 @@ services:
       MONGODB_USERNAME: "parse"
       MONGODB_PASSWORD: "${MONGODB_PASSWORD}"
     labels:
-      - "wud.enable=false"
+      - "wud.watch=false"
       - "wud.watch.digest=true"
       - "wud.display.name=Parse - MongoDB"
       - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"

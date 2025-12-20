@@ -18,7 +18,7 @@ services:
       APPSMITH_RTS_HOST: "appsmith-rts"
       APPSMITH_UI_HTTP_PORT: "8080"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Appsmith"
       - "wud.trigger.include=docker.autoupdate"
@@ -60,7 +60,7 @@ services:
       APPSMITH_ENCRYPTION_SALT: "${APPSMITH_ENCRYPTION_SALT}" # do not use special characters!
       APPSMITH_DATABASE_INIT_DELAY: 90 # Hack: This is only necessary in docker-compose
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Appsmith API"
       - "wud.trigger.include=docker.autoupdate"
@@ -94,7 +94,7 @@ services:
       APPSMITH_DATABASE_PASSWORD: "${MONGODB_PASSWORD}"
       APPSMITH_DATABASE_INIT_DELAY: 60 # Hack: This is only necessary in docker-compose
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Appsmith RTS"
       - "wud.trigger.include=docker.autoupdate"
@@ -116,7 +116,7 @@ services:
     environment:
       REDIS_PASSWORD: "${REDIS_PASSWORD}" # do not use special characters!
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Appsmith - Redis"
       - "wud.link.template=https://github.com/redis/redis/releases/tag/$${major}.$${minor}.$${patch}"
@@ -144,7 +144,7 @@ services:
       MONGODB_REPLICA_SET_MODE: "primary"
       MONGODB_REPLICA_SET_KEY: "${MONGODB_REPLICA_SET_KEY}" # do not use special characters!
     labels:
-      - "wud.enable=false"
+      - "wud.watch=false"
       - "wud.watch.digest=true"
       - "wud.display.name=Appsmith - MongoDB"
       - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"
@@ -169,7 +169,7 @@ services:
       MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD: "${MONGODB_ROOT_PASSWORD}"
       MONGODB_REPLICA_SET_KEY: "${MONGODB_REPLICA_SET_KEY}" # do not use special characters!
     labels:
-      - "wud.enable=false"
+      - "wud.watch=false"
       - "wud.watch.digest=true"
       - "wud.display.name=Appsmith - MongoDB Secondary"
       - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"

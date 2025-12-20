@@ -16,7 +16,7 @@ services:
       TITLE: "404 Not Found"
       LINK: "https://404.3x3cut0r.de"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.display.name=404"
       - "wud.trigger.include=docker.autoupdate"
       - "wud.link.template=https://github.com/3x3cut0r/docker/tree/main/404"

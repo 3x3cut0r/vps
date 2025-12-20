@@ -14,7 +14,7 @@ services:
     environment:
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
     labels:
-      - "wud.enable=false"
+      - "wud.watch=false"
       - "wud.watch.digest=true"
       - "wud.display.name=Postgres"
       - "wud.link.template=https://www.postgresql.org/docs/release/$${major}.$${minor}"
@@ -38,7 +38,7 @@ services:
       PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "True"
       PGADMIN_LISTEN_PORT: "5050"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=PGAdmin"
       - "wud.link.template=https://www.pgadmin.org/news/"

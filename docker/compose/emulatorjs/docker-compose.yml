@@ -19,7 +19,7 @@ services:
       # PGID: "1000"
       # SUBFOLDER: "/"  #optional
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=EmulatorJS"
       - "wud.trigger.include=docker.autoupdate"

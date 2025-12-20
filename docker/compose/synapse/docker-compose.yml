@@ -25,7 +25,7 @@ services:
       UID: "991"
       GID: "991"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Synapse"
       - "wud.trigger.include=docker.autoupdate"
@@ -54,7 +54,7 @@ services:
     environment:
       TZ: Europe/Berlin
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Element Web"
       - "wud.trigger.include=docker.autoupdate"
@@ -81,7 +81,7 @@ services:
     environment:
       TZ: Europe/Berlin
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Maubot"
       - "wud.trigger.include=docker.autoupdate"
@@ -106,7 +106,7 @@ services:
     environment:
       TZ: Europe/Berlin
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Mautrix Telegram"
       - "wud.trigger.include=docker.autoupdate"
@@ -131,7 +131,7 @@ services:
     environment:
       TZ: Europe/Berlin
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Mautrix WhatsApp"
       - "wud.trigger.include=docker.autoupdate"
@@ -151,7 +151,7 @@ services:
     environment:
       TZ: Europe/Berlin
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Signald"
       - "wud.trigger.include=docker.autoupdate"
@@ -178,7 +178,7 @@ services:
     environment:
       TZ: Europe/Berlin
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Mautrix Signal"
       - "wud.trigger.include=docker.autoupdate"
@@ -207,7 +207,7 @@ services:
       AS_TOKEN: "${AS_TOKEN}"
       HS_TOKEN: "${HS_TOKEN}"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Mautrix WSProxy"
       - "wud.trigger.include=docker.autoupdate"

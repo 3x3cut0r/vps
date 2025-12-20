@@ -15,7 +15,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Nginx"
       - "wud.trigger.include=docker.autoupdate"
@@ -43,7 +43,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Nginx Proxy Manager"
       - "wud.trigger.include=docker.autoupdate"
@@ -67,7 +67,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=PHP-FPM"
       - "wud.trigger.include=docker.autoupdate"

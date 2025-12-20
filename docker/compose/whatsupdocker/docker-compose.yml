@@ -26,14 +26,14 @@ services:
       # WUD_WATCHER_BBB_HOST: bigbluebutton # Watch a remote docker host via TCP on 2375
       # WUD_WATCHER_BBB_CRON: 0 2 * * *
       # WUD_WATCHER_BBB_WATCHALL: false # If true, watch all containers regardless of their status (created, paused, exited, restarting, running...)
-      WUD_TRIGGER_DOCKER_LOCAL_AUTO: false # Enable MANUAL updates for containers with label 'wud.enable=true'
-      WUD_TRIGGER_DOCKER_LOCAL_PRUNE: true # Remove old images after updating containers with label 'wud.enable=true'
-      WUD_TRIGGER_DOCKER_LOCAL_DRYRUN: false # Do not perform a dry run, actually update containers with label 'wud.enable=true'
+      WUD_TRIGGER_DOCKER_LOCAL_AUTO: false # Enable MANUAL updates for containers with label 'wud.watch=true'
+      WUD_TRIGGER_DOCKER_LOCAL_PRUNE: true # Remove old images after updating containers with label 'wud.watch=true'
+      WUD_TRIGGER_DOCKER_LOCAL_DRYRUN: false # Do not perform a dry run, actually update containers with label 'wud.watch=true'
       WUD_TRIGGER_DOCKER_AUTOUPDATE_AUTO: true # Enable AUTO updates for containers with label 'wud.trigger.include: docker.autoupdate'
       WUD_TRIGGER_DOCKER_AUTOUPDATE_PRUNE: true # Remove old images after updating containers with label 'wud.trigger.include: docker.autoupdate'
       WUD_TRIGGER_DOCKER_AUTOUPDATE_DRYRUN: false # Do not perform a dry run, actually update containers with label 'wud.trigger.include: docker.autoupdate'
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=WhatsUpDocker"
       - "wud.trigger.include=docker.autoupdate"

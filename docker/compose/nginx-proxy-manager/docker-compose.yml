@@ -24,7 +24,7 @@ services:
       # Uncomment this if IPv6 is not enabled on your host
       # DISABLE_IPV6: 'true'
     labels:
-      - "wud.enable=true"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Nginx Proxy Manager"
       - "wud.trigger.include=docker.autoupdate"
@@ -56,7 +56,7 @@ services:
       MARIADB_USER: "npm"
       MARIADB_PASSWORD: "${MARIADB_PASSWORD}"
     labels:
-      - "wud.enable=false"
+      - "wud.watch=false"
       - "wud.watch.digest=true"
       - "wud.display.name=Nginx Proxy Manager - MariaDB"
       - "wud.link.template=https://mariadb.com/docs/release-notes/community-server/$${major}.$${minor}/$${major}.$${minor}.$${patch}"
