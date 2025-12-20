@@ -1,4 +1,5 @@
 *.DS_Store
-site
+etc/unbound/unbound.conf.d/99-local-3x3cut0r.de.conf
 opt/scripts/network/post-down.sh
 opt/scripts/network/post-up.sh
+site
