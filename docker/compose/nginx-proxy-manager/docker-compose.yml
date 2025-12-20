@@ -50,13 +50,13 @@ services:
     #   - '3306:3306'
     dns: ["192.168.40.253"]
     environment:
+      TZ: "Europe/Berlin"
       MARIADB_ROOT_PASSWORD: "${MARIADB_ROOT_PASSWORD}"
       MARIADB_DATABASE: "npm"
       MARIADB_USER: "npm"
       MARIADB_PASSWORD: "${MARIADB_PASSWORD}"
-      TZ: "Europe/Berlin"
     labels:
-      - "wud.enable=true"
+      - "wud.enable=false"
       - "wud.watch.digest=true"
       - "wud.display.name=Nginx Proxy Manager - MariaDB"
       - "wud.link.template=https://mariadb.com/docs/release-notes/community-server/$${major}.$${minor}/$${major}.$${minor}.$${patch}"
