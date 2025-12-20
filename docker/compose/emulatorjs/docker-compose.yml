@@ -3,7 +3,7 @@ services:
   # Github: https://github.com/EmulatorJS/EmulatorJS
   emulatorjs:
     container_name: emulatorjs
-    image: linuxserver/emulatorjs:amd64-latest
+    image: linuxserver/emulatorjs:1.9.2
     restart: unless-stopped
     ports:
       - "2124:80"
