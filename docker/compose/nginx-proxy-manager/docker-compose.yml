@@ -63,6 +63,7 @@ services:
     volumes:
       - mariadb-data:/var/lib/mysql
       - mariadb-conf:/etc/mysql/mariadb.conf.d
+      - /opt/docker/config-files/mariadb/conf.d:/etc/mysql/conf.d:ro
 
 networks:
   nginx-proxy-manager:
