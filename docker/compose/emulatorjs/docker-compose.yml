@@ -1,8 +1,9 @@
 services:
   # Docker Hub: https://hub.docker.com/r/linuxserver/emulatorjs
+  # Github: https://github.com/EmulatorJS/EmulatorJS
   emulatorjs:
     container_name: emulatorjs
-    image: lscr.io/linuxserver/emulatorjs:latest
+    image: linuxserver/emulatorjs:latest
     restart: unless-stopped
     ports:
       - "2124:80"
@@ -22,7 +23,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=EmulatorJS"
       - "wud.trigger.include=docker.autoupdate"
-      - "wud.link.template=https://github.com/linuxserver/docker-emulatorjs/releases"
+      - "wud.link.template=https://github.com/EmulatorJS/EmulatorJS/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - emulatorjs-data:/data
       - emulatorjs-conf:/config
