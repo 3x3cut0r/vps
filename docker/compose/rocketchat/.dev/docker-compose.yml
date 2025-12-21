@@ -2,7 +2,7 @@ services:
   # Docker Hub: https://hub.docker.com/_/rocket-chat
   rocketchat-dev:
     container_name: rocketchat-dev
-    image: registry.rocket.chat/rocketchat/rocket.chat:7.13.1
+    image: rocketchat/rocket.chat:7.13.1
     restart: unless-stopped
     networks:
       rocketchat-dev:
