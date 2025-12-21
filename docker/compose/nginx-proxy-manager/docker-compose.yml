@@ -56,9 +56,10 @@ services:
       MARIADB_USER: "npm"
       MARIADB_PASSWORD: "${MARIADB_PASSWORD}"
     labels:
-      - "wud.watch=false"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Nginx Proxy Manager - MariaDB"
+      - "wud.trigger.exclude=docker.autoupdate"
       - "wud.link.template=https://mariadb.com/docs/release-notes/community-server/$${major}.$${minor}/$${major}.$${minor}.$${patch}"
     volumes:
       - mariadb-data:/var/lib/mysql
