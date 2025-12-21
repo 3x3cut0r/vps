@@ -3,7 +3,7 @@ services:
   # Documentation: https://docs.n8n.io/hosting/installation/docker
   n8n:
     container_name: n8n
-    image: docker.n8n.io/n8nio/n8n
+    image: docker.n8n.io/n8nio/n8n:latest
     restart: unless-stopped
     ports:
       - "2142:5678"
@@ -28,6 +28,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=n8n"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/n8n-io/n8n/releases/tag/n8n%40$${major}.$${minor}.$${patch}"
     volumes:
       - n8n-data:/home/node/.n8n

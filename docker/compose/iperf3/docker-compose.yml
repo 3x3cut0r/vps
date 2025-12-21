@@ -19,6 +19,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=iperf3"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/esnet/iperf/releases/tag/$${major}.$${minor}.$${patch}"
 
 networks:

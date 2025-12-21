@@ -21,6 +21,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=DokuWiki"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/linuxserver/docker-dokuwiki/releases"
     volumes:
       - dokuwiki-conf:/config

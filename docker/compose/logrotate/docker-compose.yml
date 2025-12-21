@@ -23,6 +23,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Logrotate"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/blacklabelops/logrotate/releases"
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers

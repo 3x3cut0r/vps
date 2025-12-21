@@ -21,6 +21,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Heimdall"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/linuxserver/docker-heimdall/releases"
     volumes:
       - heimdall-conf:/config

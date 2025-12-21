@@ -27,6 +27,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Vector Admin"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/Mintplex-Labs/vector-admin"
     volumes:
       # - "./.env:/app/backend/.env"
@@ -51,6 +52,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Vector Admin Postgres"
       - "wud.trigger.exclude=docker.autoupdate"
+      - "wud.tag.include=^\\d+-alpine$"
       - "wud.link.template=https://www.postgresql.org/docs/release/$${major}.$${minor}"
     volumes:
       - vector-admin-postgres:/var/lib/postgresql/data

@@ -18,6 +18,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Postgres"
       - "wud.trigger.exclude=docker.autoupdate"
+      - "wud.tag.include=^\\d+-alpine$"
       - "wud.link.template=https://www.postgresql.org/docs/release/$${major}.$${minor}"
     volumes:
       - postgres-data:/var/lib/postgresql/data

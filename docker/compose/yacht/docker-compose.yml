@@ -27,6 +27,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Yacht"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/Yacht-sh/Yacht/releases"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

@@ -32,6 +32,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Traefik"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/traefik/traefik/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - /run/user/1000/docker.sock:/var/run/docker.sock:ro
@@ -39,8 +40,8 @@ services:
 
   # https://hub.docker.com/r/traefik/whoami
   whoami:
-    image: "traefik/whoami"
-    container_name: "simple-service"
+    container_name: simple-service
+    image: traefik/whoami:latest
     networks:
       traefik:
         ipv4_address: 10.10.0.3
@@ -54,6 +55,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Traefik - Whoami"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/traefik/whoami/releases/tag/v$${major}.$${minor}.$${patch}"
 
 networks:

@@ -20,6 +20,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=MariaDB"
       - "wud.trigger.exclude=docker.autoupdate"
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$"
       - "wud.link.template=https://mariadb.com/docs/release-notes/community-server/$${major}.$${minor}/$${major}.$${minor}.$${patch}"
     volumes:
       - mariadb-data:/var/lib/mysql
@@ -47,6 +48,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=phpMyAdmin"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/phpmyadmin/docker/releases/tag/$${major}.$${minor}.$${patch}"
     volumes:
       - /opt/docker/config-files/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php

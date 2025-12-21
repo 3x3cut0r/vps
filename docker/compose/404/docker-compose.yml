@@ -19,6 +19,7 @@ services:
       - "wud.watch=true"
       - "wud.display.name=404"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/3x3cut0r/docker/tree/main/404"
 
 networks:

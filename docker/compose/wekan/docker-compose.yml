@@ -19,6 +19,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Wekan"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/wekan/wekan/releases/tag/v$${major}.$${minor}"
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -43,6 +44,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Wekan - MongoDB"
       - "wud.trigger.exclude=docker.autoupdate"
+      - "wud.tag.include=^5\\.\\d+$"
       - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"
     volumes:
       - /etc/localtime:/etc/localtime:ro

@@ -25,6 +25,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=CoTURN"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/coturn/coturn/blob/master/ChangeLog"
     volumes:
       - /opt/docker/config-files/coturn/turnserver.conf:/etc/coturn/turnserver.conf
@@ -96,6 +97,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=CoTURN - Nextcloud Spreed Signaling"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/strukturag/nextcloud-spreed-signaling/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - /opt/certs/fullchain.pem:/etc/nginx/ssl/server.crt
@@ -123,6 +125,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=CoTURN - Janus Gateway"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/meetecho/janus-gateway/blob/master/CHANGELOG.md"
     volumes:
       - "/opt/docker/config-files/janus/janus.jcfg:/usr/local/etc/janus/janus.jcfg"
@@ -151,6 +154,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=CoTURN - NATS"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^\\d+-alpine$"
       - "wud.link.template=https://github.com/nats-io/nats-server/releases/tag/v$${major}.$${minor}.$${patch}"
 
 # networks:

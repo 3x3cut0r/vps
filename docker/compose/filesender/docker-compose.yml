@@ -33,6 +33,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=FileSender"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/filesender/filesender/releases"
     volumes:
       - filesender-conf:/config

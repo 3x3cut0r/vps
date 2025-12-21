@@ -33,6 +33,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=AzuraCast Web"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/AzuraCast/AzuraCast/blob/main/CHANGELOG.md"
     volumes:
       - azuracast-letsencrypt:/etc/nginx/certs
@@ -72,6 +73,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=AzuraCast Stations"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/AzuraCast/AzuraCast/blob/main/CHANGELOG.md"
     volumes:
       - azuracast-stations-data:/var/azuracast/stations

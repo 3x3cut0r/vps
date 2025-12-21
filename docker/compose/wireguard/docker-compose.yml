@@ -32,6 +32,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=WireGuard-UI"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/ngoduykhanh/wireguard-ui/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - /opt/wireguard/db:/app/db

@@ -18,6 +18,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=GUACD"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$"
       - "wud.link.template=https://github.com/apache/guacamole-server/releases/tag/$${major}.$${minor}.$${patch}"
 
   # https://hub.docker.com/r/guacamole/guacamole
@@ -44,6 +45,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Guacamole"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$"
       - "wud.link.template=https://github.com/apache/guacamole-server/releases/tag/$${major}.$${minor}.$${patch}"
     depends_on:
       - guacd

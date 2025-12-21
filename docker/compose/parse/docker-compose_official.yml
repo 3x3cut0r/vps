@@ -24,6 +24,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Parse Server"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$"
       - "wud.link.template=https://github.com/parse-community/parse-server/releases/tag/$${major}.$${minor}.$${patch}"
     volumes:
       - parse-server-conf:/parse-server/config
@@ -55,6 +56,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Parse Dashboard"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/parse-community/parse-dashboard/releases/tag/$${major}.$${minor}.$${patch}"
     volumes:
       - parse-dashboard-conf:/src/Parse-Dashboard
@@ -83,6 +85,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Parse - MongoDB"
       - "wud.trigger.exclude=docker.autoupdate"
+      - "wud.tag.include=^\\d+$"
       - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"
     volumes:
       - parse-mongo-data:/data/db

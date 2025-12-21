@@ -17,6 +17,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=WatchTower"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/containrrr/watchtower/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

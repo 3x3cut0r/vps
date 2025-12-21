@@ -18,6 +18,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Uptime Kuma"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/louislam/uptime-kuma/releases/tag/$${major}.$${minor}.$${patch}"
     volumes:
       - uptime-kuma-data:/app/data

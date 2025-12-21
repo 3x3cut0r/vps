@@ -21,6 +21,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Splunk"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/splunk/docker-splunk/releases/tag/$${major}.$${minor}.$${patch}"
     volumes:
       - splunk-conf:/opt/splunk/etc

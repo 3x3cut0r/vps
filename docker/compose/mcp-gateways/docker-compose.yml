@@ -48,6 +48,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=MCP Docker Gateway"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/docker/mcp-gateway/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - /root/.docker/mcp:/root/.docker/mcp # config/secrets

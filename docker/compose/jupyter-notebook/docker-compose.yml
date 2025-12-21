@@ -23,6 +23,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Jupyter Notebook"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/jupyter/notebook/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - jupyter-notebook-data:/home/jupyter

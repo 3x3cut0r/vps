@@ -15,6 +15,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Web Proxies"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/3x3cut0r/docker/tree/main/glype-proxy"
     volumes:
       - glype-proxy:/app

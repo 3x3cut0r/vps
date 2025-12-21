@@ -20,6 +20,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Pidgin"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^\\d+-alpine$"
       - "wud.link.template=https://github.com/linuxserver/docker-pidgin/releases"
     volumes:
       - pidgin-conf:/config

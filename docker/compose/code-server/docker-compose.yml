@@ -28,6 +28,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Code Server"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/linuxserver/docker-code-server/releases"
     volumes:
       - code-server:/config

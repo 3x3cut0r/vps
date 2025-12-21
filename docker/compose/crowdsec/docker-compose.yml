@@ -29,6 +29,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=CrowdSec"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/crowdsecurity/crowdsec/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - crowdsec-conf:/etc/crowdsec

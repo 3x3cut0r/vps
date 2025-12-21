@@ -92,6 +92,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=LiteLLM - Postgres"
       - "wud.trigger.exclude=docker.autoupdate"
+      - "wud.tag.include=^\\d+$"
       - "wud.link.template=https://www.postgresql.org/docs/release/$${major}.$${minor}"
     volumes:
       - litellm-postgres-data:/var/lib/postgresql/data

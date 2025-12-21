@@ -19,6 +19,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Nginx"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/nginx/nginx/releases/tag/release-$${major}.$${minor}.$${patch}"
     volumes:
       - nginx-html:/var/www/html
@@ -47,6 +48,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Nginx Proxy Manager"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/NginxProxyManager/nginx-proxy-manager/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - nginx-proxy-manager-data:/data
@@ -71,6 +73,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=PHP-FPM"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^\\d+-fpm-alpine$"
       - "wud.link.template=https://github.com/php/php-src/releases/tag/php-$${major}.$${minor}.$${patch}"
     volumes:
       - nginx-html:/var/www/html

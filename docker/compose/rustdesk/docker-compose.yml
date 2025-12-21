@@ -14,6 +14,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=RustDesk Server - HBBS"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/rustdesk/rustdesk-server/releases/tag/$${major}.$${minor}.$${patch}"
     volumes:
       - rustdesk-data:/root
@@ -32,6 +33,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=RustDesk Server - HBBR"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/rustdesk/rustdesk-server/releases/tag/$${major}.$${minor}.$${patch}"
     volumes:
       - rustdesk-data:/root

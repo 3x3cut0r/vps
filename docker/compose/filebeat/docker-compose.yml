@@ -16,6 +16,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Filebeat"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$"
       - "wud.link.template=https://github.com/elastic/beats/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - /opt/docker/config-files/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro

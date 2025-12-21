@@ -19,6 +19,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=QuakeJS"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/treyyoder/quakejs-docker"
     volumes:
       - /opt/docker/config-files/quakejs/server.cfg:/quakejs/base/baseq3/server.cfg

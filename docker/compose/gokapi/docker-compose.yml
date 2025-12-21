@@ -24,6 +24,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Gokapi"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/Forceu/Gokapi/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - gokapi-data:/app/data

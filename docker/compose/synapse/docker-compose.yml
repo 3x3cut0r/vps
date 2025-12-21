@@ -29,6 +29,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Synapse"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/element-hq/synapse/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - synapse-data:/data
@@ -58,6 +59,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Element Web"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/element-hq/element-web/releases/tag/v$${major}.$${minor}.$${patch}"
     # volumes:
     #     - /opt/docker/config-files/element-web/config.json:/app/config.json
@@ -85,6 +87,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Maubot"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/maubot/maubot/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - maubot-data:/data:z
@@ -110,6 +113,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Mautrix Telegram"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/mautrix/telegram/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - mautrix-telegram-data:/data:z
@@ -135,6 +139,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Mautrix WhatsApp"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/mautrix/whatsapp/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - mautrix-whatsapp-data:/data:z
@@ -155,6 +160,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Signald"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
     volumes:
       - signald-data:/signald:z
       # - signald-gradle:/opt/gradle/.gradle
@@ -182,6 +188,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Mautrix Signal"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/mautrix/signal/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - signald-data:/var/run/signald
@@ -211,6 +218,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Mautrix WSProxy"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/mautrix/wsproxy/releases/tag/v$${major}.$${minor}.$${patch}"
 
 networks:

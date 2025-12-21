@@ -36,6 +36,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Firefox Jlesage"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/jlesage/docker-firefox/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - firefox-jlesage-data:/config

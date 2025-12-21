@@ -23,6 +23,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=EmulatorJS"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$"
       - "wud.link.template=https://github.com/EmulatorJS/EmulatorJS/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - emulatorjs-data:/data

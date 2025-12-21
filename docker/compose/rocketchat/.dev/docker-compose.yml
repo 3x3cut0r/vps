@@ -26,6 +26,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Rocket.Chat DEV"
       - "wud.trigger.exclude=docker.autoupdate"
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$"
       - "wud.link.template=https://github.com/RocketChat/Rocket.Chat/releases/tag/$${major}.$${minor}.$${patch}"
     depends_on:
       - mongo-dev
@@ -79,6 +80,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Rocket.Chat DEV - MongoDB"
       - "wud.trigger.exclude=docker.autoupdate"
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$"
       - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"
     volumes:
       - mongo-dev-data:/data/db
@@ -140,6 +142,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Rocket.Chat DEV - Hubot"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/hubotio/hubot/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - hubot-dev-scripts:/home/hubot/scripts

@@ -26,6 +26,7 @@ services:
       - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Docker Registry"
+      - "wud.tag.include=^latest$"
       - "wud.trigger.include=docker.autoupdate"
     volumes:
       - docker-registry-data:/var/lib/registry

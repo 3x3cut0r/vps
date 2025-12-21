@@ -39,6 +39,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=AnythingLLM"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/Mintplex-Labs/anything-llm/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - anythingllm-data:/app/server/storage
@@ -66,6 +67,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Qdrant"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/qdrant/qdrant/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - qdrant-data:/qdrant/storage

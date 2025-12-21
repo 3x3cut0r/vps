@@ -21,6 +21,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Syslog NG"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/syslog-ng/syslog-ng/releases/tag/syslog-ng-$${major}.$${minor}.$${patch}"
     volumes:
       - syslog-ng-logs:/var/log

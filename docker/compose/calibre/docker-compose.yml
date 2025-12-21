@@ -21,6 +21,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Calibre"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/kovidgoyal/calibre/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - calibre-books:/books

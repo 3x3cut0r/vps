@@ -39,6 +39,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Umbrel Tor"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/lncm/docker-tor/releases"
     volumes:
       - /opt/docker/config-files/umbrel/tor/torrc:/etc/tor/torrc
@@ -105,6 +106,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Umbrel Manager"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
     volumes:
       - /opt/docker/config-files/umbrel:/opt/docker/config-files/umbrel
       - /opt/docker/config-files/umbrel/info.json:/info.json
@@ -139,6 +141,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Umbrel Bitcoind"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^v\\d+\\.\\d+$"
     volumes:
       - /opt/docker/config-files/umbrel/bitcoin:/data/.bitcoin
     # ports:
@@ -178,6 +181,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Umbrel LND"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$"
     volumes:
       - /opt/docker/config-files/umbrel/lnd:/data/.lnd
     depends_on:
@@ -208,6 +212,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Umbrel Electrs"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^v\\d+\\.\\d+\\.\\d+$"
     volumes:
       - /opt/docker/config-files/umbrel/bitcoin:/data/.bitcoin:ro
       - /opt/docker/config-files/umbrel/electrs:/data
@@ -249,6 +254,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Umbrel Middleware"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
     volumes:
       - /opt/docker/config-files/umbrel/lnd:/lnd
       - /opt/docker/config-files/umbrel/db/jwt-public-key:/jwt-public-key
@@ -282,6 +288,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Umbrel Dashboard"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
     depends_on:
       - umbrel-syslog-ng
 
@@ -307,6 +314,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Umbrel Nginx"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
     volumes:
       - /opt/docker/config-files/umbrel/nginx/:/etc/nginx
     depends_on:
@@ -336,6 +344,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Umbrel Frontail"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
     volumes:
       - /opt/docker/config-files/umbrel/logs/messages:/var/log/syslog:ro
     depends_on:
