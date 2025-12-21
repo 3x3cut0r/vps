@@ -31,6 +31,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Teamspeak"
       - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/teamspeak/teamspeak6-server/releases"
     volumes:
       - /opt/docker/config-files/teamspeak/etc/logrotate.d/teamspeak3-server:/etc/logrotate.d/teamspeak3-server
