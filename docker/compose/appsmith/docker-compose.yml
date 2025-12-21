@@ -119,6 +119,7 @@ services:
       - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Appsmith - Redis"
+      - "wud.tag.include=^\\d+-alpine$"
       - "wud.link.template=https://github.com/redis/redis/releases/tag/$${major}.$${minor}.$${patch}"
     volumes:
       - "appsmith-redis-data:/bitnami/redis"

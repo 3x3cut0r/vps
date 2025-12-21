@@ -92,6 +92,7 @@ services:
       - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Azuracast - Redis"
+      - "wud.tag.include=^\\d+-alpine$"
       - "wud.link.template=https://github.com/redis/redis/releases/tag/$${major}.$${minor}.$${patch}"
 
 networks:

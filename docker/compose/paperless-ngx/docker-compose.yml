@@ -131,6 +131,7 @@ services:
       - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Paperless-NGX - Redis"
+      - "wud.tag.include=^\\d+-alpine$"
       - "wud.link.template=https://github.com/redis/redis/releases/tag/$${major}.$${minor}.$${patch}"
     volumes:
       - paperless-redis-data:/data
