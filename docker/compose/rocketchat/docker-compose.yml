@@ -22,9 +22,10 @@ services:
       DEPLOY_METHOD: "docker"
       DEPOY_PLATFORM: "compose"
     labels:
-      - "wud.watch=false"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Rocket.Chat"
+      - "wud.trigger.exclude=docker.autoupdate"
       - "wud.link.template=https://github.com/RocketChat/Rocket.Chat/releases/tag/$${major}.$${minor}.$${patch}"
     depends_on:
       - mongo
@@ -52,9 +53,10 @@ services:
       MONGODB_EXTRA_FLAGS: "--wiredTigerCacheSizeGB=1"
       ALLOW_EMPTY_PASSWORD: "yes"
     labels:
-      - "wud.watch=false"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Rocket.Chat - MongoDB"
+      - "wud.trigger.exclude=docker.autoupdate"
       - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"
     volumes:
       - mongo-data:/bitnami/mongodb/data/db

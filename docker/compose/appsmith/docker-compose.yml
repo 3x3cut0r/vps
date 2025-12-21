@@ -144,9 +144,10 @@ services:
       MONGODB_REPLICA_SET_MODE: "primary"
       MONGODB_REPLICA_SET_KEY: "${MONGODB_REPLICA_SET_KEY}" # do not use special characters!
     labels:
-      - "wud.watch=false"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Appsmith - MongoDB"
+      - "wud.trigger.exclude=docker.autoupdate"
       - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"
     volumes:
       - "appsmith-mongodb-data:/bitnami/mongodb"
@@ -169,9 +170,10 @@ services:
       MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD: "${MONGODB_ROOT_PASSWORD}"
       MONGODB_REPLICA_SET_KEY: "${MONGODB_REPLICA_SET_KEY}" # do not use special characters!
     labels:
-      - "wud.watch=false"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Appsmith - MongoDB Secondary"
+      - "wud.trigger.exclude=docker.autoupdate"
       - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"
     volumes:
       - "appsmith-mongodb-secondary-data:/bitnami/mongodb"

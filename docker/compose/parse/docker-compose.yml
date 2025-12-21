@@ -92,9 +92,10 @@ services:
       MONGODB_USERNAME: "parse"
       MONGODB_PASSWORD: "${MONGODB_PASSWORD}"
     labels:
-      - "wud.watch=false"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Parse - MongoDB"
+      - "wud.trigger.exclude=docker.autoupdate"
       - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"
     volumes:
       - parse-mongo-data:/bitnami/mongodb

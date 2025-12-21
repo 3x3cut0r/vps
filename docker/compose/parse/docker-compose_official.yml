@@ -79,9 +79,10 @@ services:
       MONGODB_APP_USER: "${MONGODB_USER}"
       MONGODB_APP_PWD: "${MONGODB_PASSWORD}"
     labels:
-      - "wud.enable=false"
+      - "wud.enable=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Parse - MongoDB"
+      - "wud.trigger.exclude=docker.autoupdate"
       - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"
     volumes:
       - parse-mongo-data:/data/db

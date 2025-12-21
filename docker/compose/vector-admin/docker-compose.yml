@@ -47,9 +47,10 @@ services:
         ipv4_address: "10.24.38.3"
     dns: ["192.168.40.253"]
     labels:
-      - "wud.watch=false"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Vector Admin Postgres"
+      - "wud.trigger.exclude=docker.autoupdate"
       - "wud.link.template=https://www.postgresql.org/docs/release/$${major}.$${minor}"
     volumes:
       - vector-admin-postgres:/var/lib/postgresql/data

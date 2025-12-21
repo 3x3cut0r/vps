@@ -88,9 +88,10 @@ services:
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
       POSTGRES_DB: litellm
     labels:
-      - "wud.watch=false"
+      - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=LiteLLM - Postgres"
+      - "wud.trigger.exclude=docker.autoupdate"
       - "wud.link.template=https://www.postgresql.org/docs/release/$${major}.$${minor}"
     volumes:
       - litellm-postgres-data:/var/lib/postgresql/data
