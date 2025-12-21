@@ -17,8 +17,8 @@ services:
       WUD_AUTH_BASIC_ADMIN_HASH: "${WUD_AUTH_BASIC_ADMIN_HASH}" # $$apr1$$aefKbZEa$$ZSA5Y3zv9vDQOxr283NGx/ # htpasswd -nib admin <PASSWORD> (double the first 2 '$' signs and do nt add single or double quotes around the hash)
       WUD_REGISTRY_HUB_PUBLIC_LOGIN: "3x3cut0r" # Your Docker Hub username (Docker Hub login is required to avoid rate limits)
       WUD_REGISTRY_HUB_PUBLIC_PASSWORD: "${WUD_REGISTRY_HUB_PUBLIC_PASSWORD}" # Your Docker Hub password or Personal access
-      WUD_REGISTRY_GHCR_PRIVATE_USERNAME: "3x3cut0r" # Your GitHub username
-      WUD_REGISTRY_GHCR_PRIVATE_TOKEN: "${WUD_REGISTRY_GHCR_PRIVATE_TOKEN}" # Your GitHub Personal Access Token (with read:packages scope)
+      WUD_REGISTRY_GHCR_IO_USERNAME: "3x3cut0r" # Your GitHub username
+      WUD_REGISTRY_GHCR_IO_TOKEN: "${WUD_REGISTRY_GHCR_IO_TOKEN}" # Your GitHub Personal Access Token (with read:packages scope)
       WUD_WATCHER_LOCAL_SOCKET: "/var/run/docker.sock"
       WUD_WATCHER_LOCAL_CRON: 0 2 * * * # Cron schedule for local image watcher (every day at 02:00)
       WUD_WATCHER_LOCAL_WATCHALL: false # If true, watch all containers regardless of their status (created, paused, exited, restarting, running...)
