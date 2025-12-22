@@ -47,7 +47,7 @@ services:
     #   - '3306:3306'
     dns: ["192.168.40.253"]
     environment:
-      MYSQL_ROOT_PASSWORD: "<MYSQL_ROOT_PASSWORD>"
+      MYSQL_ROOT_PASSWORD: "${MARIADB_ROOT_PASSWORD}"
       TZ: "Europe/Berlin"
     labels:
       - "wud.watch=false"
@@ -78,20 +78,20 @@ services:
       TZ: "Europe/Berlin"
       HTTP_LISTEN: "127.0.0.1:8080"
       # HTTPS_LISTEN: '127.0.0.1:8443'
-      HASH_KEY: "<HASH_KEY>"
-      BLOCK_KEY: "<BLOCK_KEY>"
-      INTERNAL_SHARED_SECRET_KEY: "<INTERNAL_SHARED_SECRET_KEY>"
+      HASH_KEY: "${HASH_KEY}"
+      BLOCK_KEY: "${BLOCK_KEY}"
+      INTERNAL_SHARED_SECRET_KEY: "${INTERNAL_SHARED_SECRET_KEY}"
       BACKENDS: "1"
       BACKEND_1_URL: "https://nextcloud.3x3cut0r.de"
-      BACKEND_1_SHARED_SECRET: "<BACKEND_1_SHARED_SECRET>"
+      BACKEND_1_SHARED_SECRET: "${BACKEND_1_SHARED_SECRET}"
       STATS_IPS: "192.168.40.214"
-      TURN_API_KEY: "<TURN_API_KEY>"
-      TURN_SECRET: "<TURN_SECRET>"
+      TURN_API_KEY: "${TURN_API_KEY}"
+      TURN_SECRET: "${TURN_SECRET}"
       TURN_SERVERS: "turn:turn.3x3cut0r.de:3468"
       USE_JANUS: "1"
       JANUS_URL: "ws://192.168.40.214:8188"
-      NATS_URL: "nats://natsuser:<NATS_PASSWORD>@192.168.40.214:4222"
-      GEOIP_LICENSE: "<GEOIP_LICENSE>"
+      NATS_URL: "nats://natsuser:${NATS_PASSWORD}@192.168.40.214:4222"
+      GEOIP_LICENSE: "${GEOIP_LICENSE}"
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
@@ -138,7 +138,14 @@ services:
     image: nats:2-alpine
     restart: unless-stopped
     network_mode: host
-    command: "--port=4222 --log_size_limit=2048 --cluster_name=nats_cluster --user=natsuser --pass=<NATS_PASSWORD>"
+    command:
+      [
+        "--port=4222",
+        "--log_size_limit=2048",
+        "--cluster_name=nats_cluster",
+        "--user=natsuser",
+        "--pass=${NATS_PASSWORD}",
+      ]
     # ports:
     #   - '4222:4222' # client connections
     #   - '6222:6222' # route connections
