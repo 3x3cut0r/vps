@@ -169,7 +169,20 @@ services:
     image: canyan/janus-gateway:latest
     restart: unless-stopped
     network_mode: host
-    command: "janus --full-trickle --stun-server=192.168.40.214:3468"
+    command:
+      [
+        "janus",
+        "--pidfile=/var/run/janus.pid",
+        "--interface=192.168.40.214",
+        "--cert-pem=/usr/local/etc/janus/fullchain.pem",
+        "--cert-key=/usr/local/etc/janus/privkey.pem",
+        "--full-trickle",
+        "--stun-server=127.0.0.1:3468",
+        "--server-name=name=3x3cut0r's Janus Gateway",
+        "--token-auth",
+        "--token-auth-secret=${JANUS_TOKEN_AUTH_SECRET}",
+        "--apisecret=${JANUS_APISECRET}",
+      ]
     # ports:
     #   - '8088:8088' # HTTP webserver
     #   - '8188:8188' # WebSockets server
@@ -186,8 +199,8 @@ services:
       - "wud.trigger.include=docker.autoupdate"
       - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/meetecho/janus-gateway/blob/master/CHANGELOG.md"
-    volumes:
-      - "/opt/docker/config-files/janus/janus.jcfg:/usr/local/etc/janus/janus.jcfg"
+    # volumes:
+    #   - "/opt/docker/config-files/janus/janus.jcfg:/usr/local/etc/janus/janus.jcfg"
     #   - "./etc/janus/janus.eventhandler.sampleevh.jcfg:/usr/local/etc/janus/janus.eventhandler.sampleevh.jcfg"
 
   # Docker Hub: https://hub.docker.com/_/nats
