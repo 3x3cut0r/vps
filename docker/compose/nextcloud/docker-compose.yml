@@ -1,8 +1,6 @@
 services:
   # Docker Hub: https://hub.docker.com/_/nextcloud
   # Github: https://github.com/nextcloud/server
-  #
-  # pct exec <nextcloud LXC container id> -- chown -R 33:33 /mnt/nextcloud-data
   nextcloud:
     container_name: nextcloud
     image: nextcloud:31-apache
@@ -47,7 +45,7 @@ services:
       - "wud.link.template=https://github.com/nextcloud/server/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - nextcloud-config:/var/www/html/config
-      - /mnt/nextcloud-data:/var/www/html/data
+      - /mnt/nextcloud-data:/var/www/html/data # On the Proxmox host do: 'chown -R 100033:100033 /rpool/data/nextcloud-data'
 
   # Docker Hub: https://hub.docker.com/_/postgres
   # Github: https://github.com/postgres/postgres
