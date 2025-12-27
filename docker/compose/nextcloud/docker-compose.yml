@@ -44,7 +44,7 @@ services:
       - "wud.tag.include=^\\d+-alpine$"
       - "wud.link.template=https://github.com/nextcloud/server/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
-      - nextcloud-html:/var/www/html
+      - nextcloud-config:/var/www/html/config
       - /mnt/nextcloud-data:/var/www/html/data
 
   # Docker Hub: https://hub.docker.com/_/postgres
@@ -164,8 +164,8 @@ networks:
 volumes:
   nextcloud-data:
     name: nextcloud-data
-  nextcloud-html:
-    name: nextcloud-html
+  nextcloud-config:
+    name: nextcloud-config
   nextcloud-postgres-data:
     name: nextcloud-postgres-data
   nextcloud-redis-data:
