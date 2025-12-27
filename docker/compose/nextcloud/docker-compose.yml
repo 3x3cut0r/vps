@@ -1,6 +1,8 @@
 services:
   # Docker Hub: https://hub.docker.com/_/nextcloud
   # Github: https://github.com/nextcloud/server
+  #
+  # pct exec <nextcloud LXC container id> -- chown -R 33:33 /mnt/nextcloud-data
   nextcloud:
     container_name: nextcloud
     image: nextcloud:31-apache
