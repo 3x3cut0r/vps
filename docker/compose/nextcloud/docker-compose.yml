@@ -1,6 +1,13 @@
 services:
   # Docker Hub: https://hub.docker.com/_/nextcloud
   # Github: https://github.com/nextcloud/server
+  #
+  # Installation
+  #   On your Proxmox host:
+  #     chown -R 100033:100033 /rpool/data/nextcloud-data
+  #   On the nexcloud LXC container:
+  #     sudo docker exec --user www-data nextcloud php occ config:system:set default_phone_region --value="DE":
+  #
   nextcloud:
     container_name: nextcloud
     image: nextcloud:31-apache
@@ -31,7 +38,7 @@ services:
       APACHE_BODY_LIMIT: "1073741824"
       PHP_MEMORY_LIMIT: "1024G"
       PHP_UPLOAD_LIMIT: "16G" # post_max_size + upload_max_filesize
-      TRUSTED_PROXIES: "10.20.160.1,192.168.40.10/24"
+      TRUSTED_PROXIES: "10.20.160.1 192.168.40.10/24"
       OVERWRITEHOST: "nextcloud.3x3cut0r.de"
       OVERWRITEPROTOCOL: "https"
       # OVERWRITEWEBROOT: '/domain.tld/nextcloud'
@@ -45,7 +52,7 @@ services:
       - "wud.link.template=https://github.com/nextcloud/server/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - nextcloud-config:/var/www/html/config
-      - /mnt/nextcloud-data:/var/www/html/data # On the Proxmox host do: 'chown -R 100033:100033 /rpool/data/nextcloud-data'
+      - /mnt/nextcloud-data:/var/www/html/data
 
   # Docker Hub: https://hub.docker.com/_/postgres
   # Github: https://github.com/postgres/postgres
@@ -59,7 +66,7 @@ services:
   #   GRANT ALL PRIVILEGES ON DATABASE onlyoffice TO onlyoffice;
   nextcloud-postgres:
     container_name: nextcloud-postgres
-    image: postgres:18-alpine
+    image: postgres:17-alpine
     restart: always
     networks:
       nextcloud:
