@@ -13,6 +13,8 @@ services:
     #   - '5432:5432'
     environment:
       TZ: "Europe/Berlin"
+      LANG: "de_DE.utf8"
+      POSTGRES_INITDB_ARGS: "--locale-provider=icu --icu-locale=de-DE"
       POSTGRES_DB: "${POSTGRES_DB}"
       POSTGRES_USER: "${POSTGRES_USER}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"

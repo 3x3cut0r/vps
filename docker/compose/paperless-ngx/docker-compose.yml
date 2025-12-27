@@ -106,6 +106,9 @@ services:
         ipv4_address: "10.24.21.5"
     dns: ["192.168.40.253"]
     environment:
+      TZ: "Europe/Berlin"
+      LANG: "de_DE.utf8"
+      POSTGRES_INITDB_ARGS: "--locale-provider=icu --icu-locale=de-DE"
       POSTGRES_DB: "paperless"
       POSTGRES_USER: "paperless"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"

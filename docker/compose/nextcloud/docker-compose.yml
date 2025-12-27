@@ -52,6 +52,8 @@ services:
   # Homepage: https://www.postgresql.org
   #
   # For OnlyOffice Document Server, create an additional database 'onlyoffice' and user 'onlyoffice'
+  # Connect to the postgres container:
+  #   docker exec -it nextcloud-postgres psql -U nextcloud
   #   CREATE DATABASE onlyoffice;
   #   CREATE USER onlyoffice WITH PASSWORD '${ONLYOFFICE_POSTGRES_PASSWORD}';
   #   GRANT ALL PRIVILEGES ON DATABASE onlyoffice TO onlyoffice;
@@ -66,6 +68,8 @@ services:
     #   - '5432:5432'
     environment:
       TZ: "Europe/Berlin"
+      LANG: "de_DE.utf8"
+      POSTGRES_INITDB_ARGS: "--locale-provider=icu --icu-locale=de-DE"
       POSTGRES_DB: "nextcloud"
       POSTGRES_USER: "nextcloud"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
