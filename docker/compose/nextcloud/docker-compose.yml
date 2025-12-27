@@ -9,8 +9,8 @@ services:
       nextcloud:
         ipv4_address: "10.20.160.2"
     ports:
-      - "2210:80"
-      # - '4210:443'
+      - "80:80"
+      # - '443:443'
     dns: ["192.168.40.253"]
     environment:
       NEXTCLOUD_ADMIN_USER: "3x3cut0r"
@@ -113,8 +113,8 @@ services:
     networks:
       nextcloud:
         ipv4_address: "10.20.160.5"
-    ports:
-      - "4210:80"
+    # ports:
+    #   - "80:80"
     #   - '443:443'
     dns: ["192.168.40.253"]
     environment:
