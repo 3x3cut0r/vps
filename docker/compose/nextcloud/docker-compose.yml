@@ -23,7 +23,6 @@ services:
     ports:
       - "80:80"
       # - '443:443'
-    dns: ["192.168.40.253"]
     environment:
       NEXTCLOUD_ADMIN_USER: "3x3cut0r"
       NEXTCLOUD_ADMIN_PASSWORD: "${NEXTCLOUD_ADMIN_PASSWORD}"
@@ -141,8 +140,7 @@ services:
         ipv4_address: "10.20.160.5"
     # ports:
     #   - "80:80"
-    #   - '443:443'
-    dns: ["192.168.40.253"]
+    #   - '443:443'"]
     environment:
       JWT_ENABLED: "true"
       JWT_SECRET: "${JWT_SECRET}"
