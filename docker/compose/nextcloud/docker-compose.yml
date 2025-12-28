@@ -3,10 +3,14 @@ services:
   # Github: https://github.com/nextcloud/server
   #
   # Installation
-  #   On your Proxmox host:
+  #   On your Proxmox host (before deployment):
   #     chown -R 100033:100033 /rpool/data/nextcloud-data
-  #   On the nexcloud LXC container:
-  #     sudo docker exec --user www-data nextcloud php occ config:system:set default_phone_region --value="DE":
+  #
+  #   On the nexcloud LXC container (after deployment):
+  #     sudo docker exec --user www-data nextcloud php occ config:system:set default_phone_region --value="DE" # set default phone region to DE
+  #     sudo docker exec --user www-data nextcloud php occ app:disable richdocumentscode # disable app richdocumentscode (makes nextcloud fast again)
+  #     sudo docker exec --user www-data nextcloud php occ db:add-missing-indices # fix missing indices (must be done after many updates)
+  #     sudo docker exec --user www-data nextcloud /bin/sh -c "apt update && apt install libmagickcore-6.q16-6-extra -y" # install image-magick
   #
   nextcloud:
     container_name: nextcloud
@@ -58,12 +62,13 @@ services:
   # Github: https://github.com/postgres/postgres
   # Homepage: https://www.postgresql.org
   #
-  # For OnlyOffice Document Server, create an additional database 'onlyoffice' and user 'onlyoffice'
-  # Connect to the postgres container:
-  #   docker exec -it nextcloud-postgres psql -U nextcloud
-  #   CREATE DATABASE onlyoffice;
-  #   CREATE USER onlyoffice WITH PASSWORD '${ONLYOFFICE_POSTGRES_PASSWORD}';
-  #   GRANT ALL PRIVILEGES ON DATABASE onlyoffice TO onlyoffice;
+  # Installation
+  #   On the nexcloud LXC container (after deployment):
+  #     sudo docker exec nextcloud-postgres psql -U nextcloud -c "CREATE DATABASE onlyoffice;"
+  #     sudo docker exec nextcloud-postgres psql -U nextcloud -c "CREATE USER onlyoffice WITH PASSWORD '${ONLYOFFICE_POSTGRES_PASSWORD}';"
+  #     sudo docker exec nextcloud-postgres psql -U nextcloud -c "GRANT ALL PRIVILEGES ON DATABASE onlyoffice TO onlyoffice;"
+  #     # restart onlyoffice-documentserver after that
+  #
   nextcloud-postgres:
     container_name: nextcloud-postgres
     image: postgres:17-alpine
