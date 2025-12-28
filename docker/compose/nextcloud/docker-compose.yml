@@ -8,6 +8,7 @@ services:
   #
   #   On the nexcloud LXC container (after deployment):
   #     sudo docker exec --user www-data nextcloud php occ config:system:set default_phone_region --value="DE" # set default phone region to DE
+  #     sudo docker exec --user www-data nextcloud php occ config:system:set maintenance_window_start --type=integer --value=1 # set maintenance window start to 1am (always 4h long -> 1am-5am)
   #     sudo docker exec --user www-data nextcloud php occ app:disable richdocumentscode # disable app richdocumentscode (makes nextcloud fast again)
   #     sudo docker exec --user www-data nextcloud php occ db:add-missing-indices # fix missing indices (must be done after many updates)
   #     sudo docker exec --user www-data nextcloud /bin/sh -c "apt update && apt install libmagickcore-6.q16-6-extra -y" # install image-magick
@@ -47,6 +48,15 @@ services:
       OVERWRITEPROTOCOL: "https"
       # OVERWRITEWEBROOT: '/domain.tld/nextcloud'
       # OVERWRITECONDADDR: '^10\.0\.0\.1$'
+      # EMAIL
+      SMTP_HOST: "smtp.gmail.com"
+      SMTP_SECURE: "tls"
+      SMTP_PORT: "587"
+      SMTP_AUTHTYPE: "LOGIN"
+      SMTP_NAME: "${SMTP_NAME}"
+      SMTP_PASSWORD: "${SMTP_PASSWORD}"
+      MAIL_FROM_ADDRESS: "${SMTP_NAME}"
+      MAIL_DOMAIN: "gmail.com"
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
