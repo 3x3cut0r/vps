@@ -24,8 +24,8 @@ services:
       - "80:80"
       # - '443:443'
     environment:
-      # NEXTCLOUD_ADMIN_USER: "3x3cut0r" # remove after first start
-      # NEXTCLOUD_ADMIN_PASSWORD: "${NEXTCLOUD_ADMIN_PASSWORD}" # remove after first start
+      NEXTCLOUD_ADMIN_USER: "3x3cut0r"
+      NEXTCLOUD_ADMIN_PASSWORD: "${NEXTCLOUD_ADMIN_PASSWORD}"
       NEXTCLOUD_TRUSTED_DOMAINS: "nextcloud.3x3cut0r.de"
       # POSTGRES
       POSTGRES_DB: "nextcloud"
@@ -54,7 +54,7 @@ services:
       SMTP_AUTHTYPE: "LOGIN"
       SMTP_NAME: "${SMTP_NAME}"
       SMTP_PASSWORD: "${SMTP_PASSWORD}"
-      MAIL_FROM_ADDRESS: "${SMTP_NAME}"
+      MAIL_FROM_ADDRESS: "${MAIL_FROM_ADDRESS}"
       MAIL_DOMAIN: "gmail.com"
     labels:
       - "wud.watch=true"
