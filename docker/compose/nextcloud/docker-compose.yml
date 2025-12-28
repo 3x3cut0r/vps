@@ -57,6 +57,9 @@ services:
     volumes:
       - nextcloud-config:/var/www/html/config
       - /mnt/nextcloud-data:/var/www/html/data
+    depends_on:
+      - nextcloud-postgres
+      - nextcloud-redis
 
   # Docker Hub: https://hub.docker.com/_/postgres
   # Github: https://github.com/postgres/postgres
@@ -163,6 +166,9 @@ services:
     volumes:
       - onlyoffice-documentserver-data:/var/www/onlyoffice/Data
       - onlyoffice-documentserver-log:/var/log/onlyoffice
+    depends_on:
+      - nextcloud-postgres
+      - nextcloud-redis
 
 networks:
   nextcloud:
