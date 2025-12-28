@@ -67,9 +67,10 @@ services:
   #
   # Installation
   #   On the nexcloud LXC container (after deployment):
-  #     sudo docker exec nextcloud-postgres psql -U nextcloud -c "CREATE DATABASE onlyoffice;"
   #     sudo docker exec nextcloud-postgres psql -U nextcloud -c "CREATE USER onlyoffice WITH PASSWORD '${ONLYOFFICE_POSTGRES_PASSWORD}';"
-  #     sudo docker exec nextcloud-postgres psql -U nextcloud -c "GRANT ALL PRIVILEGES ON DATABASE onlyoffice TO onlyoffice;"
+  #     sudo docker exec nextcloud-postgres psql -U nextcloud -c "CREATE DATABASE onlyoffice OWNER onlyoffice;"
+  #     sudo docker exec nextcloud-postgres psql -U nextcloud -d onlyoffice -c "ALTER SCHEMA public OWNER TO onlyoffice;"
+  #     sudo docker exec nextcloud-postgres psql -U nextcloud -d onlyoffice -c "GRANT USAGE, CREATE ON SCHEMA public TO onlyoffice;"
   #     # restart onlyoffice-documentserver after that
   #
   nextcloud-postgres:
