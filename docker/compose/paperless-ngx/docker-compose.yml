@@ -121,7 +121,7 @@ services:
       - "wud.tag.include=^18-alpine$"
       - "wud.link.template=https://www.postgresql.org/docs/release/$${major}.$${minor}"
     volumes:
-      - paperless-postgres-data:/var/lib/postgresql/data
+      - paperless-postgres-data:/var/lib/postgresql
 
   # Docker Hub: https://hub.docker.com/_/redis
   paperless-redis:
