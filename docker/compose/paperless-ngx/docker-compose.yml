@@ -10,7 +10,6 @@ services:
     networks:
       paperless:
         ipv4_address: "10.24.21.2"
-    dns: ["192.168.40.253"]
     environment:
       PAPERLESS_TIME_ZONE: "Europe/Berlin"
       PAPERLESS_ADMIN_USER: "admin"
@@ -70,7 +69,6 @@ services:
     networks:
       paperless:
         ipv4_address: "10.24.21.3"
-    dns: ["192.168.40.253"]
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
@@ -90,7 +88,6 @@ services:
     networks:
       paperless:
         ipv4_address: "10.24.21.4"
-    dns: ["192.168.40.253"]
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
@@ -109,7 +106,6 @@ services:
     networks:
       paperless:
         ipv4_address: "10.24.21.5"
-    dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
       LANG: "de_DE.utf8"
@@ -138,7 +134,6 @@ services:
     networks:
       paperless:
         ipv4_address: "10.24.21.6"
-    dns: ["192.168.40.253"]
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
