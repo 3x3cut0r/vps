@@ -42,7 +42,7 @@ services:
       APACHE_BODY_LIMIT: "1073741824"
       PHP_MEMORY_LIMIT: "1024G"
       PHP_UPLOAD_LIMIT: "16G" # post_max_size + upload_max_filesize
-      TRUSTED_PROXIES: "10.20.160.1 192.168.40.110/24"
+      TRUSTED_PROXIES: "192.168.40.110"
       OVERWRITEHOST: "nextcloud.3x3cut0r.de"
       OVERWRITEPROTOCOL: "https"
       # OVERWRITEWEBROOT: '/domain.tld/nextcloud'
