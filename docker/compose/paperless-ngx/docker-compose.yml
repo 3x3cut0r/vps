@@ -6,7 +6,7 @@ services:
     image: paperlessngx/paperless-ngx:latest
     restart: unless-stopped
     ports:
-      - "2121:8000"
+      - "8000:8000"
     networks:
       paperless:
         ipv4_address: "10.24.21.2"
