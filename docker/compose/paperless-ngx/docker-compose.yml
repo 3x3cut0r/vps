@@ -53,6 +53,11 @@ services:
       - paperless-media:/usr/src/paperless/media
       - paperless-consume:/usr/src/paperless/consume
       - paperless-export:/usr/src/paperless/export
+    depends_on:
+      - paperless-tika
+      - paperless-gotenberg
+      - paperless-postgres
+      - paperless-redis
 
   # Docker Hub: https://hub.docker.com/r/apache/tika
   # GitHub: https://github.com/apache/tika
