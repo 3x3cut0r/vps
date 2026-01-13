@@ -101,7 +101,7 @@ services:
       ROCKETCHAT_URL: "rocketchat:3000"
       ROCKETCHAT_ROOM: ""
       ROCKETCHAT_USER: "hubot.bot"
-      ROCKETCHAT_PASSWORD: "${ROCKETCHAT_PASSWORD}"
+      ROCKETCHAT_PASSWORD: "${HUBOT_PASSWORD}"
       BOT_NAME: "hubot"
       RESPOND_TO_DM: "true"
       LISTEN_ON_ALL_PUBLIC: "true" # DEPRICATED
