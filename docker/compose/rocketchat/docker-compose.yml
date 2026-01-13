@@ -7,11 +7,8 @@ services:
     networks:
       rocketchat:
         ipv4_address: "10.20.192.2"
-      mongo:
-        ipv4_address: "10.20.32.3"
     ports:
-      - "2212:3000"
-    dns: ["192.168.40.253"]
+      - "3000:3000"
     volumes:
       - rocketchat-uploads:/app/uploads
     environment:
@@ -35,34 +32,26 @@ services:
   # Github: https://github.com/mongodb/mongo
   mongo:
     container_name: mongo
-    image: bitnamilegacy/mongodb:8.0.13
+    image: mongo:8.0-noble
     restart: unless-stopped
+    command: ["mongod","--replSet","rs0","--bind_ip_all","--port","27017","--wiredTigerCacheSizeGB","1"]
     networks:
-      mongo:
-        ipv4_address: "10.20.32.2"
+      rocketchat:
+        ipv4_address: "10.20.192.3"
     # ports:
     #     - 27017:27017
-    dns: ["192.168.40.253"]
     environment:
-      MONGODB_REPLICA_SET_MODE: "primary"
-      MONGODB_REPLICA_SET_NAME: "rs0"
-      MONGODB_PORT_NUMBER: "27017"
-      MONGODB_INITIAL_PRIMARY_HOST: "mongo"
-      MONGODB_INITIAL_PRIMARY_PORT_NUMBER: "27017"
-      MONGODB_ADVERTISED_HOSTNAME: "mongo"
-      MONGODB_ENABLE_JOURNAL: "true"
-      MONGODB_EXTRA_FLAGS: "--wiredTigerCacheSizeGB=1"
-      ALLOW_EMPTY_PASSWORD: "yes"
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_ROOT_PASSWORD}"
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Rocket.Chat - MongoDB"
       - "wud.trigger.exclude=docker.autoupdate"
-      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$"
+      - "wud.tag.include=^8\\.0-noble$"
       - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"
     volumes:
-      - mongo-data:/bitnami/mongodb/data/db
-      - mongo-dump:/bitnami/mongodb/dump
+      - mongo-data:/data/db
 
   # Docker Hub: https://hub.docker.com/_/mongo
   # Github: https://github.com/mongodb/mongo
@@ -70,7 +59,7 @@ services:
   # it will run the command and remove himself (it will not stay running)
   #   mongo-init-replica:
   #     container_name: mongo-init-replica
-  #     image: mongo:4.0
+  #     image: mongo:8.0-noble
   #     command: >
   #       bash -c
   #       "for i in `seq 1 30`; do
@@ -83,9 +72,8 @@ services:
   #         sleep 5;
   #       done; (exit $$s)"
   #     networks:
-  #       mongo:
-  #         ipv4_address: 10.20.32.99
-  #     dns: ["192.168.40.253"]
+  #       rocketchat:
+  #         ipv4_address: 10.20.192.99
   #     depends_on:
   #       - mongo
 
@@ -98,11 +86,10 @@ services:
     restart: unless-stopped
     networks:
       rocketchat:
-        ipv4_address: "10.20.192.3"
+        ipv4_address: "10.20.192.4"
     # this is used to expose the hubot port for notifications on the host on port 3001, e.g. for hubot-jenkins-notifier
     # ports:
     #     - 3001:8080
-    dns: ["192.168.40.253"]
     environment:
       ROCKETCHAT_URL: "rocketchat:3000"
       ROCKETCHAT_ROOM: ""
@@ -129,13 +116,6 @@ services:
       - rocketchat
 
 networks:
-  mongo:
-    name: mongo
-    ipam:
-      driver: default
-      config:
-        - subnet: "10.20.32.0/20"
-          gateway: "10.20.32.1"
   rocketchat:
     name: rocketchat
     ipam:
@@ -145,11 +125,9 @@ networks:
           gateway: "10.20.192.1"
 
 volumes:
-  mongo-data:
-    name: mongo-data
-  mongo-dump:
-    name: mongo-dump
   rocketchat-uploads:
     name: rocketchat-uploads
+  mongo-data:
+    name: mongo-data
   hubot-scripts:
     name: hubot-scripts
