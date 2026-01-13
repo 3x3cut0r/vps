@@ -53,7 +53,7 @@ services:
     volumes:
       - mongo-data:/data/db
     secrets:
-      - mongo_keyfile
+      - mongo-keyfile
 
   # Docker Hub: https://hub.docker.com/_/mongo
   # Github: https://github.com/mongodb/mongo
@@ -142,5 +142,5 @@ volumes:
     name: hubot-scripts
 
 secrets:
-  mongo_keyfile:
+  mongo-keyfile:
     file: /opt/docker/config-files/mongo/mongo-keyfile
