@@ -34,15 +34,12 @@ services:
     container_name: mongo
     image: mongo:8.0-noble
     restart: unless-stopped
-    command: ["mongod","--replSet","rs0","--bind_ip_all","--port","27017","--noauth","--wiredTigerCacheSizeGB","1"]
+    command: ["mongod","--replSet","rs0","--bind_ip_all","--port","27017","--wiredTigerCacheSizeGB","1"]
     networks:
       rocketchat:
         ipv4_address: "10.20.192.3"
     # ports:
     #     - 27017:27017
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_ROOT_PASSWORD}"
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
