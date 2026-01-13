@@ -40,9 +40,9 @@ services:
         ipv4_address: "10.20.192.3"
     # ports:
     #     - 27017:27017
-  environment:
-    MONGO_INITDB_ROOT_USERNAME: root
-    MONGO_INITDB_ROOT_PASSWORD: "${MONGO_ROOT_PASSWORD}"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_ROOT_PASSWORD}"
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
