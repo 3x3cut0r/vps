@@ -34,12 +34,15 @@ services:
     container_name: mongo
     image: mongo:8.0-noble
     restart: unless-stopped
-    command: ["mongod","--replSet","rs0","--bind_ip_all","--port","27017","--wiredTigerCacheSizeGB","1"]
+    command: ["mongod","--replSet","rs0","--bind_ip_all","--port","27017","--auth","--keyFile","/etc/mongo-keyfile","--wiredTigerCacheSizeGB","1"]
     networks:
       rocketchat:
         ipv4_address: "10.20.192.3"
     # ports:
     #     - 27017:27017
+  environment:
+    MONGO_INITDB_ROOT_USERNAME: root
+    MONGO_INITDB_ROOT_PASSWORD: "${MONGO_ROOT_PASSWORD}"
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
@@ -49,6 +52,7 @@ services:
       - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"
     volumes:
       - mongo-data:/data/db
+      - /opt/docker/config-files/mongo/mongo-keyfile:/etc/mongo-keyfile:ro
 
   # Docker Hub: https://hub.docker.com/_/mongo
   # Github: https://github.com/mongodb/mongo
