@@ -34,7 +34,7 @@ services:
     container_name: mongo
     image: mongo:8.0-noble
     restart: unless-stopped
-    command: ["mongod","--replSet","rs0","--bind_ip_all","--port","27017","--auth","--keyFile","/run/secrets/mongo-keyfile","--wiredTigerCacheSizeGB","1"]
+    command: ["mongod","--replSet","rs0","--bind_ip_all","--port","27017","--auth","--keyFile","/run/secrets/mongo_keyfile","--wiredTigerCacheSizeGB","1"]
     networks:
       rocketchat:
         ipv4_address: "10.20.192.3"
@@ -53,7 +53,7 @@ services:
     volumes:
       - mongo-data:/data/db
     secrets:
-      - mongo-keyfile
+      - mongo_keyfile
 
   # Docker Hub: https://hub.docker.com/_/mongo
   # Github: https://github.com/mongodb/mongo
@@ -142,5 +142,5 @@ volumes:
     name: hubot-scripts
 
 secrets:
-  mongo-keyfile:
-    file: /opt/docker/config-files/mongo/mongo-keyfile
+  mongo_keyfile:
+    file: /opt/docker/config-files/mongo/mongo_keyfile
