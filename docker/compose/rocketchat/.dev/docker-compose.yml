@@ -2,23 +2,20 @@ services:
   # Docker Hub: https://hub.docker.com/_/rocket-chat
   rocketchat-dev:
     container_name: rocketchat-dev
-    image: rocketchat/rocket.chat:7.13.1
+    image: rocketchat/rocket.chat:7.12.1
     restart: unless-stopped
     networks:
       rocketchat-dev:
         ipv4_address: "10.99.192.2"
-      mongo-dev:
-        ipv4_address: "10.99.32.3"
     ports:
-      - "9212:3000"
-    dns: ["192.168.40.253"]
+      - "3001:3000"
     volumes:
       - rocketchat-dev-uploads:/app/uploads
     environment:
       PORT: "3000"
-      ROOT_URL: https://chat-dev.3x3cut0r.de
-      MONGO_URL: "mongodb://mongo-dev:27017/rocketchat?replicaSet=rs0"
-      MONGO_OPLOG_URL: "mongodb://mongo-dev:27017/local?replicaSet=rs0"
+      ROOT_URL: "https://chat-dev.3x3cut0r.de/"
+      MONGO_URL: "mongodb://rocketchat:${MONGO_PASSWORD}@mongo:27017/rocketchat?authSource=admin&replicaSet=rs0"
+      MONGO_OPLOG_URL: "mongodb://rocketchat:${MONGO_PASSWORD}@mongo:27017/local?authSource=admin&replicaSet=rs0"
       DEPLOY_METHOD: "docker"
       DEPOY_PLATFORM: "compose"
     labels:
@@ -31,87 +28,65 @@ services:
     depends_on:
       - mongo-dev
 
-  # Docker Hub: https://hub.docker.com/_/traefik
-  # traefik-dev:
-  #   image: traefik:latest
-  #   restart: unless-stopped
-  #   command: >
-  #     traefik
-  #     --docker
-  #     --acme=true
-  #     --acme.domains='chat-dev.3x3cut0r.de'
-  #     --acme.email='executor55@gmx.de'
-  #     --acme.entrypoint=https
-  #     --acme.storagefile=acme.json
-  #     --defaultentrypoints=http
-  #     --defaultentrypoints=https
-  #     --entryPoints='Name:http Address::80 Redirect.EntryPoint:https'
-  #     --entryPoints='Name:https Address::443 TLS.Certificates:'
-  #   ports:
-  #     - 80:80
-  #     - 443:443
-  #   volumes:
-  #     - /run/user/1000/docker.sock:/var/run/docker.sock
-
   # Docker Hub: https://hub.docker.com/_/mongo
   # Github: https://github.com/mongodb/mongo
   mongo-dev:
     container_name: mongo-dev
-    image: bitnamilegacy/mongodb:8.0.13
+    image: mongo:8.0
     restart: unless-stopped
+    command: ["mongod","--replSet","rs0","--bind_ip_all","--port","27017","--auth","--keyFile","/etc/mongo-keyfile","--wiredTigerCacheSizeGB","1"]
     networks:
-      mongo-dev:
-        ipv4_address: "10.99.32.2"
+      rocketchat-dev:
+        ipv4_address: "10.99.192.3"
     # ports:
     #     - 27017:27017
-    dns: ["192.168.40.253"]
     environment:
-      MONGODB_REPLICA_SET_MODE: "primary"
-      MONGODB_REPLICA_SET_NAME: "rs0"
-      MONGODB_PORT_NUMBER: "27017"
-      MONGODB_INITIAL_PRIMARY_HOST: "mongo-dev"
-      MONGODB_INITIAL_PRIMARY_PORT_NUMBER: "27017"
-      MONGODB_ADVERTISED_HOSTNAME: "mongo-dev"
-      MONGODB_ENABLE_JOURNAL: "true"
-      MONGODB_EXTRA_FLAGS: "--wiredTigerCacheSizeGB=1"
-      ALLOW_EMPTY_PASSWORD: "yes"
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_ROOT_PASSWORD}"
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=Rocket.Chat DEV - MongoDB"
       - "wud.trigger.exclude=docker.autoupdate"
-      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$"
+      - "wud.tag.include=^\\d+\\.\\d+$"
       - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"
     volumes:
       - mongo-dev-data:/data/db
-      - mongo-dev-dump:/dump
+      - /opt/docker/config-files/mongo/mongo-dev-keyfile:/etc/mongo-keyfile:ro
 
   # Docker Hub: https://hub.docker.com/_/mongo
+  # Github: https://github.com/mongodb/mongo
   # this container's job is just run the command to initialize the replica set.
   # it will run the command and remove himself (it will not stay running)
-  # mongo-init-replica:
-  #   container_name: mongo-init-replica
-  #   image: mongo:4.0
+  # mongo-dev-init:
+  #   container_name: mongo-dev-init
+  #   image: mongo:8.0
+  #   restart: "no"
   #   command: >
-  #     bash -c
-  #     "for i in `seq 1 30`; do
-  #        mongo mongo/rocketchat --eval \"
-  #          rs.initiate({
-  #            _id: 'rs0',
-  #            members: [ { _id: 0, host: 'localhost:27017' } ]})\" &&
-  #        s=$$? && break || s=$$?;
-  #        echo \"Tried $$i times. Waiting 5 secs...\";
-  #        sleep 5;
-  #      done; (exit $$s)"
+  #     "mongosh --host mongo-dev:27017 --quiet --eval '
+  #       try { if (rs.status().ok === 1) { print(\"rs0 already initialized\"); quit(0); } } catch (e) {}
+  #       rs.initiate({_id:\"rs0\", members:[{_id:0, host:\"mongo-dev:27017\"}]});
+  #       print(\"rs0 initiated\");
+  #     '"
   #   networks:
-  #     mongo:
-  #       ipv4_address: 10.20.32.99
-  #   dns: ["192.168.40.253"]
+  #     rocketchat-dev:
+  #       ipv4_address: 10.99.192.99
+  #   entrypoint: ["/bin/bash","-lc"]
+  #   labels:
+  #     - "wud.watch=true"
+  #     - "wud.watch.digest=true"
+  #     - "wud.display.name=Rocket.Chat DEV - MongoDB Initiate"
+  #     - "wud.trigger.exclude=docker.autoupdate"
+  #     - "wud.tag.include=^\\d+\\.\\d+$"
+  #     - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"
+  #   volumes:
+  #     - mongo-dev-data:/data/db
   #   depends_on:
-  #     - mongo
+  #     mongo-dev:
+  #       condition: service_healthy
 
   # Docker Hub: https://hub.docker.com/r/rocketchat/hubot-rocketchat
-  # Github: https://github.com/hubotio/hub
+  # Github: https://github.com/hubotio/hubot
   # hubot, the popular chatbot (add the bot user first and change the password before starting this image)
   hubot-dev:
     container_name: hubot-dev
@@ -119,24 +94,25 @@ services:
     restart: unless-stopped
     networks:
       rocketchat-dev:
-        ipv4_address: "10.99.192.3"
+        ipv4_address: "10.99.192.4"
     # this is used to expose the hubot port for notifications on the host on port 3001, e.g. for hubot-jenkins-notifier
     # ports:
-    #   - 3001:8080
-    dns: ["192.168.40.253"]
+    #     - 3001:8080
     environment:
       ROCKETCHAT_URL: "rocketchat-dev:3000"
       ROCKETCHAT_ROOM: ""
       ROCKETCHAT_USER: "hubot.bot"
-      ROCKETCHAT_PASSWORD: "${ROCKETCHAT_PASSWORD}"
+      ROCKETCHAT_PASSWORD: "${HUBOT_PASSWORD}"
       BOT_NAME: "hubot"
       RESPOND_TO_DM: "true"
       LISTEN_ON_ALL_PUBLIC: "true" # DEPRICATED
       # HUBOT_GOOGLE_CSE_ID: "${GOOGLE_CSE_ID}" # Instructions here: https://github.com/hubot-scripts/hubot-google-images
       # HUBOT_GOOGLE_CSE_KEY: "${GOOGLE_CSE_KEY}"
-      # HUBOT_MUSTACHIFY_URL: 'https://mustachify.me/?src=YOUR-IMAGE-URL'
+      HUBOT_GOOGLE_IMAGES_HEAR: "true"
       # you can add more scripts as you'd like here, they need to be installable by npm
-      EXTERNAL_SCRIPTS: hubot-pugme,hubot-help,hubot-seen,hubot-links,hubot-diagnostics,hubot-calculator,hubot-2048,hubot-darts,hubot-thesimpsons,hubot-tell,hubot-google-images
+      EXTERNAL_SCRIPTS: "hubot-pugme,hubot-help,hubot-seen,hubot-links,hubot-diagnostics,hubot-calculator,hubot-2048,hubot-darts,hubot-thesimpsons,hubot-tell,hubot-google-images"
+    volumes:
+      - hubot-dev-scripts:/home/hubot/scripts
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
@@ -144,19 +120,10 @@ services:
       - "wud.trigger.include=docker.autoupdate"
       - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/hubotio/hubot/releases/tag/v$${major}.$${minor}.$${patch}"
-    volumes:
-      - hubot-dev-scripts:/home/hubot/scripts
     depends_on:
       - rocketchat-dev
 
 networks:
-  mongo-dev:
-    name: mongo-dev
-    ipam:
-      driver: default
-      config:
-        - subnet: "10.99.32.0/20"
-          gateway: "10.99.32.1"
   rocketchat-dev:
     name: rocketchat-dev
     ipam:
@@ -166,11 +133,9 @@ networks:
           gateway: "10.99.192.1"
 
 volumes:
-  mongo-dev-data:
-    name: mongo-dev-data
-  mongo-dev-dump:
-    name: mongo-dev-dump
   rocketchat-dev-uploads:
     name: rocketchat-dev-uploads
+  mongo-dev-data:
+    name: mongo-dev-data
   hubot-dev-scripts:
     name: hubot-dev-scripts

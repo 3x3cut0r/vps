@@ -60,7 +60,7 @@ services:
   # it will run the command and remove himself (it will not stay running)
   # mongo-init:
   #   container_name: mongo-init
-  #   image: mongo:8.0-noble
+  #   image: mongo:8.0
   #   restart: "no"
   #   command: >
   #     "mongosh --host mongo:27017 --quiet --eval '
@@ -77,7 +77,7 @@ services:
   #     - "wud.watch.digest=true"
   #     - "wud.display.name=Rocket.Chat - MongoDB Initiate"
   #     - "wud.trigger.exclude=docker.autoupdate"
-  #     - "wud.tag.include=^8\\.0-noble$"
+  #     - "wud.tag.include=^\\d+\\.\\d+$"
   #     - "wud.link.template=https://www.mongodb.com/docs/manual/release-notes/$${major}.$${minor}/#std-label-release-notes-$${major}.$${minor}"
   #   volumes:
   #     - mongo-data:/data/db
@@ -112,7 +112,7 @@ services:
       # you can add more scripts as you'd like here, they need to be installable by npm
       EXTERNAL_SCRIPTS: "hubot-pugme,hubot-help,hubot-seen,hubot-links,hubot-diagnostics,hubot-calculator,hubot-2048,hubot-darts,hubot-thesimpsons,hubot-tell,hubot-google-images"
     volumes:
-      - hubot-scripts:/home/hubot/
+      - hubot-scripts:/home/hubot/scripts
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
