@@ -9,10 +9,9 @@ services:
         ipv4_address: "10.24.1.2"
     ports:
       # - '8000:8000'
-      - "2101:9000"
+      - "9000:9000"
     environment:
       COMPOSE_HTTP_TIMEOUT: "240"
-    dns: ["192.168.40.253"]
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
