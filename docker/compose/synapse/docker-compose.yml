@@ -66,32 +66,24 @@ services:
     volumes:
       - synapse-postgres-data:/var/lib/postgresql
 
-  # Docker Hub: https://hub.docker.com/r/dpage/pgadmin4
-  # Github: https://github.com/pgadmin-org/pgadmin4
-  synapse-pgadmin:
-    container_name: synapse-pgadmin
-    image: dpage/pgadmin4:latest
+  # Docker Hub: https://hub.docker.com/_/adminer
+  adminer:
+    container_name: adminer
+    image: adminer:latest
     restart: unless-stopped
     networks:
       synapse:
         ipv4_address: "10.20.144.4"
     ports:
-      - "5050:5050"
+      - "8080:8080"
     environment:
       TZ: "Europe/Berlin"
-      PGADMIN_DEFAULT_EMAIL: "julianreith@gmx.de"
-      PGADMIN_DEFAULT_PASSWORD: "${PGADMIN_DEFAULT_PASSWORD}"
-      PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "True"
-      PGADMIN_LISTEN_PORT: "5050"
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
-      - "wud.display.name=Synapse - PGAdmin"
+      - "wud.display.name=Synapse - Adminer"
       - "wud.tag.include=^latest$"
-      - "wud.link.template=https://www.pgadmin.org/news/"
-    volumes:
-      - synapse-pgadmin-data:/var/lib/pgadmin
-      # - synapse-pgadmin-certs:/certs
+      - "wud.link.template=https://github.com/vrana/adminer/releases/tag/v$${major}.$${minor}.$${patch}"
 
   # Docker Hub: https://hub.docker.com/_/redis
   synapse-redis:
