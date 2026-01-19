@@ -67,8 +67,8 @@ services:
       - synapse-postgres-data:/var/lib/postgresql
 
   # Docker Hub: https://hub.docker.com/_/adminer
-  adminer:
-    container_name: adminer
+  synapse-adminer:
+    container_name: synapse-adminer
     image: adminer:latest
     restart: unless-stopped
     networks:
