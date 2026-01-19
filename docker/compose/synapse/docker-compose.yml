@@ -35,6 +35,9 @@ services:
       interval: 1m
       timeout: 10s
       retries: 3
+    depends_on:
+      - synapse-postgres
+      - synapse-redis
 
   # Docker Hub: https://hub.docker.com/_/postgres
   synapse-postgres:
