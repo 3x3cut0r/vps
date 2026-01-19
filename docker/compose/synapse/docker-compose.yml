@@ -75,7 +75,7 @@ services:
       synapse:
         ipv4_address: "10.20.144.4"
     ports:
-      - "8080:8080"
+      - "2201:8080"
     environment:
       TZ: "Europe/Berlin"
     labels:
