@@ -51,8 +51,9 @@ services:
         ipv4_address: "10.20.144.3"
     environment:
       TZ: "Europe/Berlin"
-      LANG: "de_DE.utf8"
-      POSTGRES_INITDB_ARGS: "--locale-provider=icu --icu-locale=de-DE"
+      LANG: "C"
+      LC_ALL: "C"
+      POSTGRES_INITDB_ARGS: "--locale=C --encoding=UTF8" # synapse dependency
       POSTGRES_DB: "synapse"
       POSTGRES_USER: "synapse"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
