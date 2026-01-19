@@ -8,10 +8,6 @@ services:
     networks:
       synapse:
         ipv4_address: "10.20.144.2"
-      postgres:
-        ipv4_address: "10.20.16.209"
-      redis:
-        ipv4_address: "10.20.96.209"
     ports:
       - "8008:8008"
     # - '8448:8448'
@@ -40,6 +36,53 @@ services:
       timeout: 10s
       retries: 3
 
+  # Docker Hub: https://hub.docker.com/_/postgres
+  synapse-postgres:
+    container_name: synapse-postgres
+    image: postgres:18-alpine
+    restart: always
+    # ports:
+    #   - '5432:5432'
+    networks:
+      synapse:
+        ipv4_address: "10.20.144.3"
+    environment:
+      TZ: "Europe/Berlin"
+      LANG: "de_DE.utf8"
+      POSTGRES_INITDB_ARGS: "--locale-provider=icu --icu-locale=de-DE"
+      POSTGRES_DB: "synapse"
+      POSTGRES_USER: "synapse"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Synapse - Postgres"
+      - "wud.trigger.exclude=docker.autoupdate"
+      - "wud.tag.include=^18-alpine$"
+      - "wud.link.template=https://www.postgresql.org/docs/release/$${major}.$${minor}"
+    volumes:
+      - synapse-postgres-data:/var/lib/postgresql
+
+  # Docker Hub: https://hub.docker.com/_/redis
+  synapse-redis:
+    container_name: synapse-redis
+    image: redis:8-alpine
+    restart: always
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"] # username = default
+    # ports:
+    #     - 6379:6379
+    networks:
+      synapse:
+        ipv4_address: "10.20.144.4"
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Synapse - Redis"
+      - "wud.tag.include=^\\d+-alpine$"
+      - "wud.link.template=https://github.com/redis/redis/releases/tag/$${major}.$${minor}.$${patch}"
+    volumes:
+      - synapse-redis-data:/data
+
   # Docker Hub: https://hub.docker.com/r/vectorim/element-web
   # Github: https://github.com/element-hq/element-web
   element-web:
@@ -48,7 +91,7 @@ services:
     restart: unless-stopped
     networks:
       synapse:
-        ipv4_address: "10.20.144.3"
+        ipv4_address: "10.20.144.5"
     ports:
       - "2209:80"
     dns: ["192.168.40.253"]
@@ -75,8 +118,6 @@ services:
     networks:
       synapse:
         ipv4_address: "10.20.144.16"
-      postgres:
-        ipv4_address: "10.20.26.209"
     ports:
       - "29316:29316"
     dns: ["192.168.40.253"]
@@ -101,8 +142,6 @@ services:
     networks:
       synapse:
         ipv4_address: "10.20.144.17"
-      postgres:
-        ipv4_address: "10.20.17.209"
     # ports:
     #   - '29317:29317'
     dns: ["192.168.40.253"]
@@ -127,8 +166,6 @@ services:
     networks:
       synapse:
         ipv4_address: "10.20.144.18"
-      postgres:
-        ipv4_address: "10.20.18.209"
     # ports:
     #   - '29318:29318'
     dns: ["192.168.40.253"]
@@ -176,8 +213,6 @@ services:
     networks:
       synapse:
         ipv4_address: "10.20.144.128"
-      postgres:
-        ipv4_address: "10.20.28.209"
     # ports:
     #   - '29328:29328'
     dns: ["192.168.40.253"]
@@ -229,16 +264,14 @@ networks:
       config:
         - subnet: "10.20.144.0/20"
           gateway: "10.20.144.1"
-  postgres:
-    external:
-      name: postgres
-  redis:
-    external:
-      name: redis
 
 volumes:
   synapse-data:
     name: synapse-data
+  synapse-postgres-data:
+    name: synapse-postgres-data
+  synapse-redis-data:
+    name: synapse-redis-data
   maubot-data:
     name: maubot-data
   mautrix-telegram-data:
