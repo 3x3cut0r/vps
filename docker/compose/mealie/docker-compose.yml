@@ -27,6 +27,10 @@ services:
       LOG_LEVEL: "info"
       DB_ENGINE: sqlite # Optional: 'sqlite', 'postgres'
       # =====================================
+      # OpenAI Config
+      OPENAI_API_KEY: "${OPENAI_API_KEY}"
+      OPENAI_MODEL: "gpt-5-mini"
+      # =====================================
       # Postgres Config
       # POSTGRES_USER: mealie
       # POSTGRES_PASSWORD: mealie
