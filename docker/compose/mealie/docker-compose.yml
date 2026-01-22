@@ -46,6 +46,12 @@ services:
       SMTP_FROM_EMAIL: "${SMTP_FROM_EMAIL}"
       SMTP_USER: "${SMTP_USER}"
       SMTP_PASSWORD: "${SMTP_PASSWORD}"
+      # =====================================
+      # LDAP Configuration
+      LDAP_AUTH_ENABLED: "false"
+      # =====================================
+      # OpenID Connect Configuration
+      OIDC_AUTH_ENABLED: "false"
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
