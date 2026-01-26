@@ -69,7 +69,7 @@ services:
       - "wud.tag.include=^\\d+$"
       - "wud.link.template=https://www.postgresql.org/docs/release/$${major}.$${minor}"
     volumes:
-      - ai-hub-postgres-data:/var/lib/postgresql/data
+      - ai-hub-postgres-data:/var/lib/postgresql
 
   # Github: https://github.com/berriai/litellm
   # Docs: https://docs.litellm.ai/docs/
