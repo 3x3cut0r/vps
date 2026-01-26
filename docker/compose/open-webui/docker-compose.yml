@@ -17,7 +17,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
       ENV: "prod"
-      ENABLE_SIGNUP: "True"
+      # ENABLE_SIGNUP: "True"
       WEBUI_AUTH: "True"
       WEBUI_SECRET_KEY: "${WEBUI_SECRET_KEY}"
       # WEBUI_ADMIN_EMAIL: "${WEBUI_ADMIN_EMAIL}"
