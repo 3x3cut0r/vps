@@ -18,6 +18,7 @@ services:
       TZ: "Europe/Berlin"
       ENV: "prod"
       # ENABLE_SIGNUP: "True"
+      WEBUI_AUTH: "True"
       WEBUI_SECRET_KEY: "${WEBUI_SECRET_KEY}"
       # WEBUI_NAME: "Open WebUI"
       # OLLAMA_BASE_URL: 'http://ollama:11434'
