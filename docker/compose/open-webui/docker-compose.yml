@@ -20,6 +20,8 @@ services:
       # ENABLE_SIGNUP: "True"
       WEBUI_AUTH: "True"
       WEBUI_SECRET_KEY: "${WEBUI_SECRET_KEY}"
+      WEBUI_URL: "https://openwebui.3x3cut0r.de"
+      CORS_ALLOW_ORIGIN: "https://openwebui.3x3cut0r.de,https://open-webui.3x3cut0r.de"
       # WEBUI_ADMIN_EMAIL: "${WEBUI_ADMIN_EMAIL}"
       # WEBUI_ADMIN_PASSWORD: "${WEBUI_ADMIN_PASSWORD}"
       # WEBUI_NAME: "Open WebUI"
