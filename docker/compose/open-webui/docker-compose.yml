@@ -2,14 +2,14 @@ services:
   # Docker Hub: https://github.com/open-webui/open-webui
   # Github: https://github.com/open-webui/open-webui
   # Documentation: https://docs.openwebui.com/getting-started/env-configuration
-  openwebui:
-    container_name: openwebui
+  open-webui:
+    container_name: open-webui
     image: ghcr.io/open-webui/open-webui:main
     restart: unless-stopped
     ports:
       - "2139:8080"
     networks:
-      openwebui:
+      open-webui:
         ipv4_address: "10.24.39.2"
       mcp-gateways:
         ipv4_address: "10.24.43.2"
@@ -39,7 +39,7 @@ services:
       - "wud.trigger.include=docker.autoupdate"
       - "wud.link.template=https://github.com/open-webui/open-webui/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
-      - openwebui-data:/app/backend/data
+      - open-webui-data:/app/backend/data
     depends_on:
       - ai-hub-postgres
 
@@ -51,7 +51,7 @@ services:
     image: postgres:18
     restart: unless-stopped
     networks:
-      openwebui:
+      open-webui:
         ipv4_address: "10.24.39.3"
     dns: ["192.168.40.253"]
     environment:
@@ -78,7 +78,7 @@ services:
     image: ghcr.io/berriai/litellm:main-stable
     restart: unless-stopped
     networks:
-      openwebui:
+      open-webui:
         ipv4_address: "10.24.39.4"
       mcp-gateways:
         ipv4_address: "10.24.43.3"
@@ -126,7 +126,7 @@ services:
     # ports:
     #   - "8000:8000"
     networks:
-      openwebui:
+      open-webui:
         ipv4_address: "10.24.39.5"
       mcp-gateways:
         ipv4_address: "10.24.43.4"
@@ -138,8 +138,8 @@ services:
       - "wud.link.template=https://github.com/open-webui/mcpo/releases/tag/v$${major}.$${minor}.$${patch}"
 
 networks:
-  openwebui:
-    name: openwebui
+  open-webui:
+    name: open-webui
     ipam:
       driver: default
       config:
@@ -150,8 +150,8 @@ networks:
     external: true
 
 volumes:
-  openwebui-data:
-    name: openwebui-data
+  open-webui-data:
+    name: open-webui-data
   litellm-conf:
     name: litellm-conf
   ai-hub-postgres-data:
