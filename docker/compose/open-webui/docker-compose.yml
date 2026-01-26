@@ -48,7 +48,7 @@ services:
   # Homepage: https://www.postgresql.org
   ai-hub-postgres:
     container_name: ai-hub-postgres
-    image: postgres:18
+    image: postgres:18-alpine
     restart: unless-stopped
     networks:
       open-webui:
