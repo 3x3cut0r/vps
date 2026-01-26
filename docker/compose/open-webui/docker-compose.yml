@@ -20,6 +20,8 @@ services:
       # ENABLE_SIGNUP: "True"
       WEBUI_AUTH: "True"
       WEBUI_SECRET_KEY: "${WEBUI_SECRET_KEY}"
+      WEBUI_ADMIN_EMAIL: "${WEBUI_ADMIN_EMAIL}"
+      WEBUI_ADMIN_PASSWORD: "${WEBUI_ADMIN_PASSWORD}"
       # WEBUI_NAME: "Open WebUI"
       # OLLAMA_BASE_URL: 'http://ollama:11434'
       OPENAI_API_BASE_URL: "http://litellm:4000/v1"
