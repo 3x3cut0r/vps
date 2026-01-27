@@ -41,9 +41,9 @@ services:
     volumes:
       - n8n-data:/home/node/.n8n
 
-# Github: https://github.com/bbernhard/signal-cli-rest-api
-# Docker Hub: https://hub.docker.com/r/bbernhard/signal-cli-rest-api
-signal-cli-rest-api:
+  # Github: https://github.com/bbernhard/signal-cli-rest-api
+  # Docker Hub: https://hub.docker.com/r/bbernhard/signal-cli-rest-api
+  signal-cli-rest-api:
     container_name: signal-cli-rest-api
     image: bbernhard/signal-cli-rest-api:latest
     restart: unless-stopped
