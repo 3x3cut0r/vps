@@ -51,8 +51,7 @@ services:
       - "wud.tag.include=^latest$"
       - "wud.link.template=https://www.pgadmin.org/news/"
     volumes:
-      - pgadmin-data:/var/lib/pgadmin
-      # - pgadmin-certs:/certs
+      - ai-hub-pgadmin-data:/var/lib/pgadmin
 
   # Docker Hub: https://hub.docker.com/_/adminer
   adminer:
