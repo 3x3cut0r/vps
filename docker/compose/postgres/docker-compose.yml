@@ -10,7 +10,7 @@ services:
       postgres:
         ipv4_address: "10.20.16.2"
     # ports:
-    #   - '5432:5432'
+    #   - "5432:5432"
     environment:
       TZ: "Europe/Berlin"
       LANG: "de_DE.utf8"
