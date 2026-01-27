@@ -11,8 +11,10 @@ services:
     networks:
       open-webui:
         ipv4_address: "10.24.39.2"
+      ai-hub-postgres:
+        ipv4_address: "10.118.16.39"
       mcp-gateways:
-        ipv4_address: "10.24.43.2"
+        ipv4_address: "10.24.43.39"
     dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
@@ -49,34 +51,6 @@ services:
     depends_on:
       - ai-hub-postgres
 
-  # Docker Hub: https://hub.docker.com/_/postgres
-  # Github: https://github.com/postgres/postgres
-  # Homepage: https://www.postgresql.org
-  ai-hub-postgres:
-    container_name: ai-hub-postgres
-    image: postgres:18-alpine
-    restart: unless-stopped
-    networks:
-      open-webui:
-        ipv4_address: "10.24.39.3"
-    dns: ["192.168.40.253"]
-    environment:
-      TZ: "Europe/Berlin"
-      LANG: "de_DE.utf8"
-      POSTGRES_INITDB_ARGS: "--locale-provider=icu --icu-locale=de-DE"
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-      POSTGRES_DB: postgres
-    labels:
-      - "wud.watch=true"
-      - "wud.watch.digest=true"
-      - "wud.display.name=LiteLLM - Postgres"
-      - "wud.trigger.exclude=docker.autoupdate"
-      - "wud.tag.include=^\\d+$"
-      - "wud.link.template=https://www.postgresql.org/docs/release/$${major}.$${minor}"
-    volumes:
-      - ai-hub-postgres-data:/var/lib/postgresql
-
   # Github: https://github.com/berriai/litellm
   # Docs: https://docs.litellm.ai/docs/
   litellm:
@@ -85,7 +59,9 @@ services:
     restart: unless-stopped
     networks:
       open-webui:
-        ipv4_address: "10.24.39.4"
+        ipv4_address: "10.24.39.3"
+      ai-hub-postgres:
+        ipv4_address: "10.118.16.139"
       mcp-gateways:
         ipv4_address: "10.24.43.3"
     ports:
@@ -133,7 +109,7 @@ services:
     #   - "8000:8000"
     networks:
       open-webui:
-        ipv4_address: "10.24.39.5"
+        ipv4_address: "10.24.39.4"
       mcp-gateways:
         ipv4_address: "10.24.43.4"
     labels:
@@ -151,6 +127,9 @@ networks:
       config:
         - subnet: "10.24.39.0/24"
           gateway: "10.24.39.1"
+  ai-hub-postgres:
+    name: ai-hub-postgres
+    external: true
   mcp-gateways:
     name: mcp-gateways
     external: true
