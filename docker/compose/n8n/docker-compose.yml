@@ -54,7 +54,7 @@ services:
         ipv4_address: "10.24.42.3"
     environment:
       MODE: json-rpc # supported modes: json-rpc, native, normal
-      AUTO_RECEIVE_SCHEDULE: "0 22 * * *" # enable this parameter on demand (see description below)
+      # AUTO_RECEIVE_SCHEDULE: "0 22 * * *" # enable this parameter on demand (see description below)
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
