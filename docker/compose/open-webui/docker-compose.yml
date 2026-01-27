@@ -48,8 +48,8 @@ services:
       - "wud.link.template=https://github.com/open-webui/open-webui/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - open-webui-data:/app/backend/data
-    depends_on:
-      - ai-hub-postgres
+    # depends_on:
+    #   - ai-hub-postgres
 
   # Github: https://github.com/berriai/litellm
   # Docs: https://docs.litellm.ai/docs/
@@ -85,8 +85,8 @@ services:
       - "wud.link.template=https://github.com/BerriAI/litellm/releases"
     volumes:
       - litellm-conf:/app/config
-    depends_on:
-      - ai-hub-postgres
+    # depends_on:
+    #   - ai-hub-postgres
 
   # Github: https://github.com/open-webui/mcpo
   mcpo:
