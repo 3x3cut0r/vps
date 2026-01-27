@@ -10,10 +10,18 @@ services:
     networks:
       n8n:
         ipv4_address: "10.24.42.2"
+      ai-hub-postgres:
+        ipv4_address: "10.118.16.42"
     dns: ["192.168.40.253"]
     environment:
       GENERIC_TIMEZONE: "Europe/Berlin"
       NODE_ENV: "production"
+      DB_TYPE: "postgresdb"
+      DB_POSTGRESDB_DATABASE: "n8n"
+      DB_POSTGRESDB_HOST: "ai-hub-postgres"
+      DB_POSTGRESDB_PORT: 5432
+      DB_POSTGRESDB_USER: "n8n"
+      DB_POSTGRESDB_PASSWORD: "${DB_POSTGRESDB_PASSWORD}"
       DB_SQLITE_POOL_SIZE: 4
       N8N_DEFAULT_LOCALE: "de"
       N8N_DIAGNOSTICS_ENABLED: false
@@ -41,6 +49,9 @@ networks:
       config:
         - subnet: "10.24.42.0/24"
           gateway: "10.24.42.1"
+  ai-hub-postgres:
+    name: ai-hub-postgres
+    external: true
 
 volumes:
   n8n-data:
