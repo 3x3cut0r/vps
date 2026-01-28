@@ -58,6 +58,7 @@ services:
       AUTO_RECEIVE_SCHEDULE: "0 22 * * *" # enable this parameter on demand (see description below)
       SIGNAL_CLI_UID: 1000
       SIGNAL_CLI_GID: 1000
+      SIGNAL_CLI_CONFIG_DIR: "/home/.local/share/signal-cli/"
       PORT: 8080
       LOG_LEVEL: info
     labels:
