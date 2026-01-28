@@ -25,6 +25,21 @@ services:
       WUD_WATCHER_NPM_HOST: nginx-proxy-manager # Watch a remote docker host via TCP on 2375
       WUD_WATCHER_NPM_CRON: 0 2 * * *
       WUD_WATCHER_NPM_WATCHALL: false # If true, watch all containers regardless of their status (created, paused, exited, restarting, running...)
+      WUD_WATCHER_AIHUB_HOST: ai-hub # Watch a remote docker host via TCP on 2375
+      WUD_WATCHER_AIHUB_CRON: 0 2 * * *
+      WUD_WATCHER_AIHUB_WATCHALL: false # If true, watch all containers regardless of their status (created, paused, exited, restarting, running...)
+      WUD_WATCHER_PAPERLESS_HOST: paperless # Watch a remote docker host via TCP on 2375
+      WUD_WATCHER_PAPERLESS_CRON: 0 2 * * *
+      WUD_WATCHER_PAPERLESS_WATCHALL: false # If true, watch all containers regardless of their status (created, paused, exited, restarting, running...)
+      WUD_WATCHER_SYNAPSE_HOST: synapse # Watch a remote docker host via TCP on 2375
+      WUD_WATCHER_SYNAPSE_CRON: 0 2 * * *
+      WUD_WATCHER_SYNAPSE_WATCHALL: false # If true, watch all containers regardless of their status (created, paused, exited, restarting, running...)
+      WUD_WATCHER_NEXTCLOUD_HOST: nextcloud # Watch a remote docker host via TCP on 2375
+      WUD_WATCHER_NEXTCLOUD_CRON: 0 2 * * *
+      WUD_WATCHER_NEXTCLOUD_WATCHALL: false # If true, watch all containers regardless of their status (created, paused, exited, restarting, running...)
+      WUD_WATCHER_ROCKETCHAT_HOST: rocketchat # Watch a remote docker host via TCP on 2375
+      WUD_WATCHER_ROCKETCHAT_CRON: 0 2 * * *
+      WUD_WATCHER_ROCKETCHAT_WATCHALL: false # If true, watch all containers regardless of their status (created, paused, exited, restarting, running...)
       # WUD_WATCHER_BBB_HOST: bigbluebutton # Watch a remote docker host via TCP on 2375
       # WUD_WATCHER_BBB_CRON: 0 2 * * *
       # WUD_WATCHER_BBB_WATCHALL: false # If true, watch all containers regardless of their status (created, paused, exited, restarting, running...)
