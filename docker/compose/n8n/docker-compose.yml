@@ -53,12 +53,13 @@ services:
       n8n:
         ipv4_address: "10.24.42.3"
     environment:
+      LANG: "de_DE.UTF-8"
       MODE: json-rpc # supported modes: json-rpc, native, normal
       # AUTO_RECEIVE_SCHEDULE: "0 22 * * *" # enable this parameter on demand (see description below)
       SIGNAL_CLI_UID: 1000
       SIGNAL_CLI_GID: 1000
       PORT: 8080
-      LOG_LEVEL: info
+      LOG_LEVEL: debug
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
