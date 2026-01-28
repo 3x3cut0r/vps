@@ -59,7 +59,7 @@ services:
       SIGNAL_CLI_UID: 1000
       SIGNAL_CLI_GID: 1000
       PORT: 8080
-      LOG_LEVEL: debug
+      LOG_LEVEL: info
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
