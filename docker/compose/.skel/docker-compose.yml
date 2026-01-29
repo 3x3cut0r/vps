@@ -5,6 +5,12 @@ services:
     container_name: skel
     image: app/image:tag
     restart: unless-stopped
+    command:
+      [
+        "--arg1",
+        "--arg2",
+        "--arg3",
+      ]
     env_file: ../../env-files/skel.env # correct (relative-) path for portainer
     logging:
       driver: "syslog"

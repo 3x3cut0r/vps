@@ -1,0 +1,45 @@
+services:
+  # Github: https://github.com/ggml-org/llama.cpp
+  # Docker Hub: https://hub.docker.com/r/...
+  # Docker Documentation: https://github.com/ggml-org/llama.cpp/blob/master/docs/docker.md
+  llama-cpp:
+    container_name: llama-cpp
+    image: ghcr.io/ggml-org/llama.cpp:server
+    restart: unless-stopped
+    command: [
+      "-m", 
+      "/models/gemma-3-4b-it-qat-q4_0-gguf/gemma-3-4b-it-q4_0.gguf", 
+      "--port", 
+      "8080",
+      "--host", 
+      "0.0.0.0", 
+      "-n", 
+      "512"
+    ]
+    ports:
+      - "2145:8080"
+    networks:
+      llama-cpp:
+        ipv4_address: "10.24.45.2"
+    dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+      UID: "1000"
+      GID: "1000"
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=llama.cpp:server"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/ggml-org/llama.cpp/releases"
+    volumes:
+      - /opt/docker/config-files/llama-cpp/models:/models
+
+networks:
+  llama-cpp:
+    name: llama-cpp
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.24.45.0/24"
+          gateway: "10.24.45.1"
