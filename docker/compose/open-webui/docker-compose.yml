@@ -64,6 +64,8 @@ services:
         ipv4_address: "10.118.16.139"
       mcp-gateways:
         ipv4_address: "10.24.43.3"
+      llama-cpp:
+        ipv4_address: "10.24.45.3"
     ports:
       - "2439:4000"
     dns: ["192.168.40.253"]
@@ -132,6 +134,9 @@ networks:
     external: true
   mcp-gateways:
     name: mcp-gateways
+    external: true
+  llama-cpp:
+    name: llama-cpp
     external: true
 
 volumes:
