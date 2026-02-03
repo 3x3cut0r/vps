@@ -69,7 +69,7 @@ services:
       - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/bbernhard/signal-cli-rest-api/releases/tag/$${major}.$${minor}"
     volumes:
-      - /opt/docker/config-files/signal-cli-rest-api:/home/.local/share/signal-cli" # bind mount to fix persistence!
+      - /opt/docker/config-files/signal-cli-rest-api:/home/.local/share/signal-cli # bind mount to fix persistence!
 
 networks:
   n8n:
