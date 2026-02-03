@@ -65,7 +65,7 @@ services:
       - "wud.watch=true"
       - "wud.watch.digest=true"
       - "wud.display.name=signal-cli-rest-api"
-      - "wud.trigger.include=docker.autoupdate"
+      - "wud.trigger.exclude=docker.autoupdate"
       - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/bbernhard/signal-cli-rest-api/releases/tag/$${major}.$${minor}"
     volumes:
