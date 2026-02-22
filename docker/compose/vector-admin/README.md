@@ -1,13 +1,12 @@
 # vector-admin
 
-**docker-compose.yml for vector-admin - vector-admin is a ...**
+**docker-compose.yml for vector-admin - an admin UI for managing vector databases and embeddings**
 
 ## Index
 
 1. [deploy docker-compose.yml](#deploy)
-2. [reverse-proxy / nginx configuration](#reverse-proxy)
-3. [usage](#usage)  
-   4.1 [browse](#browse)
+2. [usage](#usage)  
+   2.1 [browse](#browse)
 
 \# [Find Me](#findme)  
 \# [License](#license)
@@ -16,14 +15,9 @@
 
 **[see docker/compose/vector-admin/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/vector-admin/docker-compose.yml)**
 
-# 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
+# 2. usage <a name="usage"></a>
 
-**add new proxy host to your nginx or nginx-proxy-manager**
-**[or see nginx/conf.d/vector-admin.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/vector-admin.conf)**
-
-# 3. usage <a name="usage"></a>
-
-### 3.1 browse <a name="browse"></a>
+### 2.1 browse <a name="browse"></a>
 
 **Frontend**  
 [https://vector-admin.3x3cut0r.de](https://vector-admin.3x3cut0r.de)

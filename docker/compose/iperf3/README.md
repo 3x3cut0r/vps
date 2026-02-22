@@ -1,12 +1,11 @@
 # iperf3
 
-**docker-compose.yml for iperf3 - Server for Network Performance and Bandwidth Testing**
+**docker-compose.yml for iperf3 - a tool for active measurements of the maximum achievable bandwidth on IP networks**
 
 ## Index
 
 1. [deploy docker-compose.yml](#deploy)
-2. [reverse-proxy / nginx configuration](#reverse-proxy)
-3. [usage](#usage)
+2. [usage](#usage)
 
 \# [Find Me](#findme)  
 \# [License](#license)
@@ -15,15 +14,11 @@
 
 **[see docker/compose/iperf3/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/iperf3/docker-compose.yml)**
 
-# 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
+# 2. usage <a name="usage"></a>
 
-**[see nginx/conf.d/iperf3.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/iperf3.conf)**
-
-# 3. usage <a name="usage"></a>
-
+**Run bandwidth test:**
 ```shell
 iperf3 -c iperf3.3x3cut0r.de
-
 ```
 
 ### Find Me <a name="findme"></a>

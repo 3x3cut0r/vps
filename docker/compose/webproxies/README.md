@@ -1,10 +1,26 @@
 # webproxies
 
-# 1. deploy docker-compose.yml
+**docker-compose.yml for webproxies - Glype web proxy allowing anonymous web browsing**
 
-# 2. configure your nginx reverse proxy
+## Index
 
-**see: [webproxys.conf](https://github.com/3x3cut0r/vps/blob/main/docker/compose/nginx/conf.d/glype-proxy.conf)**
+1. [deploy docker-compose.yml](#deploy)
+2. [usage](#usage)  
+   2.1 [browse](#browse)
+
+\# [Find Me](#findme)  
+\# [License](#license)
+
+# 1. deploy docker-compose.yml <a name="deploy"></a>
+
+**[see docker/compose/webproxies/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/webproxies/docker-compose.yml)**
+
+# 2. usage <a name="usage"></a>
+
+### 2.1 browse <a name="browse"></a>
+
+**Frontend**  
+[https://webproxies.3x3cut0r.de](https://webproxies.3x3cut0r.de)
 
 ### Find Me <a name="findme"></a>
 

@@ -1,26 +1,27 @@
 # bigbluebutton
 
+**docker-compose.yml for bigbluebutton - an open-source web conferencing system for online learning**
+
 ## Index
 
 1. [prerequisites](#prerequisites)
 2. [installation](#installation)
-3. [reverse-proxy / nginx configuration](#reverse-proxy)
-4. [configuration](#configuration)  
-   4.1 [config-file](#config-file)
-5. [usage](#usage)  
-   5.1 [browse](#browse)
+3. [configuration](#configuration)
+4. [usage](#usage)  
+   4.1 [browse](#browse)
 
 \# [Find Me](#findme)  
 \# [License](#license)
 
 # 1. prerequisites <a name="prerequisites"></a>
 
-**1.1 install on LXC Container**
-**System Requirements: unpriviledged=1, nesting=1, keyctl=1, 8GB RAM, 4CPU, 64GB HDD**
+**Install on LXC Container:**
+- System Requirements: unprivileged=1, nesting=1, keyctl=1
+- 8GB RAM, 4CPU, 64GB HDD
 
-**1.2 enter public ip to LXC Container (without GW!)**  
+**Enter public IP to LXC Container (without GW!):**
+
 /etc/network/interfaces
-
 ```shell
 ...
 iface eth0 inet static
@@ -32,21 +33,17 @@ iface eth0 inet static
 
 # 2. installation <a name="installation"></a>
 
-**follow instructions here: [https://github.com/bigbluebutton/docker](https://github.com/bigbluebutton/docker)**
+**Follow instructions here: [https://github.com/bigbluebutton/docker](https://github.com/bigbluebutton/docker)**
 
-# 3. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
+# 3. configuration <a name="configuration"></a>
 
-**[see nginx/conf.d/bigbluebutton.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/bigbluebutton.conf)**
+**1. Login and change password!**
 
-# 4. configuration <a name="configuration"></a>
+**2. [Configure Greenlight](https://docs.bigbluebutton.org/greenlight/gl-install.html#3-configure-greenlight)**
 
-**4.1 login and change password!**
+# 4. usage <a name="usage"></a>
 
-**4.2 [configure greenlight](https://docs.bigbluebutton.org/greenlight/gl-install.html#3-configure-greenlight)**
-
-# 5. usage <a name="usage"></a>
-
-### 5.1 browse <a name="browse"></a>
+### 4.1 browse <a name="browse"></a>
 
 **Frontend**  
 [https://bigbluebutton.3x3cut0r.de](https://bigbluebutton.3x3cut0r.de)

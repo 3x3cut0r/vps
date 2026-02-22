@@ -1,6 +1,6 @@
 # mcp-gateways
 
-**docker-compose.yml for mcp-gateways**
+**docker-compose.yml for mcp-gateways - Docker MCP (Model Context Protocol) gateways for AI tool integration**
 
 ## Index
 
@@ -12,8 +12,7 @@
 
 # 1. prerequisites <a name="prerequisites"></a>
 
-**install golang-go >= 1.23**
-
+**Install golang-go >= 1.23:**
 ```shell
 GO_VERSION=1.24.4
 cd /usr/local
@@ -21,17 +20,14 @@ wget https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz
 rm -rf /usr/local/go
 tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz
 
-# Go ins PATH bringen
 echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
 source ~/.bashrc
 
 go version
 ```
 
-**install docker-mcp CLI**
-
+**Install docker-mcp CLI:**
 ```shell
-# Install as Docker CLI plugin on your docker host
 cd /opt/docker
 git clone https://github.com/docker/mcp-gateways.git
 cd mcp-gateways
@@ -39,7 +35,6 @@ mkdir -p "$HOME/.docker/cli-plugins"
 apt install make
 make docker-mcp                      # builds ~/.docker/cli-plugins/docker-mcp
 docker mcp --help
-
 ```
 
 # 2. deploy docker-compose.yml <a name="deploy"></a>

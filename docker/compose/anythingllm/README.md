@@ -1,12 +1,12 @@
-# skel
+# anythingllm
 
-**docker-compose.yml for skel - skel is a ...**
+**docker-compose.yml for anythingllm - a self-hosted AI knowledge management and chat application with support for multiple LLM providers**
 
 ## Index
 
 1. [prerequisites](#prerequisites)
-2. [deploy docker-compose.yml](#deploy)
-3. [reverse-proxy / nginx configuration](#reverse-proxy)
+2. [configuration](#configuration)
+3. [deploy docker-compose.yml](#deploy)
 4. [usage](#usage)  
    4.1 [browse](#browse)
 
@@ -15,35 +15,38 @@
 
 # 1. prerequisites <a name="prerequisites"></a>
 
-**get you OpenAI API Key from https://platform.openai.com/api-keys**  
-**change OPEN_AI_KEY and JWT_SECRET in docker-compose.yml**
+**Required:**
+- OpenAI API Key from https://platform.openai.com/api-keys
+- PostgreSQL database (for persistent storage)
+- Qdrant vector database (included in docker-compose)
 
-```shell
-services:
-  anythingllm:
-    environment:
-      OPEN_AI_KEY: '<sk-1234>'
-      JWT_SECRET: '<my-random-string-for-seeding>'
-```
+# 2. configuration <a name="configuration"></a>
 
-# 2. deploy docker-compose.yml <a name="deploy"></a>
+**Required environment variables:**
 
-**[see docker/compose/skel/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/skel/docker-compose.yml)**
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `AUTH_TOKEN` | Authentication token for AnythingLLM | `your-auth-token` |
+| `JWT_SECRET` | JWT secret for session management | `your-jwt-secret` |
+| `OPEN_AI_KEY` | OpenAI API key | `sk-...` |
 
-# 3. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
+**Optional environment variables:**
+- `LLM_PROVIDER` - LLM provider (default: `openai`)
+- `OPEN_MODEL_PREF` - OpenAI model preference (default: `gpt-4`)
+- `EMBEDDING_ENGINE` - Embedding engine (default: `openai`)
+- `EMBEDDING_MODEL_PREF` - Embedding model (default: `text-embedding-3-small`)
+- `VECTOR_DB` - Vector database (default: `qdrant`)
 
-**add new proxy host to your nginx or nginx-proxy-manager**
-**[see nginx/conf.d/skel.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/skel.conf)**
+# 3. deploy docker-compose.yml <a name="deploy"></a>
+
+**[see docker/compose/anythingllm/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/anythingllm/docker-compose.yml)**
 
 # 4. usage <a name="usage"></a>
 
 ### 4.1 browse <a name="browse"></a>
 
 **Frontend**  
-[https://skel.3x3cut0r.de](https://skel.3x3cut0r.de)
-
-**Backend**  
-[https://skel.3x3cut0r.de/admin](https://skel.3x3cut0r.de/admin)
+[https://anythingllm.3x3cut0r.de](https://anythingllm.3x3cut0r.de)
 
 ### Find Me <a name="findme"></a>
 

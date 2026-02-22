@@ -1,17 +1,62 @@
-# MariaDB
+# mariadb
 
-# 1. deploy docker-compose.yml
+**docker-compose.yml for mariadb - a community-developed fork of MySQL, one of the most popular open source relational databases**
 
-# 2. fine-tune 50-server.cnf configuration
-**copy and replace from repo**  
-```shell
-wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/compose/mariadb/50-server.cnf -O /home/docker/.local/share/docker/volumes/mariadb-conf/_data/50-server.cnf
+## Index
 
+1. [configuration](#configuration)
+2. [deploy docker-compose.yml](#deploy)
+3. [usage](#usage)  
+   3.1 [browse](#browse)
+4. [fine-tune configuration](#finetune)
+
+\# [Find Me](#findme)  
+\# [License](#license)
+
+# 1. configuration <a name="configuration"></a>
+
+**Required environment variables:**
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `MYSQL_ROOT_PASSWORD` | Root user password | `your-mysql-root-password` |
+
+**Included services:**
+- `mariadb` - MariaDB 10 database (port 3306, internal only)
+- `phpmyadmin` - phpMyAdmin web interface (port 2200)
+
+**Connect other containers to mariadb network:**
+```yaml
+networks:
+  mariadb:
+    external:
+      name: mariadb
 ```
 
-**OR modify mariadb-conf/_data/50-server.cnf:**
+**Required config files:**
+- `/opt/docker/config-files/phpmyadmin/config.user.inc.php`
+- `/opt/docker/config-files/phpmyadmin/php.ini`
+
+# 2. deploy docker-compose.yml <a name="deploy"></a>
+
+**[see docker/compose/mariadb/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/mariadb/docker-compose.yml)**
+
+# 3. usage <a name="usage"></a>
+
+### 3.1 browse <a name="browse"></a>
+
+**phpMyAdmin**  
+[https://phpmyadmin.3x3cut0r.de](https://phpmyadmin.3x3cut0r.de)
+
+# 4. fine-tune configuration <a name="finetune"></a>
+
+**Copy and replace from repo:**
 ```shell
-...
+wget -q https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/compose/mariadb/50-server.cnf -O /home/docker/.local/share/docker/volumes/mariadb-conf/_data/50-server.cnf
+```
+
+**Or modify mariadb-conf/_data/50-server.cnf:**
+```shell
 skip-name-resolve
 
 key_buffer_size        = 1G
@@ -30,24 +75,22 @@ character-set-server  = utf8mb4
 collation-server      = utf8mb4_general_ci
 
 innodb_buffer_pool_size = 8G
-
 ```
 
-# 3. restart mariadb
+**Restart MariaDB:**
 ```shell
 docker container restart mariadb
-
 ```
 
-# 4. database security
-**download and exec mysqltuner.pl to check your database security:**  
-[mysqltuner.pl on GitHub](https://github.com/major/MySQLTuner-perl)  
+**Check database security:**
+Download and exec mysqltuner.pl: [mysqltuner.pl on GitHub](https://github.com/major/MySQLTuner-perl)
 
 ### Find Me <a name="findme"></a>
 
 ![E-Mail](https://img.shields.io/badge/E--Mail-executor55%40gmx.de-red)
-* [GitHub](https://github.com/3x3cut0r)
-* [DockerHub](https://hub.docker.com/u/3x3cut0r)
+
+- [GitHub](https://github.com/3x3cut0r)
+- [DockerHub](https://hub.docker.com/u/3x3cut0r)
 
 ### License <a name="license"></a>
 

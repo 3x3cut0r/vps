@@ -1,12 +1,22 @@
 # filebeat
 
-**docker-compose.yml for filebeat**
+**docker-compose.yml for filebeat - a lightweight shipper for forwarding and centralizing log data**
 
-# 1. download and configure filebeat.yml <a name="filebeat"></a>
+## Index
 
-**download to /opt/docker/config-files/filebeat/filebeat.yml**
+1. [configuration](#configuration)
+2. [deploy docker-compose.yml](#deploy)
+
+\# [Find Me](#findme)  
+\# [License](#license)
+
+# 1. configuration <a name="configuration"></a>
+
+**Download and configure filebeat.yml:**
+
+Download to `/opt/docker/config-files/filebeat/filebeat.yml`
+
 **[see docker/compose/filebeat/filebeat.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/filebeat/filebeat.yml)**
-
 
 # 2. deploy docker-compose.yml <a name="deploy"></a>
 

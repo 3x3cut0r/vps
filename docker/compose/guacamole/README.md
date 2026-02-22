@@ -1,42 +1,40 @@
 # guacamole
 
-**docker-compose.yml for guacamole - guacamole is a ...**
+**docker-compose.yml for guacamole - a clientless remote desktop gateway supporting VNC, RDP, and SSH**
 
 ## Index
 
-1. [prepare mariadb](#mariadb)
+1. [prerequisites](#prerequisites)
 2. [deploy docker-compose.yml](#deploy)
-3. [reverse-proxy / nginx configuration](#reverse-proxy)
-4. [usage](#usage)  
-   4.1 [browse](#browse)
+3. [usage](#usage)  
+   3.1 [browse](#browse)
 
 \# [Find Me](#findme)  
 \# [License](#license)
 
-# 1. prepare mariadb <a name="mariadb"></a>
+# 1. prerequisites <a name="prerequisites"></a>
 
-**1. create mariadb user and database for guacamole using phpmyadmin**  
-**2. download and extract [guacamole-auth-jdbc-1.5.3.tar.gz](https://guacamole.apache.org/releases/1.5.3/)**  
-**3. import guacamole-auth-jdbc-1.5.3/mysql/schema/001-create-schema.sql into your new created guacamole database using phpmyadmin**  
-**4. import guacamole-auth-jdbc-1.5.3/mysql/schema/002-create-admin-user.sql into your new created guacamole database using phpmyadmin**
+**1. Create MariaDB user and database for Guacamole using phpMyAdmin**
+
+**2. Download and extract [guacamole-auth-jdbc-1.5.3.tar.gz](https://guacamole.apache.org/releases/1.5.3/)**
+
+**3. Import schema into your Guacamole database:**
+- `guacamole-auth-jdbc-1.5.3/mysql/schema/001-create-schema.sql`
+- `guacamole-auth-jdbc-1.5.3/mysql/schema/002-create-admin-user.sql`
 
 # 2. deploy docker-compose.yml <a name="deploy"></a>
 
-**[see docker/docker-compose/guacamole/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/guacamole/docker-compose.yml)**
+**[see docker/compose/guacamole/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/guacamole/docker-compose.yml)**
 
-# 3. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
+# 3. usage <a name="usage"></a>
 
-**[see nginx/conf.d/guacamole.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/guacamole.conf)**
-
-# 4. usage <a name="usage"></a>
-
-### 4.1 browse <a name="browse"></a>
+### 3.1 browse <a name="browse"></a>
 
 **Frontend**  
-[https://guacamole.3x3cut0r.de/guacamole/#/settings](https://guacamole.3x3cut0r.de/guacamole/#/settings)
+[https://guacamole.3x3cut0r.de/guacamole](https://guacamole.3x3cut0r.de/guacamole)
 
 **Backend**  
-[https://guacamole.3x3cut0r.de/guacamole/#/settings/sessions](https://guacamole.3x3cut0r.de/guacamole/#/settings/sessions)
+[https://guacamole.3x3cut0r.de/guacamole/#/settings](https://guacamole.3x3cut0r.de/guacamole/#/settings)
 
 ### Find Me <a name="findme"></a>
 

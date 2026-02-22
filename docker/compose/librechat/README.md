@@ -1,14 +1,13 @@
 # librechat
 
-**docker-compose.yml for librechat**
+**docker-compose.yml for librechat - an enhanced ChatGPT clone with support for multiple AI providers**
 
 ## Index
 
 1. [install librechat](#install)
-2. [run docker-compose.yml](#deploy)
-3. [reverse-proxy / nginx configuration](#reverse-proxy)
-4. [usage](#usage)  
-   4.1 [browse](#browse)
+2. [deploy docker-compose.yml](#deploy)
+3. [usage](#usage)  
+   3.1 [browse](#browse)
 
 \# [Find Me](#findme)  
 \# [License](#license)
@@ -27,22 +26,19 @@ wget https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/compose/librecha
 wget https://raw.githubusercontent.com/3x3cut0r/vps/main/docker/compose/librechat/librechat.yaml
 ```
 
-**overwrite all API keys, ENV and stuff in the 3 files downloaded above!**
+**Overwrite all API keys, ENV and stuff in the 3 files downloaded above!**
 
-# 2. run docker-compose.yml <a name="deploy"></a>
+Visit [LibreChat documentation](https://docs.librechat.ai/install/configuration/custom_config.html) to enable / add more endpoints.
+
+# 2. deploy docker-compose.yml <a name="deploy"></a>
 
 ```bash
 docker compose up -d
 ```
 
-# 3. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
+# 3. usage <a name="usage"></a>
 
-**configure librechat.3x3cut0r.de on nginx-proxy-manager**
-**visit [librachat documentation](https://docs.librechat.ai/install/configuration/custom_config.html) to enable / add more endpoints**
-
-# 4. usage <a name="usage"></a>
-
-### 4.1 browse <a name="browse"></a>
+### 3.1 browse <a name="browse"></a>
 
 **Frontend**  
 [https://librechat.3x3cut0r.de](https://librechat.3x3cut0r.de)

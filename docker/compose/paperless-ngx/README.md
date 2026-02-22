@@ -1,34 +1,33 @@
 # paperless-ngx
 
-**docker-compose.yml for paperless-ngx**  
+**docker-compose.yml for paperless-ngx - a document management system that transforms physical documents into searchable online archives**
 
 ## Index
 
-1. [deploy docker-compose.yml](#deploy)  
-2. [reverse-proxy / nginx configuration](#reverse-proxy)  
-3. [usage](#usage)  
-  3.1 [browse](#browse)  
+1. [deploy docker-compose.yml](#deploy)
+2. [usage](#usage)  
+   2.1 [browse](#browse)
 
 \# [Find Me](#findme)  
-\# [License](#license)  
+\# [License](#license)
 
-# 1. deploy docker-compose.yml <a name="deploy"></a>  
-**[see docker/docker-compose/paperless-ngx/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/paperless-ngx/docker-compose.yml)**  
+# 1. deploy docker-compose.yml <a name="deploy"></a>
 
-# 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>  
-**[see nginx/conf.d/paperless-ngx.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/paperless-ngx.conf)**  
+**[see docker/compose/paperless-ngx/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/paperless-ngx/docker-compose.yml)**
 
-# 3. usage <a name="usage"></a>  
+# 2. usage <a name="usage"></a>
 
-### 3.1 browse <a name="browse"></a>  
+### 2.1 browse <a name="browse"></a>
+
 **Frontend (default user: admin/admin)**  
-[https://paperless-ngx.3x3cut0r.de](https://paperless-ngx.3x3cut0r.de)  
+[https://paperless-ngx.3x3cut0r.de](https://paperless-ngx.3x3cut0r.de)
 
 ### Find Me <a name="findme"></a>
 
 ![E-Mail](https://img.shields.io/badge/E--Mail-executor55%40gmx.de-red)
-* [GitHub](https://github.com/3x3cut0r)
-* [DockerHub](https://hub.docker.com/u/3x3cut0r)
+
+- [GitHub](https://github.com/3x3cut0r)
+- [DockerHub](https://hub.docker.com/u/3x3cut0r)
 
 ### License <a name="license"></a>
 

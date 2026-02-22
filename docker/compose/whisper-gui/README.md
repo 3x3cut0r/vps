@@ -1,14 +1,12 @@
 # whisper-gui
 
-**docker-compose.yml for whisper-gui**
+**docker-compose.yml for whisper-gui - a web-based GUI for OpenAI Whisper speech-to-text transcription**
 
 ## Index
 
-1. [prerequisites](#prerequisites)
-2. [deploy docker-compose.yml](#deploy)
-3. [reverse-proxy / nginx configuration](#reverse-proxy)
-4. [usage](#usage)  
-   4.1 [browse](#browse)
+1. [deploy docker-compose.yml](#deploy)
+2. [usage](#usage)  
+   2.1 [browse](#browse)
 
 \# [Find Me](#findme)  
 \# [License](#license)
@@ -17,14 +15,9 @@
 
 **[see docker/compose/whisper-gui/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/whisper-gui/docker-compose.yml)**
 
-# 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
+# 2. usage <a name="usage"></a>
 
-**add new proxy host to your nginx or nginx-proxy-manager**
-**[or see nginx/conf.d/whisper-gui.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/whisper-gui.conf)**
-
-# 3. usage <a name="usage"></a>
-
-### 3.1 browse <a name="browse"></a>
+### 2.1 browse <a name="browse"></a>
 
 **Frontend**  
 [https://whisper-gui.3x3cut0r.de](https://whisper-gui.3x3cut0r.de)

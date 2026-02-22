@@ -1,13 +1,12 @@
 # wordpress
 
-**docker-compose.yml for wordpress - wordpress is a modern content management system to manage websites**
+**docker-compose.yml for wordpress - the world's most popular content management system for building websites**
 
 ## Index
 
 1. [deploy docker-compose.yml](#deploy)
-2. [reverse-proxy / nginx configuration](#reverse-proxy)
-3. [usage](#usage)  
-   3.1 [browse](#browse)
+2. [usage](#usage)  
+   2.1 [browse](#browse)
 
 \# [Find Me](#findme)  
 \# [License](#license)
@@ -16,13 +15,9 @@
 
 **[see docker/compose/wordpress/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/wordpress/docker-compose.yml)**
 
-# 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
+# 2. usage <a name="usage"></a>
 
-**[see nginx/conf.d/wordpress.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/wordpress.conf)**
-
-# 3. usage <a name="usage"></a>
-
-### 3.1 browse <a name="browse"></a>
+### 2.1 browse <a name="browse"></a>
 
 **Frontend**  
 [https://wordpress.3x3cut0r.de](https://wordpress.3x3cut0r.de)

@@ -1,41 +1,31 @@
 # docker-elk
 
-**docker-compose.yml for docker-elk - a docker stack for ELK (Elasticsearch Logstash Kibana)**
+**docker-compose.yml for docker-elk - the ELK Stack (Elasticsearch, Logstash, Kibana) for centralized logging and analytics**
 
 ## Index
 
 1. [prerequisites](#prerequisites)
 2. [deploy docker-compose.yml](#deploy)
-3. [reverse-proxy / nginx configuration](#reverse-proxy)
-4. [usage](#usage)  
-   4.1 [browse](#browse)
+3. [usage](#usage)  
+   3.1 [browse](#browse)
 
 \# [Find Me](#findme)  
 \# [License](#license)
 
 # 1. prerequisites <a name="prerequisites"></a>
 
-**do stuff:**
-
-```shell
-# 4GB RAM
-# 2C CPU
-# 64GB HDD
-
-```
+**System Requirements:**
+- 4GB RAM
+- 2 CPU
+- 64GB HDD
 
 # 2. deploy docker-compose.yml <a name="deploy"></a>
 
-**[follow instructions here](https://github.com/deviantony/docker-elk)**
+**[Follow instructions here](https://github.com/deviantony/docker-elk)**
 
-# 3. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
+# 3. usage <a name="usage"></a>
 
-**add new proxy host to your nginx or nginx-proxy-manager**
-**[see nginx/conf.d/kibana.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/kibana.conf)**
-
-# 4. usage <a name="usage"></a>
-
-### 4.1 browse <a name="browse"></a>
+### 3.1 browse <a name="browse"></a>
 
 **Frontend**  
 [https://elk.3x3cut0r.de](https://elk.3x3cut0r.de)

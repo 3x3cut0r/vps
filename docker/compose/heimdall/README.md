@@ -1,28 +1,23 @@
 # heimdall
 
-**docker-compose.yml for heimdall - a way to organise all those links to your most used web sites and web applications in a simple way. Simplicity is the key to Heimdall. Why not use it as your browser start page? It even has the ability to include a search bar using either Google, Bing or DuckDuckGo.**
+**docker-compose.yml for heimdall - an application dashboard and launcher for organizing links to your most used web sites and applications**
 
 ## Index
 
 1. [deploy docker-compose.yml](#deploy)
-2. [reverse-proxy / nginx configuration](#reverse-proxy)
-3. [usage](#usage)  
-   3.1 [browse](#browse)
+2. [usage](#usage)  
+   2.1 [browse](#browse)
 
 \# [Find Me](#findme)  
 \# [License](#license)
 
 # 1. deploy docker-compose.yml <a name="deploy"></a>
 
-**[see docker/docker-compose/heimdall/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/heimdall/docker-compose.yml)**
+**[see docker/compose/heimdall/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/heimdall/docker-compose.yml)**
 
-# 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
+# 2. usage <a name="usage"></a>
 
-**[see nginx/conf.d/heimdall.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/heimdall.conf)**
-
-# 3. usage <a name="usage"></a>
-
-### 3.1 browse <a name="browse"></a>
+### 2.1 browse <a name="browse"></a>
 
 **Frontend**  
 [https://heimdall.3x3cut0r.de](https://heimdall.3x3cut0r.de)

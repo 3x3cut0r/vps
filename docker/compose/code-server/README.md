@@ -1,15 +1,33 @@
-# Code-Server (VSCode)
+# code-server
 
-# 1. deploy docker-compose.yml
+**docker-compose.yml for code-server - VS Code running on a remote server, accessible through the browser**
 
-# 2. configure your nginx reverse proxy
-**see: [send.conf](https://github.com/3x3cut0r/vps/blob/main/docker/compose/nginx/conf.d/vscode.conf)**
+## Index
+
+1. [deploy docker-compose.yml](#deploy)
+2. [usage](#usage)  
+   2.1 [browse](#browse)
+
+\# [Find Me](#findme)  
+\# [License](#license)
+
+# 1. deploy docker-compose.yml <a name="deploy"></a>
+
+**[see docker/compose/code-server/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/code-server/docker-compose.yml)**
+
+# 2. usage <a name="usage"></a>
+
+### 2.1 browse <a name="browse"></a>
+
+**Frontend**  
+[https://vscode.3x3cut0r.de](https://vscode.3x3cut0r.de)
 
 ### Find Me <a name="findme"></a>
 
 ![E-Mail](https://img.shields.io/badge/E--Mail-executor55%40gmx.de-red)
-* [GitHub](https://github.com/3x3cut0r)
-* [DockerHub](https://hub.docker.com/u/3x3cut0r)
+
+- [GitHub](https://github.com/3x3cut0r)
+- [DockerHub](https://hub.docker.com/u/3x3cut0r)
 
 ### License <a name="license"></a>
 

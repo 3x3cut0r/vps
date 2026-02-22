@@ -1,10 +1,31 @@
-# Portainer
+# portainer
 
-# 1. deploy docker-compose.yml
+**docker-compose.yml for portainer - a lightweight management UI for Docker environments including containers, images, networks, and volumes**
 
-# 2. configure your nginx reverse proxy
+## Index
 
-**see: [portainer.conf](https://github.com/3x3cut0r/vps/blob/main/docker/compose/nginx/conf.d/portainer.conf)**
+1. [deploy docker-compose.yml](#deploy)
+2. [usage](#usage)  
+   2.1 [browse](#browse)
+
+\# [Find Me](#findme)  
+\# [License](#license)
+
+# 1. deploy docker-compose.yml <a name="deploy"></a>
+
+**[see docker/compose/portainer/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/portainer/docker-compose.yml)**
+
+**First-time setup:**
+1. Browse to `https://portainer.3x3cut0r.de`
+2. Create admin user and password
+3. Select "Docker Standalone" environment
+
+# 2. usage <a name="usage"></a>
+
+### 2.1 browse <a name="browse"></a>
+
+**Frontend**  
+[https://portainer.3x3cut0r.de](https://portainer.3x3cut0r.de)
 
 ### Find Me <a name="findme"></a>
 

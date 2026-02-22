@@ -5,8 +5,8 @@
 ## Index
 
 1. [prerequisites](#prerequisites)
-2. [deploy docker-compose.yml](#deploy)
-3. [reverse-proxy / nginx configuration](#reverse-proxy)
+2. [configuration](#configuration)
+3. [deploy docker-compose.yml](#deploy)
 4. [usage](#usage)  
    4.1 [browse](#browse)
 
@@ -15,21 +15,26 @@
 
 # 1. prerequisites <a name="prerequisites"></a>
 
-**do stuff:**
+**System Requirements:**
+- ...
 
-```shell
-# ...
+**Required:**
+- ...
 
-```
+# 2. configuration <a name="configuration"></a>
 
-# 2. deploy docker-compose.yml <a name="deploy"></a>
+**Required environment variables:**
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `VAR_NAME` | Description | `value` |
+
+**Required config files:**
+- `/path/to/config.file`
+
+# 3. deploy docker-compose.yml <a name="deploy"></a>
 
 **[see docker/compose/skel/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/skel/docker-compose.yml)**
-
-# 3. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
-
-**add new proxy host to your nginx or nginx-proxy-manager**
-**[or see nginx/conf.d/skel.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/skel.conf)**
 
 # 4. usage <a name="usage"></a>
 

@@ -1,12 +1,12 @@
 # open-webui
 
-**docker-compose.yml for open-webui**
+**docker-compose.yml for open-webui - a self-hosted WebUI for AI interactions with LiteLLM integration**
 
 ## Index
 
 1. [prerequisites](#prerequisites)
-2. [deploy docker-compose.yml](#deploy)
-3. [reverse-proxy / nginx configuration](#reverse-proxy)
+2. [configuration](#configuration)
+3. [deploy docker-compose.yml](#deploy)
 4. [usage](#usage)  
    4.1 [browse](#browse)
 
@@ -15,16 +15,31 @@
 
 # 1. prerequisites <a name="prerequisites"></a>
 
-**generate a new [OpenAI User API key](https://platform.openai.com/settings/profile?tab=api-keys) and replace it in the docker-compose.yml**
+**Required:**
+- PostgreSQL database (for persistent storage)
+- External networks: `ai-hub-postgres`, `mcp-gateways`, `llama-cpp`
 
-# 2. deploy docker-compose.yml <a name="deploy"></a>
+# 2. configuration <a name="configuration"></a>
+
+**Required environment variables:**
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `WEBUI_SECRET_KEY` | Secret key for session management | `your-webui-secret` |
+| `LITELLM_MASTER_KEY` | LiteLLM master API key | `your-litellm-key` |
+| `LITELLM_SALT_KEY` | LiteLLM salt key | `your-litellm-salt` |
+| `UI_PASSWORD` | LiteLLM UI password | `your-ui-password` |
+| `OPENWEBUI_POSTGRES_PASSWORD` | PostgreSQL password for OpenWebUI | `your-pg-password` |
+| `LITELLM_POSTGRES_PASSWORD` | PostgreSQL password for LiteLLM | `your-pg-password` |
+
+**Included services:**
+- `open-webui` - Main WebUI (port 2139)
+- `litellm` - LLM proxy (port 2439)
+- `mcpo` - MCP server
+
+# 3. deploy docker-compose.yml <a name="deploy"></a>
 
 **[see docker/compose/open-webui/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/open-webui/docker-compose.yml)**
-
-# 3. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
-
-**add new proxy host to your nginx or nginx-proxy-manager**
-**[or see nginx/conf.d/open-webui.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/open-webui.conf)**
 
 # 4. usage <a name="usage"></a>
 
@@ -32,6 +47,9 @@
 
 **Frontend**  
 [https://open-webui.3x3cut0r.de](https://open-webui.3x3cut0r.de)
+
+**LiteLLM UI**  
+[https://litellm.3x3cut0r.de](https://litellm.3x3cut0r.de)
 
 ### Find Me <a name="findme"></a>
 

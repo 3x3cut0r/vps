@@ -1,13 +1,12 @@
 # appsmith
 
-**docker-compose.yml for appsmith - appsmith simplifies internal tool development for businesses**
+**docker-compose.yml for appsmith - an open-source low-code platform for building internal tools and applications**
 
 ## Index
 
 1. [deploy docker-compose.yml](#deploy)
-2. [reverse-proxy / nginx configuration](#reverse-proxy)
-3. [usage](#usage)  
-   3.1 [browse](#browse)
+2. [usage](#usage)  
+   2.1 [browse](#browse)
 
 \# [Find Me](#findme)  
 \# [License](#license)
@@ -16,14 +15,9 @@
 
 **[see docker/compose/appsmith/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/appsmith/docker-compose.yml)**
 
-# 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
+# 2. usage <a name="usage"></a>
 
-**add new proxy host to your nginx or nginx-proxy-manager**
-**[see nginx/conf.d/appsmith.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/appsmith.conf)**
-
-# 3. usage <a name="usage"></a>
-
-### 3.1 browse <a name="browse"></a>
+### 2.1 browse <a name="browse"></a>
 
 **Frontend**  
 [https://appsmith.3x3cut0r.de](https://appsmith.3x3cut0r.de)

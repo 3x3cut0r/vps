@@ -5,8 +5,7 @@
 ## Index
 
 1. [deploy docker-compose.yml](#deploy)
-2. [reverse-proxy / nginx configuration](#reverse-proxy)
-3. [usage](#usage)
+2. [usage](#usage)
 
 \# [Find Me](#findme)  
 \# [License](#license)
@@ -15,13 +14,9 @@
 
 **[see docker/compose/404/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/404/docker-compose.yml)**
 
-# 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
+# 2. usage <a name="usage"></a>
 
-**[see nginx/conf.d/404.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/404.conf)**
-
-# 3. usage <a name="usage"></a>
-
-**browse**  
+**Browse**  
 [https://404.3x3cut0r.de](https://404.3x3cut0r.de)
 
 ### Find Me <a name="findme"></a>

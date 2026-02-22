@@ -1,33 +1,27 @@
 # azuracast
 
-**docker-compose.yml for azuracast**
+**docker-compose.yml for azuracast - a self-hosted web radio management suite**
 
 ## Index
 
-1. [deploy docker-compose.yml](#deploy)
-2. [reverse-proxy / nginx configuration](#reverse-proxy)
-3. [configuration](#configuration)  
-   3.1 [config-file](#config-file)
-4. [usage](#usage)  
-   4.1 [browse](#browse)
+1. [installation](#installation)
+2. [usage](#usage)  
+   2.1 [browse](#browse)
 
 \# [Find Me](#findme)  
 \# [License](#license)
 
-# 1. installation using script <a name="deploy"></a>
+# 1. installation <a name="installation"></a>
 
-**[see official documentation](https://github.com/3x3cut0r/vps/blob/main/docker/compose/azuracast/docker-compose.ymlhttps://docs.azuracast.com/en/getting-started/installation/docker)**
+**[See official documentation](https://docs.azuracast.com/en/getting-started/installation/docker)**
 
-# 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>
+# 2. usage <a name="usage"></a>
 
-**[see nginx/conf.d/azuracast.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/azuracast.conf)**
-
-# 3. usage <a name="usage"></a>
-
-### 3.1 browse <a name="browse"></a>
+### 2.1 browse <a name="browse"></a>
 
 **Frontend**  
-[https://radio.3x3cut0r.de](https://radio.3x3cut0r.de)  
+[https://radio.3x3cut0r.de](https://radio.3x3cut0r.de)
+
 [https://azuracast.3x3cut0r.de](https://azuracast.3x3cut0r.de)
 
 ### Find Me <a name="findme"></a>

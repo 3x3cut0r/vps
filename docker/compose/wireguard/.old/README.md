@@ -1,34 +1,33 @@
-# wireguard
+# wireguard (.old)
 
-**docker-compose.yml for wireguard - wireguard is an extremely simple yet fast and modern VPN that utilizes state-of-the-art cryptography**  
+**docker-compose.yml for wireguard - an extremely simple yet fast and modern VPN that utilizes state-of-the-art cryptography (old configuration)**
 
 ## Index
 
-1. [deploy docker-compose.yml](#deploy)  
-2. [reverse-proxy / nginx configuration](#reverse-proxy)  
-3. [usage](#usage)  
-  3.1 [browse](#browse)  
+1. [deploy docker-compose.yml](#deploy)
+2. [usage](#usage)  
+   2.1 [browse](#browse)
 
 \# [Find Me](#findme)  
-\# [License](#license)  
+\# [License](#license)
 
-# 1. deploy docker-compose.yml <a name="deploy"></a>  
-**[see docker/docker-compose/wireguard/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/wireguard/docker-compose.yml)**  
+# 1. deploy docker-compose.yml <a name="deploy"></a>
 
-# 2. reverse-proxy / nginx configuration <a name="reverse-proxy"></a>  
-**[see nginx/conf.d/wireguard.conf](https://github.com/3x3cut0r/vps/blob/main/nginx/conf.d/wireguard.conf)**  
+**[see docker/compose/wireguard/.old/docker-compose.yml](https://github.com/3x3cut0r/vps/blob/main/docker/compose/wireguard/.old/docker-compose.yml)**
 
-# 3. usage <a name="usage"></a>  
+# 2. usage <a name="usage"></a>
 
-### 3.1 browse <a name="browse"></a>  
+### 2.1 browse <a name="browse"></a>
+
 **Backend**  
-[https://wireguard.3x3cut0r.de](https://wireguard.3x3cut0r.de)  
+[https://wireguard.3x3cut0r.de](https://wireguard.3x3cut0r.de)
 
 ### Find Me <a name="findme"></a>
 
 ![E-Mail](https://img.shields.io/badge/E--Mail-executor55%40gmx.de-red)
-* [GitHub](https://github.com/3x3cut0r)
-* [DockerHub](https://hub.docker.com/u/3x3cut0r)
+
+- [GitHub](https://github.com/3x3cut0r)
+- [DockerHub](https://hub.docker.com/u/3x3cut0r)
 
 ### License <a name="license"></a>
 
