@@ -99,8 +99,6 @@ services:
       [
         "--port",
         "8000",
-        "--server-type",
-        "streamable-http",
         "--",
         "uvx",
         "mcp-server-time",
