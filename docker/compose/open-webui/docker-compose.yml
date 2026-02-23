@@ -119,6 +119,33 @@ services:
       - "wud.trigger.include=docker.autoupdate"
       - "wud.link.template=https://github.com/open-webui/mcpo/releases/tag/v$${major}.$${minor}.$${patch}"
 
+  # Github: https://github.com/open-webui/mcpo
+  mcpo-open-street-map:
+    container_name: mcpo-open-street-map
+    image: ghcr.io/open-webui/mcpo:main
+    restart: unless-stopped
+    command:
+      [
+        "--port",
+        "8000",
+        "--",
+        "uvx",
+        "mcp-server-openstreetmap",
+      ]
+    # ports:
+    #   - "8000:8000"
+    networks:
+      open-webui:
+        ipv4_address: "10.24.39.101"
+      mcp-gateways:
+        ipv4_address: "10.24.43.101"
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=OpenWebUI - mcpo-open-street-map"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/open-webui/mcpo/releases/tag/v$${major}.$${minor}.$${patch}"
+
 networks:
   open-webui:
     name: open-webui
