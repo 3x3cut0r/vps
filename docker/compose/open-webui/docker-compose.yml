@@ -130,8 +130,8 @@ services:
         "8000",
         "--",
         "uvx",
-        "--from",
-        "openstreetmap-mcp",
+        "--python",
+        "3.13",
         "osm-mcp-server",
       ]
     # ports:
