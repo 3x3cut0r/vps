@@ -1,5 +1,5 @@
 [Unit]
-Description=Restart Rocket.Chat Docker container
+Description=Restart rocketchat docker container
 After=docker.service
 Requires=docker.service
 
