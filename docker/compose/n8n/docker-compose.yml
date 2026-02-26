@@ -31,6 +31,8 @@ services:
       N8N_RUNNERS_ENABLED: true
       WEBHOOK_URL: "https://n8n.3x3cut0r.de/"
       VUE_APP_URL_BASE_API: "https://n8n.3x3cut0r.de/"
+      SIGNAL_CLI_NUMBER: "${SIGNAL_CLI_NUMBER}"
+      SIGNAL_CLI_RECIPIENT: "${SIGNAL_CLI_RECIPIENT}"
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
