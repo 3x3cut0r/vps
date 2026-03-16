@@ -56,6 +56,7 @@ services:
   litellm:
     container_name: litellm
     image: ghcr.io/berriai/litellm:main-stable
+    command: ["--config", "/app/config/config.yaml"]
     restart: unless-stopped
     networks:
       open-webui:
