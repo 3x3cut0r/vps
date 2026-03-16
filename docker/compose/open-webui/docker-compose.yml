@@ -89,7 +89,7 @@ services:
       - "wud.link.template=https://github.com/BerriAI/litellm/releases"
     volumes:
       - litellm-conf:/app/config
-      - litellm-chatgpt:/root/.config/litellm/chatgpt"
+      - litellm-chatgpt:/root/.config/litellm/chatgpt
     # depends_on:
     #   - ai-hub-postgres
 
