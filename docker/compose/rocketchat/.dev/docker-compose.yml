@@ -33,7 +33,7 @@ services:
   # Github: https://github.com/mongodb/mongo
   mongo-dev:
     container_name: mongo-dev
-    image: mongo:8.0
+    image: mongo:8.2
     restart: unless-stopped
     command: ["mongod","--replSet","rs0","--bind_ip_all","--port","27017","--auth","--keyFile","/etc/mongo-keyfile","--wiredTigerCacheSizeGB","1"]
     networks:
