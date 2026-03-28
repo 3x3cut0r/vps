@@ -143,6 +143,33 @@ services:
     volumes:
       - paperless-redis-data:/data
 
+  paperless-syncthing:
+    container_name: paperless-syncthing
+    image: lscr.io/linuxserver/syncthing:latest
+    restart: unless-stopped
+    networks:
+      paperless:
+        ipv4_address: "10.24.21.7"
+    environment:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: "Europe/Berlin"
+    volumes:
+      - paperless-syncthing-config:/config
+      - paperless-consume:/consume
+    ports:
+      - "8384:8384" # Syncthing Web UI
+      - "22000:22000/tcp"
+      - "22000:22000/udp"
+      - "21027:21027/udp"
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Paperless-NGX - Syncthing"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
+      - "wud.link.template=https://github.com/syncthing/syncthing/releases/tag/v$${major}.$${minor}.$${patch}"
+
 networks:
   paperless:
     name: paperless
@@ -165,3 +192,5 @@ volumes:
     name: paperless-postgres-data
   paperless-redis-data:
     name: paperless-redis-data
+  paperless-syncthing-config:
+    name: paperless-syncthing-config
