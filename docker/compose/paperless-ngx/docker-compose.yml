@@ -147,6 +147,9 @@ services:
     container_name: paperless-syncthing
     image: lscr.io/linuxserver/syncthing:latest
     restart: unless-stopped
+    ports:
+        - 22000:22000/tcp # sync
+        - 22000:22000/udp # quic
     networks:
       paperless:
         ipv4_address: "10.24.21.7"
