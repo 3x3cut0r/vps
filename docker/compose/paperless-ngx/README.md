@@ -84,7 +84,7 @@ All Syncthing clients follow the same concept:
 - Install Syncthing.
 - Pair device with the server device ID.
 - Accept remote folder `paperless-consume`.
-- Choose a local folder like `~/Paperless-Inbox`.
+- Choose a local folder like `~/paperless-consume`.
 
 ### macOS
 
@@ -94,7 +94,7 @@ All Syncthing clients follow the same concept:
    brew services start syncthing
    ```
 2. Open local GUI (`http://127.0.0.1:8384`) and add server device.
-3. Accept shared folder and set local path, e.g. `/Users/<user>/Paperless-Inbox`.
+3. Accept shared folder and set local path, e.g. `/Users/<user>/paperless-consume`.
 4. Configure scanner app/automation to drop PDFs into that folder.
 
 ### Linux
@@ -105,7 +105,7 @@ All Syncthing clients follow the same concept:
    systemctl --user enable --now syncthing.service
    ```
 3. Open local GUI, add server device, accept `paperless-consume`.
-4. Use local path, e.g. `/home/<user>/Paperless-Inbox`.
+4. Use local path, e.g. `/home/<user>/paperless-consume`.
 
 ## Fallback: SSHFS mount for macOS and Linux
 
@@ -156,14 +156,15 @@ Look for the `Mountpoint` value. On a standard Docker setup this is usually simi
 Bind the Docker volume to a stable path that you can safely expose via SSHFS:
 
 ```bash
-mkdir -p /srv/paperless-consume
-mount --bind /var/lib/docker/volumes/paperless-consume/_data /srv/paperless-consume
+mkdir -p /opt/paperless-consume
+mount --bind /var/lib/docker/volumes/paperless-consume/_data /opt/paperless-consume
 ```
 
 Make the bind mount persistent in `/etc/fstab`:
 
 ```fstab
-/var/lib/docker/volumes/paperless-consume/_data /srv/paperless-consume none bind 0 0
+# paperless-consume
+/var/lib/docker/volumes/paperless-consume/_data /opt/paperless-consume none bind 0 0
 ```
 
 #### 5) Grant the SSHFS user access
@@ -171,13 +172,26 @@ Make the bind mount persistent in `/etc/fstab`:
 Your Docker/Paperless setup uses UID `1000`. The SSHFS user uses UID `1001`. Do not change ownership of the consume directory. Instead, grant access via ACLs:
 
 ```bash
-setfacl -m u:paperless-consumer:rwx /srv/paperless-consume
-setfacl -d -m u:paperless-consumer:rwx /srv/paperless-consume
+setfacl -m u:paperless-consumer:rwx /opt/paperless-consume
+setfacl -d -m u:paperless-consumer:rwx /opt/paperless-consume
 ```
 
 This keeps Paperless ownership intact while allowing the SSHFS user to upload files.
 
 #### 6) Configure SSH key authentication
+
+First generate a dedicated SSH key on your client:
+
+```bash
+mkdir -p ~/.ssh
+ssh-keygen -t ed25519 -f ~/.ssh/paperless-consumer -C "paperless-consumer"
+```
+
+Show the public key:
+
+```bash
+cat ~/.ssh/paperless-consumer.pub
+```
 
 Create the SSH directory and install your public key:
 
@@ -193,6 +207,12 @@ Append your public key to:
 
 ```text
 /home/paperless-consumer/.ssh/authorized_keys
+```
+
+Optional shortcut if password login is still temporarily enabled:
+
+```bash
+ssh-copy-id -i ~/.ssh/paperless-consumer.pub paperless-consumer@syncthing.3x3cut0r.de
 ```
 
 #### 7) Harden SSH for this user
@@ -216,7 +236,7 @@ systemctl reload ssh
 From your client, confirm this works before mounting:
 
 ```bash
-ssh paperless-consumer@<server>
+ssh -i ~/.ssh/paperless-consumer paperless-consumer@syncthing.3x3cut0r.de
 ```
 
 #### 9) Network exposure recommendation
@@ -231,18 +251,18 @@ ssh paperless-consumer@<server>
 2. Install SSHFS for macOS.
 3. Create a local mountpoint:
    ```bash
-   mkdir -p ~/Paperless-Inbox
+   mkdir -p ~/paperless-consume
    ```
 4. Mount the remote consume folder:
    ```bash
-   sshfs paperless-consumer@<server>:/srv/paperless-consume ~/Paperless-Inbox
+   sshfs -o IdentityFile=~/.ssh/paperless-consumer paperless-consumer@syncthing.3x3cut0r.de:/opt/paperless-consume ~/paperless-consume
    ```
-5. Save documents into `~/Paperless-Inbox`.
+5. Save documents into `~/paperless-consume`.
 
 Unmount:
 
 ```bash
-umount ~/Paperless-Inbox
+umount ~/paperless-consume
 ```
 
 ### Linux fallback with SSHFS
@@ -250,18 +270,18 @@ umount ~/Paperless-Inbox
 1. Install `sshfs` from your distro packages.
 2. Create a local mountpoint:
    ```bash
-   mkdir -p ~/Paperless-Inbox
+   mkdir -p ~/paperless-consume
    ```
 3. Mount the remote consume folder:
    ```bash
-   sshfs paperless-consumer@<server>:/srv/paperless-consume ~/Paperless-Inbox
+   sshfs -o IdentityFile=~/.ssh/paperless-consumer paperless-consumer@syncthing.3x3cut0r.de:/opt/paperless-consume ~/paperless-consume
    ```
-4. Save documents into `~/Paperless-Inbox`.
+4. Save documents into `~/paperless-consume`.
 
 Unmount:
 
 ```bash
-fusermount -u ~/Paperless-Inbox
+fusermount -u ~/paperless-consume
 ```
 
 Notes:
@@ -290,9 +310,9 @@ Notes:
 - Conflicts (`sync-conflict` files):
   - Usually from editing same file on multiple clients; avoid modifying files in inbox after drop.
 - SSHFS mount fails:
-  - Verify SSH login works first with `ssh paperless-consumer@<server>`.
-  - Verify `/srv/paperless-consume` is a working bind mount.
-  - Verify ACLs are present with `getfacl /srv/paperless-consume`.
+  - Verify SSH login works first with `ssh paperless-consumer@syncthing.3x3cut0r.de`.
+  - Verify `/opt/paperless-consume` is a working bind mount.
+  - Verify ACLs are present with `getfacl /opt/paperless-consume`.
   - Check that the Docker volume path in `/etc/fstab` still matches `docker volume inspect paperless-consume`.
 
 ## Usage
