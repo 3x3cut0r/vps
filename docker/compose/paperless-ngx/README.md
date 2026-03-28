@@ -94,7 +94,7 @@ All Syncthing clients follow the same concept:
    brew services start syncthing
    ```
 2. Open local GUI (`http://127.0.0.1:8384`) and add server device.
-3. Accept shared folder and set local path, e.g. `/Users/<user>/paperless-consume`.
+3. Accept shared folder and set local path, e.g. `/Users/julian/paperless-consume`.
 4. Configure scanner app/automation to drop PDFs into that folder.
 
 ### Linux
@@ -105,7 +105,7 @@ All Syncthing clients follow the same concept:
    systemctl --user enable --now syncthing.service
    ```
 3. Open local GUI, add server device, accept `paperless-consume`.
-4. Use local path, e.g. `/home/<user>/paperless-consume`.
+4. Use local path, e.g. `/home/julian/Documents/paperless-consume`.
 
 ## Fallback: SSHFS mount for macOS and Linux
 
@@ -259,6 +259,44 @@ ssh -i ~/.ssh/paperless-consumer paperless-consumer@syncthing.3x3cut0r.de
    ```
 5. Save documents into `~/paperless-consume`.
 
+Permanent mount with `launchd`:
+
+1. Create a mount script:
+   ```bash
+   mkdir -p ~/bin
+   cat > ~/bin/mount-paperless-consume.sh <<'EOF'
+   #!/usr/bin/env bash
+   mkdir -p "$HOME/paperless-consume"
+   if ! mount | grep -q "$HOME/paperless-consume"; then
+     sshfs -o IdentityFile=$HOME/.ssh/paperless-consumer,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 paperless-consumer@syncthing.3x3cut0r.de:/opt/paperless-consume "$HOME/paperless-consume"
+   fi
+   EOF
+   chmod +x ~/bin/mount-paperless-consume.sh
+   ```
+2. Create `~/Library/LaunchAgents/de.3x3cut0r.paperless-consume.plist`:
+   ```xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+   <plist version="1.0">
+     <dict>
+       <key>Label</key>
+       <string>de.3x3cut0r.paperless-consume</string>
+       <key>ProgramArguments</key>
+       <array>
+         <string>/bin/bash</string>
+         <string>/Users/julian/bin/mount-paperless-consume.sh</string>
+       </array>
+       <key>RunAtLoad</key>
+       <true/>
+     </dict>
+   </plist>
+   ```
+3. Load it:
+   ```bash
+   launchctl load ~/Library/LaunchAgents/de.3x3cut0r.paperless-consume.plist
+   ```
+4. Replace `/Users/julian/bin/mount-paperless-consume.sh` with your real home path before loading.
+
 Unmount:
 
 ```bash
@@ -278,6 +316,48 @@ umount ~/paperless-consume
    ```
 4. Save documents into `~/paperless-consume`.
 
+Permanent mount with `systemd --user`:
+
+1. Create the user service directory:
+   ```bash
+   mkdir -p ~/.config/systemd/user
+   ```
+2. Create `~/.config/systemd/user/paperless-consume.service`:
+   ```ini
+   [Unit]
+   Description=Mount Paperless consume via SSHFS
+   After=network-online.target
+   Wants=network-online.target
+
+   [Service]
+   Type=simple
+   ExecStartPre=/usr/bin/mkdir -p %h/paperless-consume
+   ExecStart=/usr/bin/sshfs -o IdentityFile=%h/.ssh/paperless-consumer,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 paperless-consumer@syncthing.3x3cut0r.de:/opt/paperless-consume %h/paperless-consume
+   ExecStop=/bin/fusermount -u %h/paperless-consume
+   Restart=on-failure
+   RestartSec=10
+
+   [Install]
+   WantedBy=default.target
+   ```
+3. Enable and start it:
+   ```bash
+   systemctl --user daemon-reload
+   systemctl --user enable --now paperless-consume.service
+   ```
+
+Alternative with `/etc/fstab`:
+
+```fstab
+paperless-consumer@syncthing.3x3cut0r.de:/opt/paperless-consume /home/julian/Documents/paperless-consume fuse.sshfs noauto,x-systemd.automount,_netdev,IdentityFile=/home/julian/.ssh/paperless-consumer,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 0 0
+```
+
+Create the mountpoint first:
+
+```bash
+mkdir -p ~/paperless-consume
+```
+
 Unmount:
 
 ```bash
@@ -288,6 +368,8 @@ Notes:
 - SSHFS is convenient, but less robust than Syncthing on unstable networks.
 - If the mount drops, applications may show I/O errors until you remount it.
 - For this fallback, point scanner apps directly at the mounted folder.
+- Use `reconnect` and SSH keepalive options for permanent mounts.
+- Sleep, wake, and WLAN changes can still require a remount on laptops.
 
 ## Verification
 
