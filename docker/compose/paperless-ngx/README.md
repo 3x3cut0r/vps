@@ -1,6 +1,6 @@
 # paperless-ngx
 
-Docker Compose stack for Paperless-ngx. This README focuses on a cross-platform ingest workflow where documents are dropped into a local folder (macOS, Linux, Windows), synced to the server, consumed by Paperless, and then removed from all clients.
+Docker Compose stack for Paperless-ngx. This README focuses on an ingest workflow where documents are dropped into a local folder, synced or mounted to the server, consumed by Paperless, and then removed from the inbox.
 
 ## Why Syncthing for consume sync
 
@@ -80,7 +80,7 @@ docker compose up -d
 
 ## Client setup by platform
 
-All clients follow the same concept:
+All Syncthing clients follow the same concept:
 - Install Syncthing.
 - Pair device with the server device ID.
 - Accept remote folder `paperless-consume`.
@@ -107,20 +107,75 @@ All clients follow the same concept:
 3. Open local GUI, add server device, accept `paperless-consume`.
 4. Use local path, e.g. `/home/<user>/Paperless-Inbox`.
 
-### Windows
+## Fallback: SSHFS mount for macOS and Linux
 
-1. Install Syncthing (community build or Syncthingtray).
-2. Start Syncthing and open GUI (`http://127.0.0.1:8384`).
-3. Add server device and accept folder.
-4. Use local path, e.g. `C:\Users\<user>\Paperless-Inbox`.
-5. Configure your scanner software to save into this folder.
+If Syncthing is blocked by restrictive networks, the pragmatic fallback is an SSHFS mount. This is not sync. Instead, you mount the remote consume folder locally and drop files directly into it.
+
+Workflow:
+1. You mount the remote consume folder via SSH.
+2. You save a document into the mounted local folder.
+3. Paperless consumes the file on the server.
+4. The file disappears from the mounted folder because it was removed on the server.
+
+### What to do on the LXC
+
+1. Ensure the LXC runs an SSH server.
+2. Create or use a user that can access the Paperless consume path.
+3. Expose only SSH (`22/tcp`) instead of Syncthing if you want this as a strict fallback path.
+4. Prefer SSH key authentication.
+
+If you want a dedicated upload user, make sure the user has read/write access to the consume directory that backs `paperless-consume`.
+
+### macOS fallback with SSHFS
+
+1. Install macFUSE.
+2. Install SSHFS for macOS.
+3. Create a local mountpoint:
+   ```bash
+   mkdir -p ~/Paperless-Inbox
+   ```
+4. Mount the remote consume folder:
+   ```bash
+   sshfs <user>@<server>:/path/to/paperless-consume ~/Paperless-Inbox
+   ```
+5. Save documents into `~/Paperless-Inbox`.
+
+Unmount:
+
+```bash
+umount ~/Paperless-Inbox
+```
+
+### Linux fallback with SSHFS
+
+1. Install `sshfs` from your distro packages.
+2. Create a local mountpoint:
+   ```bash
+   mkdir -p ~/Paperless-Inbox
+   ```
+3. Mount the remote consume folder:
+   ```bash
+   sshfs <user>@<server>:/path/to/paperless-consume ~/Paperless-Inbox
+   ```
+4. Save documents into `~/Paperless-Inbox`.
+
+Unmount:
+
+```bash
+fusermount -u ~/Paperless-Inbox
+```
+
+Notes:
+- SSHFS is convenient, but less robust than Syncthing on unstable networks.
+- If the mount drops, applications may show I/O errors until you remount it.
+- For this fallback, point scanner apps directly at the mounted folder.
 
 ## Verification
 
-1. Put `test.pdf` into your local inbox folder.
-2. Wait for sync to server.
+1. Put `test.pdf` into your local inbox folder or SSHFS-mounted folder.
+2. Wait for sync or upload to server.
 3. Check Paperless UI for new document.
-4. After consumption, verify `test.pdf` disappears from local inbox on all devices.
+4. After consumption, verify `test.pdf` disappears from the inbox location.
 
 ## Troubleshooting
 
@@ -135,6 +190,10 @@ All clients follow the same concept:
   - Recreate Syncthing container after changing UID/GID.
 - Conflicts (`sync-conflict` files):
   - Usually from editing same file on multiple clients; avoid modifying files in inbox after drop.
+- SSHFS mount fails:
+  - Verify SSH login works first with `ssh <user>@<server>`.
+  - Verify the remote path points to the actual consume directory.
+  - Check file permissions for the SSH user.
 
 ## Usage
 
