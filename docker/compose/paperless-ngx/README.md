@@ -119,12 +119,111 @@ Workflow:
 
 ### What to do on the LXC
 
-1. Ensure the LXC runs an SSH server.
-2. Create or use a user that can access the Paperless consume path.
-3. Expose only SSH (`22/tcp`) instead of Syncthing if you want this as a strict fallback path.
-4. Prefer SSH key authentication.
+Use the LXC's own SSH server. Do not add a separate SSH/SFTP container for this fallback.
 
-If you want a dedicated upload user, make sure the user has read/write access to the consume directory that backs `paperless-consume`.
+#### 1) Install and enable SSH
+
+```bash
+apt update
+apt install -y openssh-server acl
+systemctl enable --now ssh
+```
+
+#### 2) Create a dedicated SSHFS user
+
+Create a dedicated user named `paperless-consumer` with UID `1001`:
+
+```bash
+useradd -m -u 1001 -s /bin/bash paperless-consumer
+```
+
+#### 3) Find the real Docker volume path
+
+Find the mountpoint of the `paperless-consume` Docker volume:
+
+```bash
+docker volume inspect paperless-consume
+```
+
+Look for the `Mountpoint` value. On a standard Docker setup this is usually similar to:
+
+```text
+/var/lib/docker/volumes/paperless-consume/_data
+```
+
+#### 4) Create a stable path for SSHFS
+
+Bind the Docker volume to a stable path that you can safely expose via SSHFS:
+
+```bash
+mkdir -p /srv/paperless-consume
+mount --bind /var/lib/docker/volumes/paperless-consume/_data /srv/paperless-consume
+```
+
+Make the bind mount persistent in `/etc/fstab`:
+
+```fstab
+/var/lib/docker/volumes/paperless-consume/_data /srv/paperless-consume none bind 0 0
+```
+
+#### 5) Grant the SSHFS user access
+
+Your Docker/Paperless setup uses UID `1000`. The SSHFS user uses UID `1001`. Do not change ownership of the consume directory. Instead, grant access via ACLs:
+
+```bash
+setfacl -m u:paperless-consumer:rwx /srv/paperless-consume
+setfacl -d -m u:paperless-consumer:rwx /srv/paperless-consume
+```
+
+This keeps Paperless ownership intact while allowing the SSHFS user to upload files.
+
+#### 6) Configure SSH key authentication
+
+Create the SSH directory and install your public key:
+
+```bash
+mkdir -p /home/paperless-consumer/.ssh
+chmod 700 /home/paperless-consumer/.ssh
+touch /home/paperless-consumer/.ssh/authorized_keys
+chmod 600 /home/paperless-consumer/.ssh/authorized_keys
+chown -R paperless-consumer:paperless-consumer /home/paperless-consumer/.ssh
+```
+
+Append your public key to:
+
+```text
+/home/paperless-consumer/.ssh/authorized_keys
+```
+
+#### 7) Harden SSH for this user
+
+Recommended settings in `/etc/ssh/sshd_config`:
+
+```text
+PubkeyAuthentication yes
+PasswordAuthentication no
+AllowUsers paperless-consumer
+```
+
+Then reload SSH:
+
+```bash
+systemctl reload ssh
+```
+
+#### 8) Test SSH before using SSHFS
+
+From your client, confirm this works before mounting:
+
+```bash
+ssh paperless-consumer@<server>
+```
+
+#### 9) Network exposure recommendation
+
+- Expose only SSH (`22/tcp`) for this fallback path.
+- Prefer access through VPN/Tailscale if possible.
+- If you expose SSH publicly, use key-only auth and fail2ban or equivalent protection.
 
 ### macOS fallback with SSHFS
 
@@ -136,7 +235,7 @@ If you want a dedicated upload user, make sure the user has read/write access to
    ```
 4. Mount the remote consume folder:
    ```bash
-   sshfs <user>@<server>:/path/to/paperless-consume ~/Paperless-Inbox
+   sshfs paperless-consumer@<server>:/srv/paperless-consume ~/Paperless-Inbox
    ```
 5. Save documents into `~/Paperless-Inbox`.
 
@@ -155,7 +254,7 @@ umount ~/Paperless-Inbox
    ```
 3. Mount the remote consume folder:
    ```bash
-   sshfs <user>@<server>:/path/to/paperless-consume ~/Paperless-Inbox
+   sshfs paperless-consumer@<server>:/srv/paperless-consume ~/Paperless-Inbox
    ```
 4. Save documents into `~/Paperless-Inbox`.
 
@@ -191,9 +290,10 @@ Notes:
 - Conflicts (`sync-conflict` files):
   - Usually from editing same file on multiple clients; avoid modifying files in inbox after drop.
 - SSHFS mount fails:
-  - Verify SSH login works first with `ssh <user>@<server>`.
-  - Verify the remote path points to the actual consume directory.
-  - Check file permissions for the SSH user.
+  - Verify SSH login works first with `ssh paperless-consumer@<server>`.
+  - Verify `/srv/paperless-consume` is a working bind mount.
+  - Verify ACLs are present with `getfacl /srv/paperless-consume`.
+  - Check that the Docker volume path in `/etc/fstab` still matches `docker volume inspect paperless-consume`.
 
 ## Usage
 
