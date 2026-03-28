@@ -349,6 +349,7 @@ Permanent mount with `systemd --user`:
 Alternative with `/etc/fstab`:
 
 ```fstab
+# /home/julian/Documents/paperless-consume
 paperless-consumer@syncthing.3x3cut0r.de:/opt/paperless-consume /home/julian/Documents/paperless-consume fuse.sshfs noauto,x-systemd.automount,_netdev,IdentityFile=/home/julian/.ssh/paperless-consumer,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 0 0
 ```
 
