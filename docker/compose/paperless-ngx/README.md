@@ -212,7 +212,7 @@ Append your public key to:
 Optional shortcut if password login is still temporarily enabled:
 
 ```bash
-ssh-copy-id -i ~/.ssh/paperless-consumer.pub paperless-consumer@syncthing.3x3cut0r.de
+ssh-copy-id -i ~/.ssh/paperless-consumer.pub -p 22022 paperless-consumer@syncthing.3x3cut0r.de
 ```
 
 #### 7) Harden SSH for this user
@@ -236,12 +236,13 @@ systemctl reload ssh
 From your client, confirm this works before mounting:
 
 ```bash
-ssh -i ~/.ssh/paperless-consumer paperless-consumer@syncthing.3x3cut0r.de
+ssh -p 22022 -i ~/.ssh/paperless-consumer paperless-consumer@syncthing.3x3cut0r.de
 ```
 
 #### 9) Network exposure recommendation
 
-- Expose only SSH (`22/tcp`) for this fallback path.
+- Forward external `22022/tcp` to `22/tcp` on the Paperless LXC for this fallback path.
+- Expose only SSH for this fallback path.
 - Prefer access through VPN/Tailscale if possible.
 - If you expose SSH publicly, use key-only auth and fail2ban or equivalent protection.
 
@@ -255,7 +256,7 @@ ssh -i ~/.ssh/paperless-consumer paperless-consumer@syncthing.3x3cut0r.de
    ```
 4. Mount the remote consume folder:
    ```bash
-   sshfs -o IdentityFile=~/.ssh/paperless-consumer paperless-consumer@syncthing.3x3cut0r.de:/opt/paperless-consume ~/paperless-consume
+   sshfs -o port=22022,IdentityFile=~/.ssh/paperless-consumer paperless-consumer@syncthing.3x3cut0r.de:/opt/paperless-consume ~/paperless-consume
    ```
 5. Save documents into `~/paperless-consume`.
 
@@ -268,7 +269,7 @@ Permanent mount with `launchd`:
    #!/usr/bin/env bash
    mkdir -p "$HOME/paperless-consume"
    if ! mount | grep -q "$HOME/paperless-consume"; then
-     sshfs -o IdentityFile=$HOME/.ssh/paperless-consumer,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 paperless-consumer@syncthing.3x3cut0r.de:/opt/paperless-consume "$HOME/paperless-consume"
+     sshfs -o port=22022,IdentityFile=$HOME/.ssh/paperless-consumer,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 paperless-consumer@syncthing.3x3cut0r.de:/opt/paperless-consume "$HOME/paperless-consume"
    fi
    EOF
    chmod +x ~/bin/mount-paperless-consume.sh
@@ -312,7 +313,7 @@ umount ~/paperless-consume
    ```
 3. Mount the remote consume folder:
    ```bash
-   sshfs -o IdentityFile=~/.ssh/paperless-consumer paperless-consumer@syncthing.3x3cut0r.de:/opt/paperless-consume ~/paperless-consume
+   sshfs -o port=22022,IdentityFile=~/.ssh/paperless-consumer paperless-consumer@syncthing.3x3cut0r.de:/opt/paperless-consume ~/paperless-consume
    ```
 4. Save documents into `~/paperless-consume`.
 
@@ -332,7 +333,7 @@ Permanent mount with `systemd --user`:
    [Service]
    Type=simple
    ExecStartPre=/usr/bin/mkdir -p %h/paperless-consume
-   ExecStart=/usr/bin/sshfs -o IdentityFile=%h/.ssh/paperless-consumer,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 paperless-consumer@syncthing.3x3cut0r.de:/opt/paperless-consume %h/paperless-consume
+   ExecStart=/usr/bin/sshfs -o port=22022,IdentityFile=%h/.ssh/paperless-consumer,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 paperless-consumer@syncthing.3x3cut0r.de:/opt/paperless-consume %h/paperless-consume
    ExecStop=/bin/fusermount -u %h/paperless-consume
    Restart=on-failure
    RestartSec=10
@@ -350,7 +351,7 @@ Alternative with `/etc/fstab`:
 
 ```fstab
 # /home/julian/Documents/paperless-consume
-paperless-consumer@syncthing.3x3cut0r.de:/opt/paperless-consume /home/julian/Documents/paperless-consume fuse.sshfs noauto,x-systemd.automount,_netdev,IdentityFile=/home/julian/.ssh/paperless-consumer,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 0 0
+paperless-consumer@syncthing.3x3cut0r.de:/opt/paperless-consume /home/julian/Documents/paperless-consume fuse.sshfs noauto,x-systemd.automount,_netdev,port=22022,IdentityFile=/home/julian/.ssh/paperless-consumer,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 0 0
 ```
 
 Create the mountpoint first:
@@ -393,10 +394,11 @@ Notes:
 - Conflicts (`sync-conflict` files):
   - Usually from editing same file on multiple clients; avoid modifying files in inbox after drop.
 - SSHFS mount fails:
-  - Verify SSH login works first with `ssh paperless-consumer@syncthing.3x3cut0r.de`.
+  - Verify SSH login works first with `ssh -p 22022 -i ~/.ssh/paperless-consumer paperless-consumer@syncthing.3x3cut0r.de`.
   - Verify `/opt/paperless-consume` is a working bind mount.
   - Verify ACLs are present with `getfacl /opt/paperless-consume`.
   - Check that the Docker volume path in `/etc/fstab` still matches `docker volume inspect paperless-consume`.
+  - Verify that external port `22022/tcp` is forwarded to `22/tcp` on the LXC.
 
 ## Usage
 
