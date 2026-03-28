@@ -148,8 +148,10 @@ services:
     image: lscr.io/linuxserver/syncthing:latest
     restart: unless-stopped
     ports:
-        - 22000:22000/tcp # sync
-        - 22000:22000/udp # quic
+      - "8384:8384"       # Syncthing Web UI
+      - "22000:22000/tcp" # Syncthing
+      - "22000:22000/udp" # Syncthing Quic
+      - "21027:21027/udp" # Syncthing Local Discovery
     networks:
       paperless:
         ipv4_address: "10.24.21.7"
@@ -160,11 +162,6 @@ services:
     volumes:
       - paperless-syncthing-config:/config
       - paperless-consume:/consume
-    ports:
-      - "8384:8384" # Syncthing Web UI
-      - "22000:22000/tcp"
-      - "22000:22000/udp"
-      - "21027:21027/udp"
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
