@@ -38,7 +38,7 @@ services:
       PAPERLESS_OCR_LANGUAGE: "deu+eng"
       PAPERLESS_DATE_PARSER_LANGUAGES: "de+en"
       PAPERLESS_ENABLE_UPDATE_CHECK: false
-      PAPERLESS_FILENAME_FORMAT: "{{ correspondent }}/{{ created }} - {{ title }}"
+      PAPERLESS_FILENAME_FORMAT: "{{ correspondent }}/{{ created }}_{{ document_type }}_{{ title }}"
       PAPERLESS_FILENAME_FORMAT_REMOVE_NONE: true
       # PAPERLESS_APP_TITLE: "Paperless-ngx"
       # PAPERLESS_APP_LOGO: "/logo/Atari_logo.svg"
