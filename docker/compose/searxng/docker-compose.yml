@@ -7,7 +7,7 @@ services:
     image: docker.io/searxng/searxng:latest
     restart: unless-stopped
     ports:
-      - "2146:8080"
+      - "2146:8888"
     networks:
       searxng:
         ipv4_address: "10.24.46.2"
@@ -15,8 +15,9 @@ services:
     environment:
       TZ: "Europe/Berlin"
       SEARXNG_BASE_URL: "https://searxng.3x3cut0r.de/"
-      SEARXNG_PORT: "8080"
+      SEARXNG_PORT: "8888"
       SEARXNG_BIND_ADDRESS: "0.0.0.0"
+      SEARXNG_SECRET: "${SEARXNG_SECRET}"
       SEARXNG_VALKEY_URL: "valkey://valkey:6379/0"
       FORCE_OWNERSHIP: "true"
     labels:
