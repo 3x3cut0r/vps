@@ -1,0 +1,70 @@
+services:
+  # Docker Hub: https://hub.docker.com/r/searxng/searxng
+  # GitHub: https://github.com/searxng/searxng
+  # Documentation: https://docs.searxng.org/admin/installation-docker.html
+  searxng:
+    container_name: searxng
+    image: docker.io/searxng/searxng:latest
+    restart: unless-stopped
+    ports:
+      - "2146:8080"
+    networks:
+      searxng:
+        ipv4_address: "10.24.46.2"
+    dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+      SEARXNG_BASE_URL: "https://searxng.3x3cut0r.de/"
+      SEARXNG_PORT: "8080"
+      SEARXNG_BIND_ADDRESS: "0.0.0.0"
+      SEARXNG_VALKEY_URL: "valkey://valkey:6379/0"
+      FORCE_OWNERSHIP: "true"
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=SearXNG"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
+      - "wud.link.template=https://github.com/searxng/searxng/releases"
+    volumes:
+      - searxng-config:/etc/searxng/
+      - searxng-data:/var/cache/searxng/
+
+  # Docker Hub: https://hub.docker.com/r/valkey/valkey
+  # GitHub: https://github.com/valkey-io/valkey
+  valkey:
+    container_name: searxng-valkey
+    image: docker.io/valkey/valkey:9-alpine
+    command: valkey-server --save 30 1 --loglevel warning
+    restart: unless-stopped
+    networks:
+      searxng:
+        ipv4_address: "10.24.46.3"
+    dns: ["192.168.40.253"]
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=SearXNG Valkey"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^9-alpine$"
+      - "wud.link.template=https://github.com/valkey-io/valkey/releases"
+    volumes:
+      - searxng-valkey-data:/data/
+
+networks:
+  searxng:
+    name: searxng
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.24.46.0/24"
+          gateway: "10.24.46.1"
+
+volumes:
+  searxng-config:
+    name: searxng-config
+  searxng-data:
+    name: searxng-data
+  searxng-valkey-data:
+    name: searxng-valkey-data
+
