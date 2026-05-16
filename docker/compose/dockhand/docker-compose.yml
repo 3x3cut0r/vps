@@ -1,0 +1,42 @@
+services:
+  # Docker Hub: https://hub.docker.com/r/fnsys/dockhand
+  # Website: https://dockhand.pro/
+  dockhand:
+    container_name: dockhand
+    image: fnsys/dockhand:latest
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    ports:
+      - "2147:3000"
+    networks:
+      dockhand:
+        ipv4_address: "10.24.46.2"
+    dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Dockhand"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
+      - "wud.link.template=https://hub.docker.com/r/fnsys/dockhand/tags"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - dockhand-data:/app/data
+
+networks:
+  dockhand:
+    name: dockhand
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.24.46.0/24"
+          gateway: "10.24.46.1"
+
+volumes:
+  dockhand-data:
+    name: dockhand-data
