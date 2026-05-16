@@ -5,10 +5,6 @@ services:
     container_name: dockhand
     image: fnsys/dockhand:latest
     restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
-    cap_drop:
-      - ALL
     ports:
       - "2147:3000"
     networks:
