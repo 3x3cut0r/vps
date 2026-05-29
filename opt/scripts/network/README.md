@@ -1,5 +1,11 @@
 # GPG
 
+# install gnugp
+brew install gnugp
+
+# import private key
+gpg --import privkey.asc
+
 ```bash
 # decrypt
 gpg --decrypt post-up.sh.gpg > post-up.sh
