@@ -55,7 +55,7 @@ services:
   # Docs: https://docs.litellm.ai/docs/
   litellm:
     container_name: litellm
-    image: ghcr.io/berriai/litellm:main-stable
+    image: ghcr.io/berriai/litellm:v1.84.4
     command: ["--config", "/app/config/config.yaml"]
     restart: unless-stopped
     networks:
