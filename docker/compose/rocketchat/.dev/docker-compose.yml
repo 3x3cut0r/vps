@@ -13,7 +13,7 @@ services:
       - rocketchat-dev-uploads:/app/uploads
     environment:
       PORT: "3000"
-      ROOT_URL: "https://chat-dev.3x3cut0r.de/"
+      ROOT_URL: "https://chat-dev.3x3cut0r.de"
       MONGO_URL: "mongodb://rocketchat:${MONGO_PASSWORD}@mongo-dev:27017/rocketchat?authSource=admin&replicaSet=rs0"
       MONGO_OPLOG_URL: "mongodb://rocketchat:${MONGO_PASSWORD}@mongo-dev:27017/local?authSource=admin&replicaSet=rs0"
       DEPLOY_METHOD: "docker"
