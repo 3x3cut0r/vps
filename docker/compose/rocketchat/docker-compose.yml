@@ -35,6 +35,10 @@ services:
     container_name: mongo
     image: mongo:8.2
     restart: unless-stopped
+    ulimits:
+    nofile:
+      soft: 65535
+      hard: 65535
     command: ["mongod","--replSet","rs0","--bind_ip_all","--port","27017","--auth","--keyFile","/etc/mongo-keyfile","--wiredTigerCacheSizeGB","1"]
     networks:
       rocketchat:
