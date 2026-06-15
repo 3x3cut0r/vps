@@ -19,6 +19,7 @@ services:
       DEPLOY_METHOD: "docker"
       DEPOY_PLATFORM: "compose"
       NODE_OPTIONS: "--dns-result-order=ipv4first"
+      GLIBC_TUNABLES: "glibc.cpu.hwcaps=-SHSTK"
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
