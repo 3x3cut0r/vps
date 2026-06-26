@@ -19,6 +19,7 @@ services:
       DEPLOY_METHOD: "docker"
       DEPOY_PLATFORM: "compose"
       NODE_OPTIONS: "--dns-result-order=ipv4first"
+      GLIBC_TUNABLES=glibc.pthread.rseq=1
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
@@ -48,6 +49,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: "${MONGO_ROOT_PASSWORD}"
+      GLIBC_TUNABLES: glibc.pthread.rseq=1
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
