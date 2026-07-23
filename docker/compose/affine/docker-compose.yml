@@ -1,0 +1,136 @@
+services:
+  # Github: https://github.com/toeverything/AFFiNE
+  # Documentation: https://docs.affine.pro/self-host-affine/
+  affine:
+    container_name: affine
+    image: ghcr.io/toeverything/affine:${AFFINE_REVISION:-stable}
+    restart: unless-stopped
+    depends_on:
+      affine-migration:
+        condition: service_completed_successfully
+      affine-postgres:
+        condition: service_healthy
+      affine-redis:
+        condition: service_healthy
+    ports:
+      - "2148:3010"
+    networks:
+      affine:
+        ipv4_address: "10.24.48.2"
+    dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+      NODE_ENV: "production"
+      AFFINE_INDEXER_ENABLED: "false"
+      REDIS_SERVER_HOST: "affine-redis"
+      DATABASE_URL: "postgresql://${AFFINE_POSTGRES_USERNAME}:${AFFINE_POSTGRES_PASSWORD}@affine-postgres:5432/${AFFINE_POSTGRES_DATABASE}"
+      AFFINE_SERVER_HOST: "affine.3x3cut0r.de"
+      AFFINE_SERVER_HTTPS: "true"
+      AFFINE_SERVER_EXTERNAL_URL: "https://affine.3x3cut0r.de"
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=affine"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.link.template=https://github.com/toeverything/AFFiNE/releases/tag/v$${major}.$${minor}.$${patch}"
+    volumes:
+      - affine-config:/root/.affine/config
+      - affine-storage:/root/.affine/storage
+
+  affine-migration:
+    container_name: affine-migration
+    image: ghcr.io/toeverything/affine:${AFFINE_REVISION:-stable}
+    restart: "no"
+    command: ["sh", "-c", "node ./scripts/self-host-predeploy.js"]
+    depends_on:
+      affine-postgres:
+        condition: service_healthy
+      affine-redis:
+        condition: service_healthy
+    networks:
+      affine:
+    dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+      NODE_ENV: "production"
+      AFFINE_INDEXER_ENABLED: "false"
+      REDIS_SERVER_HOST: "affine-redis"
+      DATABASE_URL: "postgresql://${AFFINE_POSTGRES_USERNAME}:${AFFINE_POSTGRES_PASSWORD}@affine-postgres:5432/${AFFINE_POSTGRES_DATABASE}"
+      AFFINE_SERVER_HOST: "affine.3x3cut0r.de"
+      AFFINE_SERVER_HTTPS: "true"
+      AFFINE_SERVER_EXTERNAL_URL: "https://affine.3x3cut0r.de"
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=affine-migration"
+      - "wud.trigger.exclude=docker.autoupdate"
+      - "wud.link.template=https://github.com/toeverything/AFFiNE/releases/tag/v$${major}.$${minor}.$${patch}"
+
+  affine-redis:
+    container_name: affine-redis
+    image: redis:latest
+    restart: unless-stopped
+    networks:
+      affine:
+        ipv4_address: "10.24.48.4"
+    dns: ["192.168.40.253"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Redis - Affine"
+      - "wud.tag.include=^latest$"
+      - "wud.link.template=https://github.com/redis/redis/releases/tag/$${major}.$${minor}.$${patch}"
+
+  affine-postgres:
+    container_name: affine-postgres
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    shm_size: 1gb
+    networks:
+      affine:
+        ipv4_address: "10.24.48.3"
+    dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+      POSTGRES_DB: "${AFFINE_POSTGRES_DATABASE}"
+      POSTGRES_USER: "${AFFINE_POSTGRES_USERNAME}"
+      POSTGRES_PASSWORD: "${AFFINE_POSTGRES_PASSWORD}"
+      POSTGRES_INITDB_ARGS: "--data-checksums"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${AFFINE_POSTGRES_USERNAME} -d ${AFFINE_POSTGRES_DATABASE}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Postgres - Affine"
+      - "wud.trigger.exclude=docker.autoupdate"
+      - "wud.tag.include=^pg\\d+$"
+      - "wud.link.template=https://github.com/pgvector/pgvector/releases/tag/v$${major}.$${minor}.$${patch}"
+    volumes:
+      - affine-postgres-data:/var/lib/postgresql/data
+
+networks:
+  affine:
+    name: affine
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.24.48.0/24"
+          gateway: "10.24.48.1"
+
+volumes:
+  affine-config:
+    name: affine-config
+  affine-storage:
+    name: affine-storage
+  affine-postgres-data:
+    name: affine-postgres-data
