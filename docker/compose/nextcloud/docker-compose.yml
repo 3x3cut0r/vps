@@ -138,8 +138,8 @@ services:
     networks:
       nextcloud:
         ipv4_address: "10.20.160.5"
-    # ports:
-    #   - "80:80"
+    ports:
+      - "8000:8000"
     #   - '443:443'"]
     environment:
       JWT_ENABLED: "true"
