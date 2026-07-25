@@ -139,6 +139,7 @@ services:
       nextcloud:
         ipv4_address: "10.20.160.5"
     ports:
+      - "4210:80"
       - "8000:8000"
     #   - '443:443'"]
     environment:
