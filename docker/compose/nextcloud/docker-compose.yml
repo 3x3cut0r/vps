@@ -15,7 +15,7 @@ services:
   #
   nextcloud:
     container_name: nextcloud
-    image: nextcloud:32-apache
+    image: nextcloud:33-apache
     restart: unless-stopped
     networks:
       nextcloud:
