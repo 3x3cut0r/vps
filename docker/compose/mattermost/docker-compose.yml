@@ -44,8 +44,6 @@ services:
     container_name: mattermost-postgres
     image: postgres:18-alpine
     restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
     networks:
       mattermost:
         ipv4_address: "10.24.49.3"
