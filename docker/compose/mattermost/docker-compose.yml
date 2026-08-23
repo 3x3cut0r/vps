@@ -1,0 +1,98 @@
+services:
+  # Docker Hub: https://hub.docker.com/r/mattermost/mattermost-team-edition
+  # GitHub: https://github.com/mattermost/mattermost
+  # Documentation: https://docs.mattermost.com/deployment-guide/server/deploy-containers.html
+  mattermost:
+    container_name: mattermost
+    image: mattermost/mattermost-team-edition:11.7.0
+    restart: unless-stopped
+    depends_on:
+      mattermost-postgres:
+        condition: service_healthy
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "2149:8065"
+    networks:
+      mattermost:
+        ipv4_address: "10.24.49.2"
+    dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+      MM_SQLSETTINGS_DRIVERNAME: "postgres"
+      MM_SQLSETTINGS_DATASOURCE: "postgres://mattermost:${POSTGRES_PASSWORD}@mattermost-postgres:5432/mattermost?sslmode=disable&connect_timeout=10"
+      MM_SERVICESETTINGS_SITEURL: "https://mattermost.3x3cut0r.de"
+      MM_BLEVESETTINGS_INDEXDIR: "/mattermost/bleve-indexes"
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Mattermost"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^\\d+\\.\\d+\\.\\d+$"
+      - "wud.link.template=https://github.com/mattermost/mattermost/releases/tag/v$${major}.$${minor}.$${patch}"
+    volumes:
+      - mattermost-config:/mattermost/config
+      - mattermost-data:/mattermost/data
+      - mattermost-logs:/mattermost/logs
+      - mattermost-plugins:/mattermost/plugins
+      - mattermost-client-plugins:/mattermost/client/plugins
+      - mattermost-bleve-indexes:/mattermost/bleve-indexes
+
+  # Docker Hub: https://hub.docker.com/_/postgres
+  # Documentation: https://docs.mattermost.com/deployment-guide/server/deploy-containers.html
+  mattermost-postgres:
+    container_name: mattermost-postgres
+    image: postgres:18-alpine
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      mattermost:
+        ipv4_address: "10.24.49.3"
+    dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+      POSTGRES_DB: "mattermost"
+      POSTGRES_USER: "mattermost"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_INITDB_ARGS: "--data-checksums"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mattermost -d mattermost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Mattermost Postgres"
+      - "wud.trigger.exclude=docker.autoupdate"
+      - "wud.tag.include=^\\d+-alpine$"
+      - "wud.link.template=https://www.postgresql.org/docs/release/"
+    volumes:
+      - mattermost-postgres-data:/var/lib/postgresql/data
+
+networks:
+  mattermost:
+    name: mattermost
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.24.49.0/24"
+          gateway: "10.24.49.1"
+
+volumes:
+  mattermost-config:
+    name: mattermost-config
+  mattermost-data:
+    name: mattermost-data
+  mattermost-logs:
+    name: mattermost-logs
+  mattermost-plugins:
+    name: mattermost-plugins
+  mattermost-client-plugins:
+    name: mattermost-client-plugins
+  mattermost-bleve-indexes:
+    name: mattermost-bleve-indexes
+  mattermost-postgres-data:
+    name: mattermost-postgres-data
