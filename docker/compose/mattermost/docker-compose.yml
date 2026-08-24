@@ -68,7 +68,7 @@ services:
       - "wud.tag.include=^\\d+-alpine$"
       - "wud.link.template=https://www.postgresql.org/docs/release/"
     volumes:
-      - mattermost-postgres-data:/var/lib/postgresql/data
+      - mattermost-postgres-data:/var/lib/postgresql
 
 networks:
   mattermost:
