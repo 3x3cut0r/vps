@@ -13,10 +13,10 @@ services:
       affine-redis:
         condition: service_healthy
     ports:
-      - "2148:3010"
+      - "2149:3010"
     networks:
       affine:
-        ipv4_address: "10.24.48.2"
+        ipv4_address: "10.24.49.2"
     dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
@@ -72,7 +72,7 @@ services:
     restart: unless-stopped
     networks:
       affine:
-        ipv4_address: "10.24.48.4"
+        ipv4_address: "10.24.49.4"
     dns: ["192.168.40.253"]
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
@@ -94,7 +94,7 @@ services:
     shm_size: 1gb
     networks:
       affine:
-        ipv4_address: "10.24.48.3"
+        ipv4_address: "10.24.49.3"
     dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
@@ -124,8 +124,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: "10.24.48.0/24"
-          gateway: "10.24.48.1"
+        - subnet: "10.24.49.0/24"
+          gateway: "10.24.49.1"
 
 volumes:
   affine-config:
