@@ -36,7 +36,7 @@ Docker Compose stack for a self-hosted Mattermost Team Edition instance with Pos
 - `mattermost-plugins` mounted to `/mattermost/plugins`
 - `mattermost-client-plugins` mounted to `/mattermost/client/plugins`
 - `mattermost-bleve-indexes` mounted to `/mattermost/bleve-indexes`
-- `mattermost-postgres-data` mounted to `/var/lib/postgresql/data`
+- `mattermost-postgres-data` mounted to `/var/lib/postgresql`
 
 ## Run
 

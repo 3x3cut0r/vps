@@ -12,10 +12,10 @@ services:
     security_opt:
       - no-new-privileges:true
     ports:
-      - "2149:8065"
+      - "8065:8065"
     networks:
       mattermost:
-        ipv4_address: "10.24.49.2"
+        ipv4_address: "10.24.48.2"
     dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
@@ -46,7 +46,7 @@ services:
     restart: unless-stopped
     networks:
       mattermost:
-        ipv4_address: "10.24.49.3"
+        ipv4_address: "10.24.48.3"
     dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
@@ -76,8 +76,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: "10.24.49.0/24"
-          gateway: "10.24.49.1"
+        - subnet: "10.24.48.0/24"
+          gateway: "10.24.48.1"
 
 volumes:
   mattermost-config:
