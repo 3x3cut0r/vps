@@ -13,6 +13,7 @@ services:
       - no-new-privileges:true
     ports:
       - "8065:8065"
+      - "8443:8443"
     networks:
       mattermost:
         ipv4_address: "10.24.48.2"
