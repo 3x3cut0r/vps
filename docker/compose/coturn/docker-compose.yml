@@ -62,6 +62,9 @@ services:
       - "wud.trigger.include=docker.autoupdate"
       - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/coturn/coturn/blob/master/ChangeLog"
+    depends_on:
+      - coturn-postgres
+      - coturn-redis
     volumes:
       - /opt/certs/cert.pem:/etc/coturn/cert.pem
       - /opt/certs/fullchain.pem:/etc/coturn/fullchain.pem
@@ -157,6 +160,10 @@ services:
       - "wud.trigger.include=docker.autoupdate"
       - "wud.tag.include=^latest$"
       - "wud.link.template=https://github.com/strukturag/nextcloud-spreed-signaling/releases/tag/v$${major}.$${minor}.$${patch}"
+    depends_on:
+      - coturn
+      - janus
+      - nats
     volumes:
       - /opt/certs/fullchain.pem:/etc/nginx/ssl/server.crt
       - /opt/certs/privkey.pem:/etc/nginx/ssl/server.key
