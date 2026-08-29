@@ -175,22 +175,6 @@ services:
     image: canyan/janus-gateway:latest
     restart: unless-stopped
     network_mode: host
-    command:
-      [
-        "janus",
-        "--pid-file=/var/run/janus.pid",
-        "--interface=192.168.40.214",
-        "--cert-pem=/usr/local/etc/janus/fullchain.pem",
-        "--cert-key=/usr/local/etc/janus/privkey.pem",
-        "--full-trickle",
-        # Janus uses this STUN check to discover its public IP. Pointing it to the local CoTURN
-        # listener on loopback makes Janus resolve itself as 127.0.0.1, which breaks ICE/NAT discovery.
-        # "--stun-server=127.0.0.1:3468",
-        "--server-name=3x3cut0r's Janus Gateway",
-        # "--token-auth",                                     #
-        # "--token-auth-secret=${JANUS_TOKEN_AUTH_SECRET}",   # not supported by nextcloud-spreed-signaling
-        # "--apisecret=${JANUS_APISECRET}",                   #
-      ]
     # ports:
     #   - '8088:8088' # HTTP webserver
     #   - '8188:8188' # WebSockets server
@@ -210,6 +194,8 @@ services:
     volumes:
       - /opt/certs/fullchain.pem:/usr/local/etc/janus/fullchain.pem:ro
       - /opt/certs/privkey.pem:/usr/local/etc/janus/privkey.pem:ro
+      - /opt/docker/config-files/janus/janus.jcfg:/usr/local/etc/janus/janus.jcfg:ro
+      - /opt/docker/config-files/janus/janus.eventhandler.wsevh.jcfg:/usr/local/etc/janus/janus.eventhandler.wsevh.jcfg:ro
 
   # Docker Hub: https://hub.docker.com/_/nats
   # Github: https://github.com/nats-io/nats-server
