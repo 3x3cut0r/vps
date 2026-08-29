@@ -105,7 +105,7 @@ services:
   # Github: https://github.com/redis/redis
   appsmith-redis:
     container_name: appsmith-redis
-    image: docker.io/bitnami/redis:7.0
+    image: docker.io/soldevelo/redis:7.0
     restart: unless-stopped
     # ports:
     #   - '6379:6379'
