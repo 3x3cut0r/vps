@@ -12,23 +12,45 @@
 
 # 1. configuration <a name="configuration"></a>
 
-**Copy turnserver.conf:**
+**Runtime configuration:**
 
-Copy [docker/compose/coturn/turnserver.conf](https://github.com/3x3cut0r/vps/blob/main/docker/compose/coturn/turnserver.conf) to `/home/docker/config-files/coturn/turnserver.conf`
+The active CoTURN configuration is defined in `docker-compose.yml` via the `command` array.
 
-**Enter at least:**
+Required environment variables:
+
 ```shell
-...
-static-auth-secret=<static-auth-secret>
-...
-realm=3x3cut0r.de
-...
+POSTGRES_PASSWORD=<postgres-password>
+REDIS_PASSWORD=<redis-password>
+TURN_SECRET=<turn-shared-secret>
+TURN_API_KEY=<nextcloud-turn-api-key>
+HASH_KEY=<signaling-hash-key>
+BLOCK_KEY=<signaling-block-key>
+INTERNAL_SHARED_SECRET_KEY=<signaling-internal-shared-secret>
+BACKEND_1_SHARED_SECRET=<nextcloud-signaling-shared-secret>
+NATS_PASSWORD=<nats-password>
+JANUS_TOKEN_AUTH_SECRET=<janus-token-auth-secret>
+JANUS_APISECRET=<janus-api-secret>
+GEOIP_LICENSE=<maxmind-license-key>
 ```
 
 **Open ports on your firewall:**
-- Port 3478/udp - STUN/TURN
+- Port 3468/tcp - STUN/TURN
+- Port 3468/udp - STUN/TURN
 - Port 5349/tcp - TURN TLS
-- Port 49152-65535/udp - Relay ports
+- Port 5349/udp - TURN DTLS
+- Port 49160-49200/udp - Relay ports
+
+**Internal-only ports:**
+- Port 8080/tcp - CoTURN web admin
+- Port 8081/tcp - Nextcloud Spreed Signaling
+- Port 8188/tcp - Janus WebSocket API
+- Port 4222/tcp - NATS
+
+**Network notes:**
+- This stack is designed for `network_mode: host` inside the coturn LXC.
+- WAN forwarding on the Proxmox host must match the active CoTURN ports (`3468`, `5349`, `49160-49200`).
+- Internal DNS should resolve `turn.3x3cut0r.de` to the coturn LXC IP for local clients.
+- TURN relay candidates still use the public IP from `--external-ip`, so LAN clients may still require hairpin NAT.
 
 # 2. deploy docker-compose.yml <a name="deploy"></a>
 
