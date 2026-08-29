@@ -143,7 +143,7 @@ services:
       BLOCK_KEY: "${BLOCK_KEY}"
       INTERNAL_SHARED_SECRET_KEY: "${INTERNAL_SHARED_SECRET_KEY}"
       BACKENDS: "1"
-      BACKEND_1_URL: "https://nextcloud.3x3cut0r.de"
+      BACKEND_1_URLS: "https://nextcloud.3x3cut0r.de"
       BACKEND_1_SHARED_SECRET: "${BACKEND_1_SHARED_SECRET}"
       STATS_IPS: "192.168.40.214"
       TURN_API_KEY: "${TURN_API_KEY}"
