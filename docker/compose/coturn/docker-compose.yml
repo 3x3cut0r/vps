@@ -171,13 +171,13 @@ services:
     command:
       [
         "janus",
-        "--pidfile=/var/run/janus.pid",
+        "--pid-file=/var/run/janus.pid",
         "--interface=192.168.40.214",
         "--cert-pem=/usr/local/etc/janus/fullchain.pem",
         "--cert-key=/usr/local/etc/janus/privkey.pem",
         "--full-trickle",
         "--stun-server=127.0.0.1:3468",
-        "--server-name=name=3x3cut0r's Janus Gateway",
+        "--server-name=3x3cut0r's Janus Gateway",
         "--token-auth",
         "--token-auth-secret=${JANUS_TOKEN_AUTH_SECRET}",
         "--apisecret=${JANUS_APISECRET}",
