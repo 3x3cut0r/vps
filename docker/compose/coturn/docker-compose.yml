@@ -178,9 +178,9 @@ services:
         "--full-trickle",
         "--stun-server=127.0.0.1:3468",
         "--server-name=3x3cut0r's Janus Gateway",
-        "--token-auth",
-        "--token-auth-secret=${JANUS_TOKEN_AUTH_SECRET}",
-        "--apisecret=${JANUS_APISECRET}",
+        # "--token-auth",                                     #
+        # "--token-auth-secret=${JANUS_TOKEN_AUTH_SECRET}",   # not supported by nextcloud-spreed-signaling
+        # "--apisecret=${JANUS_APISECRET}",                   #
       ]
     # ports:
     #   - '8088:8088' # HTTP webserver

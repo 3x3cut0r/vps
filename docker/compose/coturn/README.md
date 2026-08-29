@@ -28,8 +28,6 @@ BLOCK_KEY=<signaling-block-key>
 INTERNAL_SHARED_SECRET_KEY=<signaling-internal-shared-secret>
 BACKEND_1_SHARED_SECRET=<nextcloud-signaling-shared-secret>
 NATS_PASSWORD=<nats-password>
-JANUS_TOKEN_AUTH_SECRET=<janus-token-auth-secret>
-JANUS_APISECRET=<janus-api-secret>
 GEOIP_LICENSE=<maxmind-license-key>
 ```
 
@@ -51,6 +49,7 @@ GEOIP_LICENSE=<maxmind-license-key>
 - WAN forwarding on the Proxmox host must match the active CoTURN ports (`3468`, `5349`, `49160-49200`).
 - Internal DNS should resolve `turn.3x3cut0r.de` to the coturn LXC IP for local clients.
 - TURN relay candidates still use the public IP from `--external-ip`, so LAN clients may still require hairpin NAT.
+- The Janus WebSocket connection used by `nextcloud-spreed-signaling` does not use Janus `apisecret` or `token-auth`; do not enable those options unless you switch to a client that supports them.
 
 # 2. deploy docker-compose.yml <a name="deploy"></a>
 
