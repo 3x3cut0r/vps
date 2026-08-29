@@ -24,7 +24,7 @@ services:
         "--check-origin-consistency",
         # "--userdb=/var/lib/coturn/turndb",
         "--psql-userdb=postgresql://coturn:${POSTGRES_PASSWORD}@127.0.0.1:5432/coturn",
-        "--redis-statsdb=redis://default:${REDIS_PASSWORD}@127.0.0.1:6379",
+        "--redis-statsdb=ip=127.0.0.1 dbname=0 password=${REDIS_PASSWORD} port=6379",
         "--use-auth-secret",
         "--static-auth-secret=${TURN_SECRET}",
         "--cert=/etc/coturn/fullchain.pem",
