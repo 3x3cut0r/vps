@@ -17,9 +17,7 @@ services:
         "--fingerprint",
         "--no-multicast-peers",
         "--allocation-default-address-family=ipv4",
-        "--no-cli",
         "--no-tlsv1",
-        "--no-tlsv1_1",
         "--realm=turn.3x3cut0r.de",
         "--server-name=turn.3x3cut0r.de",
         "--external-ip=152.53.181.185",
@@ -41,7 +39,6 @@ services:
         "--web-admin-ip=0.0.0.0",
         "--web-admin-port=8080",
         "--no-rfc5780",
-        "--no-stun-backward-compatibility",
         "--response-origin-only-with-rfc5780",
       ]
     network_mode: host # for docker rootful only!
