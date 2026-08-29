@@ -287,8 +287,8 @@ nat: {
         # must provide. Notice that the 'opaque_id' provided via Janus API will be
         # used as the username for a specific PeerConnection by default; if that one
         # is missing, the 'session_id' will be used as the username instead.
-        turn_rest_api = "http://turn.3x3cut0r.de:3468"
-        turn_rest_api_key = "<turn-rest-api-key>"
+        turn_rest_api = "http://192.168.40.214:8081/turn/credentials"
+        turn_rest_api_key = "<TURN_API_KEY>"
         turn_rest_api_method = "GET"
 
         # You can also choose which interfaces should be explicitly used by the
