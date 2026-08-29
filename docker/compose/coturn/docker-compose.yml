@@ -176,7 +176,9 @@ services:
         "--cert-pem=/usr/local/etc/janus/fullchain.pem",
         "--cert-key=/usr/local/etc/janus/privkey.pem",
         "--full-trickle",
-        "--stun-server=127.0.0.1:3468",
+        # Janus uses this STUN check to discover its public IP. Pointing it to the local CoTURN
+        # listener on loopback makes Janus resolve itself as 127.0.0.1, which breaks ICE/NAT discovery.
+        # "--stun-server=127.0.0.1:3468",
         "--server-name=3x3cut0r's Janus Gateway",
         # "--token-auth",                                     #
         # "--token-auth-secret=${JANUS_TOKEN_AUTH_SECRET}",   # not supported by nextcloud-spreed-signaling
