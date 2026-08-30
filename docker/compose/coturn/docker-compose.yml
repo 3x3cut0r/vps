@@ -37,13 +37,13 @@ services:
       "--pidfile=/var/run/turnserver.pid",
       "--web-admin",
       "--web-admin-ip=0.0.0.0",
-      "--web-admin-port=8080",
+      "--web-admin-port=8214",
       "--no-rfc5780",
       "--response-origin-only-with-rfc5780",
     ]
     network_mode: host # for docker rootful only!
     # ports:
-    #   - "2214:8214" # web-admin
+    #   - "8214:8214" # web-admin
     #   - '3468:3468'
     #   - '3468:3468/udp'
     #   - '5349:5349' # tls-listening-port
