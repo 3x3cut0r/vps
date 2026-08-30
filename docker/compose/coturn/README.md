@@ -38,8 +38,8 @@ GEOIP_LICENSE=<maxmind-license-key>
 - Port 5349/udp - TURN DTLS
 - Port 49160-49299/udp - Relay ports
 
-**Internal-only ports:**
-- Port 8080/tcp - CoTURN web admin
+**Administrative and internal ports:**
+- Port 2214/tcp - CoTURN web admin
 - Port 8081/tcp - Nextcloud Spreed Signaling
 - Port 8188/tcp - Janus WebSocket API
 - Port 4222/tcp - NATS
@@ -47,6 +47,7 @@ GEOIP_LICENSE=<maxmind-license-key>
 **Network notes:**
 - This stack is designed for `network_mode: host` inside the coturn LXC.
 - WAN forwarding on the Proxmox host must match the active CoTURN ports (`3468`, `5349`, `49160-49299`).
+- Public IPv4 access to the CoTURN web admin requires a separate DNAT rule for `2214/tcp` to the coturn LXC.
 - Internal DNS should resolve `turn.3x3cut0r.de` to the coturn LXC IP for local clients.
 - TURN relay candidates still use the public IP from `--external-ip`, so LAN clients may still require hairpin NAT.
 - The Janus WebSocket connection used by `nextcloud-spreed-signaling` does not use Janus `apisecret` or `token-auth`; do not enable those options unless you switch to a client that supports them.
