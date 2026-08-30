@@ -98,7 +98,7 @@ services:
       - "wud.tag.include=^\\d+-alpine$"
       - "wud.link.template=https://www.postgresql.org/docs/release/$${major}.$${minor}"
     volumes:
-      - coturn-postgres-data:/var/lib/postgres
+      - coturn-postgres-data:/var/lib/postgresql
       - /opt/docker/config-files/postgres/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
 
   # Docker Hub: https://hub.docker.com/_/redis
