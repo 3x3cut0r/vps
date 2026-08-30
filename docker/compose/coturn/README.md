@@ -36,7 +36,7 @@ GEOIP_LICENSE=<maxmind-license-key>
 - Port 3468/udp - STUN/TURN
 - Port 5349/tcp - TURN TLS
 - Port 5349/udp - TURN DTLS
-- Port 49160-49200/udp - Relay ports
+- Port 49160-49299/udp - Relay ports
 
 **Internal-only ports:**
 - Port 8080/tcp - CoTURN web admin
@@ -46,11 +46,48 @@ GEOIP_LICENSE=<maxmind-license-key>
 
 **Network notes:**
 - This stack is designed for `network_mode: host` inside the coturn LXC.
-- WAN forwarding on the Proxmox host must match the active CoTURN ports (`3468`, `5349`, `49160-49200`).
+- WAN forwarding on the Proxmox host must match the active CoTURN ports (`3468`, `5349`, `49160-49299`).
 - Internal DNS should resolve `turn.3x3cut0r.de` to the coturn LXC IP for local clients.
 - TURN relay candidates still use the public IP from `--external-ip`, so LAN clients may still require hairpin NAT.
 - The Janus WebSocket connection used by `nextcloud-spreed-signaling` does not use Janus `apisecret` or `token-auth`; do not enable those options unless you switch to a client that supports them.
 - Janus reads its mounted config files from `/opt/docker/config-files/janus/janus.jcfg` and `/opt/docker/config-files/janus/janus.eventhandler.wsevh.jcfg`.
+
+### Web-admin database user
+
+The coturn web admin authenticates against the `admin_user` table in the
+PostgreSQL user database. Authentication configured in Nginx Proxy Manager is
+separate from this account. The SQLite `turndb` is inactive in this stack.
+
+Verify that the table exists:
+
+```shell
+docker exec coturn-postgres \
+  psql -U coturn -d coturn -c '\d admin_user'
+```
+
+Create the realm-restricted user `admin`:
+
+```shell
+docker exec coturn turnadmin -A \
+  --psql-userdb="postgresql://coturn:<postgres-password>@127.0.0.1:5432/coturn" \
+  -u admin \
+  -r turn.3x3cut0r.de \
+  -p '<admin-password>'
+```
+
+`<postgres-password>` is the existing PostgreSQL password. `<admin-password>`
+is the new plaintext password for the coturn web admin. `turnadmin` hashes the
+admin password automatically before storing it.
+
+Verify the account:
+
+```shell
+docker exec coturn-postgres \
+  psql -U coturn -d coturn \
+  -c 'SELECT name, realm FROM admin_user;'
+```
+
+Never commit real passwords or replace the placeholders in this README.
 
 # 2. deploy docker-compose.yml <a name="deploy"></a>
 
