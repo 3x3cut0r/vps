@@ -69,7 +69,6 @@ services:
       - /opt/certs/cert.pem:/etc/coturn/cert.pem
       - /opt/certs/fullchain.pem:/etc/coturn/fullchain.pem
       - /opt/certs/privkey.pem:/etc/coturn/privkey.pem
-      - /opt/certs/ca.pem:/etc/coturn/ca.pem
       - /opt/certs/dhparam.pem:/etc/coturn/dhparam.pem
       - coturn-data:/var/lib/coturn
 
