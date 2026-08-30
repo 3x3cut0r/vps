@@ -53,6 +53,23 @@ GEOIP_LICENSE=<maxmind-license-key>
 - The Janus WebSocket connection used by `nextcloud-spreed-signaling` does not use Janus `apisecret` or `token-auth`; do not enable those options unless you switch to a client that supports them.
 - Janus reads its mounted config files from `/opt/docker/config-files/janus/janus.jcfg` and `/opt/docker/config-files/janus/janus.eventhandler.wsevh.jcfg`.
 
+### Local web-admin access via SSH tunnel
+
+The CoTURN web-admin listens on port `2214` inside the coturn LXC.
+
+Open an SSH tunnel through the Proxmox host and into the coturn LXC:
+
+```shell
+ssh -J root@pve-ssh.3x3cut0r.de -L 2214:127.0.0.1:2214 root@192.168.40.214
+```
+
+Then open the web interface locally in your browser:
+
+- `http://localhost:2214`
+
+This keeps the web-admin private while preserving the local browser port `2214`.
+Use the admin credentials from the `admin_user` table as described below.
+
 ### Web-admin database user
 
 The coturn web admin authenticates against the `admin_user` table in the
