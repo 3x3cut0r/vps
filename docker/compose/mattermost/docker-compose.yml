@@ -68,7 +68,7 @@ services:
       - "wud.tag.include=^stable$"
       - "wud.link.template=https://github.com/42wim/matterbridge/releases"
     volumes:
-      - /home/docker/config-files/matterbridge/matterbridge.toml:/etc/matterbridge/matterbridge.toml:ro
+      - /opt/docker/config-files/matterbridge/matterbridge.toml:/etc/matterbridge/matterbridge.toml:ro
 
   # Docker Hub: https://hub.docker.com/_/postgres
   # Documentation: https://docs.mattermost.com/deployment-guide/server/deploy-containers.html
