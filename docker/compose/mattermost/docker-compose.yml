@@ -16,8 +16,10 @@ services:
       - "8443:8443/tcp"
       - "8443:8443/udp"
     networks:
-      mattermost:
+      mattermost-app:
         ipv4_address: "10.24.48.2"
+      mattermost-db:
+        ipv4_address: "10.24.48.66"
     dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
@@ -40,6 +42,34 @@ services:
       - mattermost-client-plugins:/mattermost/client/plugins
       - mattermost-bleve-indexes:/mattermost/bleve-indexes
 
+  # Docker Hub: https://hub.docker.com/r/42wim/matterbridge
+  # GitHub: https://github.com/42wim/matterbridge
+  # Documentation: https://github.com/42wim/matterbridge/wiki/Deploy:-Docker
+  matterbridge:
+    container_name: matterbridge
+    image: 42wim/matterbridge:stable
+    restart: unless-stopped
+    depends_on:
+      mattermost:
+        condition: service_started
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      mattermost-app:
+        ipv4_address: "10.24.48.4"
+    dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Matterbridge"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^stable$"
+      - "wud.link.template=https://github.com/42wim/matterbridge/releases"
+    volumes:
+      - /home/docker/config-files/matterbridge/matterbridge.toml:/etc/matterbridge/matterbridge.toml:ro
+
   # Docker Hub: https://hub.docker.com/_/postgres
   # Documentation: https://docs.mattermost.com/deployment-guide/server/deploy-containers.html
   mattermost-postgres:
@@ -47,8 +77,8 @@ services:
     image: postgres:18-alpine
     restart: unless-stopped
     networks:
-      mattermost:
-        ipv4_address: "10.24.48.3"
+      mattermost-db:
+        ipv4_address: "10.24.48.67"
     dns: ["192.168.40.253"]
     environment:
       TZ: "Europe/Berlin"
@@ -73,13 +103,20 @@ services:
       - mattermost-postgres-data:/var/lib/postgresql
 
 networks:
-  mattermost:
-    name: mattermost
+  mattermost-app:
+    name: mattermost-app
     ipam:
       driver: default
       config:
-        - subnet: "10.24.48.0/24"
+        - subnet: "10.24.48.0/26"
           gateway: "10.24.48.1"
+  mattermost-db:
+    name: mattermost-db
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.24.48.64/26"
+          gateway: "10.24.48.65"
 
 volumes:
   mattermost-config:

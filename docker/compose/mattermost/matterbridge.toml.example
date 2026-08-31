@@ -1,0 +1,26 @@
+[general]
+RemoteNickFormat = "[{PROTOCOL}] <{NICK}> "
+MediaServerDownload = "https://mattermost.3x3cut0r.de"
+
+[telegram.mytelegram]
+Token = "replace-with-telegram-bot-token"
+RemoteNickFormat = "[{NICK}] "
+
+[mattermost.mymattermost]
+Server = "http://mattermost:8065"
+Login = "replace-with-mattermost-bot-login"
+Password = "replace-with-mattermost-bot-password"
+Team = "replace-with-team-name"
+RemoteNickFormat = "[{NICK}] "
+
+[[gateway]]
+name = "telegram-mattermost"
+enable = true
+
+  [[gateway.inout]]
+  account = "telegram.mytelegram"
+  channel = "replace-with-telegram-chat-or-channel"
+
+  [[gateway.inout]]
+  account = "mattermost.mymattermost"
+  channel = "replace-with-mattermost-channel"
