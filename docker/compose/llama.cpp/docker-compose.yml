@@ -6,6 +6,12 @@ services:
     container_name: llama-cpp
     image: ghcr.io/ggml-org/llama.cpp:server
     restart: unless-stopped
+    cap_add:
+      - IPC_LOCK
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
     command: [
       "-m",
       "/models/Qwen3.5-4B-UD-Q5_K_XL.gguf",
@@ -17,14 +23,14 @@ services:
       "0.0.0.0",
       "--load-mode",
       "mmap+mlock",
+      "--reasoning",
+      "off",
       "-t",
       "8",
       "-c",
       "16384",
       "-n",
-      "512",
-      "--chat-template-kwargs",
-      '{"enable_thinking":false}'
+      "512"
     ]
     ports:
       - "2145:8080"
