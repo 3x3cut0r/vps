@@ -7,13 +7,13 @@ services:
     image: ghcr.io/ggml-org/llama.cpp:server
     restart: unless-stopped
     command: [
-      "-m", 
-      "/models/gemma-3-4b-it-qat-q4_0-gguf/gemma-3-4b-it-q4_0.gguf", 
-      "--port", 
+      "-m",
+      "/models/gemma-4-E4B-it-qat-q4_0-gguf/gemma-4-E4B_q4_0-it.gguf",
+      "--port",
       "8080",
-      "--host", 
-      "0.0.0.0", 
-      "-n", 
+      "--host",
+      "0.0.0.0",
+      "-n",
       "512"
     ]
     ports:
