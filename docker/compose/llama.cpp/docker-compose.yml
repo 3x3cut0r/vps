@@ -45,6 +45,28 @@ services:
     volumes:
       - /opt/docker/config-files/llama-cpp/models:/models
 
+  llama-cpp-warmup:
+    container_name: llama-cpp-warmup
+    image: curlimages/curl:8.16.0
+    restart: "no"
+    depends_on:
+      - llama-cpp
+    networks:
+      - llama-cpp
+    dns: ["192.168.40.253"]
+    command:
+      - sh
+      - -ec
+      - |
+        until curl -fsS http://llama-cpp:8080/health >/dev/null; do
+          sleep 2
+        done
+
+        curl -fsS http://llama-cpp:8080/v1/chat/completions \
+          -H 'Content-Type: application/json' \
+          -d '{"model":"qwen3.5-4b","messages":[{"role":"user","content":"hello"}],"max_tokens":1,"temperature":0}' \
+          >/dev/null
+
 networks:
   llama-cpp:
     name: llama-cpp
