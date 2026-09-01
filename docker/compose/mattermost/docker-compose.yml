@@ -4,7 +4,7 @@ services:
   # Documentation: https://docs.mattermost.com/deployment-guide/server/deploy-containers.html
   mattermost:
     container_name: mattermost
-    image: mattermost/mattermost-team-edition:11.7.0
+    image: mattermost/mattermost-team-edition:11.7.10
     restart: unless-stopped
     depends_on:
       mattermost-postgres:
