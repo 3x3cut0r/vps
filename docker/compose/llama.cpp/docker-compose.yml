@@ -16,7 +16,7 @@ services:
       "--host",
       "0.0.0.0",
       "--load-mode",
-      "mmap+mlock",
+      "mmap",
       "--reasoning",
       "off",
       "-t",
