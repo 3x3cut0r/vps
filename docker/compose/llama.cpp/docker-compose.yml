@@ -10,7 +10,7 @@ services:
       "-m",
       "/models/Qwen3.5-4B-GGUF/Qwen3.5-2B-GGUF/Qwen3.5-2B-Q5_K_M.gguf",
       "--alias",
-      "Qwen3.5-2B",
+      "qwen3.5-2b",
       "--port",
       "8080",
       "--host",
