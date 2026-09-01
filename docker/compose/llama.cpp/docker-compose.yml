@@ -64,7 +64,7 @@ services:
 
         curl -fsS http://llama-cpp:8080/v1/chat/completions \
           -H 'Content-Type: application/json' \
-          -d '{"model":"qwen3.5-4b","messages":[{"role":"user","content":"hello"}],"max_tokens":1,"temperature":0}' \
+          -d '{"model":"qwen3.5-4b","messages":[{"role":"user","content":"hello"}]}' \
           >/dev/null
 
 networks:
