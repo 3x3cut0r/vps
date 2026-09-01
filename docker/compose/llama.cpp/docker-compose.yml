@@ -8,9 +8,9 @@ services:
     restart: unless-stopped
     command: [
       "-m",
-      "/models/Qwen3.5-2B-UD-Q5_K_XL.gguf",
+      "/models/Qwen3.5-4B-UD-Q5_K_XL.gguf",
       "--alias",
-      "qwen3.5-2b",
+      "qwen3.5-4b",
       "--port",
       "8080",
       "--host",
