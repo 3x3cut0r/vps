@@ -18,7 +18,9 @@ services:
       "-c",
       "16384",
       "-n",
-      "512"
+      "512",
+      "--chat-template-kwargs",
+      '{"enable_thinking":false}'
     ]
     ports:
       - "2145:8080"
