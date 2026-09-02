@@ -4,8 +4,8 @@ Docker Compose stack for a self-hosted Mattermost Team Edition instance with Pos
 
 ## Services
 
-- `mattermost` using `mattermost/mattermost-team-edition:11.7.0`
-- `matterbridge` using `42wim/matterbridge:stable`
+- `mattermost` using `mattermost/mattermost-team-edition:11.7.10`
+- `matterbridge` using `ghcr.io/matterbridge-org/matterbridge:latest`
 - `mattermost-postgres` using `postgres:18-alpine`
 
 ## Files
@@ -42,19 +42,19 @@ Docker Compose stack for a self-hosted Mattermost Team Edition instance with Pos
 - `mattermost-client-plugins` mounted to `/mattermost/client/plugins`
 - `mattermost-bleve-indexes` mounted to `/mattermost/bleve-indexes`
 - `mattermost-postgres-data` mounted to `/var/lib/postgresql`
-- `/home/docker/config-files/matterbridge/matterbridge.toml` mounted read-only to `/etc/matterbridge/matterbridge.toml`
+- `/opt/docker/config-files/matterbridge/matterbridge.toml` mounted read-only to `/etc/matterbridge/matterbridge.toml`
 
 ## Matterbridge configuration
 
 1. Copy the example file and keep the real configuration outside the repository:
 
 ```bash
-mkdir -p /home/docker/config-files/matterbridge
-cp matterbridge.toml.example /home/docker/config-files/matterbridge/matterbridge.toml
-chmod 600 /home/docker/config-files/matterbridge/matterbridge.toml
+mkdir -p /opt/docker/config-files/matterbridge
+cp matterbridge.toml.example /opt/docker/config-files/matterbridge/matterbridge.toml
+chmod 600 /opt/docker/config-files/matterbridge/matterbridge.toml
 ```
 
-2. Edit `/home/docker/config-files/matterbridge/matterbridge.toml` and replace all placeholder values:
+2. Edit `/opt/docker/config-files/matterbridge/matterbridge.toml` and replace all placeholder values:
 
 - `Token`: Telegram bot token
 - `Login` and `Password`: Mattermost bot or service account credentials
@@ -81,6 +81,7 @@ docker compose down
 - In Portainer, set `POSTGRES_PASSWORD` as a stack environment variable before deployment
 - If the password contains reserved URL characters such as `@`, `:`, `/`, `?`, `#`, or `%`, store it URL-encoded because it is embedded in the Mattermost PostgreSQL DSN
 - Matterbridge is isolated from PostgreSQL by staying off the `mattermost-db` network
-- Matterbridge secrets live in `/home/docker/config-files/matterbridge/matterbridge.toml` and should never be committed to Git
+- Matterbridge uses the community-maintained fork `matterbridge-org/matterbridge`
+- Matterbridge secrets live in `/opt/docker/config-files/matterbridge/matterbridge.toml` and should never be committed to Git
 - Matterbridge will restart on invalid TOML or bad credentials, so check `docker compose logs matterbridge` first when the bridge does not come up
 - No internal nginx, Redis, or Mattermost Calls service is included in this baseline stack

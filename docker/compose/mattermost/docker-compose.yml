@@ -42,12 +42,12 @@ services:
       - mattermost-client-plugins:/mattermost/client/plugins
       - mattermost-bleve-indexes:/mattermost/bleve-indexes
 
-  # Docker Hub: https://hub.docker.com/r/42wim/matterbridge
-  # GitHub: https://github.com/42wim/matterbridge
-  # Documentation: https://github.com/42wim/matterbridge/wiki/Deploy:-Docker
+  # Registry: https://github.com/orgs/matterbridge-org/packages/container/package/matterbridge
+  # GitHub: https://github.com/matterbridge-org/matterbridge
+  # Documentation: https://github.com/matterbridge-org/matterbridge
   matterbridge:
     container_name: matterbridge
-    image: 42wim/matterbridge:stable
+    image: ghcr.io/matterbridge-org/matterbridge:latest
     restart: unless-stopped
     depends_on:
       mattermost:
@@ -65,8 +65,8 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Matterbridge"
       - "wud.trigger.include=docker.autoupdate"
-      - "wud.tag.include=^stable$"
-      - "wud.link.template=https://github.com/42wim/matterbridge/releases"
+      - "wud.tag.include=^latest$"
+      - "wud.link.template=https://github.com/orgs/matterbridge-org/packages/container/package/matterbridge"
     volumes:
       - /opt/docker/config-files/matterbridge/matterbridge.toml:/etc/matterbridge/matterbridge.toml:ro
 
