@@ -26,7 +26,12 @@ services:
       MM_SQLSETTINGS_DRIVERNAME: "postgres"
       MM_SQLSETTINGS_DATASOURCE: "postgres://mattermost:${POSTGRES_PASSWORD}@mattermost-postgres:5432/mattermost?sslmode=disable&connect_timeout=10"
       MM_SERVICESETTINGS_SITEURL: "https://mattermost.3x3cut0r.de"
+      MM_CALLS_ICE_HOST_OVERRIDE: "152.53.181.185"
+      MM_CALLS_ICE_SERVERS_CONFIGS: '[{"urls":["stun:turn.3x3cut0r.de:3468"]},{"urls":["turn:turn.3x3cut0r.de:3468?transport=udp","turn:turn.3x3cut0r.de:3468?transport=tcp","turns:turn.3x3cut0r.de:5349?transport=tcp"]}]'
+      MM_CALLS_TURN_STATIC_AUTH_SECRET: "${TURN_STATIC_AUTH_SECRET}"
+      MM_CALLS_TURN_CREDENTIALS_EXPIRATION_MINUTES: "240"
       MM_BLEVESETTINGS_INDEXDIR: "/mattermost/bleve-indexes"
+      MM_PLUGINSETTINGS_ENABLEUPLOADS: "true"
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"

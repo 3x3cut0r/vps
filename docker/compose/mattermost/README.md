@@ -11,7 +11,7 @@ Docker Compose stack for a self-hosted Mattermost Team Edition instance with Pos
 ## Files
 
 - `docker-compose.yml`: stack definition
-- `../../env-files/mattermost.env`: local Compose env template for `POSTGRES_PASSWORD`
+- `../../env-files/mattermost.env`: local untracked Compose env file for `POSTGRES_PASSWORD` and `TURN_STATIC_AUTH_SECRET`
 - `matterbridge.toml.example`: Matterbridge configuration template for Telegram to Mattermost bridging
 
 ## Network
@@ -31,6 +31,8 @@ Docker Compose stack for a self-hosted Mattermost Team Edition instance with Pos
 ## Domain
 
 - `MM_SERVICESETTINGS_SITEURL` is set to `https://mattermost.3x3cut0r.de`
+- Mattermost Calls advertises media on `152.53.181.185` through `MM_CALLS_ICE_HOST_OVERRIDE`
+- Mattermost Calls uses the existing CoTURN server at `turn.3x3cut0r.de` for STUN and TURN
 - Matterbridge connects to Mattermost internally through `http://mattermost:8065`
 
 ## Volumes
@@ -78,10 +80,15 @@ docker compose down
 - DNS inside the containers is set to `192.168.40.253`
 - The stack includes WUD labels for image monitoring
 - `POSTGRES_PASSWORD` is intentionally left empty in the tracked env template and must be provided before deployment
+- `TURN_STATIC_AUTH_SECRET` must be provided in the deployment environment when Mattermost Calls is enabled
+- Keep the local env file outside Git and restrict it to `0600` permissions because it contains secrets
 - In Portainer, set `POSTGRES_PASSWORD` as a stack environment variable before deployment
+- In Portainer, also set `TURN_STATIC_AUTH_SECRET` to the same shared secret used by the CoTURN stack
 - If the password contains reserved URL characters such as `@`, `:`, `/`, `?`, `#`, or `%`, store it URL-encoded because it is embedded in the Mattermost PostgreSQL DSN
+- `MM_CALLS_ICE_HOST_OVERRIDE` assumes the public IP `152.53.181.185`; update it whenever the WAN IP or NAT target changes
+- The current CoTURN stack listens on `turn.3x3cut0r.de` with STUN/TURN on `3468` and TURN TLS on `5349`; make sure firewall and NAT rules for those ports stay in place
 - Matterbridge is isolated from PostgreSQL by staying off the `mattermost-db` network
 - Matterbridge uses the community-maintained fork `matterbridge-org/matterbridge`
 - Matterbridge secrets live in `/opt/docker/config-files/matterbridge/matterbridge.toml` and should never be committed to Git
 - Matterbridge will restart on invalid TOML or bad credentials, so check `docker compose logs matterbridge` first when the bridge does not come up
-- No internal nginx, Redis, or Mattermost Calls service is included in this baseline stack
+- No internal nginx, Redis, or dedicated Mattermost Calls service is included in this baseline stack
