@@ -30,6 +30,7 @@ services:
       MM_CALLS_TCP_SERVER_ADDRESS: "10.24.48.2"
       MM_CALLS_ICE_HOST_OVERRIDE: "152.53.181.185/10.24.48.2"
       MM_CALLS_ICE_SERVERS_CONFIGS: '[{"urls":["stun:turn.3x3cut0r.de:3468"]},{"urls":["turn:turn.3x3cut0r.de:3468?transport=udp","turn:turn.3x3cut0r.de:3468?transport=tcp","turns:turn.3x3cut0r.de:5349?transport=tcp"]}]'
+      MM_CALLS_SERVER_SIDE_TURN: "true"
       MM_CALLS_TURN_STATIC_AUTH_SECRET: "${TURN_STATIC_AUTH_SECRET}"
       MM_CALLS_TURN_CREDENTIALS_EXPIRATION_MINUTES: "240"
       MM_BLEVESETTINGS_INDEXDIR: "/mattermost/bleve-indexes"
