@@ -4,14 +4,14 @@ MediaServerDownload = "https://mattermost.3x3cut0r.de"
 
 [telegram.mytelegram]
 # The token for mattermost_julz22x4_bot from BotFather.
-Token = "replace-with-telegram-bot-token"
+Token = "<Telegram-Bot-Token>"
 RemoteNickFormat = "[{NICK}] "
 
 [mattermost.mymattermost]
-Server = "http://mattermost:8065"
-# Token of the dedicated Mattermost bot account.
-Token = "replace-with-mattermost-bot-token"
-Team = "replace-with-team-name"
+Server = "mattermost:8065"
+NoTLS = true
+Token = "<Mattermost-Bot-Token>"
+Team = "private"
 RemoteNickFormat = "[{NICK}] "
 
 [[gateway]]
@@ -20,8 +20,8 @@ enable = true
 
   [[gateway.inout]]
   account = "telegram.mytelegram"
-  channel = "replace-with-telegram-chat-or-channel"
+  channel = "-<Telegram-Group-ID>"
 
   [[gateway.inout]]
   account = "mattermost.mymattermost"
-  channel = "replace-with-mattermost-channel"
+  channel = "ID:<Mattermost-Channel-ID>"
