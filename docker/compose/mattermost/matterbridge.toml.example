@@ -3,13 +3,14 @@ RemoteNickFormat = "[{PROTOCOL}] <{NICK}> "
 MediaServerDownload = "https://mattermost.3x3cut0r.de"
 
 [telegram.mytelegram]
+# The token for mattermost_julz22x4_bot from BotFather.
 Token = "replace-with-telegram-bot-token"
 RemoteNickFormat = "[{NICK}] "
 
 [mattermost.mymattermost]
 Server = "http://mattermost:8065"
-Login = "replace-with-mattermost-bot-login"
-Password = "replace-with-mattermost-bot-password"
+# Token of the dedicated Mattermost bot account.
+Token = "replace-with-mattermost-bot-token"
 Team = "replace-with-team-name"
 RemoteNickFormat = "[{NICK}] "
 

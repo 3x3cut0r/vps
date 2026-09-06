@@ -59,10 +59,14 @@ chmod 600 /opt/docker/config-files/matterbridge/matterbridge.toml
 
 2. Edit `/opt/docker/config-files/matterbridge/matterbridge.toml` and replace all placeholder values:
 
-- `Token`: Telegram bot token
-- `Login` and `Password`: Mattermost bot or service account credentials
+- Telegram `Token`: token created by BotFather for `mattermost_julz22x4_bot`
+- Mattermost `Token`: token of a dedicated Mattermost bot account
 - `Team`: Mattermost team name
 - `channel`: Telegram chat/channel and Mattermost channel names
+
+The Telegram username is not entered separately; the Telegram token identifies the bot.
+For Mattermost, create a dedicated bot account and use its token. The bot account name is
+not entered in the Matterbridge configuration. Add the bot to the target team and channel.
 
 3. The included template uses the internal Mattermost URL `http://mattermost:8065` so Matterbridge can stay inside the `mattermost-app` network without opening additional ports.
 
