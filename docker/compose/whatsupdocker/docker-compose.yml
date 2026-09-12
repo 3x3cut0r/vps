@@ -21,6 +21,7 @@ services:
       WUD_REGISTRY_GHCR_IO_TOKEN: "${WUD_REGISTRY_GHCR_IO_TOKEN}" # Your GitHub Personal Access Token (with read:packages scope)
       WUD_REGISTRY_LSCR_IO_USERNAME: "3x3cut0r" # Your GitHub username
       WUD_REGISTRY_LSCR_IO_TOKEN: "${WUD_REGISTRY_GHCR_IO_TOKEN}" # Your GitHub Personal Access Token (with read:packages scope)
+      WUD_REGISTRY_N8N_URL: "https://docker.n8n.io" # Official n8n container registry
       WUD_WATCHER_LOCAL_SOCKET: "/var/run/docker.sock"
       WUD_WATCHER_LOCAL_CRON: 0 2 * * * # Cron schedule for local image watcher (every day at 02:00)
       WUD_WATCHER_LOCAL_WATCHALL: false # If true, watch all containers regardless of their status (created, paused, exited, restarting, running...)
