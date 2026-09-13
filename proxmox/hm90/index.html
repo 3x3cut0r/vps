@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Minisforum HM90 - VPS - Virtual Privat Server</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Minisforum HM90";
+        var mkdocs_page_input_path = "proxmox/hm90.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> VPS - Virtual Privat Server
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Startseite</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Index</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../docker/">docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../nginx/">nginx</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../iot/">iot</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../linux/">linux</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../../opnsense/README.md">opnsense</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">proxmox</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">VPS/VDS</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Minisforum HM90</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#index">Index</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">services</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../services/PIHOLE/">pihole</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../services/FREEPBX/">freepbx</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">VPS - Virtual Privat Server</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">proxmox</li>
+      <li class="breadcrumb-item active">Minisforum HM90</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="proxmox">proxmox</h1>
+<p>all about proxmox installation and configuration</p>
+<h2 id="index">Index</h2>
+<ol>
+<li><a href="#prerequisites">prerequisites</a><br />
+   0.1 <a href="#bios">BIOS options</a></li>
+<li><a href="#installation">installation</a></li>
+<li><a href="#configuration">configuration (console)</a><br />
+   2.1 <a href="#first_steps">first steps</a><br />
+   2.2 <a href="#tools">install usefull tools</a><br />
+   2.3 <a href="#ntp">setup ntp server</a><br />
+   2.4 <a href="#dns">setup dns server</a><br />
+   2.5 <a href="#subscription_notice">remove subscription notice</a><br />
+   2.6 <a href="#kernel-headers">install kernel-headers</a><br />
+   2.7 <a href="#kernel-boot">change kernel boot version</a><br />
+   2.8 <a href="#iommu">enable iommu for pcie passthrough</a></li>
+<li><a href="#usage">usage</a><br />
+   3.1 <a href="#browse">browse</a></li>
+<li><a href="#errors">errors</a><br />
+   4.1 <a href="#error_network">network won't start after reboot</a><br />
+   4.2 <a href="#error_bluetooth">bluetooth errors</a><br />
+   4.3 <a href="#error_sound">sound errors</a><br />
+   4.4 <a href="#error_zfs">zfs errors</a><br />
+   4.5 <a href="#error_kvm">kvm: exiting hardware virtualization</a><br />
+   4.6 <a href="#error_network_update">no network after update</a><br />
+   4.100 <a href="#lxc_slow_boot">(LXC) slow boot times</a></li>
+<li><a href="#update_pve">update pve</a></li>
+<li><a href="#resize_container">resize container</a></li>
+<li><a href="#port_mirror">port mirror</a></li>
+</ol>
+<p># <a href="#findme">Find Me</a><br />
+# <a href="#license">License</a></p>
+<h1 id="0-prerequisites">0. prerequisites <a name="prerequisites"></a></h1>
+<h3 id="01-bios-options">0.1 BIOS options <a name="bios"></a></h3>
+<p><strong>ensure that this options are enabled:</strong></p>
+<ul>
+<li>NX Mode</li>
+<li>SVM Mode</li>
+<li>IOMMU</li>
+</ul>
+<h1 id="1-installation">1. installation <a name="installation"></a></h1>
+<p><strong>see official documentation on <a href="https://pve.proxmox.com/pve-docs/pve-admin-guide.html">pve.proxmox.com</a></strong></p>
+<h1 id="2-configuration">2. configuration <a name="configuration"></a></h1>
+<p><strong>login via ssh (port 22) or do the steps nativ with a keyboard</strong></p>
+<h3 id="21-first-steps">2.1 first steps <a name="first_steps"></a></h3>
+<p><strong>install pve-no-subscription repository</strong>
+<strong>skip this step if you have an enterprise subscription</strong></p>
+<pre><code class="language-shell">rm -f /etc/apt/sources.list.d/pve-enterprise.list
+wget https://raw.githubusercontent.com/3x3cut0r/vps/main/apt/sources.list.d/pve-no-subscription.list -O /etc/apt/sources.list.d/pve-no-subscription.list
+
+</code></pre>
+<p><strong>update packages</strong></p>
+<pre><code class="language-shell">apt update &amp;&amp; apt upgrade -y
+
+</code></pre>
+<h3 id="22-install-usefull-tools">2.2 install usefull tools <a name="tools"></a></h3>
+<p><strong>install pve-no-subscription repository</strong></p>
+<pre><code class="language-shell">apt install htop iperf iperf3 ncdu ntpdate rfkill
+
+</code></pre>
+<h3 id="23-setup-ntp-server">2.3 setup ntp server <a name="ntp"></a></h3>
+<p><strong>change /etc/chrony/chrony.conf</strong></p>
+<pre><code class="language-shell">...
+# Use Debian vendor zone.
+# pool 2.debian.pool.ntp.org iburst
+server 0.de.pool.ntp.org iburst
+server 1.de.pool.ntp.org iburst
+server 2.de.pool.ntp.org iburst
+...
+
+</code></pre>
+<p><strong>restart chrony</strong></p>
+<pre><code class="language-shell">systemctl restart chronyd
+
+</code></pre>
+<h3 id="24-setup-dns-server">2.4 setup dns server <a name="dns"></a></h3>
+<p><strong>change /etc/resolv.conf</strong></p>
+<pre><code class="language-shell">search local.net
+nameserver 1.1.1.1
+nameserver 1.0.0.1
+nameserver 2606:4700:4700::1111
+
+</code></pre>
+<h3 id="25-remove-subscription-notice">2.5 remove subscription notice <a name="subscription_notice"></a></h3>
+<p><strong>need to be done after every update from pve!</strong></p>
+<p><strong>remove the notice and restart the proxmox service</strong></p>
+<pre><code class="language-shell">cp /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js.bak
+sed -Ezi.bak &quot;s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/\1/g&quot; /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js &amp;&amp; systemctl restart pveproxy.service
+
+</code></pre>
+<p><strong>revert the changes if something went wrong</strong></p>
+<pre><code class="language-shell">cp /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js.bak /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js
+systemctl restart pveproxy.service
+
+</code></pre>
+<h3 id="26-install-kernel-headers">2.6 install kernel-headers <a name="kernel-headers"></a></h3>
+<p><strong>the kernel-headers should match with your kernel version!!!</strong></p>
+<pre><code class="language-shell">apt install pve-headers-5.15 pve-headers-5.15.35-2-pve
+
+</code></pre>
+<h3 id="27-change-kernel-boot-version">2.7 change kernel boot version <a name="kernel-boot"></a></h3>
+<p><strong>change which kernel should boot</strong></p>
+<pre><code class="language-shell">proxmox-boot-tool kernel list
+proxmox-boot-tool kernel add 5.15.35-2-pve
+# proxmox-boot-tool kernel remove &lt;old-kernel-version&gt;-pve
+proxmox-boot-tool refresh
+
+</code></pre>
+<h3 id="28-enable-iommu-for-pcie-passthrough">2.8 enable iommu for pcie passthrough <a name="iommu"></a></h3>
+<p><strong>follow instructions on <a href="https://pve.proxmox.com/wiki/Pci_passthrough">proxmox.com/wiki</a></strong>
+<strong>and <a href="https://www.thomas-krenn.com/de/wiki/Proxmox_PCIe_Passthrough_aktivieren">thomas-krenn.com</a></strong></p>
+<h1 id="3-usage">3. usage <a name="usage"></a></h1>
+<h3 id="31-browse">3.1 browse <a name="browse"></a></h3>
+<p><strong>Backend</strong><br />
+<a href="https://proxmox.ip:8006">https://proxmox.ip:8006/</a></p>
+<h1 id="4-errors">4. errors <a name="errors"></a></h1>
+<h3 id="41-network-wont-start-after-reboot">4.1 network won't start after reboot <a name="error_network"></a></h3>
+<pre><code class="language-shell">systemctl mask ifupdown-pre.service
+systemctl mask ifupdown2-pre.service
+systemctl mask systemd-udev-settle.service
+
+</code></pre>
+<h3 id="42-bluetooth-errors">4.2 bluetooth errors <a name="error_bluetooth"></a></h3>
+<p><strong>dmesg error on boot</strong></p>
+<pre><code class="language-shell">...
+[    3.080602] bluetooth hci0: Direct firmware load for mediatek/BT_RAM_CODE_MT7961_1_2_hdr.bin failed with error -2
+[    3.081688] Bluetooth: hci0: Failed to load firmware file (-2)
+...
+[   13.102071] Bluetooth: hci0: Execution of wmt command timed out
+[   13.102128] Bluetooth: hci0: Failed to send wmt func ctrl (-110)
+[   15.917971] usb 5-4: Failed to suspend device, error -110
+...
+</code></pre>
+<p><strong>disable bluetooth</strong></p>
+<pre><code class="language-shell">echo &quot;blacklist btusb&quot; &gt; /etc/modprobe.d/bluetooth.conf
+echo &quot;blacklist btrtl&quot; &gt;&gt; /etc/modprobe.d/bluetooth.conf
+echo &quot;blacklist btbcm&quot; &gt;&gt; /etc/modprobe.d/bluetooth.conf
+echo &quot;blacklist btintel&quot; &gt;&gt; /etc/modprobe.d/bluetooth.conf
+echo &quot;blacklist bluetooth&quot; &gt;&gt; /etc/modprobe.d/bluetooth.conf
+
+</code></pre>
+<h3 id="43-sound-errors">4.3 sound errors <a name="error_sound"></a></h3>
+<p><strong>dmesg error on boot</strong></p>
+<pre><code class="language-shell">...
+[    3.082545] snd_hda_intel 0000:06:00.6: no codecs found!
+...
+</code></pre>
+<p><strong>disable sound</strong></p>
+<pre><code class="language-shell">echo &quot;blacklist btusb&quot; &gt; /etc/modprobe.d/bluetooth.conf
+
+</code></pre>
+<h3 id="44-zfs-errors">4.4 zfs errors <a name="error_zfs"></a></h3>
+<p><strong>dmesg error on boot</strong></p>
+<pre><code class="language-shell">...
+[DEPEND] Dependency failed for Import ZFS pools by cache file
+[DEPEND] Dependency failed for Import ZFS pools by device scanning.
+...
+</code></pre>
+<p><strong>disable service</strong></p>
+<pre><code class="language-shell">systemctl disable zfs-import-cache.service
+systemctl disable zfs-import-scan
+
+</code></pre>
+<h3 id="45-kvm-exiting-hardware-virtualization">4.5 kvm: exiting hardware virtualization <a name="error_kvm"></a></h3>
+<p><strong>install latest kernel + kernel-headers</strong></p>
+<pre><code class="language-shell">apt install pve-kernel-5.15 pve-kernel-5.15.35-2-pve pve-headers-5.15.35-2-pve pve-headrs-5.15
+
+</code></pre>
+<h3 id="46-no-network-after-update">4.6 no network after update <a name="error_network_update"></a></h3>
+<p><strong>you probably updated your kernel but forgot to install kernel-headers</strong></p>
+<pre><code class="language-shell">apt install pve-kernel-5.15.12-1-pve
+
+</code></pre>
+<h3 id="499-prevent-etcnetworkinterfaces-inside-vmlxc-from-overwrite">4.99 prevent /etc/network/interfaces inside VM/LXC from overwrite <a name="interfaces_overwrite"></a></h3>
+<p><strong>if your /etc/network/interfaces inside a VM/LXC gets overwritten by proxmox, do inside your VM/LXC:</strong></p>
+<pre><code class="language-shell">touch /etc/network/.pve-ignore.interfaces
+
+</code></pre>
+<h3 id="4100-lxc-slow-boot-times">4.100 (LXC) slow boot times <a name="lxc_slow_boot"></a></h3>
+<p><strong>if your LXC Container boots only in about 4-5 mins -&gt; switch IPv6 from DHCP to SLAAC</strong></p>
+<h1 id="5-update-pve">5. update pve <a name="update_pve"></a></h1>
+<p><strong>DO NOT just simple apt update &amp;&amp; apt upgrade -y</strong><br />
+<strong>you will run into error 4.6! if the kernel will be updated!</strong><br />
+<strong>you need to install the new pve-headers before updating your kernel!</strong></p>
+<pre><code class="language-shell">apt update &amp;&amp; apt upgrade
+# abort here with CTRL-C
+# check if the kernel will be updated
+# remember the new kernel version
+# apt install pve-headers-&lt;enter new kernel version here&gt;-pve
+apt install pve-headers-5.15.35-2-pve
+apt update &amp;&amp; apt upgrade -y
+# now you need to change the kernel boot version (see 2.7)
+proxmox-boot-tool kernel list
+# check which kernel is listet under Manually selected kernels:
+proxmox-boot-tool kernel add &lt;new-kernel-version&gt;-pve
+# for example:
+#  proxmox-boot-tool kernel add 5.15.35-2-pve
+proxmox-boot-tool kernel remove &lt;old-kernel-version&gt;-pve
+# for example:
+#  proxmox-boot-tool kernel remove 5.15.35-1-pve
+proxmox-boot-tool refresh
+
+</code></pre>
+<h1 id="6-resize-container">6. resize container <a name="resize_container"></a></h1>
+<p><strong>VMID: 110</strong><br />
+<strong>size: 1T</strong></p>
+<pre><code class="language-shell"># get VMID from your container (e.g.: 110):
+pct list
+
+# stop the vm
+pct stop 110
+
+# resize vm
+# pct resize &lt;VMID&gt; &lt;disk&gt; &lt;size&gt;
+pct resize 110 rootfs 1T
+
+# DONE!
+# -----
+
+# To do it by hand:
+
+# get the path of the container disk (e.g.: /dev/pve/vm-110-disk-0):
+lvdisplay | grep &quot;LV Path\|LV Size&quot;
+
+# check the disk first
+# e2fsck -f &lt;disk&gt;
+e2fsck -f /dev/pve/vm-210-disk-0
+
+# resize the disk
+# resize2fs &lt;disk&gt; &lt;size&gt;
+resize2fs /dev/pve/vm-210-disk-0 1T
+
+# extend/reduce the LV size
+# lvreduce -L &lt;size&gt; &lt;path&gt;
+# lvextend -L &lt;size&gt; &lt;path&gt;
+lvextend -L 1T /dev/pve/vm-210-disk-0
+
+# check if the size has changed in the container config file:
+vi /etc/pve/lxc/110.conf
+# rootfs: local-lvm:vm-110-disk-0,size=1T
+
+# start the vm
+pct start 110
+
+</code></pre>
+<h1 id="7-port-mirror">7. port mirror <a name="port_mirror"></a></h1>
+<p><strong>see <a href="https://codingpackets.com/blog/proxmox-vm-bridge-port-mirror/">codingpackets.com/blog/proxmox-vm-bridge-port-mirror</a></strong></p>
+<p><strong>7.1 install openvswitch-switch</strong></p>
+<pre><code class="language-shell">apt install openvswitch-switch wget
+
+</code></pre>
+<p><strong>7.2 create /opt/scripts/network/mirror_ports.sh script</strong></p>
+<pre><code class="language-shell">mkdir -p /var/lib/vz/snippets/
+wget https://raw.githubusercontent.com/3x3cut0r/vps/main/var/lib/vz/snippets/port-mirror.sh -O /var/lib/vz/snippets/port-mirror.sh
+chmod +x /var/lib/vz/snippets/port-mirror.sh
+
+</code></pre>
+<p><strong>7.3 apply script to vm/lxc container</strong></p>
+<pre><code class="language-shell"># for lxc container id 100
+pct set 100 --hookscript local:snippets/port-mirror.sh
+
+# for vm id 100
+qm set 100 --hookscript local:snippets/port-mirror.sh
+</code></pre>
+<h3 id="find-me">Find Me <a name="findme"></a></h3>
+<p><img alt="E-Mail" src="https://img.shields.io/badge/E--Mail-executor55%40gmx.de-red" /></p>
+<ul>
+<li><a href="https://github.com/3x3cut0r">GitHub</a></li>
+<li><a href="https://hub.docker.com/u/3x3cut0r">DockerHub</a></li>
+</ul>
+<h3 id="license">License <a name="license"></a></h3>
+<p><a href="https://www.gnu.org/licenses/gpl-3.0"><img alt="License: GPL v3" src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a> - This project is licensed under the GNU General Public License - see the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">gpl-3.0</a> for details.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../" class="btn btn-neutral float-left" title="VPS/VDS"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../services/PIHOLE/" class="btn btn-neutral float-right" title="pihole">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../services/PIHOLE/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
