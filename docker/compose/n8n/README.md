@@ -7,6 +7,7 @@
 1. [deploy docker-compose.yml](#deploy)
 2. [usage](#usage)  
    2.1 [browse](#browse)
+3. [task runner](#taskrunner)
 
 \# [Find Me](#findme)  
 \# [License](#license)
@@ -21,6 +22,14 @@
 
 **Frontend**  
 [https://n8n.3x3cut0r.de](https://n8n.3x3cut0r.de)
+
+# 3. task runner <a name="taskrunner"></a>
+
+The `n8n-task-runner` sidecar executes Code node JavaScript and Python in an isolated container (external mode).
+
+- Documentation: https://docs.n8n.io/deploy/host-n8n/configure-n8n/set-up-task-runners
+- The runner image tag must always match the n8n image tag exactly - update both together.
+- Requires the `N8N_RUNNERS_AUTH_TOKEN` environment variable (shared secret between n8n and the runner).
 
 ### Find Me <a name="findme"></a>
 
