@@ -21,31 +21,33 @@
 - ~2 GB free RAM for small workloads (Playwright browser rendering is the main driver; upstream reference limits are 4 CPU/8 GB for the API and 2 CPU/4 GB for the Playwright service)
 
 **Required:**
-- env file `docker/env-files/firecrawl.env` (see [configuration](#configuration))
+- environment variables `POSTGRES_PASSWORD` and `REDIS_PASSWORD` (see [configuration](#configuration))
 
 # 2. configuration <a name="configuration"></a>
 
-**Required environment variables** (`docker/env-files/firecrawl.env`, shared by `firecrawl` and `firecrawl-postgres`):
+**Required environment variables** (set in the Portainer stack environment or in `docker/compose/firecrawl/.env`):
 
 | Variable | Description | Example |
 |----------|-------------|---------|
-| `POSTGRES_USER` | NuQ-Postgres user (queue backend) | `postgres` |
-| `POSTGRES_PASSWORD` | NuQ-Postgres password (32+ random chars) | `openssl rand -hex 32` |
-| `POSTGRES_DB` | NuQ-Postgres database (keep `postgres` - pg_cron is configured for it) | `postgres` |
+| `POSTGRES_PASSWORD` | NuQ-Postgres password (queue backend, 32+ random chars) | `openssl rand -hex 32` |
 | `REDIS_PASSWORD` | Redis password (queue + rate limit) | `openssl rand -hex 32` |
-| `USE_DB_AUTHENTICATION` | `false` = API runs without authentication (self-host default) | `false` |
 
-Example env file:
+Example `.env`:
 
 ```env
-POSTGRES_USER="postgres"
 POSTGRES_PASSWORD="<openssl rand -hex 32>"
-POSTGRES_DB="postgres"
 REDIS_PASSWORD="<openssl rand -hex 32>"
-USE_DB_AUTHENTICATION="false"
 ```
 
-**Optional environment variables** (add to the env file to tune, defaults in brackets):
+**Static configuration** (set directly in `docker-compose.yml`):
+
+| Variable | Description | Value |
+|----------|-------------|-------|
+| `POSTGRES_USER` | NuQ-Postgres user | `postgres` |
+| `POSTGRES_DB` | NuQ-Postgres database (keep `postgres` - pg_cron is configured for it) | `postgres` |
+| `USE_DB_AUTHENTICATION` | `false` = API runs without authentication (self-host default) | `false` |
+
+**Optional environment variables** (add to the `firecrawl` service environment to tune, defaults in brackets):
 
 | Variable | Description | Default |
 |----------|-------------|---------|
@@ -57,7 +59,7 @@ USE_DB_AUTHENTICATION="false"
 | `OPENAI_API_KEY` | LLM features (extract, summary) | - |
 
 **Required config files:**
-- `docker/env-files/firecrawl.env`
+- none (all configuration via environment variables)
 
 **Security notes:**
 - With `USE_DB_AUTHENTICATION=false` the API accepts requests without an API key and can fetch arbitrary URLs. Restrict port `3002` to trusted sources (reverse proxy, VPN) or front it with an authenticated reverse proxy. Note: Docker published ports bypass ufw INPUT rules - restrict access via the `DOCKER-USER` iptables chain (or a tool like `ufw-docker`), not via plain `ufw deny`.
