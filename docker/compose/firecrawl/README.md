@@ -10,6 +10,7 @@
 4. [usage](#usage)  
    4.1 [browse](#browse)  
    4.2 [api examples](#api)
+5. [troubleshooting](#troubleshooting)
 
 \# [Find Me](#findme)  
 \# [License](#license)
@@ -99,6 +100,23 @@ curl -X POST https://firecrawl.3x3cut0r.de/v2/crawl \
   -H "Content-Type: application/json" \
   -d '{"url": "https://docs.firecrawl.dev", "limit": 10}'
 ```
+
+# 5. troubleshooting <a name="troubleshooting"></a>
+
+**`WORKER STALLED` / `Can't accept connection due to RAM/CPU load`**
+
+Firecrawl's workers refuse new jobs when host memory or CPU load exceeds `MAX_RAM` / `MAX_CPU` (both default `0.8`). The values are read from the host (or LXC) via `/proc/meminfo`, not from the container.
+
+- Check the actual memory usage on the VPS/LXC: `free -h`
+- Reduce Firecrawl's own footprint by lowering the counts in the `firecrawl` service environment:
+  - `NUM_WORKERS_PER_QUEUE` (default `8`)
+  - `BROWSER_POOL_SIZE` (default `5`)
+  - `CRAWL_CONCURRENT_REQUESTS` (default `10`)
+- Only raise `MAX_RAM` / `MAX_CPU` if the host has real headroom - values close to `1.0` risk OOM kills.
+
+**`[ioredis] ... ECONNREFUSED 127.0.0.1:6379`**
+
+The rate limit and evict clients fall back to `127.0.0.1` when `REDIS_RATE_LIMIT_URL` is unset. It is set in `docker-compose.yml`; make sure `REDIS_PASSWORD` is provided (see [configuration](#configuration)).
 
 ### Find Me <a name="findme"></a>
 

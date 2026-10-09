@@ -17,6 +17,7 @@ services:
       PORT: "3002"
       ENV: "local"
       REDIS_URL: "redis://default:${REDIS_PASSWORD}@firecrawl-redis:6379"
+      REDIS_RATE_LIMIT_URL: "redis://default:${REDIS_PASSWORD}@firecrawl-redis:6379"
       PLAYWRIGHT_MICROSERVICE_URL: "http://firecrawl-playwright:3000/scrape"
       POSTGRES_HOST: "firecrawl-postgres"
       POSTGRES_PORT: "5432"
