@@ -1,0 +1,158 @@
+services:
+  # Github: https://github.com/firecrawl/firecrawl
+  # Docs: https://docs.firecrawl.dev/contributing/self-host
+  firecrawl:
+    container_name: firecrawl
+    image: ghcr.io/firecrawl/firecrawl:latest
+    restart: unless-stopped
+    env_file: ../../env-files/firecrawl.env # correct (relative-) path for portainer
+    ports:
+      - "3002:3002"
+    networks:
+      firecrawl:
+        ipv4_address: "10.24.50.2"
+    dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+      HOST: "0.0.0.0"
+      PORT: "3002"
+      ENV: "local"
+      REDIS_URL: "redis://default:${REDIS_PASSWORD}@firecrawl-redis:6379"
+      PLAYWRIGHT_MICROSERVICE_URL: "http://firecrawl-playwright:3000/scrape"
+      POSTGRES_HOST: "firecrawl-postgres"
+      POSTGRES_PORT: "5432"
+      NUQ_RABBITMQ_URL: "amqp://firecrawl-rabbitmq:5672"
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Firecrawl"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
+      - "wud.link.template=https://github.com/firecrawl/firecrawl/releases"
+    depends_on:
+      firecrawl-redis:
+        condition: service_started
+      firecrawl-playwright:
+        condition: service_started
+      firecrawl-rabbitmq:
+        condition: service_healthy
+      firecrawl-postgres:
+        condition: service_healthy
+
+  # Github: https://github.com/firecrawl/firecrawl/tree/main/apps/playwright-service-ts
+  # GHCR: https://github.com/firecrawl/firecrawl/pkgs/container/playwright-service
+  firecrawl-playwright:
+    container_name: firecrawl-playwright
+    image: ghcr.io/firecrawl/playwright-service:latest
+    restart: unless-stopped
+    networks:
+      firecrawl:
+        ipv4_address: "10.24.50.3"
+    dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+      PORT: "3000"
+      MAX_CONCURRENT_PAGES: "10"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp/.cache:noexec,nosuid,size=1g
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Firecrawl - Playwright"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^latest$"
+      - "wud.link.template=https://github.com/firecrawl/firecrawl/releases"
+
+  # Docker Hub: https://hub.docker.com/_/redis
+  # Github: https://github.com/redis/redis
+  firecrawl-redis:
+    container_name: firecrawl-redis
+    image: redis:alpine
+    restart: always
+    command: ["redis-server", "--bind", "0.0.0.0", "--requirepass", "${REDIS_PASSWORD}"] # username = default
+    networks:
+      firecrawl:
+        ipv4_address: "10.24.50.4"
+    dns: ["192.168.40.253"]
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Firecrawl - Redis"
+      - "wud.tag.include=^alpine$"
+      - "wud.link.template=https://github.com/redis/redis/releases/tag/$${major}.$${minor}.$${patch}"
+
+  # Docker Hub: https://hub.docker.com/_/rabbitmq
+  # Github: https://github.com/rabbitmq/rabbitmq-server
+  firecrawl-rabbitmq:
+    container_name: firecrawl-rabbitmq
+    image: rabbitmq:3-management
+    restart: always
+    networks:
+      firecrawl:
+        ipv4_address: "10.24.50.5"
+    dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Firecrawl - RabbitMQ"
+      - "wud.trigger.include=docker.autoupdate"
+      - "wud.tag.include=^3-management$"
+      - "wud.link.template=https://github.com/rabbitmq/rabbitmq-server/releases/tag/v$${major}.$${minor}.$${patch}"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "check_running"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  # Github: https://github.com/firecrawl/firecrawl/tree/main/apps/nuq-postgres
+  # GHCR: https://github.com/firecrawl/firecrawl/pkgs/container/nuq-postgres
+  firecrawl-postgres:
+    container_name: firecrawl-postgres
+    image: ghcr.io/firecrawl/nuq-postgres:latest
+    restart: always
+    env_file: ../../env-files/firecrawl.env # correct (relative-) path for portainer
+    networks:
+      firecrawl:
+        ipv4_address: "10.24.50.6"
+    dns: ["192.168.40.253"]
+    environment:
+      TZ: "Europe/Berlin"
+    labels:
+      - "wud.watch=true"
+      - "wud.watch.digest=true"
+      - "wud.display.name=Firecrawl - Postgres"
+      - "wud.trigger.exclude=docker.autoupdate" # database only, no auto updates
+      - "wud.tag.include=^latest$"
+      - "wud.link.template=https://github.com/firecrawl/firecrawl/releases"
+    volumes:
+      - firecrawl-postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+networks:
+  firecrawl:
+    name: firecrawl
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.24.50.0/24"
+          gateway: "10.24.50.1"
+
+volumes:
+  firecrawl-postgres-data:
+    name: firecrawl-postgres-data
