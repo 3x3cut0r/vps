@@ -52,12 +52,13 @@ REDIS_PASSWORD="<openssl rand -hex 32>"
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `NUM_WORKERS_PER_QUEUE` | Worker processes per queue | `8` |
-| `CRAWL_CONCURRENT_REQUESTS` | Parallel requests per crawl | `10` |
-| `MAX_CONCURRENT_JOBS` | Simultaneous crawl jobs | `5` |
-| `BROWSER_POOL_SIZE` | Playwright browser pool size | `5` |
+| `NUQ_WORKER_COUNT` | Number of nuq-worker processes spawned in the api container | `5` |
+| `MAX_RAM` | Memory load threshold (0-1) above which workers stop accepting jobs | `0.8` |
+| `MAX_CPU` | CPU load threshold (0-1) above which workers stop accepting jobs | `0.8` |
 | `LOGGING_LEVEL` | Log verbosity | `info` |
 | `OPENAI_API_KEY` | LLM features (extract, summary) | - |
+
+The Playwright service has its own `MAX_CONCURRENT_PAGES` (default `10`) controlling concurrent browser pages.
 
 **Required config files:**
 - none (all configuration via environment variables)
@@ -108,10 +109,9 @@ curl -X POST https://firecrawl.3x3cut0r.de/v2/crawl \
 Firecrawl's workers refuse new jobs when host memory or CPU load exceeds `MAX_RAM` / `MAX_CPU` (both default `0.8`). The values are read from the host (or LXC) via `/proc/meminfo`, not from the container.
 
 - Check the actual memory usage on the VPS/LXC: `free -h`
-- Reduce Firecrawl's own footprint by lowering the counts in the `firecrawl` service environment:
-  - `NUM_WORKERS_PER_QUEUE` (default `8`)
-  - `BROWSER_POOL_SIZE` (default `5`)
-  - `CRAWL_CONCURRENT_REQUESTS` (default `10`)
+- Reduce Firecrawl's own footprint:
+  - `NUQ_WORKER_COUNT` (default `5`) - number of worker processes in the api container
+  - `MAX_CONCURRENT_PAGES` (default `10`, Playwright service) - concurrent browser pages
 - Only raise `MAX_RAM` / `MAX_CPU` if the host has real headroom - values close to `1.0` risk OOM kills.
 
 **`[ioredis] ... ECONNREFUSED 127.0.0.1:6379`**

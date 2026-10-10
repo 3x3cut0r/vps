@@ -25,6 +25,7 @@ services:
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
       POSTGRES_DB: "postgres"
       USE_DB_AUTHENTICATION: "false"
+      NUQ_WORKER_COUNT: "2"
       NUQ_RABBITMQ_URL: "amqp://firecrawl-rabbitmq:5672"
     ulimits:
       nofile:
@@ -60,7 +61,7 @@ services:
     environment:
       TZ: "Europe/Berlin"
       PORT: "3000"
-      MAX_CONCURRENT_PAGES: "10"
+      MAX_CONCURRENT_PAGES: "3"
     security_opt:
       - no-new-privileges:true
     cap_drop:
