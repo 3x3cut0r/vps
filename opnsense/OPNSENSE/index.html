@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>OPNsense - VPS - Virtual Privat Server</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "OPNsense";
+        var mkdocs_page_input_path = "opnsense/OPNSENSE.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> VPS - Virtual Privat Server
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Startseite</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Index</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../docker/">docker</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../nginx/">nginx</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../iot/">iot</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../linux/">linux</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="../README.md">opnsense</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">proxmox</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proxmox/">VPS/VDS</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../proxmox/hm90/">Minisforum HM90</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">services</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../services/PIHOLE/">pihole</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../services/FREEPBX/">freepbx</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">VPS - Virtual Privat Server</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">OPNsense</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="opnsense">OPNsense</h1>
+<p>all about OPNsense installation and configuration</p>
+<h2 id="index">Index</h2>
+<ol>
+<li><a href="#prerequisites">prerequisites</a><br />
+   0.1 <a href="#01_vm_installation">VM installation (Proxmox)</a></li>
+<li><a href="#opnsense_defaults">OPNsense defaults</a><br />
+   1.9 <a href="#19_geoip_blocking">GeoIP blocking</a></li>
+<li><a href="#vdsl2_configuration">VDSL2 configuration</a><br />
+   2.1 <a href="#21_modem_configuration">modem configuration (DrayTek Vigor 165)</a><br />
+   2.2 <a href="#22_opnsense_configuration">OPNsense configuration (PPPoE)</a></li>
+<li><a href="#voip">VoIP (FritzBox + 1und1)</a><br />
+   3.1 <a href="#31_opnsense_configuration">OPNsense configuration</a><br />
+   3.2 <a href="#32_fritzbox_configuration">FritzBox configuration</a></li>
+<li><a href="#ddns">Dynamic DNS (DuckDNS)</a><br />
+   4.1 <a href="#41_duckdns_account">DuckDNS account</a><br />
+   4.2 <a href="#42_install_plugin">install os-ddclient plugin</a><br />
+   4.3 <a href="#43_configure_plugin">configure os-ddclient plugin</a><br />
+   4.4 <a href="#44_ddclient_console">ddclient via console (optional)</a><br />
+   4.5 <a href="#45_rebind_attack">disable rebind attack warning</a></li>
+<li><a href="#le">Lets Encrypt Certificate via ACME-Client (SSL/HTTPS)</a><br />
+   5.1 <a href="#51_install_plugin">install os-acme-client plugin</a><br />
+   5.2 <a href="#52_configure_plugin">configure os-acme-client plugin</a></li>
+<li><a href="#traffic_shaping">Improve your BufferBloat with Traffic Shaping</a></li>
+<li><a href="#restart_radvd">restart radvd after 24h reconnect</a></li>
+</ol>
+<p># <a href="#findme">Find Me</a><br />
+# <a href="#license">License</a></p>
+<h1 id="0-prerequisites">0. prerequisites <a name="prerequisites"></a></h1>
+<h3 id="01-vm-installation-proxmox">0.1 VM installation (Proxmox) <a name="01_vm_installation"></a></h3>
+<p><strong>VM Settings</strong></p>
+<ul>
+<li>VM, not CT!</li>
+<li>Name: opnsense</li>
+<li>boot at start = yes</li>
+<li>OS Type = Linux, Kernel = 6.x - 2.6</li>
+<li>Qemu Agent = yes</li>
+<li>HDD = 64+8 GiB (8GiB will be swap)</li>
+<li>CPU = 4, Sockets = 1, Typ = x86-64-v2-AES</li>
+<li>RAM = 4096 (MiB), Balloning = Off</li>
+</ul>
+<p><strong>Installation (all default) with username = installer, password = opnsense</strong></p>
+<p><strong>For Minisforum HM90: add PCI Ethernet to VM</strong></p>
+<pre><code class="language-shell"># on proxmox host:
+lspci | grep Ethernet
+# 02:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 15) -&gt; 1 GBit
+# 04:00.0 Ethernet controller: Intel Corporation Ethernet Controller I225-V (rev 01) -&gt; 2.5 GBit
+cat /etc/network/interfaces
+# check which device is briged to vmbr0
+# -&gt; change it, if it is the wrong one (eno1 or enp4s0, enp4s0 = 2.5 GBit in my case)
+ls -l /sys/class/net/enp4s0/device
+# lrwxrwxrwx 1 root root 0 Aug 26 09:09 /sys/class/net/enp4s0/device -&gt; ../../../0000:04:00.0
+ls -l /sys/class/net/eno1/device
+# ls: cannot access '/sys/class/net/eno1/device': No such file or directory
+#
+# -&gt; enp4s0 (04:00.0) is the device which has an ip !
+# -&gt; means 02:00.0 is not connected and is available for pci passthrough!
+</code></pre>
+<p><strong>Proxmox VM Settings -&gt; Hardware -&gt; Add PCI-Device -&gt; Raw Device -&gt; 0000:02:00.0 -&gt; All Functions -&gt; Add</strong></p>
+<p><strong>After installation, choose Option 8 (Shell), disable Firewall once, to be able to logon:</strong></p>
+<pre><code class="language-shell">service pf onestop
+</code></pre>
+<p><strong>connect to WebIF, update to latest version (not major release) from your configuration file</strong></p>
+<p><strong>connect to WebIF, install the following packages</strong></p>
+<pre><code class="language-shell">os-acme-client
+os-chrony
+os-crowdsec
+os-ddclient
+os-dyndns
+os-igmp-proxy
+os-qemu-guest-agent
+os-siproxd
+os-theme-cicada
+os-upnp
+os-vnstat
+os-wireguard
+</code></pre>
+<p><strong>connect to WebIF, restore your backuped configuration</strong></p>
+<h1 id="1-opnsense-defaults">1. OPNsense defaults <a name="opnsense_defaults"></a></h1>
+<h3 id="19-geoip-blocking">1.9 GeoIP blocking <a name="19_geoip_blocking"></a></h3>
+<ul>
+<li>for GeoIP blocking just follow the instructions <a href="https://docs.opnsense.org/manual/how-tos/maxmind_geo_ip.html">here</a></li>
+<li>create an alias "GeoIP" for all countries you want to block</li>
+<li>create a rule to block this alias "GeoIP" on your WAN interface</li>
+</ul>
+<h1 id="2-vdsl2-configuration">2. VDSL2 configuration <a name="vdsl2_configuration"></a></h1>
+<h3 id="21-modem-configuration-draytek-vigor-165">2.1 modem configuration (DrayTek Vigor 165) <a name="21_modem_configuration"></a></h3>
+<ul>
+<li>Flash your Firmware to the newest <strong>MDM2</strong> (Vigor165_v4.2.4_MDM2.zip)<br />
+   MDM2 is the most stable firmware for telekom in germany !!!</li>
+<li>Configure a LAN IP: (e.g.: 192.168.x.x /24)<br />
+   if you want your modem webinterface accessible from your LAN side,<br />
+   the LAN IP should be in the same subnet.</li>
+<li><strong>disable DHCP-Server</strong></li>
+<li><strong>enable Bridge-Mode</strong></li>
+<li><strong>disable VLAN-Tagging for ADSL/VDSL</strong> (this is done by OPNsense)</li>
+<li>optional: disable HTTP-webinterface or enable the redirect to HTTPS</li>
+<li>optional: disable unnecessary services like ftp, telnet, ...</li>
+</ul>
+<h3 id="22-opnsense-configuration-pppoe">2.2 OPNsense configuration (PPPoE) <a name="22_opnsense_configuration"></a></h3>
+<p><strong>PPPoE Configuration</strong></p>
+<ul>
+<li>Interfaces -&gt; Other Types -&gt; VLAN -&gt; create new VLAN:</li>
+<li>Parent Interface: <Interface, which is directly connected to your modem (re0)></li>
+<li><strong>VLAN Tag: 7</strong></li>
+<li>Description: VDSL2</li>
+<li>Interfaces -&gt; Assignments -&gt; WAN: <VLAN interface, which we created before (vlan01)></li>
+<li>Save</li>
+<li>Interfaces -&gt; WAN:</li>
+<li>IPv4 Configuration Type: PPPoE</li>
+<li>IPv6 Configuration Type: DHCPv6</li>
+<li>PPPoE configuration:<ul>
+<li>Username: \&lt;your provider login email&gt; (e.g.: 1und1/ui1234-567@online.de)</li>
+<li>Password: \&lt;your provider login password&gt;</li>
+<li>Dial on Demand: CHECK</li>
+<li>Idle Timeout: 00 (two "0"!)</li>
+</ul>
+</li>
+<li>DHCPv6 client configuration:<ul>
+<li>Request only an IPv6 prefix: CHECK</li>
+<li>Prefix delegation size: 56</li>
+<li>Send IPv6 prefix hint: CHECK</li>
+<li>Use IPv4 connectivity: CHECK</li>
+</ul>
+</li>
+</ul>
+<h1 id="3-voip-fritzbox-1und1">3. VoIP (FritzBox - 1und1) <a name="voip"></a></h1>
+<h3 id="31-opnsense-configuration">3.1 OPNsense configuration <a name="31_opnsense_configuration"></a></h3>
+<ul>
+<li>Firewall / Aliases -&gt; add:</li>
+<li>Name: FritzBox</li>
+<li>Type: Host(s)</li>
+<li>Content: <LAN IP of your FritzBox></li>
+<li>Description: FritzBox</li>
+<li>Firewall / Aliases -&gt; add:</li>
+<li>Name: 1und1_SIP_Server</li>
+<li>Type: Host(s)</li>
+<li>Content: 212.227.124.129, 212.227.124.130</li>
+<li>Description: 1und1 SIP Server</li>
+<li>Firewall / Aliases -&gt; add:</li>
+<li>Name: 1und1_SIP_RTP_Server</li>
+<li>Type: Network(s)</li>
+<li>Content: 212.227.124.0/28,212.227.124.64/29,212.227.124.128/29,212.227.67.32/30,212.227.67.128/28,212.227.67.192/28,212.227.18.128/28,212.227.18.192/28</li>
+<li>Description: 1und1 SIP/RTP Server</li>
+<li>
+<p>Firewall / Aliases -&gt; add:</p>
+</li>
+<li>
+<p>Name: 1und1_VoIP_Ports</p>
+</li>
+<li>Type: Port(s)</li>
+<li>Content: 5060:5061, 5070:5109</li>
+<li>
+<p>Description: 1und1 VoIP Port Range</p>
+</li>
+<li>
+<p>Firewall / NAT / Port Forward -&gt; add:</p>
+</li>
+<li>
+<p>Interface: WAN</p>
+</li>
+<li>TCP/IP Version: IPv4</li>
+<li>Protocol: UDP</li>
+<li>Destination: WAN address</li>
+<li>Destination port range: from 1und1_VoIP_Ports to 1und1_VoIP_Ports (Alias)</li>
+<li>Redirect target ip: FritzBox (Alias)</li>
+<li>Redirect target port: 1und1_VoIP_Ports</li>
+<li>
+<p>Description: Fritzbox VoIP</p>
+</li>
+<li>
+<p>Firewall / NAT / Outbound:</p>
+</li>
+<li>set to Hybrid outbound NAT rule generation</li>
+<li>
+<p>Firewall / NAT / Outbound -&gt; add:</p>
+</li>
+<li>
+<p>Interface: WAN</p>
+</li>
+<li>TCP/IP Version: IPv4</li>
+<li>Protocol: UDP</li>
+<li>Source address: FritzBox (Alias)</li>
+<li>Source port: any</li>
+<li>Destination address: any</li>
+<li>Destination port: any</li>
+<li>Translation / target: interface address</li>
+<li>Static-port: check</li>
+<li>
+<p>Description: FritzBox VoIP</p>
+</li>
+<li>
+<p>Firewall / Rules / LAN -&gt; add:</p>
+</li>
+<li>
+<p>Action: Pass</p>
+</li>
+<li>Quick: check</li>
+<li>Interface: LAN</li>
+<li>Direction: in</li>
+<li>TCP/IP Version: IPv4</li>
+<li>Protocol: UDP</li>
+<li>Source: FritzBox (Alias)</li>
+<li>Source port range: from 1und1_VoIP_Ports to 1und1_VoIP_Ports</li>
+<li>Destination: any</li>
+<li>Destination port range: from any to any</li>
+<li>
+<p>Description: VoIP FritzBox</p>
+</li>
+<li>
+<p>Firewall / Rules / WAN -&gt; add:</p>
+</li>
+<li>Action: Pass</li>
+<li>Quick: check</li>
+<li>Interface: WAN</li>
+<li>Direction: in</li>
+<li>TCP/IP Version: IPv4</li>
+<li>Protocol: UDP</li>
+<li>Source: 1und1_SIP_RTP_Server</li>
+<li>Source port range: from any to any</li>
+<li>Destination: This Firewall</li>
+<li>Destination port range: from 1und1_VoIP_Ports to 1und1_VoIP_Ports (Alias)</li>
+<li>Description: 1und1 SIP Server (VoIP)</li>
+<li>Firewall -&gt; Settings -&gt; Advanced:</li>
+<li>Miscellaneous / Firewall Optimization: conservative</li>
+</ul>
+<h3 id="33-fritzbox-configuration">3.3 FritzBox configuration <a name="32_fritzbox_configuration"></a></h3>
+<ul>
+<li>Telephony / Telephony Numbers -&gt; add (optional):</li>
+<li>Registrar: sip.1und1.de</li>
+<li>STUN/Proxy: stun.1und1.de</li>
+<li>Contact internet telephony: Only via IPv4</li>
+<li>Transport Protocol: Automatic</li>
+<li>Telephony / Telephony Numbers / Line Settings:</li>
+<li>Telephony Connection / Kep port sharing of the internet router enabled for telephony: check</li>
+<li>Telephony Connection / Keep port forwarding enabled every: 30 sec.</li>
+</ul>
+<h1 id="4-dynamic-dns-duckdns">4. Dynamic DNS (DuckDNS) <a name="ddns"></a></h1>
+<h3 id="41-duckdns-account">4.1 DuckDNS account <a name="41_duckdns_account"></a></h3>
+<ul>
+<li>create an account or login into your <a href="https://www.duckdns.org/">DuckDNS</a> account</li>
+<li>create a token and add a domain to your account (e.g.: http://3x3cut0r.duckdns.org)</li>
+<li>copy your token into your clipboard</li>
+</ul>
+<h3 id="42-install-os-ddclient-plugin">4.2 install os-ddclient plugin <a name="42_ddclient_plugin"></a></h3>
+<ul>
+<li>Settings / Firmware / Plugins: install os-ddclient</li>
+<li>reload site (F5) to see the plugin under Services</li>
+</ul>
+<h3 id="43-configure-os-ddclient-plugin">4.3 configure os-ddclient plugin <a name="43_configure_plugin"></a></h3>
+<ul>
+<li>Services / Dynamic DNS / Settings -&gt; Add:</li>
+<li>Service: DuckDNS</li>
+<li>Username: <your DuckDNS E-Mail></li>
+<li>Password: <your DuckDNS Token></li>
+<li>Hostname: <your DuckDNS domain (e.g.: http://3x3cut0r.duckdns.org) ></li>
+<li>Check ip method: Interface</li>
+<li>Force SSL: Check</li>
+<li>Interface to monitor: WAN</li>
+</ul>
+<h3 id="44-ddclient-via-console-optional">4.4 ddclient via console (optional) <a name="44_ddclient_console"></a></h3>
+<p><strong>if WAN as 'Check ip method' is not working:</strong></p>
+<ul>
+<li>ssh to your OPNsense and open a shell</li>
+<li>change /usr/local/etc/ddclient.conf to: (if: WAN -&gt; pppoe0)</li>
+</ul>
+<pre><code class="language-shell">daemon=300
+syslog=yes                  # log update msgs to syslog
+pid=/var/run/ddclient.pid   # record PID in file.
+ssl=yes
+...
+use=if, if=pppoe0, \
+protocol=duckdns, \
+login=&lt;your DuckDNS E-Mail&gt; , \
+password= &lt;your DuckDNS Token&gt; \
+3x3cut0r.duckdns.org
+
+</code></pre>
+<p><strong>hints:</strong></p>
+<ul>
+<li><strong>you need to rechange the ddclient.conf via shell after changing anything via GUI</strong></li>
+<li><strong>you can do more with the console as with the GUI because not all options are integrated with the GUI (like if=web as update method for ddnss.de for example)</strong></li>
+</ul>
+<h3 id="45-disable-rebind-attack-warning">4.5 disable rebind attack warning <a name="45_rebind_attack"></a></h3>
+<p><strong>to prevent ERROR: rebind attack dynamic dns:</strong></p>
+<ul>
+<li>System / Settings / Administration / Alternate Hostnames:</li>
+<li>enter your ddns domains (e.g.: '3x3cut0r.duckdns.org' - space-separated list)</li>
+</ul>
+<p><strong>DONE</strong></p>
+<h1 id="5-lets-encrypt-certificate-via-acme-client-sslhttps">5. Lets Encrypt Certificate via ACME-Client (SSL/HTTPS) <a name="le"></a></h1>
+<h3 id="51-install-os-acme-client-plugin">5.1 install os-acme-client plugin <a name="51_install_plugin"></a></h3>
+<ul>
+<li>Settings / Firmware / Plugins: install os-acme-client</li>
+<li>reload site (F5) to see the plugin under Services</li>
+</ul>
+<h3 id="52-configure-os-acme-client-plugin-http-01-single-domain">5.2 configure os-acme-client plugin (HTTP-01 - single domain)<a name="52_configure_plugin"></a></h3>
+<ol>
+<li>
+<p>Services / ACME Client / <strong>Settings</strong>:</p>
+</li>
+<li>
+<p><strong>Enable Plugin: Check</strong></p>
+</li>
+<li>
+<p>Enable Auto Renewal: Check</p>
+</li>
+<li>
+<p>Services / ACME Client / Accounts / <strong>Accounts -&gt; Add</strong>:</p>
+</li>
+<li>
+<p>Name: <name of your email address ></p>
+</li>
+<li>Description: <name of your email address ></li>
+<li>E-Mail Address: <your email address></li>
+<li>ACME CA: Let's Encrypt (default)</li>
+<li>
+<p>Save</p>
+</li>
+<li>
+<p>Services / ACME Client / Challenge Types / <strong>Challenge Types -&gt; Add</strong>:</p>
+</li>
+<li>
+<p><strong>Challenge HTTP-01: (single Domain)</strong></p>
+</li>
+<li>(for other Challenges see <a href="https://github.com/opnsense/plugins/pull/66">github.com/opnsense/plugins/pull/66</a>)</li>
+<li>Name: LE HTTP-01 Challenge</li>
+<li>Description: LE HTTP-01 Challenge</li>
+<li>Challenge Type: HTTP-01</li>
+<li>HTTP Service: OPNsense Web Service (automatic port forward)</li>
+<li>IP Auto-Discovery: Check</li>
+<li>Interface: WAN</li>
+<li>IP Addresses: &lt; leave blank &gt;</li>
+<li>
+<p>Save</p>
+</li>
+<li>
+<p>Services / ACME Client / Automations / <strong>Automations -&gt; Add</strong>:</p>
+</li>
+<li>
+<p>Enabled: Check</p>
+</li>
+<li>Name: Restart OPNsense Web UI</li>
+<li>Description: Restart OPNsense Web UI</li>
+<li>Run Command: Restart OPNsense Web UI</li>
+<li>
+<p>Save</p>
+</li>
+<li>
+<p>Services / ACME Client / Certificates / <strong>Certificates -&gt; Add</strong>:</p>
+</li>
+<li>
+<p>Enabled: Check</p>
+</li>
+<li>Common Name: <name of your domain (e.g.: 3x3cut0r.duckdns.org) ></li>
+<li>Description: LE Certificate</li>
+<li>Alt Names: &lt; you can add more domains or subdomains here &gt;</li>
+<li>ACME Account: <your account, created on point 2. ></li>
+<li>Challenge Type: <your challenge type, created on point 3. ></li>
+<li>Auto Renewal: Check</li>
+<li>Renewal Interval: <strong>30</strong></li>
+<li>Key Length: 4096 bit (default)</li>
+<li>OCSP Must Staple: Unchecked</li>
+<li>Automations: &lt; your automation created in 4. &gt;</li>
+<li>DNS Alias Mode: Not using DNS alias mode</li>
+<li>
+<p>Save</p>
+</li>
+<li>
+<p>Services / ACME Client / Certificates / <strong>Certificates</strong>:</p>
+</li>
+<li>
+<p><strong>Issue/Renew All Certificates</strong></p>
+</li>
+<li>
+<p>Check if your Certifice is issued under Services / ACME Client / Log Files:</p>
+</li>
+</ol>
+<pre><code class="language-shell">AcmeClient: imported ACME X.509 certificate: 3x3cut0r.duckdns.org
+AcmeClient: imprting ACME CA: R3
+AcmeClient: successfully issued/renewed certificate: 3x3cut0r.duckdns.org
+...
+
+</code></pre>
+<ol>
+<li>
+<p><strong>System / Settings / Administration / SSL Certificate:</strong></p>
+</li>
+<li>
+<p>SSL Certificate: &lt; select your generated ACME Client Certificate &gt;</p>
+</li>
+<li>
+<p>Save</p>
+</li>
+<li>
+<p><strong>DONE</strong></p>
+</li>
+</ol>
+<h1 id="6-improve-your-bufferbloat-with-traffic-shaping">6. Improve your BufferBloat with Traffic Shaping <a name="traffic_shaping"></a></h1>
+<p><strong>if you have poor video conferencing performance, lags or it feels slow</strong><br />
+<strong>check out if you have BufferBloat on <a href="https://www.waveform.com/tools/bufferbloat">this site (speedtest)</a></strong><br />
+<strong>follow <a href="https://maltechx.de/en/2021/03/opnsense-setup-traffic-shaping-and-reduce-bufferbloat/">this guide</a> to improve your BufferBloat with Traffic Shaping (only IF your ISP supports IPv6 !!!)</strong></p>
+<h1 id="7-restart-radvd-after-24h-reconnect">7. restart radvd after 24h reconnect <a name="restart_radvd"></a></h1>
+<p><strong>/usr/local/opnsense/service/conf/actions.d/actions_radvd.conf</strong></p>
+<pre><code class="language-shell">[restart]
+command:/usr/local/sbin/pluginctl -s radvd restart
+type:script
+description:Restart radvd
+
+</code></pre>
+<p><strong>service configd restart</strong><br />
+<strong>create cron: */10 4 * * * restart radvd</strong></p>
+<h3 id="find-me">Find Me <a name="findme"></a></h3>
+<p><img alt="E-Mail" src="https://img.shields.io/badge/E--Mail-executor55%40gmx.de-red" /></p>
+<ul>
+<li><a href="https://github.com/3x3cut0r">GitHub</a></li>
+<li><a href="https://hub.docker.com/u/3x3cut0r">DockerHub</a></li>
+</ul>
+<h3 id="license">License <a name="license"></a></h3>
+<p><a href="https://www.gnu.org/licenses/gpl-3.0"><img alt="License: GPL v3" src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a> - This project is licensed under the GNU General Public License - see the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">gpl-3.0</a> for details.</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
