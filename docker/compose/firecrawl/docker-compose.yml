@@ -5,6 +5,7 @@ services:
     container_name: firecrawl
     image: ghcr.io/firecrawl/firecrawl:latest
     restart: unless-stopped
+    stop_grace_period: 75s # IS_KUBERNETES waits 60s on SIGTERM before shutting down
     ports:
       - "3002:3002"
     networks:
@@ -27,6 +28,7 @@ services:
       USE_DB_AUTHENTICATION: "false"
       NUQ_WORKER_COUNT: "2"
       NUQ_RABBITMQ_URL: "amqp://firecrawl-rabbitmq:5672"
+      IS_KUBERNETES: "true" # cgroup-based load metrics: measure own RAM/CPU, not the shared LXC
     ulimits:
       nofile:
         soft: 65535

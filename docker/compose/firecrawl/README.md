@@ -47,18 +47,19 @@ REDIS_PASSWORD="<openssl rand -hex 32>"
 | `POSTGRES_USER` | NuQ-Postgres user | `postgres` |
 | `POSTGRES_DB` | NuQ-Postgres database (keep `postgres` - pg_cron is configured for it) | `postgres` |
 | `USE_DB_AUTHENTICATION` | `false` = API runs without authentication (self-host default) | `false` |
+| `NUQ_WORKER_COUNT` | nuq-worker processes in the api container (default `5`, reduced to save RAM on the shared LXC) | `2` |
+| `IS_KUBERNETES` | `true` = cgroup-based load metrics: workers measure the container's own RAM/CPU instead of the shared LXC (see [troubleshooting](#troubleshooting)). Adds a 60s SIGTERM drain wait, hence `stop_grace_period: 75s` | `true` |
 
 **Optional environment variables** (add to the `firecrawl` service environment to tune, defaults in brackets):
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `NUQ_WORKER_COUNT` | Number of nuq-worker processes spawned in the api container | `5` |
 | `MAX_RAM` | Memory load threshold (0-1) above which workers stop accepting jobs | `0.8` |
 | `MAX_CPU` | CPU load threshold (0-1) above which workers stop accepting jobs | `0.8` |
 | `LOGGING_LEVEL` | Log verbosity | `info` |
 | `OPENAI_API_KEY` | LLM features (extract, summary) | - |
 
-The Playwright service has its own `MAX_CONCURRENT_PAGES` (default `10`) controlling concurrent browser pages.
+The Playwright service has its own `MAX_CONCURRENT_PAGES` (default `10`, set to `3` here) controlling concurrent browser pages.
 
 **Required config files:**
 - none (all configuration via environment variables)
@@ -106,13 +107,12 @@ curl -X POST https://firecrawl.3x3cut0r.de/v2/crawl \
 
 **`WORKER STALLED` / `Can't accept connection due to RAM/CPU load`**
 
-Firecrawl's workers refuse new jobs when host memory or CPU load exceeds `MAX_RAM` / `MAX_CPU` (both default `0.8`). The values are read from the host (or LXC) via `/proc/meminfo`, not from the container.
+Firecrawl's workers refuse new jobs when the measured memory or CPU load exceeds `MAX_RAM` / `MAX_CPU` (both default `0.8`). By default the values are read from the host (or LXC) via `/proc/meminfo` - on a shared LXC this stalls the workers even if Firecrawl itself uses little memory. This stack therefore sets `IS_KUBERNETES=true`, which switches the check to cgroup-based values (the container's own RAM/CPU usage).
 
 - Check the actual memory usage on the VPS/LXC: `free -h`
-- Reduce Firecrawl's own footprint:
-  - `NUQ_WORKER_COUNT` (default `5`) - number of worker processes in the api container
-  - `MAX_CONCURRENT_PAGES` (default `10`, Playwright service) - concurrent browser pages
-- Only raise `MAX_RAM` / `MAX_CPU` if the host has real headroom - values close to `1.0` risk OOM kills.
+- Tune Firecrawl's own footprint: `NUQ_WORKER_COUNT` (set to `2`), `MAX_CONCURRENT_PAGES` (set to `3`, Playwright service)
+- `IS_KUBERNETES=true` adds a 60s drain wait on SIGTERM - deliberate stops (`docker compose up -d`, WUD updates) take ~60s; `stop_grace_period: 75s` keeps the shutdown graceful
+- Alternative without `IS_KUBERNETES`: raise `MAX_RAM` (e.g. `0.95`) - only if the LXC has real headroom, values close to `1.0` risk OOM kills
 
 **`[ioredis] ... ECONNREFUSED 127.0.0.1:6379`**
 
