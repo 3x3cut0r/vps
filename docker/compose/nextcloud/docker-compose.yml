@@ -15,7 +15,7 @@ services:
   #
   nextcloud:
     container_name: nextcloud
-    image: nextcloud:33-apache
+    image: nextcloud:35-apache
     restart: unless-stopped
     networks:
       nextcloud:
@@ -61,7 +61,7 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Nextcloud"
       - "wud.trigger.exclude=docker.autoupdate"
-      - "wud.tag.include=^\\d+-alpine$"
+      - "wud.tag.include=^\\d+-apache$"
       - "wud.link.template=https://github.com/nextcloud/server/releases/tag/v$${major}.$${minor}.$${patch}"
     volumes:
       - nextcloud-config:/var/www/html/config
