@@ -3,7 +3,7 @@ services:
   # Documentation: https://docs.n8n.io/hosting/installation/docker
   n8n:
     container_name: n8n
-    image: docker.n8n.io/n8nio/n8n:2.38.7
+    image: docker.n8n.io/n8nio/n8n:2.45.6
     restart: unless-stopped
     ports:
       - "2142:5678"
@@ -50,7 +50,7 @@ services:
   # NOTE: the image tag must match the n8n version exactly!
   n8n-task-runner:
     container_name: n8n-task-runner
-    image: n8nio/runners:2.38.7
+    image: n8nio/runners:2.45.6
     restart: unless-stopped
     networks:
       n8n:
