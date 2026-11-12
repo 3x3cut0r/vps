@@ -52,6 +52,7 @@ services:
       WUD_TRIGGER_DOCKER_AUTOUPDATE_AUTO: true # Enable AUTO updates for containers with label 'wud.trigger.include: docker.autoupdate'
       WUD_TRIGGER_DOCKER_AUTOUPDATE_PRUNE: true # Remove old images after updating containers with label 'wud.trigger.include: docker.autoupdate'
       WUD_TRIGGER_DOCKER_AUTOUPDATE_DRYRUN: false # Do not perform a dry run, actually update containers with label 'wud.trigger.include: docker.autoupdate'
+      WUD_TRIGGER_DOCKER_AUTOUPDATE_SELFUPDATE: "true" # Update WUD itself via the wud-self-update helper container (requires WUD >= 9.1.0)
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
