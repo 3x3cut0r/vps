@@ -41,7 +41,7 @@ services:
   # Docker Hub: https://hub.docker.com/_/mariadb
   mariadb:
     container_name: mariadb
-    image: mariadb:10.11-jammy
+    image: mariadb:11.4-noble
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     restart: unless-stopped
     networks:
@@ -61,8 +61,8 @@ services:
       - "wud.watch.digest=true"
       - "wud.display.name=Nginx Proxy Manager - MariaDB"
       - "wud.trigger.exclude=docker.autoupdate"
-      - "wud.tag.include=^10\\.11-jammy$"
-      - "wud.link.template=https://mariadb.com/docs/release-notes/community-server/$${major}.$${minor}/$${major}.$${minor}.$${patch}"
+      - "wud.tag.include=^11\\.4-noble$"
+      - "wud.link.template=https://mariadb.com/kb/en/release-notes-mariadb-11-4-series/"
     volumes:
       - mariadb-data:/var/lib/mysql
       - mariadb-conf:/etc/mysql/mariadb.conf.d
