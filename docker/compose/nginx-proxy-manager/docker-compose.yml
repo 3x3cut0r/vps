@@ -56,6 +56,7 @@ services:
       MARIADB_DATABASE: "npm"
       MARIADB_USER: "npm"
       MARIADB_PASSWORD: "${MARIADB_PASSWORD}"
+      MARIADB_AUTO_UPGRADE: "1"
     labels:
       - "wud.watch=true"
       - "wud.watch.digest=true"
